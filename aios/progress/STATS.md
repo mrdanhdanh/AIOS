@@ -3,11 +3,11 @@
 | Metric | Value |
 |--------|-------|
 | Total tasks (master spec) | 182 |
-| Tasks DONE | 3 |
-| Tasks READY | 5 |
-| Tasks PLANNED | 174 |
+| Tasks DONE | 6 |
+| Tasks READY | 3 |
+| Tasks PLANNED | 173 |
 | Governance modules | 7 (+ unified gate) |
-| Automated gate tests | 160 |
+| Automated gate tests | 266 |
 | Architecture rules (ARCH-001..004) | 4 |
 | Lifecycle states | 12 |
 
@@ -52,3 +52,34 @@
 | core/planner | 18 |
 | core/smoke (updated) | 5 |
 | **Subtotal** | **78** |
+
+## Per-module test counts (TASK-004)
+
+| Module | Tests |
+|--------|-------|
+| runtime/context | 10 |
+| runtime/audit | 8 |
+| runtime/artifact | 11 |
+| runtime/permission | 8 |
+| runtime/policy | 8 |
+| **Subtotal** | **45** |
+
+## Per-module test counts (TASK-005)
+
+| Module | Tests |
+|--------|-------|
+| runtime/execution | 8 |
+| runtime/scheduler | 7 |
+| runtime/state | 7 |
+| runtime/resource | 7 |
+| runtime/kernel | 5 |
+| **Subtotal** | **34** |
+
+## Per-module test counts (TASK-006)
+
+| Module | Tests |
+|--------|-------|
+| runtime/providers/contract | 5 |
+| runtime/providers/adapters | 10 |
+| runtime/providers/registry | 12 |
+| **Subtotal** | **27** |

@@ -70,7 +70,7 @@ class Scope:
     def __init__(self, container: "Container") -> None:
         self._container = container
         self._scoped_instances: Dict[type, Any] = {}
-        self._lock = threading.Lock()
+        self._lock = threading.RLock()
 
     def resolve(self, service_type: Type[T]) -> T:
         """Resolve a service by its registered type."""
@@ -86,7 +86,9 @@ class Container:
     def __init__(self) -> None:
         self._registrations: Dict[type, _Registration] = {}
         self._singletons: Dict[type, Any] = {}
-        self._lock = threading.Lock()
+        # RLock (reentrant) so a factory may resolve other registered
+        # services without deadlocking on nested resolution.
+        self._lock = threading.RLock()
 
     # ------------------------------------------------------------------
     # Registration

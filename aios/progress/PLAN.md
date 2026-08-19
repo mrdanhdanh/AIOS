@@ -7,9 +7,9 @@ Ordered task index and status. Status values: `PLANNED | SPECIFIED | ... | DONE 
 | TASK-001 | M0 | Task Governance System | — | DONE |
 | TASK-002 | M1 | Monorepo + aios_core Scaffold | TASK-001 | DONE |
 | TASK-003 | M1 | Kernel Foundations | TASK-002 | DONE |
-| TASK-004 | M1 | Runtime Services I | TASK-003 | READY |
-| TASK-005 | M1 | Runtime Services II | TASK-004 | PLANNED |
-| TASK-006 | M1 | Model Contract + Provider Registry | TASK-003 | READY |
+| TASK-004 | M1 | Runtime Services I | TASK-003 | DONE |
+| TASK-005 | M1 | Runtime Services II | TASK-004 | DONE |
+| TASK-006 | M1 | Model Contract + Provider Registry | TASK-004,TASK-005 | DONE |
 | TASK-007 | M1 | Memory + Knowledge | TASK-003 | READY |
 | TASK-008 | M1 | Workflow Definition + Compiler | TASK-003 | READY |
 | TASK-009 | M1 | Capability Foundation | TASK-003 | READY |
@@ -20,5 +20,6 @@ Ordered task index and status. Status values: `PLANNED | SPECIFIED | ... | DONE 
 
 ## Next action
 
-TASK-003 is `READY` (its only dependency TASK-002 is `DONE`). Begin with
-`spec.md` in `aios/progress/tasks/TASK-003/`.
+TASK-006 is `DONE` (Unified Gate PASS, 266 tests green). TASK-007 is `READY`
+(its dependency TASK-003 is `DONE`). Begin with `spec.md` in
+`aios/progress/tasks/TASK-007/`.
