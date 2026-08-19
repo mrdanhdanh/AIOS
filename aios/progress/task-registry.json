@@ -1,0 +1,1314 @@
+{
+  "source": "docs/AIOS_Master_Task_Specification_M0-M26.md",
+  "total": 218,
+  "tasks": [
+    {
+      "id": "TASK-001",
+      "num": 1,
+      "title": "Task Governance System (Project Governance Foundation)",
+      "milestone": "M0"
+    },
+    {
+      "id": "TASK-002",
+      "num": 2,
+      "title": "Monorepo + aios_core Scaffold",
+      "milestone": "M1"
+    },
+    {
+      "id": "TASK-003",
+      "num": 3,
+      "title": "Kernel Foundations",
+      "milestone": "M1"
+    },
+    {
+      "id": "TASK-004",
+      "num": 4,
+      "title": "Runtime Services I",
+      "milestone": "M1"
+    },
+    {
+      "id": "TASK-005",
+      "num": 5,
+      "title": "Runtime Services II",
+      "milestone": "M1"
+    },
+    {
+      "id": "TASK-006",
+      "num": 6,
+      "title": "Model Contract + Provider Registry",
+      "milestone": "M1"
+    },
+    {
+      "id": "TASK-007",
+      "num": 7,
+      "title": "Memory + Knowledge",
+      "milestone": "M1"
+    },
+    {
+      "id": "TASK-008",
+      "num": 8,
+      "title": "Workflow Definition + Compiler",
+      "milestone": "M1"
+    },
+    {
+      "id": "TASK-009",
+      "num": 9,
+      "title": "Capability Foundation",
+      "milestone": "M1"
+    },
+    {
+      "id": "TASK-010",
+      "num": 10,
+      "title": "Decision Pipeline",
+      "milestone": "M2"
+    },
+    {
+      "id": "TASK-011",
+      "num": 11,
+      "title": "M1 Remediation / Architecture Hardening",
+      "milestone": "M1"
+    },
+    {
+      "id": "TASK-012",
+      "num": 12,
+      "title": "Operational Orchestration",
+      "milestone": "M2"
+    },
+    {
+      "id": "TASK-013",
+      "num": 13,
+      "title": "Worker Plane",
+      "milestone": "M2"
+    },
+    {
+      "id": "TASK-014",
+      "num": 14,
+      "title": "Tool + Capability Layer",
+      "milestone": "M2"
+    },
+    {
+      "id": "TASK-015",
+      "num": 15,
+      "title": "Plugin / Skill Execution",
+      "milestone": "M2"
+    },
+    {
+      "id": "TASK-016",
+      "num": 16,
+      "title": "Architecture Hardening",
+      "milestone": "M2"
+    },
+    {
+      "id": "TASK-017",
+      "num": 17,
+      "title": "FastAPI REST + WebSocket",
+      "milestone": "M3"
+    },
+    {
+      "id": "TASK-018",
+      "num": 18,
+      "title": "Dashboard SPA",
+      "milestone": "M3"
+    },
+    {
+      "id": "TASK-019",
+      "num": 19,
+      "title": "VS Code Extension",
+      "milestone": "M3"
+    },
+    {
+      "id": "TASK-020",
+      "num": 20,
+      "title": "Upgrade Pipeline",
+      "milestone": "M4"
+    },
+    {
+      "id": "TASK-021",
+      "num": 21,
+      "title": "Observability + Architecture Health",
+      "milestone": "M4"
+    },
+    {
+      "id": "TASK-022",
+      "num": 22,
+      "title": "Orchestrator v2",
+      "milestone": "M4"
+    },
+    {
+      "id": "TASK-023",
+      "num": 23,
+      "title": "Memory Coordinator",
+      "milestone": "M5"
+    },
+    {
+      "id": "TASK-024",
+      "num": 24,
+      "title": "Context Optimizer",
+      "milestone": "M5"
+    },
+    {
+      "id": "TASK-025",
+      "num": 25,
+      "title": "Model Router",
+      "milestone": "M5"
+    },
+    {
+      "id": "TASK-026",
+      "num": 26,
+      "title": "Planning Engine",
+      "milestone": "M5"
+    },
+    {
+      "id": "TASK-027",
+      "num": 27,
+      "title": "Execution Graph",
+      "milestone": "M5"
+    },
+    {
+      "id": "TASK-028",
+      "num": 28,
+      "title": "Parallel Scheduler",
+      "milestone": "M5"
+    },
+    {
+      "id": "TASK-029",
+      "num": 29,
+      "title": "Harness Kernel + Contract + Registry + Run",
+      "milestone": "M6"
+    },
+    {
+      "id": "TASK-030",
+      "num": 30,
+      "title": "Execution Verification + Evidence + Replay",
+      "milestone": "M6"
+    },
+    {
+      "id": "TASK-031",
+      "num": 31,
+      "title": "Test Harness + Scenario + Simulation",
+      "milestone": "M6"
+    },
+    {
+      "id": "TASK-032",
+      "num": 32,
+      "title": "Evaluation Harness + Metrics",
+      "milestone": "M6"
+    },
+    {
+      "id": "TASK-033",
+      "num": 33,
+      "title": "Benchmark + Regression Gate",
+      "milestone": "M6"
+    },
+    {
+      "id": "TASK-034",
+      "num": 34,
+      "title": "Doctor + Readiness",
+      "milestone": "M6"
+    },
+    {
+      "id": "TASK-035",
+      "num": 35,
+      "title": "Identity + Principal + RBAC/ABAC",
+      "milestone": "M7"
+    },
+    {
+      "id": "TASK-036",
+      "num": 36,
+      "title": "Multi-Tenancy + Tenant Boundary",
+      "milestone": "M7"
+    },
+    {
+      "id": "TASK-037",
+      "num": 37,
+      "title": "Distributed Runtime + Runtime Node",
+      "milestone": "M7"
+    },
+    {
+      "id": "TASK-038",
+      "num": 38,
+      "title": "Distributed Scheduler + Lease + Failover",
+      "milestone": "M7"
+    },
+    {
+      "id": "TASK-039",
+      "num": 39,
+      "title": "Quota + Cost + Resource Governance",
+      "milestone": "M7"
+    },
+    {
+      "id": "TASK-040",
+      "num": 40,
+      "title": "Credential + Network + Sandbox Isolation",
+      "milestone": "M7"
+    },
+    {
+      "id": "TASK-041",
+      "num": 41,
+      "title": "HA + Audit + Recovery",
+      "milestone": "M7"
+    },
+    {
+      "id": "TASK-042",
+      "num": 42,
+      "title": "Enterprise Operations + Dashboard",
+      "milestone": "M7"
+    },
+    {
+      "id": "TASK-043",
+      "num": 43,
+      "title": "Public AIOS SDK",
+      "milestone": "M8"
+    },
+    {
+      "id": "TASK-044",
+      "num": 44,
+      "title": "Plugin Runtime",
+      "milestone": "M8"
+    },
+    {
+      "id": "TASK-045",
+      "num": 45,
+      "title": "Extension Contracts",
+      "milestone": "M8"
+    },
+    {
+      "id": "TASK-046",
+      "num": 46,
+      "title": "Ecosystem Registry",
+      "milestone": "M8"
+    },
+    {
+      "id": "TASK-047",
+      "num": 47,
+      "title": "Developer Kit",
+      "milestone": "M8"
+    },
+    {
+      "id": "TASK-048",
+      "num": 48,
+      "title": "Ecosystem Hub",
+      "milestone": "M8"
+    },
+    {
+      "id": "TASK-049",
+      "num": 49,
+      "title": "Certification",
+      "milestone": "M8"
+    },
+    {
+      "id": "TASK-050",
+      "num": 50,
+      "title": "Autonomous Goal Engine",
+      "milestone": "M9"
+    },
+    {
+      "id": "TASK-051",
+      "num": 51,
+      "title": "Autonomous Planner",
+      "milestone": "M9"
+    },
+    {
+      "id": "TASK-052",
+      "num": 52,
+      "title": "World Model",
+      "milestone": "M9"
+    },
+    {
+      "id": "TASK-053",
+      "num": 53,
+      "title": "Autonomous Loop",
+      "milestone": "M9"
+    },
+    {
+      "id": "TASK-054",
+      "num": 54,
+      "title": "Autonomy Governor",
+      "milestone": "M9"
+    },
+    {
+      "id": "TASK-055",
+      "num": 55,
+      "title": "Autonomous Recovery",
+      "milestone": "M9"
+    },
+    {
+      "id": "TASK-056",
+      "num": 56,
+      "title": "Long-Horizon Execution",
+      "milestone": "M9"
+    },
+    {
+      "id": "TASK-057",
+      "num": 57,
+      "title": "Autonomous Memory",
+      "milestone": "M9"
+    },
+    {
+      "id": "TASK-058",
+      "num": 58,
+      "title": "Autonomous Experimentation",
+      "milestone": "M9"
+    },
+    {
+      "id": "TASK-059",
+      "num": 59,
+      "title": "Multi-Agent Autonomy",
+      "milestone": "M9"
+    },
+    {
+      "id": "TASK-060",
+      "num": 60,
+      "title": "Autonomous Evaluation",
+      "milestone": "M9"
+    },
+    {
+      "id": "TASK-061",
+      "num": 61,
+      "title": "Advanced Stuck Detection",
+      "milestone": "M9"
+    },
+    {
+      "id": "TASK-062",
+      "num": 62,
+      "title": "Autonomous Scheduler",
+      "milestone": "M9"
+    },
+    {
+      "id": "TASK-063",
+      "num": 63,
+      "title": "AIOS Architecture 1.0",
+      "milestone": "M10"
+    },
+    {
+      "id": "TASK-064",
+      "num": 64,
+      "title": "Public Contract Freeze",
+      "milestone": "M10"
+    },
+    {
+      "id": "TASK-065",
+      "num": 65,
+      "title": "Runtime Production Hardening",
+      "milestone": "M10"
+    },
+    {
+      "id": "TASK-066",
+      "num": 66,
+      "title": "Durable Execution 1.0",
+      "milestone": "M10"
+    },
+    {
+      "id": "TASK-067",
+      "num": 67,
+      "title": "Autonomy Safety 1.0",
+      "milestone": "M10"
+    },
+    {
+      "id": "TASK-068",
+      "num": 68,
+      "title": "Kill Switch",
+      "milestone": "M10"
+    },
+    {
+      "id": "TASK-069",
+      "num": 69,
+      "title": "Reliability Engineering",
+      "milestone": "M10"
+    },
+    {
+      "id": "TASK-070",
+      "num": 70,
+      "title": "AIOS Security Baseline",
+      "milestone": "M10"
+    },
+    {
+      "id": "TASK-071",
+      "num": 71,
+      "title": "AIOS 1.0 Developer Experience",
+      "milestone": "M10"
+    },
+    {
+      "id": "TASK-072",
+      "num": 72,
+      "title": "AIOS Dashboard 1.0",
+      "milestone": "M10"
+    },
+    {
+      "id": "TASK-073",
+      "num": 73,
+      "title": "AIOS 1.0 Certification Suite",
+      "milestone": "M10"
+    },
+    {
+      "id": "TASK-074",
+      "num": 74,
+      "title": "Upgrade & Migration 1.0",
+      "milestone": "M10"
+    },
+    {
+      "id": "TASK-075",
+      "num": 75,
+      "title": "Performance & Cost + Model Independence",
+      "milestone": "M10"
+    },
+    {
+      "id": "TASK-076",
+      "num": 76,
+      "title": "Reserved / Not Specified in Source",
+      "milestone": "M11"
+    },
+    {
+      "id": "TASK-077",
+      "num": 77,
+      "title": "Reserved / Not Specified in Source",
+      "milestone": "M11"
+    },
+    {
+      "id": "TASK-078",
+      "num": 78,
+      "title": "Verification Integrity / Fail-Closed Gate",
+      "milestone": "M11"
+    },
+    {
+      "id": "TASK-079",
+      "num": 79,
+      "title": "RenderReplay / Deterministic Harness",
+      "milestone": "M11"
+    },
+    {
+      "id": "TASK-080",
+      "num": 80,
+      "title": "Visual Evidence + Visual Regression + UI State Contract",
+      "milestone": "M11"
+    },
+    {
+      "id": "TASK-081",
+      "num": 81,
+      "title": "Asset Pipeline + Asset Capability Registry + Routing",
+      "milestone": "M11"
+    },
+    {
+      "id": "TASK-082",
+      "num": 82,
+      "title": "Creative Domain + Vendor Integrity + Reference Asset",
+      "milestone": "M11"
+    },
+    {
+      "id": "TASK-083",
+      "num": 83,
+      "title": "SkillDistiller + Static Deploy",
+      "milestone": "M11"
+    },
+    {
+      "id": "TASK-084",
+      "num": 84,
+      "title": "Version + Compatibility Baseline",
+      "milestone": "M12"
+    },
+    {
+      "id": "TASK-085",
+      "num": 85,
+      "title": "Migration 1.0 → 1.1",
+      "milestone": "M12"
+    },
+    {
+      "id": "TASK-086",
+      "num": 86,
+      "title": "Backward Compatibility",
+      "milestone": "M12"
+    },
+    {
+      "id": "TASK-087",
+      "num": 87,
+      "title": "Compatibility Conformance",
+      "milestone": "M12"
+    },
+    {
+      "id": "TASK-088",
+      "num": 88,
+      "title": "Docs & ADR — Compatibility",
+      "milestone": "M12"
+    },
+    {
+      "id": "TASK-089",
+      "num": 89,
+      "title": "Behavioral Conformance",
+      "milestone": "M13"
+    },
+    {
+      "id": "TASK-090",
+      "num": 90,
+      "title": "Harness Coverage + Readiness",
+      "milestone": "M13"
+    },
+    {
+      "id": "TASK-091",
+      "num": 91,
+      "title": "Meta-Harness / Verify-the-Verifier",
+      "milestone": "M13"
+    },
+    {
+      "id": "TASK-092",
+      "num": 92,
+      "title": "System Readiness vs Harness Trust",
+      "milestone": "M13"
+    },
+    {
+      "id": "TASK-093",
+      "num": 93,
+      "title": "Behavioral Spec + ADR-0008",
+      "milestone": "M13"
+    },
+    {
+      "id": "TASK-094",
+      "num": 94,
+      "title": "Detect + Diagnose",
+      "milestone": "M14"
+    },
+    {
+      "id": "TASK-095",
+      "num": 95,
+      "title": "Candidate Generation + Risk Scoring",
+      "milestone": "M14"
+    },
+    {
+      "id": "TASK-096",
+      "num": 96,
+      "title": "Simulation + Meta-Verification Gate",
+      "milestone": "M14"
+    },
+    {
+      "id": "TASK-097",
+      "num": 97,
+      "title": "Permission + Human Approval + Apply + Re-test + Rollback + Certification",
+      "milestone": "M14"
+    },
+    {
+      "id": "TASK-098",
+      "num": 98,
+      "title": "Remediation Integrity + Kill Switch",
+      "milestone": "M14"
+    },
+    {
+      "id": "TASK-099",
+      "num": 99,
+      "title": "Autonomous Harness Loop",
+      "milestone": "M15"
+    },
+    {
+      "id": "TASK-100",
+      "num": 100,
+      "title": "Failure-Corpus Improvement Engine",
+      "milestone": "M15"
+    },
+    {
+      "id": "TASK-101",
+      "num": 101,
+      "title": "Continuous Certification",
+      "milestone": "M15"
+    },
+    {
+      "id": "TASK-102",
+      "num": 102,
+      "title": "Trust Budget + Autonomy Levels + SAFE-STOP",
+      "milestone": "M15"
+    },
+    {
+      "id": "TASK-103",
+      "num": 103,
+      "title": "Autonomy Constitution + Audit Trail",
+      "milestone": "M15"
+    },
+    {
+      "id": "TASK-104",
+      "num": 104,
+      "title": "Independent Harness Integration Foundation",
+      "milestone": "M16"
+    },
+    {
+      "id": "TASK-105",
+      "num": 105,
+      "title": "Independent Verification Oracle",
+      "milestone": "M16"
+    },
+    {
+      "id": "TASK-106",
+      "num": 106,
+      "title": "Behavioral Conformance Bridge",
+      "milestone": "M16"
+    },
+    {
+      "id": "TASK-107",
+      "num": 107,
+      "title": "Permission + Sandbox Bridge",
+      "milestone": "M16"
+    },
+    {
+      "id": "TASK-108",
+      "num": 108,
+      "title": "Management Console / Independent Harness Integration",
+      "milestone": "M16"
+    },
+    {
+      "id": "TASK-109",
+      "num": 109,
+      "title": "Model Contracts",
+      "milestone": "M17"
+    },
+    {
+      "id": "TASK-110",
+      "num": 110,
+      "title": "Provider Registry + Lifecycle",
+      "milestone": "M17"
+    },
+    {
+      "id": "TASK-111",
+      "num": 111,
+      "title": "Model Registry + Deterministic Resolver",
+      "milestone": "M17"
+    },
+    {
+      "id": "TASK-112",
+      "num": 112,
+      "title": "Inference Runtime Orchestration",
+      "milestone": "M17"
+    },
+    {
+      "id": "TASK-113",
+      "num": 113,
+      "title": "Credential + Permission + Policy Integration",
+      "milestone": "M17"
+    },
+    {
+      "id": "TASK-114",
+      "num": 114,
+      "title": "Retry / Timeout / Streaming / Cancellation",
+      "milestone": "M17"
+    },
+    {
+      "id": "TASK-115",
+      "num": 115,
+      "title": "Usage / Cost / Audit / Evidence",
+      "milestone": "M17"
+    },
+    {
+      "id": "TASK-116",
+      "num": 116,
+      "title": "Provider Conformance + Certification",
+      "milestone": "M17"
+    },
+    {
+      "id": "TASK-117",
+      "num": 117,
+      "title": "Repository Scanner",
+      "milestone": "M18"
+    },
+    {
+      "id": "TASK-118",
+      "num": 118,
+      "title": "Source / Symbol Index",
+      "milestone": "M18"
+    },
+    {
+      "id": "TASK-119",
+      "num": 119,
+      "title": "Dependency Graph",
+      "milestone": "M18"
+    },
+    {
+      "id": "TASK-120",
+      "num": 120,
+      "title": "Semantic + Hybrid Index",
+      "milestone": "M18"
+    },
+    {
+      "id": "TASK-121",
+      "num": 121,
+      "title": "Context Retriever",
+      "milestone": "M18"
+    },
+    {
+      "id": "TASK-122",
+      "num": 122,
+      "title": "Context Builder + Budget",
+      "milestone": "M18"
+    },
+    {
+      "id": "TASK-123",
+      "num": 123,
+      "title": "Context Verification + Evidence",
+      "milestone": "M18"
+    },
+    {
+      "id": "TASK-124",
+      "num": 124,
+      "title": "Context Harness + Conformance",
+      "milestone": "M18"
+    },
+    {
+      "id": "TASK-125",
+      "num": 125,
+      "title": "Coder Agent Contract + State Machine",
+      "milestone": "M19"
+    },
+    {
+      "id": "TASK-126",
+      "num": 126,
+      "title": "Coding Planner + PlanVerifier",
+      "milestone": "M19"
+    },
+    {
+      "id": "TASK-127",
+      "num": 127,
+      "title": "Code Generation Runtime",
+      "milestone": "M19"
+    },
+    {
+      "id": "TASK-128",
+      "num": 128,
+      "title": "Patch Engine",
+      "milestone": "M19"
+    },
+    {
+      "id": "TASK-129",
+      "num": 129,
+      "title": "Code Review Agent",
+      "milestone": "M19"
+    },
+    {
+      "id": "TASK-130",
+      "num": 130,
+      "title": "Coding Artifact + CodingEvidence",
+      "milestone": "M19"
+    },
+    {
+      "id": "TASK-131",
+      "num": 131,
+      "title": "Coder Conformance Harness + Security",
+      "milestone": "M19"
+    },
+    {
+      "id": "TASK-132",
+      "num": 132,
+      "title": "Autonomy Level + Permission Integration",
+      "milestone": "M19"
+    },
+    {
+      "id": "TASK-133",
+      "num": 133,
+      "title": "Prompt Architecture + PromptBuilder + Versioning",
+      "milestone": "M19"
+    },
+    {
+      "id": "TASK-134",
+      "num": 134,
+      "title": "File Safety Boundary + Scope Enforcement",
+      "milestone": "M19"
+    },
+    {
+      "id": "TASK-135",
+      "num": 135,
+      "title": "Execution Contract",
+      "milestone": "M20"
+    },
+    {
+      "id": "TASK-136",
+      "num": 136,
+      "title": "Sandbox Manager",
+      "milestone": "M20"
+    },
+    {
+      "id": "TASK-137",
+      "num": 137,
+      "title": "Workspace / Snapshot Manager",
+      "milestone": "M20"
+    },
+    {
+      "id": "TASK-138",
+      "num": 138,
+      "title": "Resource + Network + Command Policy",
+      "milestone": "M20"
+    },
+    {
+      "id": "TASK-139",
+      "num": 139,
+      "title": "Test Runner",
+      "milestone": "M20"
+    },
+    {
+      "id": "TASK-140",
+      "num": 140,
+      "title": "Build / Lint Runner",
+      "milestone": "M20"
+    },
+    {
+      "id": "TASK-141",
+      "num": 141,
+      "title": "Output + Artifact Collector",
+      "milestone": "M20"
+    },
+    {
+      "id": "TASK-142",
+      "num": 142,
+      "title": "Verification Engine",
+      "milestone": "M20"
+    },
+    {
+      "id": "TASK-143",
+      "num": 143,
+      "title": "Security + Replay Harness",
+      "milestone": "M20"
+    },
+    {
+      "id": "TASK-144",
+      "num": 144,
+      "title": "Execution Evidence + Conformance",
+      "milestone": "M20"
+    },
+    {
+      "id": "TASK-145",
+      "num": 145,
+      "title": "Coding Loop State Machine",
+      "milestone": "M21"
+    },
+    {
+      "id": "TASK-146",
+      "num": 146,
+      "title": "Execution Observation",
+      "milestone": "M21"
+    },
+    {
+      "id": "TASK-147",
+      "num": 147,
+      "title": "Failure Classification",
+      "milestone": "M21"
+    },
+    {
+      "id": "TASK-148",
+      "num": 148,
+      "title": "Diagnostic Agent",
+      "milestone": "M21"
+    },
+    {
+      "id": "TASK-149",
+      "num": 149,
+      "title": "Repair Planner",
+      "milestone": "M21"
+    },
+    {
+      "id": "TASK-150",
+      "num": 150,
+      "title": "Progress + Regression Detection",
+      "milestone": "M21"
+    },
+    {
+      "id": "TASK-151",
+      "num": 151,
+      "title": "Verification Gate",
+      "milestone": "M21"
+    },
+    {
+      "id": "TASK-152",
+      "num": 152,
+      "title": "Context Refresh + Patch Chain",
+      "milestone": "M21"
+    },
+    {
+      "id": "TASK-153",
+      "num": 153,
+      "title": "Autonomous Safety Controller",
+      "milestone": "M21"
+    },
+    {
+      "id": "TASK-154",
+      "num": 154,
+      "title": "Autonomous Coding Harness",
+      "milestone": "M21"
+    },
+    {
+      "id": "TASK-155",
+      "num": 155,
+      "title": "Requirement → Evidence Mapping",
+      "milestone": "M22"
+    },
+    {
+      "id": "TASK-156",
+      "num": 156,
+      "title": "Test Adequacy Analyzer + Mutation Verifier",
+      "milestone": "M22"
+    },
+    {
+      "id": "TASK-157",
+      "num": 157,
+      "title": "Behavioral Verifier",
+      "milestone": "M22"
+    },
+    {
+      "id": "TASK-158",
+      "num": 158,
+      "title": "Contract Verifier",
+      "milestone": "M22"
+    },
+    {
+      "id": "TASK-159",
+      "num": 159,
+      "title": "Regression Verifier",
+      "milestone": "M22"
+    },
+    {
+      "id": "TASK-160",
+      "num": 160,
+      "title": "Security Verifier",
+      "milestone": "M22"
+    },
+    {
+      "id": "TASK-161",
+      "num": 161,
+      "title": "Performance Verifier",
+      "milestone": "M22"
+    },
+    {
+      "id": "TASK-162",
+      "num": 162,
+      "title": "Replay & Flaky Detector",
+      "milestone": "M22"
+    },
+    {
+      "id": "TASK-163",
+      "num": 163,
+      "title": "Evidence Collector + Evidence Integrity",
+      "milestone": "M22"
+    },
+    {
+      "id": "TASK-164",
+      "num": 164,
+      "title": "Trust Evaluator + CodingCertificate + Verification Harness",
+      "milestone": "M22"
+    },
+    {
+      "id": "TASK-165",
+      "num": 165,
+      "title": "Adversarial Evaluation Harness",
+      "milestone": "M23"
+    },
+    {
+      "id": "TASK-166",
+      "num": 166,
+      "title": "Evidence Attackers",
+      "milestone": "M23"
+    },
+    {
+      "id": "TASK-167",
+      "num": 167,
+      "title": "Test Weakness Attackers",
+      "milestone": "M23"
+    },
+    {
+      "id": "TASK-168",
+      "num": 168,
+      "title": "Requirement / Scope Attackers",
+      "milestone": "M23"
+    },
+    {
+      "id": "TASK-169",
+      "num": 169,
+      "title": "Certificate Attackers",
+      "milestone": "M23"
+    },
+    {
+      "id": "TASK-170",
+      "num": 170,
+      "title": "Prompt Injection Tester + Untrusted Artifact Isolation",
+      "milestone": "M23"
+    },
+    {
+      "id": "TASK-171",
+      "num": 171,
+      "title": "Execution Integrity Attackers",
+      "milestone": "M23"
+    },
+    {
+      "id": "TASK-172",
+      "num": 172,
+      "title": "Environment / Dependency Attackers",
+      "milestone": "M23"
+    },
+    {
+      "id": "TASK-173",
+      "num": 173,
+      "title": "Boundary Attackers",
+      "milestone": "M23"
+    },
+    {
+      "id": "TASK-174",
+      "num": 174,
+      "title": "Collusion Detector + Resilience Score + Attack Corpus Regression",
+      "milestone": "M23"
+    },
+    {
+      "id": "TASK-175",
+      "num": 175,
+      "title": "Quality Gate + Gate States",
+      "milestone": "M24"
+    },
+    {
+      "id": "TASK-176",
+      "num": 176,
+      "title": "Risk Model + Classification",
+      "milestone": "M24"
+    },
+    {
+      "id": "TASK-177",
+      "num": 177,
+      "title": "Policy Engine + Profiles + Precedence",
+      "milestone": "M24"
+    },
+    {
+      "id": "TASK-178",
+      "num": 178,
+      "title": "Exception Management",
+      "milestone": "M24"
+    },
+    {
+      "id": "TASK-179",
+      "num": 179,
+      "title": "Quality Debt Tracking",
+      "milestone": "M24"
+    },
+    {
+      "id": "TASK-180",
+      "num": 180,
+      "title": "Release Gate + Decision Explainability",
+      "milestone": "M24"
+    },
+    {
+      "id": "TASK-181",
+      "num": 181,
+      "title": "Governance Ledger + Provenance Graph",
+      "milestone": "M24"
+    },
+    {
+      "id": "TASK-182",
+      "num": 182,
+      "title": "Trust Lifecycle + Invalidation + Selective Reverification",
+      "milestone": "M24"
+    },
+    {
+      "id": "TASK-183",
+      "num": 183,
+      "title": "Approval Workflow + Rollback Recommendation",
+      "milestone": "M24"
+    },
+    {
+      "id": "TASK-184",
+      "num": 184,
+      "title": "Quality Dashboard + Governance Harness",
+      "milestone": "M24"
+    },
+    {
+      "id": "TASK-185",
+      "num": 185,
+      "title": "Coding Evaluation Contract",
+      "milestone": "M25"
+    },
+    {
+      "id": "TASK-186",
+      "num": 186,
+      "title": "Evaluation Engine",
+      "milestone": "M25"
+    },
+    {
+      "id": "TASK-187",
+      "num": 187,
+      "title": "Quality Dimensions",
+      "milestone": "M25"
+    },
+    {
+      "id": "TASK-188",
+      "num": 188,
+      "title": "Benchmark Registry",
+      "milestone": "M25"
+    },
+    {
+      "id": "TASK-189",
+      "num": 189,
+      "title": "Baseline Manager",
+      "milestone": "M25"
+    },
+    {
+      "id": "TASK-190",
+      "num": 190,
+      "title": "Regression Detector",
+      "milestone": "M25"
+    },
+    {
+      "id": "TASK-191",
+      "num": 191,
+      "title": "Agent Behavior Evaluator",
+      "milestone": "M25"
+    },
+    {
+      "id": "TASK-192",
+      "num": 192,
+      "title": "Efficiency Evaluator",
+      "milestone": "M25"
+    },
+    {
+      "id": "TASK-193",
+      "num": 193,
+      "title": "Failure Attribution",
+      "milestone": "M25"
+    },
+    {
+      "id": "TASK-194",
+      "num": 194,
+      "title": "Evaluation Store",
+      "milestone": "M25"
+    },
+    {
+      "id": "TASK-195",
+      "num": 195,
+      "title": "Model / Agent Benchmark",
+      "milestone": "M25"
+    },
+    {
+      "id": "TASK-196",
+      "num": 196,
+      "title": "Continuous Evaluation",
+      "milestone": "M25"
+    },
+    {
+      "id": "TASK-197",
+      "num": 197,
+      "title": "Unified Coding Contract",
+      "milestone": "M26"
+    },
+    {
+      "id": "TASK-198",
+      "num": 198,
+      "title": "Coding State Machine",
+      "milestone": "M26"
+    },
+    {
+      "id": "TASK-199",
+      "num": 199,
+      "title": "Coding Policy Engine",
+      "milestone": "M26"
+    },
+    {
+      "id": "TASK-200",
+      "num": 200,
+      "title": "Risk Engine",
+      "milestone": "M26"
+    },
+    {
+      "id": "TASK-201",
+      "num": 201,
+      "title": "Approval Gate",
+      "milestone": "M26"
+    },
+    {
+      "id": "TASK-202",
+      "num": 202,
+      "title": "Autonomous Guardrails",
+      "milestone": "M26"
+    },
+    {
+      "id": "TASK-203",
+      "num": 203,
+      "title": "Safe Stop / Resume",
+      "milestone": "M26"
+    },
+    {
+      "id": "TASK-204",
+      "num": 204,
+      "title": "Recovery Orchestrator",
+      "milestone": "M26"
+    },
+    {
+      "id": "TASK-205",
+      "num": 205,
+      "title": "Artifact Lineage",
+      "milestone": "M26"
+    },
+    {
+      "id": "TASK-206",
+      "num": 206,
+      "title": "Coding Session",
+      "milestone": "M26"
+    },
+    {
+      "id": "TASK-207",
+      "num": 207,
+      "title": "Session Fork",
+      "milestone": "M26"
+    },
+    {
+      "id": "TASK-208",
+      "num": 208,
+      "title": "Multi-Agent Coding",
+      "milestone": "M26"
+    },
+    {
+      "id": "TASK-209",
+      "num": 209,
+      "title": "Parallel Coding",
+      "milestone": "M26"
+    },
+    {
+      "id": "TASK-210",
+      "num": 210,
+      "title": "Change Impact Analysis",
+      "milestone": "M26"
+    },
+    {
+      "id": "TASK-211",
+      "num": 211,
+      "title": "Repository Knowledge Graph Integration",
+      "milestone": "M26"
+    },
+    {
+      "id": "TASK-212",
+      "num": 212,
+      "title": "Coding Doctor",
+      "milestone": "M26"
+    },
+    {
+      "id": "TASK-213",
+      "num": 213,
+      "title": "Coding Health Score",
+      "milestone": "M26"
+    },
+    {
+      "id": "TASK-214",
+      "num": 214,
+      "title": "Release Gate",
+      "milestone": "M26"
+    },
+    {
+      "id": "TASK-215",
+      "num": 215,
+      "title": "Coding Certification",
+      "milestone": "M26"
+    },
+    {
+      "id": "TASK-216",
+      "num": 216,
+      "title": "Benchmark Gate",
+      "milestone": "M26"
+    },
+    {
+      "id": "TASK-217",
+      "num": 217,
+      "title": "AIOS 2.0 Coding Integration",
+      "milestone": "M26"
+    },
+    {
+      "id": "TASK-218",
+      "num": 218,
+      "title": "Full M0–M26 Regression",
+      "milestone": "M26"
+    }
+  ]
+}
