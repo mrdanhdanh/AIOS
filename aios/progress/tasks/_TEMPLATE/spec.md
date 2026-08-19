@@ -1,29 +1,21 @@
-# TASK-xxx — <title>
-
-> Template. Copy this folder to `aios/progress/tasks/TASK-xxx/` for each task.
-> Keep the `Objective → Scope → Deliverables → Acceptance → Dependencies` shape from the master spec.
+# TASK-XXX — <Title>
 
 ## Objective
+<What the task achieves, in one paragraph.>
 
 ## Scope
-### In scope
-### Out of scope
+<What is in and out of scope.>
 
 ## Deliverables
+- <artifact 1>
+- <artifact 2>
 
 ## Acceptance Criteria
-- [ ] AC1 (testable, evidence-backed)
-- [ ] AC2
+- <AC1 — testable>
+- <AC2 — testable>
 
-## Dependencies / Gate
-- Blocks:
-- Depends on:
+## Dependencies
+- <TASK-YYY>
 
-## Invariants (General Rules)
-- Rule 1 — immutable ID
-- Rule 3 — no bypass of Runtime/Capability/Permission/Policy
-- Rule 4 — deterministic path first
-- Rule 5 — evidence provenance
-
-## Source
-- Master spec: `docs/AIOS_Master_Task_Specification_M0-M26.md` (Milestone Mx)
+## Governance references
+- Rule 1..7 satisfied via `aios/governance/*`.

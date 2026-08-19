@@ -1,37 +1,41 @@
 # TASK-001 — Task Governance System (Project Governance Foundation)
 
 ## Objective
-Biến 7 Quy tắc chung thành hệ thống kiểm soát task tự kiểm chứng (self-verifying Task
-Governance System) trước khi có runtime.
+Turn the 7 general rules from the master specification into a self-verifying
+**Task Governance System** before any runtime exists. This is the control plane
+for the whole AIOS development system: from TASK-002 onward, developers/agents
+do not need to "remember" the 7 rules — the system enforces compliance.
 
 ## Scope
-### In scope
-- 7 governance components với automated tests (registry, dependency, architecture,
-  deterministic, evidence, lifecycle, regression) + unified gate.
-- `aios/progress/` system (PLAN/LOG/STATS, task folders, template).
-- `docs/PLAN.md`, `AGENTS.md`, `aios/agents/` roles.
-- CLI: `parse_spec.py` (Rule 1/2), `gate_check.py` (unified gate).
-### Out of scope
-- Runtime implementation (TASK-002+).
-- Kiến trúc guard thực thi trên toàn bộ codebase (sẽ mở rộng ở TASK-016).
+- 7 governance components, each with automated tests (not just convention):
+  1. Task Registry (Rule 1)
+  2. Dependency Graph (Rule 2)
+  3. Architecture Guard (Rule 3)
+  4. Deterministic Control Path (Rule 4)
+  5. Evidence Store (Rule 5)
+  6. Task State Machine (Rule 6)
+  7. Regression Gate (Rule 7)
+- Unified Task Gate converging all 7 rules.
+- Progress structure + agent roles + CLIs.
 
 ## Deliverables
-- `aios/governance/` package (8 modules + tests).
-- `aios/progress/` (PLAN.md, LOG.md, STATS.md, tasks/, registry).
-- `docs/PLAN.md`, `AGENTS.md`, `aios/agents/*`.
+- `aios/governance/` package: 7 modules + unified gate + automated pytest tests.
+- `aios/progress/` with `PLAN.md / LOG.md / STATS.md` and task folders
+  (`_TEMPLATE/` and `TASK-001/` executing the full lifecycle).
+- `docs/PLAN.md`, `AGENTS.md`, `aios/agents/` (orchestrator / spec-writer /
+  critic / reviewer).
+- CLI: `parse_spec.py` (registry from master spec, validate Rule 1/2) and
+  `gate_check.py` (run unified gate).
 
 ## Acceptance Criteria
-- Registry: duplicate ID → REJECT (test PASS).
-- Dependency: missing/cyclic → BLOCK (test PASS).
-- Architecture: agent import subprocess/provider → FAIL (test PASS).
-- Deterministic: rule decides → LLM call 0; fallback → validated (test PASS).
-- Evidence: PASS truy được provenance chain (test PASS).
-- State Machine: thiếu artifact → DONE REJECT (test PASS).
-- Regression: failure in closure → BLOCKED (test PASS).
+- Registry: create task with existing ID -> REJECT (test PASS).
+- Dependency: run when dependency not PASS -> BLOCK; cyclic -> BLOCK (test PASS).
+- Architecture: agent imports subprocess/provider directly -> ARCH GATE FAIL (test PASS).
+- Deterministic: rule decides -> LLM call count 0; rule insufficient -> LLM called & validated (test PASS).
+- Evidence: each PASS traceable provenance chain (test PASS).
+- State Machine: missing artifact -> DONE REJECT (test PASS).
+- Regression: failure in closure -> BLOCKED (test PASS).
+- New session reading docs/PLAN.md + AGENTS.md + aios/progress/README.md can continue without chat memory.
 
-## Dependencies / Gate
-- M0, không dependency.
-
-## Invariants (General Rules)
-- Rule 1 (immutable ID) · Rule 2 (dependency/milestone) · Rule 3 (no bypass)
-- Rule 4 (deterministic-first) · Rule 5 (evidence provenance) · Rule 6 (lifecycle) · Rule 7 (regression)
+## Dependencies
+- None (M0 foundation).

@@ -1,3 +1,5 @@
-"""aios.harness — skeleton package (Harness; fleshed out in M6+)."""
-__version__ = "0.1.0"
-__milestone__ = "M1"
+"""AIOS verification / test harness (M6).
+
+Present in M0 as a namespace placeholder. The harness is independent of the
+Runtime and produces replayable evidence.
+"""

@@ -1,85 +1,103 @@
-"""Dependency Graph — Rule 2 (dependency decides order; milestone decides boundary)."""
-from ..task_registry.registry import TaskRegistry
+"""Dependency graph implementation (Rule 2)."""
 
-WHITE, GRAY, BLACK = 0, 1, 2
+from __future__ import annotations
+
+from typing import Dict, Iterable, List, Optional, Set, Tuple
 
 
-class DependencyError(Exception):
-    pass
+class CycleError(Exception):
+    """Raised when a cyclic dependency is detected."""
 
 
 class DependencyGraph:
-    def __init__(self, registry: TaskRegistry):
-        self.reg = registry
+    """Directed dependency graph of tasks.
 
-    def _deps(self, task_id):
-        """Return direct dependencies. Raises RegistryError if task unknown (fail-closed)."""
-        return list(self.reg.get(task_id).dependencies)
+    Edge ``A -> B`` means "A depends on B". The graph supports transitive
+    closure computation, cycle detection and a readiness check driven by a
+    status lookup function.
+    """
 
-    def deps_of(self, task_id):
-        """Safe accessor: returns [] only if task has no deps; raises if task unknown."""
-        return self._deps(task_id)
+    def __init__(self) -> None:
+        # task_id -> set of task_ids it depends on
+        self._edges: Dict[str, Set[str]] = {}
 
-    def is_ready(self, task_id, statuses):
-        """A task is READY only when every dependency status == 'PASS'. Fail-closed."""
-        try:
-            deps = self._deps(task_id)
-        except Exception:
-            return False  # unknown task -> BLOCK
-        for dep in deps:
-            if statuses.get(dep) != "PASS":
-                return False
-        # also enforce milestone boundary: dependency milestone must not be later stage
-        # (milestone string comparison: M0 < M1 < ...; UNKNOWN never blocks)
-        try:
-            task_milestone = self.reg.get(task_id).milestone
-            for dep in deps:
-                try:
-                    dep_milestone = self.reg.get(dep).milestone
-                    if dep_milestone != "UNKNOWN" and task_milestone != "UNKNOWN":
-                        # extract numeric part for ordering
-                        import re
-                        tm = int(re.search(r'\d+', task_milestone).group())
-                        dm = int(re.search(r'\d+', dep_milestone).group())
-                        if dm > tm:
-                            return False
-                except Exception:
-                    return False
-        except Exception:
-            return False
-        return True
+    # ------------------------------------------------------------------ #
+    # Construction
+    # ------------------------------------------------------------------ #
+    def add_task(self, task_id: str, dependencies: Optional[Iterable[str]] = None) -> None:
+        self._edges.setdefault(task_id, set())
+        for dep in dependencies or []:
+            self.add_edge(task_id, dep)
 
-    def detect_cycle(self, task_id):
-        color = {}
+    def add_edge(self, task_id: str, depends_on: str) -> None:
+        if task_id == depends_on:
+            raise CycleError(f"Task '{task_id}' cannot depend on itself.")
+        self._edges.setdefault(task_id, set()).add(depends_on)
+        self._edges.setdefault(depends_on, set())
 
-        def dfs(nid):
-            color[nid] = GRAY
-            try:
-                deps = self._deps(nid)
-            except Exception:
-                color[nid] = BLACK
-                return False
-            for d in deps:
-                c = color.get(d, WHITE)
-                if c == GRAY:
-                    return True
-                if c == WHITE and dfs(d):
-                    return True
-            color[nid] = BLACK
-            return False
+    # ------------------------------------------------------------------ #
+    # Queries
+    # ------------------------------------------------------------------ #
+    def dependencies_of(self, task_id: str) -> Set[str]:
+        return set(self._edges.get(task_id, set()))
 
-        return dfs(task_id)
+    def get_closure(self, task_id: str) -> Set[str]:
+        """Return the full transitive dependency closure of ``task_id``.
 
-    def closure(self, task_id):
-        """Transitive dependency closure (for regression Rule 7)."""
-        out, stack = set(), list(self._deps(task_id))
+        The closure does NOT include ``task_id`` itself (it is the set of tasks
+        that must PASS before ``task_id`` may proceed).
+        """
+        closure: Set[str] = set()
+        stack = list(self._edges.get(task_id, set()))
         while stack:
-            cur = stack.pop()
-            if cur in out:
+            dep = stack.pop()
+            if dep in closure:
                 continue
-            out.add(cur)
-            try:
-                stack.extend(self._deps(cur))
-            except Exception:
-                pass
-        return out
+            closure.add(dep)
+            stack.extend(self._edges.get(dep, set()))
+        return closure
+
+    def detect_cycle(self) -> Optional[List[str]]:
+        """Detect a cycle. Returns the cycle path (node list) or ``None``."""
+        WHITE, GRAY, BLACK = 0, 1, 2
+        color: Dict[str, int] = {n: WHITE for n in self._edges}
+        path: List[str] = []
+
+        def dfs(node: str) -> Optional[List[str]]:
+            color[node] = GRAY
+            path.append(node)
+            for nxt in self._edges.get(node, ()):
+                c = color.get(nxt, WHITE)
+                if c == GRAY:
+                    idx = path.index(nxt)
+                    return path[idx:] + [nxt]
+                if c == WHITE:
+                    found = dfs(nxt)
+                    if found:
+                        return found
+            path.pop()
+            color[node] = BLACK
+            return None
+
+        for node in list(self._edges):
+            if color[node] == WHITE:
+                found = dfs(node)
+                if found:
+                    return found
+        return None
+
+    def is_ready(self, task_id: str, status_fn) -> Tuple[bool, Optional[str]]:
+        """Return (ready, blocking_task).
+
+        ``ready`` is True only when every task in the dependency closure reports
+        a ``PASS`` status via ``status_fn(task_id) -> str``. If not ready, the
+        first non-PASS dependency encountered is returned as the blocker.
+        """
+        for dep in self.get_closure(task_id):
+            if status_fn(dep) != "PASS":
+                return False, dep
+        return True, None
+
+    def reachability(self) -> Dict[str, Set[str]]:
+        """Map every task to its full closure (convenience)."""
+        return {t: self.get_closure(t) for t in self._edges}

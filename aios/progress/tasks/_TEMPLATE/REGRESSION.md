@@ -1,7 +1,10 @@
-# Regression Log — TASK-xxx  (Rule 7: regression prior dependencies)
+# TASK-XXX — Regression
 
-Re-run each dependency task's tests before closing. Record outcome.
+## Dependency closure
+- List the tasks in the dependency closure and their test status.
 
-| dependency TASK | command / artifact | result | timestamp |
-|-----------------|--------------------|--------|-----------|
-|                 |                    |        |           |
+## Regression result
+- Re-run the tests of every dependency before marking PASS.
+
+## Status
+- REGRESSION gate: PASS / BLOCKED.

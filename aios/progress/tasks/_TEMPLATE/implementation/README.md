@@ -1,4 +1,4 @@
-# Implementation — TASK-xxx
+# Implementation placeholder
 
-Place real implementation artifacts here (code, configs, fixtures).
-Each non-trivial change should be reflected as an entry in `../EVIDENCE.md`.
+Place source, tests and supporting docs for the task here. This folder is the
+mandatory artifact for the `IMPLEMENTING` lifecycle state.

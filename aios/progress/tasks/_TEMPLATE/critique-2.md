@@ -1,12 +1,10 @@
-# Critique 2 — TASK-xxx
+# TASK-XXX — Critique 2
 
-Independent review pass #2 (different stance from pass #1).
+## Verification of critique-1 revisions
+-
 
-## Findings
-| # | Area | Severity | Required fix |
-|---|------|----------|--------------|
-|   |      |          |              |
+## Residual concerns
+-
 
 ## Verdict
-- [ ] Resolved
-- [ ] Waived (reason: )
+- APPROVE / REVISE

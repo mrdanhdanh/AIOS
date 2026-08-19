@@ -1,21 +1,24 @@
-# Test — TASK-001
+# TASK-001 — Test
 
-## Test plan
-- [x] unit — mỗi module có test riêng (fail-closed: UNKNOWN≠PASS, validator required, hash sha256)
-- [x] integration — unified gate test (pass + 3 block cases, task-scoped evidence)
-- [x] regression — chạy trên dependency closure (TASK-001 không có dependency)
-- [x] architecture — `import os` (any form), `subprocess`, `__import__`, `workflow↔engine` đều bị chặn
-- [x] dependency — unknown task / cycle / milestone boundary đều BLOCK
+## How to run
+```
+cd d:\AIOS
+python -m pytest aios -q
+```
 
-## Results
-| test | status | evidence |
-|------|--------|----------|
-| aios/governance/**/tests/test_*.py (26 tests) | PASS | `python -m pytest aios/governance -q` → 26 passed (EVIDENCE.md EVD-001, sha256:a1b2c3d4e5f67890) |
-| parse_spec.py (218 tasks, 27 milestones) | PASS | EVD-002 (sha256:b2c3d4e5f6a78901) |
-| gate_check.py TASK-001 (task-scoped sha256, reads STATUS.md) | PASS | EVD-003 (sha256:c3d4e5f6a7b89012) |
+## What is covered (38 automated gate tests)
+| Module | Tests | Rule |
+|--------|-------|------|
+| aios/governance/task_registry/tests | 6 | Rule 1 |
+| aios/governance/dependency/tests | 5 | Rule 2 |
+| aios/governance/lifecycle/tests | 4 | Rule 6 |
+| aios/governance/evidence/tests | 3 | Rule 5 |
+| aios/governance/architecture/tests | 6 | Rule 3 |
+| aios/governance/deterministic/tests | 4 | Rule 4 |
+| aios/governance/regression/tests | 3 | Rule 7 |
+| aios/governance/gates/tests | 3 | Unified |
+| aios/agents/tests | 4 | Roles |
 
-## Fail-closed verification
-- `Evidence(status=UNKNOWN, hash=n/a)` → `verify()==False`
-- `DeterministicControlPath.route(can_decide=False, validator=None)` → `ControlPathError`
-- `DependencyGraph.is_ready(unknown_task)` → `False`
-- `Architecture scan: import os` → `ARCH-002` violation (Import + ImportFrom + dynamic)
+## Integration test
+`aios/governance/gates/tests/test_unified_gate.py` wires all 7 real submodules
+and proves the convergence rule (all pass -> DONE; any fail -> BLOCKED).

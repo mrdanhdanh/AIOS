@@ -1,20 +1,27 @@
 # AIOS Progress Stats
 
-Auto-tracked metrics for the development system. Updated as tasks move through the lifecycle.
+| Metric | Value |
+|--------|-------|
+| Total tasks (master spec) | 182 |
+| Tasks DONE | 1 |
+| Tasks READY | 1 |
+| Tasks PLANNED | 180 |
+| Governance modules | 7 (+ unified gate) |
+| Automated gate tests | 39 |
+| Architecture rules (ARCH-001..004) | 4 |
+| Lifecycle states | 12 |
 
-## Totals
-- Tasks in master spec: 218 (TASK-001 … TASK-218)
-- Milestones: M0 … M26
-- Tasks with a progress folder: _(count folders under `tasks/`)_
-- Tasks CLOSED (gate PASS): _(run `python aios/scripts/gate_check.py TASK-xxx`)_
+## Per-module test counts (TASK-001)
 
-## Governance health
-- Registry uniqueness violations: 0 (enforced by `aios/governance/task_registry`)
-- Architecture violations: 0 (enforced by `aios/governance/architecture`)
-- Deterministic-first compliance: tracked per task via `EVIDENCE.md`
-
-## How to refresh
-```
-python aios/scripts/parse_spec.py   # regenerate registry (Rule 1/2)
-python aios/scripts/gate_check.py TASK-xxx   # per-task gate (Rule 6/5/7)
-```
+| Module | Tests |
+|--------|-------|
+| task_registry | 6 |
+| dependency | 5 |
+| lifecycle | 4 |
+| evidence | 3 |
+| architecture | 6 |
+| deterministic | 4 |
+| regression | 3 |
+| gates (unified) | 4 |
+| agents | 4 |
+| **Total** | **39** |

@@ -1,12 +1,20 @@
-# Critique 1 — TASK-001
+# TASK-001 — Critique 1
 
-Independent pass #1 (scope & completeness).
+## Strengths
+- Maps each of the 7 rules to a concrete, testable component.
+- Keeps the architecture guard decoupled from any specific test framework.
+- Unified gate fails closed (exceptions -> FAIL).
 
-## Findings
-| # | Area | Severity | Required fix |
-|---|------|----------|--------------|
-| 1 | Evidence store chưa tích hợp load từ EVIDENCE.md | low | Để lại cho Phase B runtime; CLI gate dùng EvidenceStore in-memory |
-| 2 | Architecture guard mới quét implementation/ cục bộ | low | Mở rộng toàn bộ repo ở TASK-016 |
+## Risks / Gaps
+- The deterministic path (Rule 4) could become a "god object" if every stage is
+  hard-coded; keep stages injectable.
+- Evidence provenance requires linked Run/Artifact/Task/Requirement records; if
+  any link is missing the chain must be explicitly incomplete (not silently OK).
+- Architecture layering must recognize the `agents/` directory as the `agent`
+  layer (plural vs singular).
 
-## Verdict
-- [x] Resolved (remaining items là out-of-scope theo spec)
+## Required revisions
+- Make pipeline stages (Normalizer, RuleEngine, WorkflowMatcher, CapabilityResolver,
+  Policy) injectable (done in design).
+- Mark provenance `complete=False` when any link missing (done).
+- Fix `classify_module` to map `agents -> agent` (done).

@@ -1,20 +1,5 @@
-"""aios.core — M1 monorepo scaffold package.
+"""AIOS core contracts, DI container and event primitives (TASK-003).
 
-Re-exports the stable foundation used by the runtime, orchestrator and harness.
+Present in M0 as a namespace placeholder so the governance architecture guard
+can reference a stable layering: ``agent -> orchestrator -> runtime -> capability -> tool``.
 """
-from .scaffold import (
-    CORE_METADATA,
-    RuntimeConfig,
-    configure_logging,
-    healthcheck,
-)
-from .scaffold import __version__, __milestone__
-
-__all__ = [
-    "CORE_METADATA",
-    "RuntimeConfig",
-    "configure_logging",
-    "healthcheck",
-    "__version__",
-    "__milestone__",
-]

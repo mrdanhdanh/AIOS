@@ -1,11 +1,9 @@
-# Test — TASK-xxx
+# TASK-XXX — Test
 
-## Test plan
-- [ ] unit
-- [ ] integration
-- [ ] regression (see REGRESSION.md)
+## How to run
+```
+python -m pytest <path/to/tests> -q
+```
 
-## Results
-| test | status | evidence |
-|------|--------|----------|
-|      |        |          |
+## What is covered
+- <gate / behavior>

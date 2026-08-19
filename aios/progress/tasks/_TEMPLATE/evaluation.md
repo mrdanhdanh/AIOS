@@ -1,11 +1,9 @@
-# Evaluation — TASK-xxx
+# TASK-XXX — Evaluation
 
-## AC verification
-| AC | result | evidence ref (EVIDENCE.md) |
-|----|--------|----------------------------|
-|    |        |                            |
+## Acceptance criteria results
+| AC | Result | Evidence |
+|----|--------|----------|
+| AC1 | PASS/FAIL | <evidence_id> |
 
-## Verdict
-- [ ] PASS (with provenance)
-- [ ] FAIL
-- [ ] UNKNOWN (do NOT promote to PASS — fail-closed)
+## Regression
+- Dependency closure: green.

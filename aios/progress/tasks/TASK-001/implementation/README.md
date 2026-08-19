@@ -1,15 +1,19 @@
-# Implementation — TASK-001
+# TASK-001 Implementation
 
-The implementation of TASK-001 **is** the governance engine:
+The implementation lives in `d:\AIOS\aios\governance\` and `d:\AIOS\aios\agents\`.
 
-- `aios/governance/task_registry/` — Rule 1 (immutable IDs) + `parse_master_spec`
-- `aios/governance/dependency/` — Rule 2 (dependency graph, ready/cycle/closure)
-- `aios/governance/architecture/` — Rule 3 (AST/import guard ARCH-001..004)
-- `aios/governance/deterministic/` — Rule 4 (deterministic control path)
-- `aios/governance/evidence/` — Rule 5 (provenance chain)
-- `aios/governance/lifecycle/` — Rule 6 (state machine + artifact guards)
-- `aios/governance/regression/` — Rule 7 (dependency closure runner)
-- `aios/governance/gates/` — unified `TaskGate`
+```
+aios/governance/
+  task_registry/   # Rule 1
+  dependency/      # Rule 2
+  architecture/    # Rule 3
+  deterministic/   # Rule 4
+  evidence/        # Rule 5
+  lifecycle/       # Rule 6
+  regression/      # Rule 7
+  gates/           # Unified Task Gate (convergence)
+  cli/             # parse_spec.py, gate_check.py
+aios/agents/        # orchestrator / spec-writer / critic / reviewer
+```
 
-Each module has an automated pytest suite under its `tests/` folder.
-Run: `python -m pytest aios/governance -q`  → 26 passed.
+`verify_task001.py` below runs a self-contained smoke check of all seven gates.

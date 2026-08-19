@@ -1,8 +1,5 @@
-# Breakdown — TASK-xxx
+# TASK-XXX — Breakdown
 
-## Work items
-- [ ] 1.
-- [ ] 2.
-
-## Execution plan
-(ordered, deterministic-first; note where LLM fallback is permitted and why)
+- [ ] Step 1
+- [ ] Step 2
+- [ ] Step 3

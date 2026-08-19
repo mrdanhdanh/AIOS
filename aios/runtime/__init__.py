@@ -1,3 +1,5 @@
-"""aios.runtime — skeleton package (Runtime substrate; fleshed out in M1+)."""
-__version__ = "0.1.0"
-__milestone__ = "M1"
+"""AIOS Runtime services (M1, TASK-004/005).
+
+Present in M0 as a namespace placeholder. The Runtime is the control substrate;
+agents/workers access capabilities only through it.
+"""

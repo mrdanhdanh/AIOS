@@ -1,9 +1,13 @@
-# Review — TASK-xxx
+# TASK-XXX — Review
+
+## Pre-implementation checklist
+- [ ] spec.md present
+- [ ] critique-1.md present
+- [ ] critique-2.md present
+- [ ] tasks.md present
+
+## Notes
+-
 
 ## Decision
-- [ ] APPROVED
-- [ ] CHANGES_REQUESTED
-- [ ] BLOCKED (reason: )
-
-## Rationale / Provenance
-(who/what decided, linked critiques, rule references)
+- APPROVED / REJECTED

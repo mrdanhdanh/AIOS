@@ -1,20 +1,22 @@
-# Evaluation — TASK-001
+# TASK-001 — Evaluation
 
-## AC verification
-| AC | result | evidence ref |
-|----|--------|--------------|
-| Registry duplicate → REJECT | PASS | EVD-001 (test_registry, sha256:a1b2c3d4e5f67890) |
-| Dependency missing/cyclic/milestone → BLOCK (fail-closed) | PASS | EVD-001 (test_graph) + DependencyGraph milestone check |
-| Architecture violation → FAIL (incl. `import os`, dynamic import, workflow↔engine) | PASS | EVD-001 (test_rules, ARCH-001..004) |
-| Deterministic: LLM call 0 / fallback validated (validator REQUIRED) | PASS | EVD-001 (test_path) + ControlPathError on missing validator |
-| Evidence provenance chain (sha256, task-scoped, UNKNOWN≠PASS) | PASS | EVD-001 (test_store) + TaskGate task-scoped verify |
-| State Machine missing artifact → REJECT | PASS | EVD-001 (test_statemachine) + gate reads STATUS.md |
-| Regression closure failure/exception → BLOCK | PASS | EVD-001 (test_runner) + RegressionRunner fail-closed |
+## Acceptance criteria results
+| AC | Result | Evidence |
+|----|--------|----------|
+| Registry: duplicate ID -> REJECT | PASS | `tests/test_registry.py::test_duplicate_id_is_rejected` |
+| Dependency: not-PASS dep -> BLOCK | PASS | `tests/test_dependency.py::test_task_runs_when_dependency_not_passed_is_blocked` |
+| Dependency: cycle -> BLOCK | PASS | `tests/test_dependency.py::test_cyclic_dependency_is_detected_and_blocks` |
+| Architecture: agent imports subprocess -> FAIL | PASS | `tests/test_architecture.py::test_agent_importing_subprocess_fails` |
+| Architecture: agent imports provider -> FAIL | PASS | `tests/test_architecture.py::test_agent_importing_provider_fails` |
+| Architecture: agent imports filesystem -> FAIL | PASS | `tests/test_architecture.py::test_agent_importing_filesystem_fails` |
+| Deterministic: rule decides -> LLM calls 0 | PASS | `tests/test_deterministic.py::test_deterministic_rule_avoids_llm` |
+| Deterministic: LLM fallback validated | PASS | `tests/test_deterministic.py::test_llm_only_called_when_insufficient` |
+| Deterministic: invalid LLM output rejected | PASS | `tests/test_deterministic.py::test_llm_output_failing_validation_is_rejected` |
+| Evidence: provenance chain complete | PASS | `tests/test_evidence.py::test_provenance_chain_is_complete_when_seeded` |
+| State machine: missing artifact -> DONE REJECT | PASS | `tests/test_lifecycle.py::test_missing_artifact_blocks_done` |
+| Regression: closure failure -> BLOCKED | PASS | `tests/test_regression.py::test_closure_failure_blocks_task` |
+| New session can continue w/o chat memory | PASS | `docs/PLAN.md` + `docs/AGENTS.md` + `aios/progress/README.md` |
 
-## Self-critique (điều chỉnh bổ sung)
-- Vá fail-open: DependencyGraph, EvidenceStore, DeterministicPath, RegressionRunner, Architecture, TaskGate, gate_check.py đều chuyển sang fail-closed.
-- `docs/PLAN.md` §6 bổ sung cột Fail-closed và mô tả chi tiết mechanism.
-- EVIDENCE.md chuyển sang `sha256:` hash thực thụ; gate kiểm tra task-scoped.
-
-## Verdict
-- [x] PASS (with provenance — see EVIDENCE.md, sha256 validated, gate reads STATUS.md)
+## Regression
+- Dependency closure of TASK-001 is empty -> green by definition.
+- Full suite (`python -m pytest aios -q`) is green (38 tests).

@@ -1,12 +1,13 @@
-# Critique 2 — TASK-001
+# TASK-001 — Critique 2
 
-Independent pass #2 (testability & fail-closed).
+## Verification of critique-1 revisions
+- Pipeline stages are injectable via constructor params. ✔
+- `get_provenance_chain().complete` is `False` when a link is missing. ✔
+- `classify_module` maps `agents -> agent` so ARCH-001..003 trigger correctly. ✔
 
-## Findings
-| # | Area | Severity | Required fix |
-|---|------|----------|--------------|
-| 1 | Gate có thể false-positive nếu EvidenceStore rỗng | med | CLI gate_check coi evidence là WARN; lifecycle+artifacts là hard FAIL |
-| 2 | Cần chứng minh hệ thống trên chính nó | med | Tạo tasks/TASK-001/ và chạy gate_check → PASS (Phase B) |
+## Residual concerns
+- None blocking. Future tasks (M2+) will extend the deterministic path and the
+  architecture guard with richer rules (INV-001..010).
 
 ## Verdict
-- [x] Resolved
+- APPROVE
