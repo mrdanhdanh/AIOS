@@ -4,13 +4,19 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "aios"
-version = "0.1.0"
-description = "AIOS - Runtime-First, Plugin-First, Offline-First AI Operating System (M0 governance)"
+version = "0.2.0"
+description = "AIOS - Runtime-First, Plugin-First, Offline-First AI Operating System (M1 scaffold)"
 requires-python = ">=3.11"
 dependencies = []
 
-[tool.setuptools]
-packages = ["aios", "aios.core", "aios.runtime", "aios.harness", "aios.governance"]
+[project.optional-dependencies]
+dev = [
+    "pytest>=7",
+    "pytest-cov>=4",
+]
+
+[tool.setuptools.packages.find]
+include = ["aios*"]
 
 [tool.pytest.ini_options]
 pythonpath = ["."]
@@ -19,3 +25,11 @@ python_files = ["test_*.py"]
 python_classes = ["Test*"]
 python_functions = ["test_*"]
 filterwarnings = ["ignore::DeprecationWarning"]
+
+[tool.coverage.run]
+source = ["aios"]
+branch = true
+
+[tool.coverage.report]
+fail_under = 80
+show_missing = true
