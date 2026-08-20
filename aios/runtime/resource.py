@@ -23,7 +23,21 @@ from enum import Enum
 from typing import Dict, List, Optional
 
 
-__all__ = ["ResourceError", "GrantStatus", "ResourceGrant", "ResourcePool"]
+__all__ = [
+    "ResourceError",
+    "GrantStatus",
+    "ResourceDecision",
+    "ResourceRequest",
+    "ResourceGrant",
+    "ResourcePool",
+]
+
+# Canonical resource types per spec §2.9 (extensible — custom types allowed).
+KNOWN_RESOURCES = {
+    "cpu", "ram", "gpu", "disk",
+    "token_budget", "concurrent_workflows", "docker_containers",
+    "concurrency", "memory_mb",  # backward-compat aliases
+}
 
 
 class ResourceError(Exception):
@@ -36,6 +50,22 @@ class GrantStatus(Enum):
     REJECTED = "rejected"
 
 
+# Spec alias — ResourceDecision is the canonical name per §3.
+ResourceDecision = GrantStatus
+
+
+@dataclass
+class ResourceRequest:
+    """Structured resource request (spec §3 contract)."""
+
+    holder: str
+    resource: str
+    amount: int = 1
+    queueable: bool = False
+    subject: str = "runtime"
+    metadata: Dict[str, object] = field(default_factory=dict)
+
+
 @dataclass
 class ResourceGrant:
     """A grant (or queued request) for a resource amount."""
@@ -46,6 +76,22 @@ class ResourceGrant:
     amount: int
     status: GrantStatus
     created_at: str = field(default="")
+
+    @property
+    def decision(self) -> GrantStatus:
+        """Alias per spec — ``ResourceDecision`` is the decision value."""
+        return self.status
+
+    def to_dict(self) -> Dict[str, object]:
+        return {
+            "grant_id": self.grant_id,
+            "holder": self.holder,
+            "resource": self.resource,
+            "amount": self.amount,
+            "status": self.status.value,
+            "decision": self.status.value,
+            "created_at": self.created_at,
+        }
 
 
 class ResourcePool:

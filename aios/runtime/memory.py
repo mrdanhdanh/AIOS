@@ -26,7 +26,7 @@ from datetime import datetime, timezone
 from enum import Enum
 from typing import Any, Dict, List, Optional
 
-__all__ = ["MemoryError", "MemoryType", "MemoryEntry", "MemoryStore"]
+__all__ = ["MemoryError", "MemoryType", "MemoryEntry", "MemoryStore", "MemoryStatus"]
 
 
 class MemoryError(Exception):
@@ -46,8 +46,33 @@ class MemoryType(str, Enum):
         return list(cls)
 
 
+class MemoryStatus(str, Enum):
+    """Lifecycle status shared across memory types.
+
+    Section 2.5 distinguishes lifecycles per type but every entry conceptually
+    traverses: ``ACTIVE → {ARCHIVED, EXPIRED}``. ``UPDATED`` is not a terminal
+    status — update creates a new versioned entry linked via ``supersedes`` in
+    metadata.
+    """
+
+    ACTIVE = "active"
+    ARCHIVED = "archived"
+    EXPIRED = "expired"
+
+
 def _now() -> str:
     return datetime.now(timezone.utc).isoformat()
+
+
+def _bump_version(v: str) -> str:
+    try:
+        parts = [int(p) for p in v.split(".")]
+        while len(parts) < 3:
+            parts.append(0)
+        parts[-1] += 1
+        return ".".join(str(p) for p in parts)
+    except Exception:
+        return "0.1.1"
 
 
 def _hash_content(content: str | bytes) -> str:
@@ -74,6 +99,11 @@ class MemoryEntry:
     metadata: Dict[str, Any] = field(default_factory=dict)
     created_at: str = field(default_factory=_now)
     version: str = "0.1.0"
+    # Lifecycle (section 2.5): every entry is ACTIVE on creation; it may be
+    # archived or expired. VERSION supersedes linkage lives in metadata.
+    status: MemoryStatus = MemoryStatus.ACTIVE
+    archived_at: Optional[str] = None
+    expires_at: Optional[str] = None
 
     @classmethod
     def create(
@@ -154,6 +184,82 @@ class MemoryStore:
             if entry.entry_id not in self._by_scope[entry.scope_id]:
                 self._by_scope[entry.scope_id].append(entry.entry_id)
         return entry
+
+    def update(
+        self,
+        entry_id: str,
+        content: str | bytes,
+        *,
+        version: Optional[str] = None,
+        metadata: Optional[Dict[str, Any]] = None,
+    ) -> MemoryEntry:
+        """Create a new versioned entry superseding ``entry_id``.
+
+        Semantics per section 2.5: update is a versioned put — the original
+        entry is archived (not deleted) and the new entry carries
+        ``metadata.supersedes`` + bumped ``version`` so history is preserved.
+        """
+        with self._lock:
+            cur = self._entries.get(entry_id)
+            if cur is None:
+                raise MemoryError(f"entry not found: {entry_id!r}")
+            cur.status = MemoryStatus.ARCHIVED
+            cur.archived_at = _now()
+        # Build replacement deterministically — hash recomputed.
+        text: str
+        if isinstance(content, bytes):
+            try:
+                text = content.decode("utf-8")
+            except Exception as exc:
+                raise MemoryError(f"bytes content must be utf-8: {exc}") from exc
+        elif isinstance(content, str):
+            text = content
+        else:
+            raise MemoryError(f"content must be str or bytes, got {type(content).__name__}")
+        # Version bump: if caller supplies version use it, else patch-bump.
+        new_version = version or _bump_version(cur.version)
+        merged_meta: Dict[str, Any] = dict(cur.metadata)
+        if metadata:
+            merged_meta.update(metadata)
+        merged_meta["supersedes"] = cur.entry_id
+        nxt = MemoryEntry.create(
+            memory_type=cur.memory_type,
+            scope_id=cur.scope_id,
+            content=text,
+            producer=cur.producer,
+            source=cur.source,
+            task_id=cur.task_id,
+            run_id=cur.run_id,
+            metadata=merged_meta,
+            version=new_version,
+        )
+        # Put will verify hash.
+        self.put(nxt)
+        return nxt
+
+    def archive(self, entry_id: str) -> MemoryEntry:
+        with self._lock:
+            e = self._entries.get(entry_id)
+            if e is None:
+                raise MemoryError(f"entry not found: {entry_id!r}")
+            if e.status == MemoryStatus.ARCHIVED:
+                return e
+            e.status = MemoryStatus.ARCHIVED
+            e.archived_at = _now()
+            return e
+
+    def expire(self, entry_id: str, *, expires_at: Optional[str] = None) -> MemoryEntry:
+        with self._lock:
+            e = self._entries.get(entry_id)
+            if e is None:
+                raise MemoryError(f"entry not found: {entry_id!r}")
+            e.status = MemoryStatus.EXPIRED
+            e.expires_at = expires_at or _now()
+            return e
+
+    def list_active(self) -> List[MemoryEntry]:
+        with self._lock:
+            return [e for e in self._entries.values() if e.status == MemoryStatus.ACTIVE]
 
     def delete(self, entry_id: str) -> None:
         with self._lock:

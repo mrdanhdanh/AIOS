@@ -33,28 +33,55 @@ __all__ = [
 ]
 
 
-class ProviderError(Exception):
-    """Raised when a provider cannot fulfill a request."""
-
-    def __init__(self, message: str, code: "ProviderErrorCode" = None, cause: Exception = None):
-        super().__init__(message)
-        self.code = code or ProviderErrorCode.UNKNOWN
-        self.cause = cause
-
-
 class ProviderErrorCode(Enum):
-    """Categorized provider failure causes."""
+    """Categorized provider failure causes — normalized across vendors.
+
+    Spec (TASK-006 \u00a72.6) requires: TIMEOUT, RATE_LIMIT, AUTHENTICATION_ERROR,
+    INVALID_REQUEST, MODEL_UNAVAILABLE, PROVIDER_ERROR, UNKNOWN. ``AUTH`` and
+    ``UNAVAILABLE`` are kept as backward-compat aliases.
+    """
 
     RATE_LIMIT = "rate_limit"
     TIMEOUT = "timeout"
-    AUTH = "auth"
-    UNAVAILABLE = "unavailable"
+    AUTH = "auth"  # alias for AUTHENTICATION_ERROR (kept for compat)
+    AUTHENTICATION_ERROR = "authentication_error"
+    UNAVAILABLE = "unavailable"  # alias for MODEL_UNAVAILABLE (kept for compat)
+    MODEL_UNAVAILABLE = "model_unavailable"
     INVALID_REQUEST = "invalid_request"
+    PROVIDER_ERROR = "provider_error"
     UNKNOWN = "unknown"
 
 
+class ProviderError(Exception):
+    """Raised when a provider cannot fulfill a request."""
+
+    # legacy alias -> canonical
+    _ALIAS = {"auth": "authentication_error", "unavailable": "model_unavailable"}
+
+    def __init__(self, message: str, code: "ProviderErrorCode" = None, cause: Exception = None):
+        super().__init__(message)
+        if code is None:
+            code = ProviderErrorCode.UNKNOWN
+        # normalize alias enums/strings to canonical code
+        raw = code.value if isinstance(code, ProviderErrorCode) else str(code)
+        canonical = self._ALIAS.get(raw, raw)
+        # map back to enum member
+        for m in ProviderErrorCode:
+            if m.value == canonical:
+                code = m
+                break
+        self.code = code
+        self.cause = cause
+
+
 class ModelCapability(Enum):
-    """What a model can do."""
+    """What a model can do.
+
+    Core capabilities used by deterministic selection; extra routing signals
+    (vision, reasoning, tool_calling, structured_output) are carried in
+    :class:`ModelMetadata` fields, not as enum members, so callers can filter
+    without hard-coding a vendor list.
+    """
 
     TEXT_GENERATION = "text_generation"
     CHAT = "chat"
@@ -62,11 +89,22 @@ class ModelCapability(Enum):
     FUNCTION_CALLING = "function_calling"
     CODE_GENERATION = "code_generation"
     JSON_MODE = "json_mode"
+    # Extended routing signals also available as capabilities for symmetry
+    VISION = "vision"
+    REASONING = "reasoning"
+    TOOL_CALLING = "tool_calling"
+    STRUCTURED_OUTPUT = "structured_output"
 
 
 @dataclass
 class ModelMetadata:
-    """Descriptive, comparable metadata for a model."""
+    """Descriptive, comparable metadata for a model.
+
+    Carries all fields the TASK-006 §2.4 routing primitive needs (id, provider,
+    version, context_window, latency_class, reasoning/coding/vision/tool_calling/
+    structured_output, availability, offline) plus the pricing fields consumed
+    by :meth:`UsageRecord.estimate`.
+    """
 
     model_id: str
     provider: str
@@ -76,14 +114,32 @@ class ModelMetadata:
     max_output_tokens: int = 2048
     cost_per_1k_input: float = 0.0
     cost_per_1k_output: float = 0.0
+    # Routing signals (TASK-006 §2.4) — defaults keep backward compat
+    latency_class: str = "standard"  # fast | standard | slow
+    availability: str = "available"  # available | limited | unavailable
+    reasoning: bool = False
+    coding: bool = False
+    vision: bool = False
+    tool_calling: bool = False
+    structured_output: bool = False
     offline: bool = False
     extra: Dict[str, Any] = field(default_factory=dict)
 
     def supports(self, cap: ModelCapability) -> bool:
+        # Also honour routing booleans as implicit capabilities for selection
+        cap_to_attr = {
+            ModelCapability.TOOL_CALLING: "tool_calling",
+            ModelCapability.VISION: "vision",
+            ModelCapability.REASONING: "reasoning",
+            ModelCapability.STRUCTURED_OUTPUT: "structured_output",
+            ModelCapability.CODE_GENERATION: "coding",
+        }
+        if cap in cap_to_attr and getattr(self, cap_to_attr[cap], False):
+            return True
         return cap in self.capabilities
 
     def satisfies(self, capabilities: Sequence[ModelCapability]) -> bool:
-        return all(c in self.capabilities for c in capabilities)
+        return all(self.supports(c) for c in capabilities)
 
 
 @dataclass

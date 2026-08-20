@@ -65,7 +65,8 @@ def test_openai_provider_requires_sdk(monkeypatch):
     p = OpenAIProvider()
     with pytest.raises(ProviderError) as exc:
         p.complete(CompletionRequest(prompt="hi"))
-    assert exc.value.code == ProviderErrorCode.UNAVAILABLE
+    # ProviderError normalizes legacy UNAVAILABLE -> MODEL_UNAVAILABLE
+    assert exc.value.code in (ProviderErrorCode.UNAVAILABLE, ProviderErrorCode.MODEL_UNAVAILABLE)
 
 
 def test_ollama_provider_not_offline():

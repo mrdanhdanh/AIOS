@@ -18,6 +18,7 @@ from __future__ import annotations
 from typing import Optional
 
 from aios.core.container import Container, Lifetime
+from aios.core.events import EventBus
 
 from .artifact import ArtifactStore
 from .audit import AuditTrail
@@ -48,12 +49,21 @@ class RuntimeKernel:
 
     def _wire(self) -> None:
         c = self.container
+        # Core substrate — event bus first so all services can subscribe.
+        if not c.is_registered(EventBus):
+            c.register(EventBus, EventBus, Lifetime.SINGLETON)
         # TASK-004 services (singletons — shared substrate).
         c.register(ContextStore, ContextStore, Lifetime.SINGLETON)
         c.register(AuditTrail, AuditTrail, Lifetime.SINGLETON)
         c.register(ArtifactStore, ArtifactStore, Lifetime.SINGLETON)
         c.register(PermissionBroker, PermissionBroker, Lifetime.SINGLETON)
-        c.register(PolicyEngine, PolicyEngine, Lifetime.SINGLETON)
+        # PolicyEngine MUST share the same broker instance as PermissionBroker
+        # — otherwise grants are invisible to policy pre-checks.
+        c.register(
+            PolicyEngine,
+            factory=lambda: PolicyEngine(broker=c.resolve(PermissionBroker)),
+            lifetime=Lifetime.SINGLETON,
+        )
         # TASK-005 services.
         c.register(Scheduler, Scheduler, Lifetime.SINGLETON)
         c.register(StateStore, StateStore, Lifetime.SINGLETON)
@@ -61,13 +71,18 @@ class RuntimeKernel:
         # TASK-007 services (memory + knowledge).
         c.register(MemoryStore, MemoryStore, Lifetime.SINGLETON)
         c.register(KnowledgeIndex, KnowledgeIndex, Lifetime.SINGLETON)
-        # Executor depends on the wired policy/audit/context services.
+        # Executor is composed with full chain (Policy → Resource → Scheduler → State)
+        # per spec §2 chain — no execution path bypasses Policy/Resource.
         c.register(
             Executor,
             factory=lambda: Executor(
                 policy=c.resolve(PolicyEngine),
                 audit=c.resolve(AuditTrail),
                 context_store=c.resolve(ContextStore),
+                event_bus=c.resolve(EventBus),
+                state_store=c.resolve(StateStore),
+                resource_pool=c.resolve(ResourcePool),
+                scheduler=c.resolve(Scheduler),
             ),
             lifetime=Lifetime.SINGLETON,
         )
@@ -106,6 +121,10 @@ class RuntimeKernel:
         return self.container.resolve(ResourcePool)
 
     @property
+    def bus(self) -> EventBus:
+        return self.container.resolve(EventBus)
+
+    @property
     def executor(self) -> Executor:
         return self.container.resolve(Executor)
 
@@ -128,6 +147,9 @@ class RuntimeKernel:
             "state_checkpoints": len(self.state),
             "resources_registered": len(self.resources._capacity),
             "memory_entries": len(self.memory),
+            "memory_active": len(self.memory.list_active()),
             "knowledge_docs": len(self.knowledge),
+            "knowledge_chunks": self.knowledge.chunk_count,
             "knowledge_sources": self.knowledge.source_count,
+            "bus_registered": True,
         }

@@ -31,6 +31,16 @@ from .execution import (
     StepHandler,
     StepResult,
 )
+from .contracts import (
+    ARTIFACT_CONTRACT,
+    AUDIT_CONTRACT,
+    CONTEXT_CONTRACT,
+    PERMISSION_CONTRACT,
+    POLICY_CONTRACT,
+    RUNTIME_SERVICE_CONTRACTS,
+    check_runtime_contracts,
+    verify_runtime_contracts,
+)
 from .kernel import KernelError, RuntimeKernel
 from .permission import Permission, PermissionBroker, PermissionScope
 from .policy import (
@@ -59,8 +69,10 @@ from .providers import (
     UsageRecord,
     select_model,
 )
-from .memory import MemoryEntry, MemoryError, MemoryStore, MemoryType
+from .memory import MemoryEntry, MemoryError, MemoryStatus, MemoryStore, MemoryType
 from .knowledge import (
+    KnowledgeChunk,
+    KnowledgeChunker,
     KnowledgeDocument,
     KnowledgeError,
     KnowledgeHit,
@@ -116,6 +128,15 @@ __all__ = [
     "GrantStatus",
     "ResourceGrant",
     "ResourcePool",
+    # contracts (TASK-004 — 5 service contracts)
+    "CONTEXT_CONTRACT",
+    "AUDIT_CONTRACT",
+    "ARTIFACT_CONTRACT",
+    "PERMISSION_CONTRACT",
+    "POLICY_CONTRACT",
+    "RUNTIME_SERVICE_CONTRACTS",
+    "verify_runtime_contracts",
+    "check_runtime_contracts",
     # kernel
     "KernelError",
     "RuntimeKernel",
@@ -137,12 +158,15 @@ __all__ = [
     # memory + knowledge (TASK-007)
     "MemoryError",
     "MemoryType",
+    "MemoryStatus",
     "MemoryEntry",
     "MemoryStore",
     "KnowledgeError",
     "KnowledgeSourceType",
     "KnowledgeSource",
     "KnowledgeDocument",
+    "KnowledgeChunk",
+    "KnowledgeChunker",
     "KnowledgeHit",
     "KnowledgeIndex",
 ]

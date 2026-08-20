@@ -1,0 +1,8 @@
+# AIOS default runtime config (TASK-002)
+# Environment variables AIOS_* override these values via aios.core.config.Config
+log_level: INFO
+log_format: json
+config_dir: .aios
+healthcheck_timeout: 5.0
+metadata_cache_ttl: 300
+dry_run: false

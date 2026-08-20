@@ -55,12 +55,16 @@ class Step:
     """A single step in an execution plan.
 
     Mutable: use :meth:`transition` to change status.
+    Covers the canonical M1 vocabulary: Plan / Step / Dependency / Input / Output / Status.
+    ``inputs`` / ``outputs`` are typed dicts; ``metadata`` remains for free-form extras.
     """
 
     step_id: str
     action: str
     status: StepStatus = StepStatus.PENDING
     dependencies: List[str] = field(default_factory=list)
+    inputs: Dict[str, Any] = field(default_factory=dict)
+    outputs: Dict[str, Any] = field(default_factory=dict)
     metadata: Dict[str, Any] = field(default_factory=dict)
     started_at: Optional[str] = None
     completed_at: Optional[str] = None

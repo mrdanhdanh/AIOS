@@ -1,0 +1,6 @@
+# Test / CI overrides
+log_level: WARNING
+log_format: json
+healthcheck_timeout: 2.0
+metadata_cache_ttl: 60
+dry_run: false

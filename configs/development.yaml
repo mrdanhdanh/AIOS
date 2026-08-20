@@ -1,0 +1,4 @@
+# Development overrides
+log_level: DEBUG
+log_format: text
+dry_run: true

@@ -147,3 +147,49 @@ class TestThreadSafety:
             t.join()
         assert len(results) == 10
         assert all(r is results[0] for r in results)
+
+
+class TestMockInjection:
+    """Verify service can be replaced with a mock (TASK-003 DoD: mock injection)."""
+
+    def test_mock_overrides_real_implementation(self):
+        from unittest.mock import Mock
+
+        c = Container()
+        c.register(DummyService, DummyImpl, Lifetime.SINGLETON)
+        real = c.resolve(DummyService)
+        assert isinstance(real, DummyImpl)
+
+        mock = Mock(spec=DummyService)
+        c.unregister(DummyService)
+        c.register(DummyService, factory=lambda: mock, lifetime=Lifetime.SINGLETON)
+        resolved = c.resolve(DummyService)
+        assert resolved is mock
+        # verify mock behaves as DummyService (spec mock) and can be reconfigured
+        mock2 = Mock()
+        mock2.hello.return_value = "mocked"
+        c.unregister(DummyService)
+        c.register(DummyService, factory=lambda: mock2, lifetime=Lifetime.SINGLETON)
+        assert c.resolve(DummyService).hello() == "mocked"
+
+    def test_mock_factory_transient_gives_mock_each_time(self):
+        from unittest.mock import Mock
+
+        c = Container()
+        mock_a = Mock(spec=DummyService)
+        mock_b = Mock(spec=DummyService)
+        calls = [mock_a, mock_b]
+
+        c.register(DummyService, factory=lambda: calls.pop(0), lifetime=Lifetime.TRANSIENT)
+        assert c.resolve(DummyService) is mock_a
+        assert c.resolve(DummyService) is mock_b
+
+    def test_mock_in_scoped_scope(self):
+        from unittest.mock import Mock
+
+        c = Container()
+        mock = Mock(spec=DummyService)
+        c.register(DummyService, factory=lambda: mock, lifetime=Lifetime.SCOPED)
+        with c.create_scope() as scope:
+            assert scope.resolve(DummyService) is mock
+            assert scope.resolve(DummyService) is mock

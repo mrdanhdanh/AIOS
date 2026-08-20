@@ -172,6 +172,13 @@ class Container:
         finally:
             scope._scoped_instances.clear()
 
+    # Alias required by M1 canonical spec: container must expose register/resolve/scope
+    @contextmanager
+    def scope(self):
+        """Alias for :meth:`create_scope` (canonical name per TASK-003 spec)."""
+        with self.create_scope() as s:
+            yield s
+
     # ------------------------------------------------------------------
     def is_registered(self, service_type: type) -> bool:
         """Return True if *service_type* has a registration."""

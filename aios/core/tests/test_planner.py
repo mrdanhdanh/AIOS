@@ -128,3 +128,24 @@ class TestExecutionPlan:
         assert s["plan_id"] == "p1"
         assert s["total_steps"] == 1
         assert s["status_counts"]["PENDING"] == 1
+
+
+class TestStepVocabulary:
+    """Verify canonical M1 vocabulary: Plan/Step/Dependency/Input/Output/Status."""
+
+    def test_inputs_outputs_fields(self):
+        s = Step(step_id="s1", action="x", inputs={"a": 1}, outputs={"b": 2})
+        assert s.inputs == {"a": 1}
+        assert s.outputs == {"b": 2}
+        # defaults are empty dicts
+        s2 = Step(step_id="s2", action="y")
+        assert s2.inputs == {}
+        assert s2.outputs == {}
+
+    def test_dependencies_field(self):
+        s = Step(step_id="s1", action="x", dependencies=["s0"])
+        assert s.dependencies == ["s0"]
+
+    def test_metadata_still_available(self):
+        s = Step(step_id="s1", action="x", metadata={"k": "v"})
+        assert s.metadata == {"k": "v"}
