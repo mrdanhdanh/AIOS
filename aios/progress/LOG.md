@@ -91,3 +91,23 @@ Append-only event log. Each entry: `ISO-UTC | task | event | detail`.
 2026-08-20T00:00:00Z | TASK-007 | EVALUATING | all 10 acceptance criteria verified.
 2026-08-20T00:00:00Z | TASK-007 | REGRESSION | dependency closure {TASK-003} green; full suite 326/326 PASS.
 2026-08-20T00:00:00Z | TASK-007 | DONE | All acceptance criteria PASS; 326 tests green; Unified Gate PASS.
+2026-08-20T00:10:00Z | TASK-009 | SPECIFIED | spec.md written.
+2026-08-20T00:10:00Z | TASK-009 | CRITIQUED_1 | critique-1.md written (APPROVE).
+2026-08-20T00:10:00Z | TASK-009 | CRITIQUED_2 | critique-2.md written (APPROVE).
+2026-08-20T00:10:00Z | TASK-009 | BROKEN_DOWN | tasks.md written (15 steps).
+2026-08-20T00:10:00Z | TASK-009 | REVIEWED | review.md written (APPROVED).
+2026-08-20T00:10:00Z | TASK-009 | IMPLEMENTING | capability contracts + capability/prompt/catalog/graph + kernel wiring (4 singletons) + runtime layering.
+2026-08-20T00:10:00Z | TASK-009 | TESTING | 94 capability-specific + 376 existing = 470 total passing.
+2026-08-20T00:10:00Z | TASK-009 | EVALUATING | all 10 acceptance criteria verified (AC-009-01..10).
+2026-08-20T00:10:00Z | TASK-009 | REGRESSION | dependency closure {TASK-003} green; full suite 470/470 PASS; layering OK.
+2026-08-20T00:10:00Z | TASK-009 | DONE | All acceptance criteria PASS; 470 tests green; Unified Gate PASS.
+2026-08-20T23:30:00Z | TASK-008 | SPECIFIED | spec.md written (redone from scratch).
+2026-08-20T23:30:00Z | TASK-008 | CRITIQUED_1 | critique-1.md written (APPROVE).
+2026-08-20T23:30:00Z | TASK-008 | CRITIQUED_2 | critique-2.md written (APPROVE).
+2026-08-20T23:30:00Z | TASK-008 | BROKEN_DOWN | tasks.md written (10 steps).
+2026-08-20T23:30:00Z | TASK-008 | REVIEWED | review.md written (APPROVED).
+2026-08-20T23:30:00Z | TASK-008 | IMPLEMENTING | workflow package (contracts/definition/validation/compiler/simulation/__init__) + cli/workflow_cli.py + pyproject entry point.
+2026-08-20T23:30:00Z | TASK-008 | TESTING | 39 workflow + 5 architecture + 470 existing = 514 total passing (redone from scratch).
+2026-08-20T23:30:00Z | TASK-008 | EVALUATING | all 7 acceptance criteria verified (AC-008-01..07); CLI simulate/validate PASS with llm_calls=0 tool_calls=0.
+2026-08-20T23:30:00Z | TASK-008 | REGRESSION | dependency closure {TASK-003} green; full suite 514/514 PASS; no architecture violations.
+2026-08-20T23:30:00Z | TASK-008 | DONE | All acceptance criteria PASS; 514 tests green; Unified Gate PASS (redone from scratch).

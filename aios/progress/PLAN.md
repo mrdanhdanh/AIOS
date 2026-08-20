@@ -11,13 +11,13 @@ Ordered task index and status. Status values: `PLANNED | SPECIFIED | ... | DONE 
 | TASK-005 | M1 | Runtime Services II | TASK-004 | DONE |
 | TASK-006 | M1 | Model Contract + Provider Registry | TASK-004,TASK-005 | DONE |
 | TASK-007 | M1 | Memory + Knowledge | TASK-003 | DONE |
-| TASK-008 | M1 | Workflow Definition + Compiler | TASK-003 | READY |
-| TASK-009 | M1 | Capability Foundation | TASK-003 | READY |
-| TASK-011 | M1 | M1 Remediation / Architecture Hardening | TASK-005,TASK-009 | PLANNED |
+| TASK-008 | M1 | Workflow Definition + Compiler | TASK-003 | DONE |
+| TASK-009 | M1 | Capability Foundation | TASK-003 | DONE |
+| TASK-011 | M1 | M1 Remediation / Architecture Hardening | TASK-005,TASK-009 | READY |
 
 > TASK-010 is intentionally sequenced after TASK-011 in this index to keep the
 > M1 hardening gate coherent; see the master spec for canonical ordering.
 
 ## Next action
 
-TASK-007 is `DONE` (326 tests green, Unified Gate PASS). Next: TASK-008 and TASK-009 remain `READY` (dependencies TASK-003 DONE).
+TASK-008 `DONE` (514 tests, AC-008-01..07 PASS, redone from scratch) and TASK-009 `DONE` (470 tests). Next: TASK-011 remains `READY`.

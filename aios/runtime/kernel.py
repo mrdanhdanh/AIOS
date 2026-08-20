@@ -20,6 +20,11 @@ from typing import Optional
 from aios.core.container import Container, Lifetime
 from aios.core.events import EventBus
 
+from aios.capability.capability import CapabilityRegistry
+from aios.capability.catalog import SystemCatalog
+from aios.capability.graph import KnowledgeGraph
+from aios.capability.prompt import PromptRegistry
+
 from .artifact import ArtifactStore
 from .audit import AuditTrail
 from .context import ContextStore
@@ -71,6 +76,11 @@ class RuntimeKernel:
         # TASK-007 services (memory + knowledge).
         c.register(MemoryStore, MemoryStore, Lifetime.SINGLETON)
         c.register(KnowledgeIndex, KnowledgeIndex, Lifetime.SINGLETON)
+        # TASK-009 services (capability foundation — 4 singletons).
+        c.register(CapabilityRegistry, CapabilityRegistry, Lifetime.SINGLETON)
+        c.register(PromptRegistry, PromptRegistry, Lifetime.SINGLETON)
+        c.register(SystemCatalog, SystemCatalog, Lifetime.SINGLETON)
+        c.register(KnowledgeGraph, KnowledgeGraph, Lifetime.SINGLETON)
         # Executor is composed with full chain (Policy → Resource → Scheduler → State)
         # per spec §2 chain — no execution path bypasses Policy/Resource.
         c.register(
@@ -136,6 +146,22 @@ class RuntimeKernel:
     def knowledge(self) -> KnowledgeIndex:
         return self.container.resolve(KnowledgeIndex)
 
+    @property
+    def capabilities(self) -> CapabilityRegistry:
+        return self.container.resolve(CapabilityRegistry)
+
+    @property
+    def prompts(self) -> PromptRegistry:
+        return self.container.resolve(PromptRegistry)
+
+    @property
+    def catalog(self) -> SystemCatalog:
+        return self.container.resolve(SystemCatalog)
+
+    @property
+    def graph(self) -> KnowledgeGraph:
+        return self.container.resolve(KnowledgeGraph)
+
     # ------------------------------------------------------------------ #
     def health(self) -> dict:
         """Lightweight health snapshot of the wired services."""
@@ -151,5 +177,10 @@ class RuntimeKernel:
             "knowledge_docs": len(self.knowledge),
             "knowledge_chunks": self.knowledge.chunk_count,
             "knowledge_sources": self.knowledge.source_count,
+            "capabilities": len(self.capabilities),
+            "prompts": len(self.prompts),
+            "catalog_entries": len(self.catalog),
+            "graph_nodes": self.graph.node_count,
+            "graph_edges": self.graph.edge_count,
             "bus_registered": True,
         }

@@ -3,11 +3,11 @@
 | Metric | Value |
 |--------|-------|
 | Total tasks (master spec) | 182 |
-| Tasks DONE | 7 |
-| Tasks READY | 2 |
-| Tasks PLANNED | 173 |
+| Tasks DONE | 9 |
+| Tasks READY | 1 |
+| Tasks PLANNED | 172 |
 | Governance modules | 7 (+ unified gate) |
-| Automated gate tests | 326 |
+| Automated gate tests | 514 |
 | Architecture rules (ARCH-001..004) | 4 |
 | Lifecycle states | 12 |
 
@@ -88,6 +88,27 @@
 | runtime/knowledge | 33 |
 | **Subtotal** | **60** |
 
+## Per-module test counts (TASK-009)
+
+| Module | Tests |
+|--------|-------|
+| capability/capability | 34 |
+| capability/prompt | 27 |
+| capability/catalog | 24 |
+| capability/graph | 38 |
+| capability/architecture | 5 |
+| capability/kernel_wiring | 5 |
+| harness delta (existing suites re-collected) | 11 |
+| **Subtotal** | **144** |
+
+## Per-module test counts (TASK-008)
+
+| Module | Tests |
+|--------|-------|
+| runtime/workflow (definition/validation/compiler/simulation/CLI/contract) | 39 |
+| runtime/workflow/architecture | 5 |
+| **Subtotal** | **44** |
+
 ## Grand total
 
-| **Total** | **326** |
+| **Total** | **514** |
