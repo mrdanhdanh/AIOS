@@ -59,6 +59,15 @@ from .providers import (
     UsageRecord,
     select_model,
 )
+from .memory import MemoryEntry, MemoryError, MemoryStore, MemoryType
+from .knowledge import (
+    KnowledgeDocument,
+    KnowledgeError,
+    KnowledgeHit,
+    KnowledgeIndex,
+    KnowledgeSource,
+    KnowledgeSourceType,
+)
 
 __all__ = [
     # context
@@ -125,4 +134,15 @@ __all__ = [
     "RegistryError",
     "ProviderRegistry",
     "select_model",
+    # memory + knowledge (TASK-007)
+    "MemoryError",
+    "MemoryType",
+    "MemoryEntry",
+    "MemoryStore",
+    "KnowledgeError",
+    "KnowledgeSourceType",
+    "KnowledgeSource",
+    "KnowledgeDocument",
+    "KnowledgeHit",
+    "KnowledgeIndex",
 ]

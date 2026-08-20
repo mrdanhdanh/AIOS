@@ -3,11 +3,11 @@
 | Metric | Value |
 |--------|-------|
 | Total tasks (master spec) | 182 |
-| Tasks DONE | 6 |
-| Tasks READY | 3 |
+| Tasks DONE | 7 |
+| Tasks READY | 2 |
 | Tasks PLANNED | 173 |
 | Governance modules | 7 (+ unified gate) |
-| Automated gate tests | 266 |
+| Automated gate tests | 326 |
 | Architecture rules (ARCH-001..004) | 4 |
 | Lifecycle states | 12 |
 
@@ -36,10 +36,6 @@
 | core/healthcheck | 8 |
 | core/smoke | 5 |
 | **Subtotal** | **43** |
-
-## Grand total
-
-| **Total** | **160** |
 
 ## Per-module test counts (TASK-003)
 
@@ -83,3 +79,15 @@
 | runtime/providers/adapters | 10 |
 | runtime/providers/registry | 12 |
 | **Subtotal** | **27** |
+
+## Per-module test counts (TASK-007)
+
+| Module | Tests |
+|--------|-------|
+| runtime/memory | 27 |
+| runtime/knowledge | 33 |
+| **Subtotal** | **60** |
+
+## Grand total
+
+| **Total** | **326** |

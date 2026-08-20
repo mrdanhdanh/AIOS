@@ -19,4 +19,4 @@
 
 ## Regression
 - Dependency closure of TASK-001 is empty -> green by definition.
-- Full suite (`python -m pytest aios -q`) is green (38 tests).
+- Full suite (`python -m pytest aios/governance -q`) is green (39 tests: 6 registry + 5 dependency + 4 lifecycle + 3 evidence + 6 architecture + 4 deterministic + 3 regression + 4 unified gate + 4 agents).

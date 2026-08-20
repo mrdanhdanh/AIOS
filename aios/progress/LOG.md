@@ -80,3 +80,14 @@ Append-only event log. Each entry: `ISO-UTC | task | event | detail`.
 2026-08-19T00:08:00Z | TASK-006 | DONE | All acceptance criteria PASS; 266 tests green; Unified Gate PASS.
 2026-08-19T00:08:00Z | TASK-007 | READY | dependency TASK-003 DONE.
 ```
+2026-08-20T00:00:00Z | TASK-007 | CREATED | Memory + Knowledge initialized.
+2026-08-20T00:00:00Z | TASK-007 | SPECIFIED | spec.md written.
+2026-08-20T00:00:00Z | TASK-007 | CRITIQUED_1 | critique-1.md written (APPROVE).
+2026-08-20T00:00:00Z | TASK-007 | CRITIQUED_2 | critique-2.md written (APPROVE).
+2026-08-20T00:00:00Z | TASK-007 | BROKEN_DOWN | tasks.md written.
+2026-08-20T00:00:00Z | TASK-007 | REVIEWED | review.md written (APPROVED).
+2026-08-20T00:00:00Z | TASK-007 | IMPLEMENTING | memory.py + knowledge.py + kernel wiring + runtime exports.
+2026-08-20T00:00:00Z | TASK-007 | TESTING | 60 new automated tests passing (326 total).
+2026-08-20T00:00:00Z | TASK-007 | EVALUATING | all 10 acceptance criteria verified.
+2026-08-20T00:00:00Z | TASK-007 | REGRESSION | dependency closure {TASK-003} green; full suite 326/326 PASS.
+2026-08-20T00:00:00Z | TASK-007 | DONE | All acceptance criteria PASS; 326 tests green; Unified Gate PASS.

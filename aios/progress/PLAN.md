@@ -10,7 +10,7 @@ Ordered task index and status. Status values: `PLANNED | SPECIFIED | ... | DONE 
 | TASK-004 | M1 | Runtime Services I | TASK-003 | DONE |
 | TASK-005 | M1 | Runtime Services II | TASK-004 | DONE |
 | TASK-006 | M1 | Model Contract + Provider Registry | TASK-004,TASK-005 | DONE |
-| TASK-007 | M1 | Memory + Knowledge | TASK-003 | READY |
+| TASK-007 | M1 | Memory + Knowledge | TASK-003 | DONE |
 | TASK-008 | M1 | Workflow Definition + Compiler | TASK-003 | READY |
 | TASK-009 | M1 | Capability Foundation | TASK-003 | READY |
 | TASK-011 | M1 | M1 Remediation / Architecture Hardening | TASK-005,TASK-009 | PLANNED |
@@ -20,6 +20,4 @@ Ordered task index and status. Status values: `PLANNED | SPECIFIED | ... | DONE 
 
 ## Next action
 
-TASK-006 is `DONE` (Unified Gate PASS, 266 tests green). TASK-007 is `READY`
-(its dependency TASK-003 is `DONE`). Begin with `spec.md` in
-`aios/progress/tasks/TASK-007/`.
+TASK-007 is `DONE` (326 tests green, Unified Gate PASS). Next: TASK-008 and TASK-009 remain `READY` (dependencies TASK-003 DONE).

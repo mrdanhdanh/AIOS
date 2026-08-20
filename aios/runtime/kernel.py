@@ -23,6 +23,8 @@ from .artifact import ArtifactStore
 from .audit import AuditTrail
 from .context import ContextStore
 from .execution import Executor
+from .knowledge import KnowledgeIndex
+from .memory import MemoryStore
 from .permission import PermissionBroker
 from .policy import PolicyEngine
 from .resource import ResourcePool
@@ -56,6 +58,9 @@ class RuntimeKernel:
         c.register(Scheduler, Scheduler, Lifetime.SINGLETON)
         c.register(StateStore, StateStore, Lifetime.SINGLETON)
         c.register(ResourcePool, ResourcePool, Lifetime.SINGLETON)
+        # TASK-007 services (memory + knowledge).
+        c.register(MemoryStore, MemoryStore, Lifetime.SINGLETON)
+        c.register(KnowledgeIndex, KnowledgeIndex, Lifetime.SINGLETON)
         # Executor depends on the wired policy/audit/context services.
         c.register(
             Executor,
@@ -104,6 +109,14 @@ class RuntimeKernel:
     def executor(self) -> Executor:
         return self.container.resolve(Executor)
 
+    @property
+    def memory(self) -> MemoryStore:
+        return self.container.resolve(MemoryStore)
+
+    @property
+    def knowledge(self) -> KnowledgeIndex:
+        return self.container.resolve(KnowledgeIndex)
+
     # ------------------------------------------------------------------ #
     def health(self) -> dict:
         """Lightweight health snapshot of the wired services."""
@@ -114,4 +127,7 @@ class RuntimeKernel:
             "scheduler_pending": len(self.scheduler),
             "state_checkpoints": len(self.state),
             "resources_registered": len(self.resources._capacity),
+            "memory_entries": len(self.memory),
+            "knowledge_docs": len(self.knowledge),
+            "knowledge_sources": self.knowledge.source_count,
         }
