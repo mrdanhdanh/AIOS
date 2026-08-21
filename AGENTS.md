@@ -118,7 +118,7 @@ Use `aios.core.container` (singleton/scoped/transient, thread-safe), `aios.core.
 
 ## 10. Conventions & pitfalls
 
-* **Python ≥3.11**, `pyyaml` only runtime dep. Run `pip install -e ".[dev]"` before `pytest`.
+* **Python ≥3.11**, `pyyaml` only runtime dep. Run `pip install -e ".[dev]"` before `pytest`; `pip install -e ".[api]"` for FastAPI (`TASK-017+` only), `pip install -e ".[dev,api]"` for both. `fastapi`/`pydantic`/`uvicorn` are **not** in base deps — `ModuleNotFoundError: fastapi` before TASK-017 is expected.
 * **Never** add `subprocess`/`os`/provider/filesystem imports inside `aios/agents/` — architecture gate fails closed on parse errors too.
 * **Never** bypass Runtime/Capability/Permission/Policy — agents receive capabilities via injection.
 * **Naming:** task IDs `TASK-xxx` are immutable and never reused, even after deprecation.
@@ -126,8 +126,10 @@ Use `aios.core.container` (singleton/scoped/transient, thread-safe), `aios.core.
 * **Auto-COMMIT (Quy tắc 8):** TASK đã lên lịch trong `AIOS_Master_Task_Specification_M0-M26.md` khi đạt `DONE` phải commit ngay trong cùng phiên (`TASK-xxx: <title> — DONE` + `PLAN.md`/`LOG.md`/`STATS.md`); cấm để working tree bẩn sang task sau.
 * **Spec-first:** trước khi claim `PASS`/`DONE`, phải đọc `docs/detailtask/T00X.md` + `aios/progress/tasks/TASK-00X/` và đối chiếu từng AC trong bảng — không đoán.
 * **Không khôi phục:** khi user nói "không khôi phục / làm lại từ đầu / không được khôi phục", xóa/recreate từ `aios/progress/tasks/_TEMPLATE/` — không reuse `implementation/` cũ.
-* **Chẩn đoán trước khi retry:** cấm `Try Again` trống. Khi fail, chạy `gate_check` + `pytest -q` rồi báo `Violation(rule,module,line)` / test failure trước khi thử lại.
+* **Chẩn đoán trước khi retry (bắt buộc):** cấm `Try Again`/`retry`/`thử lại`/`fix`/`sửa giúp tôi` trống. Khi fail phải chạy `python aios/governance/cli/gate_check.py --task TASK-00X` + `python -m pytest aios -q` rồi báo `Violation(rule,module,line)` hoặc test failure cụ thể trước khi thử lại. User cũng phải dán lỗi đầy đủ, không nói chung chung.
+* **PowerShell contract (Windows):** workspace chạy PowerShell — cấm bash-isms `head`, `&&`, `grep`, `2>&1 | head`. Dùng `pip show fastapi`, `pip list | Select-String fastapi`, `Select-Object -First 20`, `;` cho sequence. Kiểm tra `pyproject.toml` dependencies trước khi kết luận thiếu package.
 * **Workspace path:** luôn dùng path tương đối `${workspaceFolder}` (`d:\AIOS` / `aios/...`); cấm hardcode `OneDrive\Desktop\AIAGENT` legacy.
+* **Session hygiene:** sau ~15 turns hoặc paste >2k chars, chạy `/compact` hoặc mở session mới; ưu tiên file reference thay vì paste dài; 0 checkpoints hiện tại — session dài không compact làm tăng input tokens mỗi turn.
 * **Logging:** JSON via `aios.core.logging`; config via `AIOS_*` env overrides.
 * **Docs:** detailed specs in [`docs/AIOS_Master_Task_Specification_M0-M26.md`](docs/AIOS_Master_Task_Specification_M0-M26.md) and [`docs/detailtask/`](docs/detailtask/) — link, don't duplicate.
 * For architecture violations, run `python -m pytest aios/governance/architecture -q` and inspect `Violation(rule, module, detail, line)`.
