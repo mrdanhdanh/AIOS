@@ -33,7 +33,8 @@ Ordered task index and status. Status values: `PLANNED | SPECIFIED | ... | DONE 
 | TASK-022 | M4 | Orchestrator v2 | TASK-021 | DONE |
 | TASK-023 | M5 | Memory Coordinator | TASK-022 | DONE |
 | TASK-024 | M5 | Context Optimizer | TASK-023 | DONE |
+| TASK-025 | M5 | Model Router | TASK-024 | DONE |
 
 ## Next action
 
-TASK-024 `DONE` (1670 tests, 21 context optimizer + 1649 inherited, AC-024-01..17 PASS). Next: TASK-025 `READY` (Model Router).
+TASK-025 `DONE` (1681 tests, 11 model router + 1670 inherited, AC-025-01..17 PASS). Next: TASK-026 `READY` (Planning Engine).
