@@ -34,7 +34,10 @@ Ordered task index and status. Status values: `PLANNED | SPECIFIED | ... | DONE 
 | TASK-023 | M5 | Memory Coordinator | TASK-022 | DONE |
 | TASK-024 | M5 | Context Optimizer | TASK-023 | DONE |
 | TASK-025 | M5 | Model Router | TASK-024 | DONE |
+| TASK-026 | M5 | Planning Engine | TASK-025 | DONE |
+| TASK-027 | M5 | Execution Graph | TASK-026 | DONE |
+| TASK-028 | M5 | Parallel Scheduler | TASK-027 | DONE |
 
 ## Next action
 
-TASK-025 `DONE` (1681 tests, 11 model router + 1670 inherited, AC-025-01..17 PASS). Next: TASK-026 `READY` (Planning Engine).
+TASK-028 `DONE` (1717 tests, 36 new for M5 core intelligence tasks, AC-026/027/028 PASS). M5 COMPLETE. Next: TASK-029 `READY` (Harness Kernel).
