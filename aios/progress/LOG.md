@@ -154,3 +154,14 @@ Append-only event log. Each entry: `ISO-UTC | task | event | detail`.
 2026-08-21T03:00:00Z | TASK-013 | EVALUATING | all 11 acceptance criteria verified (AC-013-01..11).
 2026-08-21T03:00:00Z | TASK-013 | REGRESSION | dependency closure {TASK-010, TASK-012, M1} green; full suite 851/851 PASS; no architecture violations.
 2026-08-21T03:00:00Z | TASK-013 | DONE | All acceptance criteria PASS; 851 tests green; Unified Gate PASS.
+2026-08-21T04:00:00Z | TASK-014 | READY | dependency TASK-013 DONE.
+2026-08-21T04:00:00Z | TASK-014 | SPECIFIED | spec.md written.
+2026-08-21T04:00:00Z | TASK-014 | CRITIQUED_1 | critique-1.md written (APPROVE).
+2026-08-21T04:00:00Z | TASK-014 | CRITIQUED_2 | critique-2.md written (APPROVE).
+2026-08-21T04:00:00Z | TASK-014 | BROKEN_DOWN | tasks.md written (10 steps).
+2026-08-21T04:00:00Z | TASK-014 | REVIEWED | review.md written (APPROVED).
+2026-08-21T04:00:00Z | TASK-014 | IMPLEMENTING | tool package (contracts/registry/adapters) + capability_router + kernel wiring + capability health 5-state + 163 tests.
+2026-08-21T04:00:00Z | TASK-014 | TESTING | 163 tool+router + 851 existing = 1014 total passing.
+2026-08-21T04:00:00Z | TASK-014 | EVALUATING | all 12 acceptance criteria verified (AC-014-01..12).
+2026-08-21T04:00:00Z | TASK-014 | REGRESSION | dependency closure {M1, TASK-010, TASK-012, TASK-013} green; full suite 1014/1014 PASS; no architecture violations.
+2026-08-21T04:00:00Z | TASK-014 | DONE | All acceptance criteria PASS; 1014 tests green; Unified Gate PASS.

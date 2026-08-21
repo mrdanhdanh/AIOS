@@ -25,6 +25,8 @@ from aios.capability.catalog import SystemCatalog
 from aios.capability.graph import KnowledgeGraph
 from aios.capability.prompt import PromptRegistry
 
+from aios.tool.registry import ToolRegistry
+
 from .artifact import ArtifactStore
 from .audit import AuditTrail
 from .context import ContextStore
@@ -81,6 +83,20 @@ class RuntimeKernel:
         c.register(PromptRegistry, PromptRegistry, Lifetime.SINGLETON)
         c.register(SystemCatalog, SystemCatalog, Lifetime.SINGLETON)
         c.register(KnowledgeGraph, KnowledgeGraph, Lifetime.SINGLETON)
+        # TASK-014 services (tool + capability router).
+        c.register(ToolRegistry, ToolRegistry, Lifetime.SINGLETON)
+        # CapabilityRouter is at runtime layer — resolves Capability → Tool via health/priority/policy
+        from .capability_router import CapabilityRouter
+
+        c.register(
+            CapabilityRouter,
+            factory=lambda: CapabilityRouter(
+                tool_registry=c.resolve(ToolRegistry),
+                capability_registry=c.resolve(CapabilityRegistry),
+                policy_engine=c.resolve(PolicyEngine),
+            ),
+            lifetime=Lifetime.SINGLETON,
+        )
         # Executor is composed with full chain (Policy → Resource → Scheduler → State)
         # per spec §2 chain — no execution path bypasses Policy/Resource.
         c.register(
@@ -162,6 +178,16 @@ class RuntimeKernel:
     def graph(self) -> KnowledgeGraph:
         return self.container.resolve(KnowledgeGraph)
 
+    @property
+    def tools(self) -> ToolRegistry:
+        return self.container.resolve(ToolRegistry)
+
+    @property
+    def router(self) -> Any:
+        from .capability_router import CapabilityRouter
+
+        return self.container.resolve(CapabilityRouter)
+
     # ------------------------------------------------------------------ #
     def health(self) -> dict:
         """Lightweight health snapshot of the wired services."""
@@ -182,5 +208,6 @@ class RuntimeKernel:
             "catalog_entries": len(self.catalog),
             "graph_nodes": self.graph.node_count,
             "graph_edges": self.graph.edge_count,
+            "tools": len(self.tools),
             "bus_registered": True,
         }

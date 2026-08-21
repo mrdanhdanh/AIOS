@@ -157,6 +157,25 @@ class CapabilityContract:
 
 
 # ---------------------------------------------------------------------------
+# Health — 5-state per TASK-014 §7 (backward compat with M1 healthy/unhealthy)
+# ---------------------------------------------------------------------------
+_TOOL_HEALTH_VALUES = {"unknown", "healthy", "degraded", "unhealthy", "disabled"}
+# Eligible for routing: healthy + degraded (degraded if policy allows)
+_ELIGIBLE_HEALTH = {"healthy", "degraded"}
+
+
+def _normalize_health(health: str) -> str:
+    h = health.lower().strip() if isinstance(health, str) else str(health)
+    if h not in _TOOL_HEALTH_VALUES:
+        raise CapabilityError(f"health must be one of {sorted(_TOOL_HEALTH_VALUES)}, got {health!r}")
+    return h
+
+
+def _is_eligible_health(health: str) -> bool:
+    return _normalize_health(health) in _ELIGIBLE_HEALTH
+
+
+# ---------------------------------------------------------------------------
 # Registry
 # ---------------------------------------------------------------------------
 @dataclass(order=True)
@@ -164,7 +183,7 @@ class _ToolMapping:
     priority: int
     seq: int
     tool_id: str = field(compare=False)
-    health: str = field(compare=False)  # "healthy" | "unhealthy"
+    health: str = field(compare=False)  # "unknown" | "healthy" | "degraded" | "unhealthy" | "disabled"
 
 
 class CapabilityRegistry:
@@ -239,8 +258,7 @@ class CapabilityRegistry:
     ) -> None:
         if not isinstance(tool_id, str) or not tool_id.strip():
             raise CapabilityError("tool_id must be a non-empty string")
-        if health not in ("healthy", "unhealthy"):
-            raise CapabilityError("health must be 'healthy' or 'unhealthy'")
+        _normalize_health(health)
         if not isinstance(priority, int):
             raise CapabilityError("priority must be int")
         with self._lock:
@@ -256,8 +274,7 @@ class CapabilityRegistry:
             lst.sort()  # priority asc, seq asc (deterministic)
 
     def set_tool_health(self, capability_id: str, tool_id: str, health: str) -> None:
-        if health not in ("healthy", "unhealthy"):
-            raise CapabilityError("health must be 'healthy' or 'unhealthy'")
+        _normalize_health(health)
         with self._lock:
             lst = self._tool_map.get(capability_id)
             if lst is None:
@@ -269,13 +286,17 @@ class CapabilityRegistry:
             raise CapabilityError(f"tool {tool_id!r} not mapped to {capability_id!r}")
 
     def resolve(self, capability_id: str, *, include_unhealthy: bool = False) -> List[str]:
-        """Return ordered tool_ids for capability (priority → registration order)."""
+        """Return ordered tool_ids for capability (priority → registration order).
+
+        When ``include_unhealthy`` is False (default), only HEALTHY + DEGRADED
+        are returned (UNKNOWN/UNHEALTHY/DISABLED are rejected — fail-closed).
+        """
         with self._lock:
             if capability_id not in self._caps:
                 raise CapabilityError(f"unknown capability: {capability_id!r}")
             lst = list(self._tool_map.get(capability_id, []))
         if not include_unhealthy:
-            lst = [m for m in lst if m.health == "healthy"]
+            lst = [m for m in lst if _is_eligible_health(m.health)]
         lst.sort()
         return [m.tool_id for m in lst]
 

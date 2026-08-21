@@ -21,7 +21,8 @@ Ordered task index and status. Status values: `PLANNED | SPECIFIED | ... | DONE 
 
 | TASK-012 | M2 | Operational Orchestration | TASK-010 | DONE |
 | TASK-013 | M2 | Worker Plane | TASK-010,TASK-012 | DONE |
+| TASK-014 | M2 | Tool + Capability Layer | TASK-010,TASK-012,TASK-013 | DONE |
 
 ## Next action
 
-TASK-013 `DONE` (851 tests, 161 worker + 690 inherited, AC-013-01..11 PASS). Next: TASK-014 `READY` (Tool + Capability Layer).
+TASK-014 `DONE` (1014 tests, 163 tool+router + 851 inherited, AC-014-01..12 PASS). Next: TASK-015 `READY` (Plugin / Skill Execution).

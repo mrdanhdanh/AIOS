@@ -3,11 +3,11 @@
 | Metric | Value |
 |--------|-------|
 | Total tasks (master spec) | 182 |
-| Tasks DONE | 13 |
+| Tasks DONE | 14 |
 | Tasks READY | 1 |
-| Tasks PLANNED | 168 |
+| Tasks PLANNED | 167 |
 | Governance modules | 7 (+ unified gate) |
-| Automated gate tests | 851 |
+| Automated gate tests | 1014 |
 | Architecture rules (ARCH-001..004) | 4 |
 | Lifecycle states | 12 |
 
@@ -154,6 +154,19 @@
 | worker/integration | 14 |
 | **Subtotal** | **161** |
 
+## Per-module test counts (TASK-014 — Tool + Capability Layer)
+
+| Module | Tests |
+|--------|-------|
+| tool/contracts | 32 |
+| tool/registry | 38 |
+| tool/adapters | 42 |
+| tool/router | 38 |
+| tool/policy_integration | 10 |
+| tool/architecture | 8 |
+| runtime/capability_router | 7 |
+| **Subtotal** | **163** |
+
 ## Grand total
 
-| **Total** | **851** |
+| **Total** | **1014** |
