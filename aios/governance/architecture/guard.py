@@ -34,6 +34,9 @@ class GateResult:
 LAYER_ORDER = ["agent", "orchestrator", "runtime", "capability", "tool"]
 
 # Map a path/module segment (singular or plural) to a layer.
+# ``core``/``governance``/``harness``/``progress`` are infra/meta layers and
+# map to ``unknown`` so they never trigger ARCH-004 false positives on stdlib
+# or infra imports; ``kernel`` is the runtime composition root → ``runtime``.
 LAYER_KEYWORDS = {
     "agent": "agent",
     "agents": "agent",
@@ -44,12 +47,20 @@ LAYER_KEYWORDS = {
     "capabilities": "capability",
     "tool": "tool",
     "tools": "tool",
+    "core": "unknown",
+    "governance": "unknown",
+    "harness": "unknown",
+    "kernel": "runtime",
+    "workflow": "runtime",
+    "providers": "tool",
+    "provider": "tool",
+    "progress": "unknown",
 }
 
 
 def classify_module(module_path: str) -> str:
     """Classify a module into a layer based on its path. Unknown -> 'unknown'."""
-    lowered = module_path.replace("\\", "/").lower()
+    lowered = module_path.replace("\\", "/").lower().replace(".", "/")
     for segment in lowered.split("/"):
         if segment in LAYER_KEYWORDS:
             return LAYER_KEYWORDS[segment]
@@ -69,12 +80,16 @@ AGENT_FORBIDDEN = {
 }
 
 # Layer that a given layer is allowed to import (itself and everything below).
+# Hardened for M1 gate (TASK-011): ``agent`` may only import ``orchestrator``
+# or ``unknown`` (no direct runtime/capability/tool), and ``capability`` may
+# only import ``unknown`` (pure abstraction, no tool/runtime). ``unknown``
+# remains in every allow-list so stdlib/third-party never trips ARCH-004.
 ALLOWED_IMPORT_LAYERS: Dict[str, List[str]] = {
-    "agent": ["orchestrator", "runtime", "capability", "tool", "unknown"],
-    "orchestrator": ["runtime", "capability", "tool", "unknown"],
-    "runtime": ["capability", "tool", "unknown"],
-    "capability": ["tool", "unknown"],
-    "tool": ["unknown"],
+    "agent": ["agent", "orchestrator", "unknown"],
+    "orchestrator": ["orchestrator", "runtime", "capability", "tool", "unknown"],
+    "runtime": ["runtime", "capability", "tool", "unknown"],
+    "capability": ["capability", "unknown"],
+    "tool": ["tool", "unknown"],
     "unknown": LAYER_ORDER + ["unknown"],
 }
 

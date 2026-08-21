@@ -3,11 +3,11 @@
 | Metric | Value |
 |--------|-------|
 | Total tasks (master spec) | 182 |
-| Tasks DONE | 9 |
+| Tasks DONE | 10 |
 | Tasks READY | 1 |
-| Tasks PLANNED | 172 |
+| Tasks PLANNED | 171 |
 | Governance modules | 7 (+ unified gate) |
-| Automated gate tests | 514 |
+| Automated gate tests | 544 |
 | Architecture rules (ARCH-001..004) | 4 |
 | Lifecycle states | 12 |
 
@@ -109,6 +109,13 @@
 | runtime/workflow/architecture | 5 |
 | **Subtotal** | **44** |
 
+## Per-module test counts (TASK-011 — M1 Remediation)
+
+| Module | Tests |
+|--------|-------|
+| governance/architecture hardening | 30 |
+| **Subtotal** | **30** |
+
 ## Grand total
 
-| **Total** | **514** |
+| **Total** | **544** |

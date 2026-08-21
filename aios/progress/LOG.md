@@ -111,3 +111,14 @@ Append-only event log. Each entry: `ISO-UTC | task | event | detail`.
 2026-08-20T23:30:00Z | TASK-008 | EVALUATING | all 7 acceptance criteria verified (AC-008-01..07); CLI simulate/validate PASS with llm_calls=0 tool_calls=0.
 2026-08-20T23:30:00Z | TASK-008 | REGRESSION | dependency closure {TASK-003} green; full suite 514/514 PASS; no architecture violations.
 2026-08-20T23:30:00Z | TASK-008 | DONE | All acceptance criteria PASS; 514 tests green; Unified Gate PASS (redone from scratch).
+2026-08-21T00:20:00Z | TASK-011 | SPECIFIED | spec.md written.
+2026-08-21T00:20:00Z | TASK-011 | CRITIQUED_1 | critique-1.md written (APPROVE).
+2026-08-21T00:20:00Z | TASK-011 | CRITIQUED_2 | critique-2.md written (APPROVE).
+2026-08-21T00:20:00Z | TASK-011 | BROKEN_DOWN | tasks.md written (8 steps).
+2026-08-21T00:20:00Z | TASK-011 | REVIEWED | review.md written (APPROVED).
+2026-08-21T00:20:00Z | TASK-011 | IMPLEMENTING | guard.py hardened (LAYER_KEYWORDS core/governance/harness/progress->unknown, kernel/workflow->runtime, providers->tool; dot-aware classify_module) + test_m1_hardening.py 30 tests.
+2026-08-21T00:20:00Z | TASK-011 | TESTING | 30 hardening + 514 existing = 544 total passing.
+2026-08-21T00:20:00Z | TASK-011 | EVALUATING | all 10 acceptance criteria verified (AC-011-01..10); M1 GATE PASS.
+2026-08-21T00:20:00Z | TASK-011 | REGRESSION | dependency closure {TASK-005,TASK-009} green; full suite 544/544 PASS; no architecture violations.
+2026-08-21T00:20:00Z | TASK-011 | DONE | All acceptance criteria PASS; 544 tests green; M1 GATE PASS.
+2026-08-21T00:20:00Z | TASK-010 | READY | dependency TASK-011 DONE.
