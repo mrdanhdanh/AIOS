@@ -43,7 +43,15 @@ Ordered task index and status. Status values: `PLANNED | SPECIFIED | ... | DONE 
 | TASK-032 | M6 | Evaluation Harness | TASK-031 | DONE |
 | TASK-033 | M6 | Benchmark + Regression | TASK-032 | DONE |
 | TASK-034 | M6 | Doctor + Readiness | TASK-033 | DONE |
+| TASK-035 | M7 | Identity + RBAC | — | DONE |
+| TASK-036 | M7 | Multi-Tenancy | — | DONE |
+| TASK-037 | M7 | Distributed Runtime | — | DONE |
+| TASK-038 | M7 | Distributed Scheduler | — | DONE |
+| TASK-039 | M7 | Quota + Cost | — | DONE |
+| TASK-040 | M7 | Credential Isolation | — | DONE |
+| TASK-041 | M7 | HA + Audit + Recovery | — | DONE |
+| TASK-042 | M7 | Enterprise Operations | — | DONE |
 
 ## Next action
 
-TASK-034 `DONE` (1756 tests, 39 new for M6 harness tasks, AC-029/030/031/032/033/034 PASS). M6 COMPLETE. Next: TASK-035 `READY` (Identity + RBAC).
+TASK-042 `DONE` (1798 tests, 42 new for M7 infrastructure tasks, AC-035..042 PASS). M7 COMPLETE. Next: TASK-043 `READY` (Public SDK).
