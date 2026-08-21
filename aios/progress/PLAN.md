@@ -27,7 +27,8 @@ Ordered task index and status. Status values: `PLANNED | SPECIFIED | ... | DONE 
 | TASK-017 | M3 | FastAPI REST + WebSocket | TASK-010,TASK-011,TASK-012,TASK-013,TASK-014,TASK-015,TASK-016 | DONE |
 
 | TASK-018 | M3 | Dashboard SPA | TASK-017 | DONE |
+| TASK-019 | M3 | VS Code Extension | TASK-017 | DONE |
 
 ## Next action
 
-TASK-018 `DONE` (1440 tests, 123 dashboard + 1317 inherited, AC-018-01..10 PASS). Next: TASK-019 `READY` (VS Code Extension).
+TASK-019 `DONE` (1514 tests, 74 extension + 1440 inherited, AC-019-01..10 PASS). Next: TASK-020 `READY` (Upgrade Pipeline).

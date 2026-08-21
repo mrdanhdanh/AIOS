@@ -181,3 +181,14 @@ Append-only event log. Each entry: `ISO-UTC | task | event | detail`.
 2026-08-22T01:00:00Z | TASK-018 | EVALUATING | all 10 acceptance criteria verified (AC-018-01..10).
 2026-08-22T01:00:00Z | TASK-018 | REGRESSION | dependency closure {TASK-017} green; full suite 1440/1440 PASS; arch gate 112/112 PASS.
 2026-08-22T01:00:00Z | TASK-018 | DONE | All AC PASS; 1440 tests green; Unified Gate PASS; Dashboard SPA complete.
+2026-08-22T02:00:00Z | TASK-019 | READY | dependency TASK-017 DONE.
+2026-08-22T02:00:00Z | TASK-019 | SPECIFIED | spec.md written.
+2026-08-22T02:00:00Z | TASK-019 | CRITIQUED_1 | critique-1.md written (APPROVE).
+2026-08-22T02:00:00Z | TASK-019 | CRITIQUED_2 | critique-2.md written (APPROVE).
+2026-08-22T02:00:00Z | TASK-019 | BROKEN_DOWN | tasks.md written (13 steps).
+2026-08-22T02:00:00Z | TASK-019 | REVIEWED | review.md written (APPROVED).
+2026-08-22T02:00:00Z | TASK-019 | IMPLEMENTING | extension package (contracts/workspace/api_client/event_client/config/mock_backend) + 74 tests.
+2026-08-22T02:00:00Z | TASK-019 | TESTING | 74 extension + 1440 existing = 1514 total passing.
+2026-08-22T02:00:00Z | TASK-019 | EVALUATING | all 10 acceptance criteria verified (AC-019-01..10).
+2026-08-22T02:00:00Z | TASK-019 | REGRESSION | dependency closure {TASK-017, TASK-018} green; full suite 1514/1514 PASS.
+2026-08-22T02:00:00Z | TASK-019 | DONE | All AC PASS; 1514 tests green; Unified Gate PASS; VS Code Extension complete.
