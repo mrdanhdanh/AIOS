@@ -51,7 +51,15 @@ Ordered task index and status. Status values: `PLANNED | SPECIFIED | ... | DONE 
 | TASK-040 | M7 | Credential Isolation | — | DONE |
 | TASK-041 | M7 | HA + Audit + Recovery | — | DONE |
 | TASK-042 | M7 | Enterprise Operations | — | DONE |
+| TASK-043 | M8 | Public SDK | — | DONE |
+| TASK-044 | M8 | Plugin Runtime | — | DONE |
+| TASK-045 | M8 | Extension Contracts | — | DONE |
+| TASK-046 | M8 | Ecosystem Registry | — | DONE |
+| TASK-047 | M8 | Developer Kit | — | DONE |
+| TASK-048 | M8 | Ecosystem Hub | — | DONE |
+| TASK-049 | M8 | Certification | — | DONE |
+| TASK-050 | M9 | Autonomous Goal Engine | — | DONE |
 
 ## Next action
 
-TASK-042 `DONE` (1798 tests, 42 new for M7 infrastructure tasks, AC-035..042 PASS). M7 COMPLETE. Next: TASK-043 `READY` (Public SDK).
+TASK-050 `DONE` (1840 tests, 42 new for M8+M9 tasks, AC-043..050 PASS). M8+M9 COMPLETE. ALL TASKS 018-050 DONE.

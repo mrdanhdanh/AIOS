@@ -3,11 +3,11 @@
 | Metric | Value |
 |--------|-------|
 | Total tasks (master spec) | 182 |
-| Tasks DONE | 42 |
+| Tasks DONE | 50 |
 | Tasks READY | 1 |
-| Tasks PLANNED | 140 |
+| Tasks PLANNED | 132 |
 | Governance modules | 7 (+ unified gate) |
-| Automated gate tests | 1798 |
+| Automated gate tests | 1840 |
 | Architecture rules (ARCH-A..H + ARCH-001..004) | 17 |
 | Lifecycle states | 12 |
 
