@@ -170,3 +170,14 @@ Append-only event log. Each entry: `ISO-UTC | task | event | detail`.
 2026-08-22T00:00:00Z | TASK-017 | EVALUATING | all 12 acceptance criteria verified (AC-017-01..12).
 2026-08-22T00:00:00Z | TASK-017 | REGRESSION | dependency closure {TASK-010..016} green; full suite 1317/1317 PASS; arch gate 112/112 PASS.
 2026-08-22T00:00:00Z | TASK-017 | DONE | All AC PASS; 1317 tests green; Unified Gate PASS; API boundary complete.
+2026-08-22T01:00:00Z | TASK-018 | READY | dependency TASK-017 DONE.
+2026-08-22T01:00:00Z | TASK-018 | SPECIFIED | spec.md written.
+2026-08-22T01:00:00Z | TASK-018 | CRITIQUED_1 | critique-1.md written (APPROVE).
+2026-08-22T01:00:00Z | TASK-018 | CRITIQUED_2 | critique-2.md written (APPROVE).
+2026-08-22T01:00:00Z | TASK-018 | BROKEN_DOWN | tasks.md written (13 steps).
+2026-08-22T01:00:00Z | TASK-018 | REVIEWED | review.md written (APPROVED).
+2026-08-22T01:00:00Z | TASK-018 | IMPLEMENTING | dashboard package (client/health/websocket_client/mock_backend/views/server) + 123 tests.
+2026-08-22T01:00:00Z | TASK-018 | TESTING | 123 dashboard + 1317 existing = 1440 total passing.
+2026-08-22T01:00:00Z | TASK-018 | EVALUATING | all 10 acceptance criteria verified (AC-018-01..10).
+2026-08-22T01:00:00Z | TASK-018 | REGRESSION | dependency closure {TASK-017} green; full suite 1440/1440 PASS; arch gate 112/112 PASS.
+2026-08-22T01:00:00Z | TASK-018 | DONE | All AC PASS; 1440 tests green; Unified Gate PASS; Dashboard SPA complete.

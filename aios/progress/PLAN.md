@@ -26,6 +26,8 @@ Ordered task index and status. Status values: `PLANNED | SPECIFIED | ... | DONE 
 | TASK-016 | M2 | Architecture Hardening | TASK-010,TASK-011,TASK-012,TASK-013,TASK-014,TASK-015 | DONE |
 | TASK-017 | M3 | FastAPI REST + WebSocket | TASK-010,TASK-011,TASK-012,TASK-013,TASK-014,TASK-015,TASK-016 | DONE |
 
+| TASK-018 | M3 | Dashboard SPA | TASK-017 | DONE |
+
 ## Next action
 
-TASK-017 `DONE` (1317 tests, 60 API + 1257 inherited, AC-017-01..12 PASS). Next: TASK-018 `READY` (Dashboard SPA).
+TASK-018 `DONE` (1440 tests, 123 dashboard + 1317 inherited, AC-018-01..10 PASS). Next: TASK-019 `READY` (VS Code Extension).
