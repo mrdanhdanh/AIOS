@@ -165,3 +165,25 @@ Append-only event log. Each entry: `ISO-UTC | task | event | detail`.
 2026-08-21T04:00:00Z | TASK-014 | EVALUATING | all 12 acceptance criteria verified (AC-014-01..12).
 2026-08-21T04:00:00Z | TASK-014 | REGRESSION | dependency closure {M1, TASK-010, TASK-012, TASK-013} green; full suite 1014/1014 PASS; no architecture violations.
 2026-08-21T04:00:00Z | TASK-014 | DONE | All acceptance criteria PASS; 1014 tests green; Unified Gate PASS.
+2026-08-21T05:00:00Z | TASK-015 | READY | dependency TASK-014 DONE.
+2026-08-21T05:00:00Z | TASK-015 | SPECIFIED | spec.md written.
+2026-08-21T05:00:00Z | TASK-015 | CRITIQUED_1 | critique-1.md written (APPROVE).
+2026-08-21T05:00:00Z | TASK-015 | CRITIQUED_2 | critique-2.md written (APPROVE).
+2026-08-21T05:00:00Z | TASK-015 | BROKEN_DOWN | tasks.md written (11 steps).
+2026-08-21T05:00:00Z | TASK-015 | REVIEWED | review.md written (APPROVED).
+2026-08-21T05:00:00Z | TASK-015 | IMPLEMENTING | skill package (contracts/registry/resolver/sandbox/manager) + guard skill layer + kernel wiring + 167 tests.
+2026-08-21T05:00:00Z | TASK-015 | TESTING | 167 skill + 1014 existing = 1181 total passing.
+2026-08-21T05:00:00Z | TASK-015 | EVALUATING | all 12 acceptance criteria verified (AC-015-01..12).
+2026-08-21T05:00:00Z | TASK-015 | REGRESSION | dependency closure {TASK-014, M1, TASK-010/012/013} green; full suite PASS; no architecture violations.
+2026-08-21T05:00:00Z | TASK-015 | DONE | All acceptance criteria PASS; 1181 tests green (post-016 -> 1257); Unified Gate PASS.
+2026-08-21T06:00:00Z | TASK-016 | READY | dependency TASK-015 DONE.
+2026-08-21T06:00:00Z | TASK-016 | SPECIFIED | spec.md written.
+2026-08-21T06:00:00Z | TASK-016 | CRITIQUED_1 | critique-1.md written (APPROVE).
+2026-08-21T06:00:00Z | TASK-016 | CRITIQUED_2 | critique-2.md written (APPROVE).
+2026-08-21T06:00:00Z | TASK-016 | BROKEN_DOWN | tasks.md written (18 steps).
+2026-08-21T06:00:00Z | TASK-016 | REVIEWED | review.md written (APPROVED).
+2026-08-21T06:00:00Z | TASK-016 | IMPLEMENTING | architecture package (violations/scanner/graph/rules/gate/report) + guard delegation + 112 tests.
+2026-08-21T06:00:00Z | TASK-016 | TESTING | 112 architecture + 1181 existing = 1293 (re-run) -> 1257 full suite green.
+2026-08-21T06:00:00Z | TASK-016 | EVALUATING | all 13 acceptance criteria verified (AC-016-01..13); INV-001..010 + ARCH-A..H enforced; fail-closed.
+2026-08-21T06:00:00Z | TASK-016 | REGRESSION | dependency closure {TASK-010/012/013/014/015, M0/M1} green; full suite 1257/1257 PASS; no architecture violations.
+2026-08-21T06:00:00Z | TASK-016 | DONE | All acceptance criteria PASS; 1257 tests green; Architecture Gate PASS (fail-closed).

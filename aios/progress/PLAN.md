@@ -22,7 +22,9 @@ Ordered task index and status. Status values: `PLANNED | SPECIFIED | ... | DONE 
 | TASK-012 | M2 | Operational Orchestration | TASK-010 | DONE |
 | TASK-013 | M2 | Worker Plane | TASK-010,TASK-012 | DONE |
 | TASK-014 | M2 | Tool + Capability Layer | TASK-010,TASK-012,TASK-013 | DONE |
+| TASK-015 | M2 | Plugin / Skill Execution | TASK-014 | DONE |
+| TASK-016 | M2 | Architecture Hardening | TASK-010,TASK-012,TASK-013,TASK-014,TASK-015 | DONE |
 
 ## Next action
 
-TASK-014 `DONE` (1014 tests, 163 tool+router + 851 inherited, AC-014-01..12 PASS). Next: TASK-015 `READY` (Plugin / Skill Execution).
+TASK-016 `DONE` (Architecture Gate PASS, fail-closed; 112 architecture + 167 skill = 279 new tests; full suite 1257 PASS; INV-001..010 + ARCH-A..H enforced). M2 complete. Next: M3 tasks (`READY` per master spec).

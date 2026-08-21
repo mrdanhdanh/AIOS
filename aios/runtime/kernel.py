@@ -27,6 +27,11 @@ from aios.capability.prompt import PromptRegistry
 
 from aios.tool.registry import ToolRegistry
 
+from aios.skill.registry import SkillRegistry
+from aios.skill.resolver import SkillDependencyResolver
+from aios.skill.sandbox import SandboxPool
+from aios.skill.manager import SkillManager
+
 from .artifact import ArtifactStore
 from .audit import AuditTrail
 from .context import ContextStore
@@ -85,6 +90,28 @@ class RuntimeKernel:
         c.register(KnowledgeGraph, KnowledgeGraph, Lifetime.SINGLETON)
         # TASK-014 services (tool + capability router).
         c.register(ToolRegistry, ToolRegistry, Lifetime.SINGLETON)
+        # TASK-015 services (skill / plugin execution — runtime layer).
+        c.register(SkillRegistry, SkillRegistry, Lifetime.SINGLETON)
+        c.register(
+            SandboxPool,
+            factory=lambda: SandboxPool(max_size=5),
+            lifetime=Lifetime.SINGLETON,
+        )
+        c.register(
+            SkillManager,
+            factory=lambda: SkillManager(
+                registry=c.resolve(SkillRegistry),
+                resolver=SkillDependencyResolver(registry=c.resolve(SkillRegistry)),
+                sandbox_pool=c.resolve(SandboxPool),
+                policy_engine=c.resolve(PolicyEngine),
+                permission_broker=c.resolve(PermissionBroker),
+                capability_registry=c.resolve(CapabilityRegistry),
+                state_store=c.resolve(StateStore),
+                artifact_store=c.resolve(ArtifactStore),
+                event_bus=c.resolve(EventBus),
+            ),
+            lifetime=Lifetime.SINGLETON,
+        )
         # CapabilityRouter is at runtime layer — resolves Capability → Tool via health/priority/policy
         from .capability_router import CapabilityRouter
 
@@ -183,6 +210,18 @@ class RuntimeKernel:
         return self.container.resolve(ToolRegistry)
 
     @property
+    def skills(self) -> SkillRegistry:
+        return self.container.resolve(SkillRegistry)
+
+    @property
+    def sandbox_pool(self) -> SandboxPool:
+        return self.container.resolve(SandboxPool)
+
+    @property
+    def skill_manager(self) -> SkillManager:
+        return self.container.resolve(SkillManager)
+
+    @property
     def router(self) -> Any:
         from .capability_router import CapabilityRouter
 
@@ -209,5 +248,7 @@ class RuntimeKernel:
             "graph_nodes": self.graph.node_count,
             "graph_edges": self.graph.edge_count,
             "tools": len(self.tools),
+            "skills_registered": len(self.skills),
+            "sandbox_pool_size": len(self.sandbox_pool),
             "bus_registered": True,
         }

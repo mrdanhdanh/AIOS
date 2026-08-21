@@ -31,7 +31,8 @@ class GateResult:
 
 # Layer ordering. Lower index = higher layer (caller); higher index = lower
 # layer (callee). Imports must only go "downward".
-LAYER_ORDER = ["agent", "orchestrator", "worker", "runtime", "capability", "tool"]
+# Canonical (T016 §3): Agent->Orchestrator->Worker->Runtime->Skill->Capability->Tool.
+LAYER_ORDER = ["agent", "orchestrator", "worker", "runtime", "skill", "capability", "tool"]
 
 # Map a path/module segment (singular or plural) to a layer.
 # ``core``/``governance``/``harness``/``progress`` are infra/meta layers and
@@ -49,6 +50,8 @@ LAYER_KEYWORDS = {
     "capabilities": "capability",
     "tool": "tool",
     "tools": "tool",
+    "skill": "skill",
+    "skills": "skill",
     "core": "unknown",
     "governance": "unknown",
     "harness": "unknown",
@@ -96,6 +99,22 @@ WORKER_FORBIDDEN = {
     "aios.runtime.execution": "ARCH-004",
 }
 
+# Plugin/Skill layer forbidden imports (TASK-016 / INV-010).
+# Skill must go through the Capability contract; it must never bypass the
+# Core/Runtime boundary (no subprocess/os, no provider/filesystem adapters).
+# Runtime internals (kernel/execution) are covered by the ARCH-004 layering
+# rule below, so they are intentionally omitted here to avoid duplicates.
+SKILL_FORBIDDEN = {
+    "subprocess": "ARCH-001",
+    "os": "ARCH-001",
+    "aios.core.providers": "ARCH-002",
+    "aios.runtime.providers": "ARCH-002",
+    "providers": "ARCH-002",
+    "aios.runtime.filesystem": "ARCH-003",
+    "aios.runtime.fs_adapter": "ARCH-003",
+    "filesystem": "ARCH-003",
+}
+
 # Layer that a given layer is allowed to import (itself and everything below).
 # Hardened for M1 gate (TASK-011): ``agent`` may only import ``orchestrator``
 # or ``unknown`` (no direct runtime/capability/tool), and ``capability`` may
@@ -110,6 +129,7 @@ ALLOWED_IMPORT_LAYERS: Dict[str, List[str]] = {
     "runtime": ["runtime", "capability", "tool", "unknown"],
     "capability": ["capability", "unknown"],
     "tool": ["tool", "unknown"],
+    "skill": ["skill", "capability", "unknown"],
     "unknown": LAYER_ORDER + ["unknown"],
 }
 
@@ -168,6 +188,18 @@ def scan_source(source_code: str, module_path: str = "<string>") -> List[Violati
                             rule=rule,
                             module=module_path,
                             detail=f"Worker imports '{target}' directly (forbidden).",
+                            line=lineno,
+                        )
+                    )
+        # ARCH-001..003 extended for plugin/skill layer (TASK-016 / INV-010).
+        if layer == "skill":
+            for forbidden, rule in SKILL_FORBIDDEN.items():
+                if target == forbidden or target.startswith(forbidden + "."):
+                    violations.append(
+                        Violation(
+                            rule=rule,
+                            module=module_path,
+                            detail=f"Skill imports '{target}' directly (forbidden).",
                             line=lineno,
                         )
                     )

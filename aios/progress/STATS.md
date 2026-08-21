@@ -3,12 +3,12 @@
 | Metric | Value |
 |--------|-------|
 | Total tasks (master spec) | 182 |
-| Tasks DONE | 14 |
+| Tasks DONE | 16 |
 | Tasks READY | 1 |
-| Tasks PLANNED | 167 |
+| Tasks PLANNED | 165 |
 | Governance modules | 7 (+ unified gate) |
-| Automated gate tests | 1014 |
-| Architecture rules (ARCH-001..004) | 4 |
+| Automated gate tests | 1257 |
+| Architecture rules (ARCH-A..H + ARCH-001..004) | 17 |
 | Lifecycle states | 12 |
 
 ## Per-module test counts (TASK-001)
@@ -167,6 +167,36 @@
 | runtime/capability_router | 7 |
 | **Subtotal** | **163** |
 
+## Per-module test counts (TASK-015 — Plugin / Skill Execution)
+
+| Module | Tests |
+|--------|-------|
+| skill/contracts | 12 |
+| skill/registry | 14 |
+| skill/resolver | 14 |
+| skill/manager | 38 |
+| skill/sandbox | 22 |
+| skill/integration | 18 |
+| skill/persistence | 16 |
+| skill/rollback | 18 |
+| skill/architecture | 15 |
+| **Subtotal** | **167** |
+
+## Per-module test counts (TASK-016 — Architecture Hardening)
+
+| Module | Tests |
+|--------|-------|
+| governance/architecture (scanner/graph/rules/gate/report/violations) | 44 |
+| governance/architecture/test_import_boundaries | 12 |
+| governance/architecture/test_layer_rules | 11 |
+| governance/architecture/test_invariants | 13 |
+| governance/architecture/test_cycles | 8 |
+| governance/architecture/test_policy_bypass | 7 |
+| governance/architecture/test_capability_boundary | 7 |
+| governance/architecture/test_workflow_engine_independence | 5 |
+| governance/architecture/test_plugin_isolation | 5 |
+| **Subtotal** | **112** |
+
 ## Grand total
 
-| **Total** | **1014** |
+| **Total** | **1257** |
