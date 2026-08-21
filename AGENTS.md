@@ -67,9 +67,11 @@ See [`aios/progress/README.md`](aios/progress/README.md) for task-folder standar
 
 Keep agents deterministic and side-effect free. All I/O, provider calls and filesystem access go through Runtime.
 
-## 5. Governance — 7 gates → Unified Task Gate
+## 5. Governance — 7 gates → Unified Task Gate + Rule 8 Auto-COMMIT
 
 Workflow: `PLAN → SPEC → CRITIQUE×2 → BREAKDOWN → REVIEW → IMPLEMENT → TEST → EVALUATE → REGRESSION → PROGRESS/LOG → COMMIT`
+
+> **Quy tắc 8 — Auto-COMMIT (scheduled TASK):** mọi TASK đã lên lịch trong `docs/AIOS_Master_Task_Specification_M0-M26.md` khi đạt `DONE` (Unified Gate `PASS`) phải `COMMIT` source **ngay trong cùng phiên** — không để working tree bẩn sang task sau. Commit message chuẩn `TASK-xxx: <title> — DONE` kèm cập nhật `aios/progress/PLAN.md`, `LOG.md`, `STATS.md` và evidence liên quan. `COMMIT` là bước bắt buộc của Definition of Done, không được trì hoãn.
 
 [`aios/governance/gates/unified.py`](aios/governance/gates/unified.py): `UnifiedTaskGate` is logical AND of all gates; any exception → `FAIL` (fail-closed). `DONE` only on `PASS`.
 
@@ -121,6 +123,7 @@ Use `aios.core.container` (singleton/scoped/transient, thread-safe), `aios.core.
 * **Never** bypass Runtime/Capability/Permission/Policy — agents receive capabilities via injection.
 * **Naming:** task IDs `TASK-xxx` are immutable and never reused, even after deprecation.
 * **Artifacts:** respect `STATE_ARTIFACTS` mapping; `can_close()` requires `READY_TO_CLOSE` + `missing_for_done()==[]`.
+* **Auto-COMMIT (Quy tắc 8):** TASK đã lên lịch trong `AIOS_Master_Task_Specification_M0-M26.md` khi đạt `DONE` phải commit ngay trong cùng phiên (`TASK-xxx: <title> — DONE` + `PLAN.md`/`LOG.md`/`STATS.md`); cấm để working tree bẩn sang task sau.
 * **Spec-first:** trước khi claim `PASS`/`DONE`, phải đọc `docs/detailtask/T00X.md` + `aios/progress/tasks/TASK-00X/` và đối chiếu từng AC trong bảng — không đoán.
 * **Không khôi phục:** khi user nói "không khôi phục / làm lại từ đầu / không được khôi phục", xóa/recreate từ `aios/progress/tasks/_TEMPLATE/` — không reuse `implementation/` cũ.
 * **Chẩn đoán trước khi retry:** cấm `Try Again` trống. Khi fail, chạy `gate_check` + `pytest -q` rồi báo `Violation(rule,module,line)` / test failure trước khi thử lại.

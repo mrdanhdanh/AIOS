@@ -76,3 +76,5 @@ docs/
 PLAN -> SPEC -> CRITIQUE x2 -> BREAKDOWN -> REVIEW
 -> IMPLEMENT -> TEST -> EVALUATE -> REGRESSION -> PROGRESS/LOG -> COMMIT
 ```
+
+> **Quy tắc 8 — Auto-COMMIT:** `COMMIT` là bước bắt buộc và phải thực hiện **ngay** sau khi TASK đã lên lịch trong `docs/AIOS_Master_Task_Specification_M0-M26.md` đạt `DONE` (Unified Gate `PASS`). Không được trì hoãn commit sang task sau; `PROGRESS/LOG` (`aios/progress/PLAN.md`/`LOG.md`/`STATS.md`) phải được cập nhật trước khi commit. Commit message chuẩn: `TASK-xxx: <title> — DONE`.

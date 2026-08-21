@@ -33,7 +33,7 @@ Each transition requires its mandatory artifact (enforced by
 `aios/governance/lifecycle`). `DEPRECATED` and `BLOCKED` are terminal
 governance statuses.
 
-## 3. Closing a task (Unified Gate)
+## 3. Closing a task (Unified Gate + Rule 8 Auto-COMMIT)
 
 A task may reach `DONE` only when the Unified Task Gate passes:
 
@@ -41,6 +41,8 @@ A task may reach `DONE` only when the Unified Task Gate passes:
 Registry AND Dependency AND Architecture AND Lifecycle
 AND Evidence AND Test/Evaluate AND Regression
 ```
+
+> **Quy tắc 8 — Auto-COMMIT (scheduled TASK):** mọi TASK đã lên lịch trong `docs/AIOS_Master_Task_Specification_M0-M26.md` khi đạt `DONE` phải `COMMIT` source **ngay trong cùng phiên** — không để working tree bẩn sang task sau. Cập nhật `PLAN.md`/`LOG.md`/`STATS.md` trước khi commit; message chuẩn `TASK-xxx: <title> — DONE`.
 
 ## 4. Progress index
 

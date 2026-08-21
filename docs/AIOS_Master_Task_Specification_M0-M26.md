@@ -17,6 +17,7 @@
 5. Evidence phải có provenance; UNKNOWN không được nâng thành PASS.
 6. Task chỉ được đóng khi có spec, critique ×2, breakdown, review, implementation, test, evaluation và cập nhật progress/log theo workflow của master plan.
 7. Mọi task phải regression các dependency trước đó.
+8. **Auto-COMMIT sau DONE (scheduled TASK):** mọi TASK đã lên lịch trong file này (`AIOS_Master_Task_Specification_M0-M26.md`) khi đạt `DONE` (Unified Task Gate `PASS`) phải `COMMIT` source ngay trong cùng phiên — không để working tree bẩn sang task sau; commit message chuẩn `TASK-xxx: <title> — DONE` kèm cập nhật `aios/progress/PLAN.md`, `LOG.md`, `STATS.md` và evidence liên quan.
 
 ## 2. Task Folder Standard
 
@@ -36,8 +37,10 @@ aios/progress/tasks/TASK-xxx/
 
 ```text
 PLAN → SPEC → CRITIQUE×2 → BREAKDOWN → REVIEW
-→ IMPLEMENT → TEST → EVALUATE → PROGRESS/LOG → COMMIT
+→ IMPLEMENT → TEST → EVALUATE → REGRESSION → PROGRESS/LOG → COMMIT
 ```
+
+> **Quy tắc 8 — Auto-COMMIT:** `COMMIT` là bước bắt buộc và phải thực hiện **ngay** sau khi TASK đã lên lịch trong file này đạt `DONE` (Unified Gate `PASS`). Không được trì hoãn commit sang task sau; `PROGRESS/LOG` (`PLAN.md`/`LOG.md`/`STATS.md`) phải được cập nhật trước khi commit.
 
 ---
 
