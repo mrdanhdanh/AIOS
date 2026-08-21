@@ -28,7 +28,8 @@ Ordered task index and status. Status values: `PLANNED | SPECIFIED | ... | DONE 
 
 | TASK-018 | M3 | Dashboard SPA | TASK-017 | DONE |
 | TASK-019 | M3 | VS Code Extension | TASK-017 | DONE |
+| TASK-020 | M4 | Upgrade Pipeline | TASK-019 | DONE |
 
 ## Next action
 
-TASK-019 `DONE` (1514 tests, 74 extension + 1440 inherited, AC-019-01..10 PASS). Next: TASK-020 `READY` (Upgrade Pipeline).
+TASK-020 `DONE` (1557 tests, 43 upgrade + 1514 inherited, AC-020-01..12 PASS). Next: TASK-021 `READY` (Observability).

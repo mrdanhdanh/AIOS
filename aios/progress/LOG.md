@@ -192,3 +192,7 @@ Append-only event log. Each entry: `ISO-UTC | task | event | detail`.
 2026-08-22T02:00:00Z | TASK-019 | EVALUATING | all 10 acceptance criteria verified (AC-019-01..10).
 2026-08-22T02:00:00Z | TASK-019 | REGRESSION | dependency closure {TASK-017, TASK-018} green; full suite 1514/1514 PASS.
 2026-08-22T02:00:00Z | TASK-019 | DONE | All AC PASS; 1514 tests green; Unified Gate PASS; VS Code Extension complete.
+2026-08-22T03:00:00Z | TASK-020 | READY | dependency TASK-019 DONE.
+2026-08-22T03:00:00Z | TASK-020 | IMPLEMENTING | upgrade package (manifest/compatibility/backup/migration/dryrun/validation/rollback) + 43 tests.
+2026-08-22T03:00:00Z | TASK-020 | TESTING | 43 upgrade + 1514 existing = 1557 total passing.
+2026-08-22T03:00:00Z | TASK-020 | DONE | All 12 AC PASS; 1557 tests green; Unified Gate PASS.
