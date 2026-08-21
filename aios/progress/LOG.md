@@ -122,3 +122,25 @@ Append-only event log. Each entry: `ISO-UTC | task | event | detail`.
 2026-08-21T00:20:00Z | TASK-011 | REGRESSION | dependency closure {TASK-005,TASK-009} green; full suite 544/544 PASS; no architecture violations.
 2026-08-21T00:20:00Z | TASK-011 | DONE | All acceptance criteria PASS; 544 tests green; M1 GATE PASS.
 2026-08-21T00:20:00Z | TASK-010 | READY | dependency TASK-011 DONE.
+2026-08-21T01:00:00Z | TASK-010 | SPECIFIED | spec.md written.
+2026-08-21T01:00:00Z | TASK-010 | CRITIQUED_1 | critique-1.md written (APPROVE).
+2026-08-21T01:00:00Z | TASK-010 | CRITIQUED_2 | critique-2.md written (APPROVE).
+2026-08-21T01:00:00Z | TASK-010 | BROKEN_DOWN | tasks.md written (12 steps).
+2026-08-21T01:00:00Z | TASK-010 | REVIEWED | review.md written (APPROVED).
+2026-08-21T01:00:00Z | TASK-010 | IMPLEMENTING | orchestrator package (normalizer/rule_engine/workflow_matcher/execution_plan/planner/decision_pipeline) + 57 tests.
+2026-08-21T01:00:00Z | TASK-010 | TESTING | 57 orchestrator + 544 existing = 601 total passing.
+2026-08-21T01:00:00Z | TASK-010 | EVALUATING | all 10 acceptance criteria verified (AC-010-01..10).
+2026-08-21T01:00:00Z | TASK-010 | REGRESSION | dependency closure {TASK-003..011} green; full suite 601/601 PASS; no architecture violations.
+2026-08-21T01:00:00Z | TASK-010 | DONE | All acceptance criteria PASS; 601 tests green; Unified Gate PASS.
+2026-08-21T01:00:00Z | TASK-012 | READY | dependency TASK-010 DONE.
+2026-08-21T02:00:00Z | TASK-012 | SPECIFIED | spec.md written.
+2026-08-21T02:00:00Z | TASK-012 | CRITIQUED_1 | critique-1.md written (APPROVE).
+2026-08-21T02:00:00Z | TASK-012 | CRITIQUED_2 | critique-2.md written (APPROVE).
+2026-08-21T02:00:00Z | TASK-012 | BROKEN_DOWN | tasks.md written (10 steps).
+2026-08-21T02:00:00Z | TASK-012 | REVIEWED | review.md written (APPROVED).
+2026-08-21T02:00:00Z | TASK-012 | IMPLEMENTING | orchestrator goal_manager/task_queue/permission_broker/failure_recovery + 89 tests.
+2026-08-21T02:00:00Z | TASK-012 | TESTING | 89 orchestration + 601 existing = 690 total passing.
+2026-08-21T02:00:00Z | TASK-012 | EVALUATING | all 10 acceptance criteria verified (AC-012-01..10).
+2026-08-21T02:00:00Z | TASK-012 | REGRESSION | dependency closure {TASK-010, M1} green; full suite 690/690 PASS; no architecture violations.
+2026-08-21T02:00:00Z | TASK-012 | DONE | All acceptance criteria PASS; 690 tests green; Unified Gate PASS.
+2026-08-21T02:00:00Z | TASK-013 | READY | dependency TASK-012 DONE.

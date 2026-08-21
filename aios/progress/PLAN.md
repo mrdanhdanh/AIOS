@@ -14,10 +14,13 @@ Ordered task index and status. Status values: `PLANNED | SPECIFIED | ... | DONE 
 | TASK-008 | M1 | Workflow Definition + Compiler | TASK-003 | DONE |
 | TASK-009 | M1 | Capability Foundation | TASK-003 | DONE |
 | TASK-011 | M1 | M1 Remediation / Architecture Hardening | TASK-005,TASK-009 | DONE |
+| TASK-010 | M2 | Decision Pipeline | TASK-011 | DONE |
 
 > TASK-010 is intentionally sequenced after TASK-011 in this index to keep the
 > M1 hardening gate coherent; see the master spec for canonical ordering.
 
+| TASK-012 | M2 | Operational Orchestration | TASK-010 | DONE |
+
 ## Next action
 
-TASK-011 `DONE` (544 tests, 30 hardening + 514 inherited, AC-011-01..10 PASS, M1 GATE PASS). Next: TASK-010 `READY` (Decision Pipeline).
+TASK-012 `DONE` (690 tests, 89 orchestration + 601 inherited, AC-012-01..10 PASS). Next: TASK-013 `READY` (Worker Plane).

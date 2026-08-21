@@ -3,11 +3,11 @@
 | Metric | Value |
 |--------|-------|
 | Total tasks (master spec) | 182 |
-| Tasks DONE | 10 |
+| Tasks DONE | 12 |
 | Tasks READY | 1 |
-| Tasks PLANNED | 171 |
+| Tasks PLANNED | 169 |
 | Governance modules | 7 (+ unified gate) |
-| Automated gate tests | 544 |
+| Automated gate tests | 690 |
 | Architecture rules (ARCH-001..004) | 4 |
 | Lifecycle states | 12 |
 
@@ -116,6 +116,30 @@
 | governance/architecture hardening | 30 |
 | **Subtotal** | **30** |
 
+## Per-module test counts (TASK-010 — Decision Pipeline)
+
+| Module | Tests |
+|--------|-------|
+| orchestrator/normalizer | 12 |
+| orchestrator/rule_engine | 5 |
+| orchestrator/workflow_matcher | 8 |
+| orchestrator/execution_plan | 9 |
+| orchestrator/planner | 6 |
+| orchestrator/decision_pipeline | 13 |
+| orchestrator/architecture | 4 |
+| **Subtotal** | **57** |
+
+## Per-module test counts (TASK-012 — Operational Orchestration)
+
+| Module | Tests |
+|--------|-------|
+| orchestrator/goal_manager | 19 |
+| orchestrator/task_queue | 24 |
+| orchestrator/permission_broker | 12 |
+| orchestrator/failure_recovery | 18 |
+| orchestrator/orchestration_integration | 16 |
+| **Subtotal** | **89** |
+
 ## Grand total
 
-| **Total** | **544** |
+| **Total** | **690** |
