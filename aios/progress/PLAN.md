@@ -23,8 +23,9 @@ Ordered task index and status. Status values: `PLANNED | SPECIFIED | ... | DONE 
 | TASK-013 | M2 | Worker Plane | TASK-010,TASK-012 | DONE |
 | TASK-014 | M2 | Tool + Capability Layer | TASK-010,TASK-012,TASK-013 | DONE |
 | TASK-015 | M2 | Plugin / Skill Execution | TASK-014 | DONE |
-| TASK-016 | M2 | Architecture Hardening | TASK-010,TASK-012,TASK-013,TASK-014,TASK-015 | DONE |
+| TASK-016 | M2 | Architecture Hardening | TASK-010,TASK-011,TASK-012,TASK-013,TASK-014,TASK-015 | DONE |
+| TASK-017 | M3 | FastAPI REST + WebSocket | TASK-010,TASK-011,TASK-012,TASK-013,TASK-014,TASK-015,TASK-016 | DONE |
 
 ## Next action
 
-TASK-016 `DONE` (Architecture Gate PASS, fail-closed; 112 architecture + 167 skill = 279 new tests; full suite 1257 PASS; INV-001..010 + ARCH-A..H enforced). M2 complete. Next: M3 tasks (`READY` per master spec).
+TASK-017 `DONE` (1317 tests, 60 API + 1257 inherited, AC-017-01..12 PASS). Next: TASK-018 `READY` (Dashboard SPA).

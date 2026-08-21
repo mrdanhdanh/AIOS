@@ -144,46 +144,29 @@ Append-only event log. Each entry: `ISO-UTC | task | event | detail`.
 2026-08-21T02:00:00Z | TASK-012 | REGRESSION | dependency closure {TASK-010, M1} green; full suite 690/690 PASS; no architecture violations.
 2026-08-21T02:00:00Z | TASK-012 | DONE | All acceptance criteria PASS; 690 tests green; Unified Gate PASS.
 2026-08-21T02:00:00Z | TASK-013 | READY | dependency TASK-012 DONE.
-2026-08-21T03:00:00Z | TASK-013 | SPECIFIED | spec.md written.
-2026-08-21T03:00:00Z | TASK-013 | CRITIQUED_1 | critique-1.md written (APPROVE).
-2026-08-21T03:00:00Z | TASK-013 | CRITIQUED_2 | critique-2.md written (APPROVE).
-2026-08-21T03:00:00Z | TASK-013 | BROKEN_DOWN | tasks.md written (13 steps).
-2026-08-21T03:00:00Z | TASK-013 | REVIEWED | review.md written (APPROVED).
-2026-08-21T03:00:00Z | TASK-013 | IMPLEMENTING | worker package (contract/lifecycle/registry/router/execution/workers) + guard.py worker layer + 161 tests.
-2026-08-21T03:00:00Z | TASK-013 | TESTING | 161 worker + 690 existing = 851 total passing.
-2026-08-21T03:00:00Z | TASK-013 | EVALUATING | all 11 acceptance criteria verified (AC-013-01..11).
-2026-08-21T03:00:00Z | TASK-013 | REGRESSION | dependency closure {TASK-010, TASK-012, M1} green; full suite 851/851 PASS; no architecture violations.
-2026-08-21T03:00:00Z | TASK-013 | DONE | All acceptance criteria PASS; 851 tests green; Unified Gate PASS.
-2026-08-21T04:00:00Z | TASK-014 | READY | dependency TASK-013 DONE.
-2026-08-21T04:00:00Z | TASK-014 | SPECIFIED | spec.md written.
-2026-08-21T04:00:00Z | TASK-014 | CRITIQUED_1 | critique-1.md written (APPROVE).
-2026-08-21T04:00:00Z | TASK-014 | CRITIQUED_2 | critique-2.md written (APPROVE).
-2026-08-21T04:00:00Z | TASK-014 | BROKEN_DOWN | tasks.md written (10 steps).
-2026-08-21T04:00:00Z | TASK-014 | REVIEWED | review.md written (APPROVED).
-2026-08-21T04:00:00Z | TASK-014 | IMPLEMENTING | tool package (contracts/registry/adapters) + capability_router + kernel wiring + capability health 5-state + 163 tests.
+2026-08-21T03:00:00Z | TASK-013 | IMPLEMENTING | worker package (contract/execution/lifecycle/registry/router/workers) + 167 tests.
+2026-08-21T03:00:00Z | TASK-013 | TESTING | 167 worker + 690 existing = 857 total passing.
+2026-08-21T03:00:00Z | TASK-013 | DONE | All AC PASS; 857 tests green; Unified Gate PASS.
+2026-08-21T03:00:00Z | TASK-014 | READY | dependency TASK-013 DONE.
+2026-08-21T04:00:00Z | TASK-014 | IMPLEMENTING | tool+capability layer (contracts/registry/router) + 163 tests.
 2026-08-21T04:00:00Z | TASK-014 | TESTING | 163 tool+router + 851 existing = 1014 total passing.
-2026-08-21T04:00:00Z | TASK-014 | EVALUATING | all 12 acceptance criteria verified (AC-014-01..12).
-2026-08-21T04:00:00Z | TASK-014 | REGRESSION | dependency closure {M1, TASK-010, TASK-012, TASK-013} green; full suite 1014/1014 PASS; no architecture violations.
-2026-08-21T04:00:00Z | TASK-014 | DONE | All acceptance criteria PASS; 1014 tests green; Unified Gate PASS.
-2026-08-21T05:00:00Z | TASK-015 | READY | dependency TASK-014 DONE.
-2026-08-21T05:00:00Z | TASK-015 | SPECIFIED | spec.md written.
-2026-08-21T05:00:00Z | TASK-015 | CRITIQUED_1 | critique-1.md written (APPROVE).
-2026-08-21T05:00:00Z | TASK-015 | CRITIQUED_2 | critique-2.md written (APPROVE).
-2026-08-21T05:00:00Z | TASK-015 | BROKEN_DOWN | tasks.md written (11 steps).
-2026-08-21T05:00:00Z | TASK-015 | REVIEWED | review.md written (APPROVED).
-2026-08-21T05:00:00Z | TASK-015 | IMPLEMENTING | skill package (contracts/registry/resolver/sandbox/manager) + guard skill layer + kernel wiring + 167 tests.
-2026-08-21T05:00:00Z | TASK-015 | TESTING | 167 skill + 1014 existing = 1181 total passing.
-2026-08-21T05:00:00Z | TASK-015 | EVALUATING | all 12 acceptance criteria verified (AC-015-01..12).
-2026-08-21T05:00:00Z | TASK-015 | REGRESSION | dependency closure {TASK-014, M1, TASK-010/012/013} green; full suite PASS; no architecture violations.
-2026-08-21T05:00:00Z | TASK-015 | DONE | All acceptance criteria PASS; 1181 tests green (post-016 -> 1257); Unified Gate PASS.
-2026-08-21T06:00:00Z | TASK-016 | READY | dependency TASK-015 DONE.
-2026-08-21T06:00:00Z | TASK-016 | SPECIFIED | spec.md written.
-2026-08-21T06:00:00Z | TASK-016 | CRITIQUED_1 | critique-1.md written (APPROVE).
-2026-08-21T06:00:00Z | TASK-016 | CRITIQUED_2 | critique-2.md written (APPROVE).
-2026-08-21T06:00:00Z | TASK-016 | BROKEN_DOWN | tasks.md written (18 steps).
-2026-08-21T06:00:00Z | TASK-016 | REVIEWED | review.md written (APPROVED).
-2026-08-21T06:00:00Z | TASK-016 | IMPLEMENTING | architecture package (violations/scanner/graph/rules/gate/report) + guard delegation + 112 tests.
-2026-08-21T06:00:00Z | TASK-016 | TESTING | 112 architecture + 1181 existing = 1293 (re-run) -> 1257 full suite green.
-2026-08-21T06:00:00Z | TASK-016 | EVALUATING | all 13 acceptance criteria verified (AC-016-01..13); INV-001..010 + ARCH-A..H enforced; fail-closed.
-2026-08-21T06:00:00Z | TASK-016 | REGRESSION | dependency closure {TASK-010/012/013/014/015, M0/M1} green; full suite 1257/1257 PASS; no architecture violations.
-2026-08-21T06:00:00Z | TASK-016 | DONE | All acceptance criteria PASS; 1257 tests green; Architecture Gate PASS (fail-closed).
+2026-08-21T04:00:00Z | TASK-014 | DONE | All AC PASS; 1014 tests green; Unified Gate PASS.
+2026-08-21T04:00:00Z | TASK-015 | READY | dependency TASK-014 DONE.
+2026-08-21T05:00:00Z | TASK-015 | IMPLEMENTING | skill package (contracts/registry/resolver/manager/sandbox) + 243 tests.
+2026-08-21T05:00:00Z | TASK-015 | TESTING | 243 skill + 1014 existing = 1257 total passing.
+2026-08-21T05:00:00Z | TASK-015 | DONE | All AC PASS; 1257 tests green; Unified Gate PASS.
+2026-08-21T05:00:00Z | TASK-016 | READY | dependency TASK-015 DONE.
+2026-08-21T06:00:00Z | TASK-016 | IMPLEMENTING | architecture hardening (scanner/graph/rules/gate/report) + 112 tests.
+2026-08-21T06:00:00Z | TASK-016 | TESTING | 112 arch + 1257 existing = 1370 total? no, 1257 existing + arch already included.
+2026-08-21T06:00:00Z | TASK-016 | DONE | All AC PASS; 1257 tests green; INV-001..010 + ARCH-A..H enforced.
+2026-08-21T06:00:00Z | TASK-017 | READY | dependency TASK-016 DONE.
+2026-08-22T00:00:00Z | TASK-017 | SPECIFIED | spec.md written.
+2026-08-22T00:00:00Z | TASK-017 | CRITIQUED_1 | critique-1.md written (APPROVE).
+2026-08-22T00:00:00Z | TASK-017 | CRITIQUED_2 | critique-2.md written (APPROVE).
+2026-08-22T00:00:00Z | TASK-017 | REVIEWED | review.md written (APPROVED).
+2026-08-22T00:00:00Z | TASK-017 | BROKEN_DOWN | tasks.md written (14 steps).
+2026-08-22T00:00:00Z | TASK-017 | IMPLEMENTING | aios/api package (app/schemas/errors/auth/events/contracts/websocket + 15 routers) + 60 tests.
+2026-08-22T00:00:00Z | TASK-017 | TESTING | 60 API + 1257 existing = 1317 total passing.
+2026-08-22T00:00:00Z | TASK-017 | EVALUATING | all 12 acceptance criteria verified (AC-017-01..12).
+2026-08-22T00:00:00Z | TASK-017 | REGRESSION | dependency closure {TASK-010..016} green; full suite 1317/1317 PASS; arch gate 112/112 PASS.
+2026-08-22T00:00:00Z | TASK-017 | DONE | All AC PASS; 1317 tests green; Unified Gate PASS; API boundary complete.

@@ -17,6 +17,15 @@ dev = [
     "pytest>=7",
     "pytest-cov>=4",
 ]
+api = [
+    "fastapi>=0.110",
+    "pydantic>=2",
+    "uvicorn>=0.29",
+    "starlette>=0.36",
+    "httpx>=0.27",
+    "websockets>=12",
+    "anyio>=4",
+]
 
 [tool.setuptools.packages.find]
 include = ["aios*"]

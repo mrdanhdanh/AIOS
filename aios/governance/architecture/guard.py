@@ -32,13 +32,16 @@ class GateResult:
 # Layer ordering. Lower index = higher layer (caller); higher index = lower
 # layer (callee). Imports must only go "downward".
 # Canonical (T016 §3): Agent->Orchestrator->Worker->Runtime->Skill->Capability->Tool.
-LAYER_ORDER = ["agent", "orchestrator", "worker", "runtime", "skill", "capability", "tool"]
+# TASK-017: API is presentation layer above Orchestrator (UI->API->Orchestrator->...).
+LAYER_ORDER = ["api", "agent", "orchestrator", "worker", "runtime", "skill", "capability", "tool"]
 
 # Map a path/module segment (singular or plural) to a layer.
 # ``core``/``governance``/``harness``/``progress`` are infra/meta layers and
 # map to ``unknown`` so they never trigger ARCH-004 false positives on stdlib
 # or infra imports; ``kernel`` is the runtime composition root → ``runtime``.
 LAYER_KEYWORDS = {
+    "api": "api",
+    "apis": "api",
     "agent": "agent",
     "agents": "agent",
     "orchestrator": "orchestrator",
@@ -123,6 +126,7 @@ SKILL_FORBIDDEN = {
 # TASK-013: ``worker`` sits between orchestrator and runtime — may only import
 # ``capability`` + ``unknown`` (capability-only access, no direct runtime/tool).
 ALLOWED_IMPORT_LAYERS: Dict[str, List[str]] = {
+    "api": ["api", "orchestrator", "worker", "runtime", "skill", "capability", "tool", "unknown"],
     "agent": ["agent", "orchestrator", "unknown"],
     "orchestrator": ["orchestrator", "worker", "runtime", "capability", "tool", "unknown"],
     "worker": ["worker", "capability", "unknown"],
