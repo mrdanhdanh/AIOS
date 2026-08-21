@@ -37,7 +37,13 @@ Ordered task index and status. Status values: `PLANNED | SPECIFIED | ... | DONE 
 | TASK-026 | M5 | Planning Engine | TASK-025 | DONE |
 | TASK-027 | M5 | Execution Graph | TASK-026 | DONE |
 | TASK-028 | M5 | Parallel Scheduler | TASK-027 | DONE |
+| TASK-029 | M6 | Harness Kernel | TASK-028 | DONE |
+| TASK-030 | M6 | Execution Verification | TASK-029 | DONE |
+| TASK-031 | M6 | Test Harness + Scenario | TASK-030 | DONE |
+| TASK-032 | M6 | Evaluation Harness | TASK-031 | DONE |
+| TASK-033 | M6 | Benchmark + Regression | TASK-032 | DONE |
+| TASK-034 | M6 | Doctor + Readiness | TASK-033 | DONE |
 
 ## Next action
 
-TASK-028 `DONE` (1717 tests, 36 new for M5 core intelligence tasks, AC-026/027/028 PASS). M5 COMPLETE. Next: TASK-029 `READY` (Harness Kernel).
+TASK-034 `DONE` (1756 tests, 39 new for M6 harness tasks, AC-029/030/031/032/033/034 PASS). M6 COMPLETE. Next: TASK-035 `READY` (Identity + RBAC).
