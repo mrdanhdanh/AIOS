@@ -144,3 +144,13 @@ Append-only event log. Each entry: `ISO-UTC | task | event | detail`.
 2026-08-21T02:00:00Z | TASK-012 | REGRESSION | dependency closure {TASK-010, M1} green; full suite 690/690 PASS; no architecture violations.
 2026-08-21T02:00:00Z | TASK-012 | DONE | All acceptance criteria PASS; 690 tests green; Unified Gate PASS.
 2026-08-21T02:00:00Z | TASK-013 | READY | dependency TASK-012 DONE.
+2026-08-21T03:00:00Z | TASK-013 | SPECIFIED | spec.md written.
+2026-08-21T03:00:00Z | TASK-013 | CRITIQUED_1 | critique-1.md written (APPROVE).
+2026-08-21T03:00:00Z | TASK-013 | CRITIQUED_2 | critique-2.md written (APPROVE).
+2026-08-21T03:00:00Z | TASK-013 | BROKEN_DOWN | tasks.md written (13 steps).
+2026-08-21T03:00:00Z | TASK-013 | REVIEWED | review.md written (APPROVED).
+2026-08-21T03:00:00Z | TASK-013 | IMPLEMENTING | worker package (contract/lifecycle/registry/router/execution/workers) + guard.py worker layer + 161 tests.
+2026-08-21T03:00:00Z | TASK-013 | TESTING | 161 worker + 690 existing = 851 total passing.
+2026-08-21T03:00:00Z | TASK-013 | EVALUATING | all 11 acceptance criteria verified (AC-013-01..11).
+2026-08-21T03:00:00Z | TASK-013 | REGRESSION | dependency closure {TASK-010, TASK-012, M1} green; full suite 851/851 PASS; no architecture violations.
+2026-08-21T03:00:00Z | TASK-013 | DONE | All acceptance criteria PASS; 851 tests green; Unified Gate PASS.

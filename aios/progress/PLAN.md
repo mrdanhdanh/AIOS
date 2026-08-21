@@ -20,7 +20,8 @@ Ordered task index and status. Status values: `PLANNED | SPECIFIED | ... | DONE 
 > M1 hardening gate coherent; see the master spec for canonical ordering.
 
 | TASK-012 | M2 | Operational Orchestration | TASK-010 | DONE |
+| TASK-013 | M2 | Worker Plane | TASK-010,TASK-012 | DONE |
 
 ## Next action
 
-TASK-012 `DONE` (690 tests, 89 orchestration + 601 inherited, AC-012-01..10 PASS). Next: TASK-013 `READY` (Worker Plane).
+TASK-013 `DONE` (851 tests, 161 worker + 690 inherited, AC-013-01..11 PASS). Next: TASK-014 `READY` (Tool + Capability Layer).

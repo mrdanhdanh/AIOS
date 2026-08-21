@@ -3,11 +3,11 @@
 | Metric | Value |
 |--------|-------|
 | Total tasks (master spec) | 182 |
-| Tasks DONE | 12 |
+| Tasks DONE | 13 |
 | Tasks READY | 1 |
-| Tasks PLANNED | 169 |
+| Tasks PLANNED | 168 |
 | Governance modules | 7 (+ unified gate) |
-| Automated gate tests | 690 |
+| Automated gate tests | 851 |
 | Architecture rules (ARCH-001..004) | 4 |
 | Lifecycle states | 12 |
 
@@ -140,6 +140,20 @@
 | orchestrator/orchestration_integration | 16 |
 | **Subtotal** | **89** |
 
+## Per-module test counts (TASK-013 — Worker Plane)
+
+| Module | Tests |
+|--------|-------|
+| worker/contract | 27 |
+| worker/lifecycle | 22 |
+| worker/registry | 20 |
+| worker/router | 18 |
+| worker/execution | 22 |
+| worker/workers | 28 |
+| worker/architecture | 10 |
+| worker/integration | 14 |
+| **Subtotal** | **161** |
+
 ## Grand total
 
-| **Total** | **690** |
+| **Total** | **851** |

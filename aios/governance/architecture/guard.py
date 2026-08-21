@@ -31,7 +31,7 @@ class GateResult:
 
 # Layer ordering. Lower index = higher layer (caller); higher index = lower
 # layer (callee). Imports must only go "downward".
-LAYER_ORDER = ["agent", "orchestrator", "runtime", "capability", "tool"]
+LAYER_ORDER = ["agent", "orchestrator", "worker", "runtime", "capability", "tool"]
 
 # Map a path/module segment (singular or plural) to a layer.
 # ``core``/``governance``/``harness``/``progress`` are infra/meta layers and
@@ -42,6 +42,8 @@ LAYER_KEYWORDS = {
     "agents": "agent",
     "orchestrator": "orchestrator",
     "orchestrators": "orchestrator",
+    "worker": "worker",
+    "workers": "worker",
     "runtime": "runtime",
     "capability": "capability",
     "capabilities": "capability",
@@ -68,6 +70,7 @@ def classify_module(module_path: str) -> str:
 
 
 # Forbidden direct imports for agent-layer modules (ARCH-001..003).
+# Extended for worker layer (TASK-013): workers also must not bypass capability.
 AGENT_FORBIDDEN = {
     "subprocess": "ARCH-001",
     "os": "ARCH-001",  # os.system / os.popen style execution primitives
@@ -79,14 +82,31 @@ AGENT_FORBIDDEN = {
     "filesystem": "ARCH-003",
 }
 
+# Worker layer forbidden imports — same as agent (capability-only access).
+WORKER_FORBIDDEN = {
+    "subprocess": "ARCH-001",
+    "os": "ARCH-001",
+    "aios.core.providers": "ARCH-002",
+    "aios.runtime.providers": "ARCH-002",
+    "providers": "ARCH-002",
+    "aios.runtime.filesystem": "ARCH-003",
+    "aios.runtime.fs_adapter": "ARCH-003",
+    "filesystem": "ARCH-003",
+    "aios.runtime.kernel": "ARCH-004",
+    "aios.runtime.execution": "ARCH-004",
+}
+
 # Layer that a given layer is allowed to import (itself and everything below).
 # Hardened for M1 gate (TASK-011): ``agent`` may only import ``orchestrator``
 # or ``unknown`` (no direct runtime/capability/tool), and ``capability`` may
 # only import ``unknown`` (pure abstraction, no tool/runtime). ``unknown``
 # remains in every allow-list so stdlib/third-party never trips ARCH-004.
+# TASK-013: ``worker`` sits between orchestrator and runtime — may only import
+# ``capability`` + ``unknown`` (capability-only access, no direct runtime/tool).
 ALLOWED_IMPORT_LAYERS: Dict[str, List[str]] = {
     "agent": ["agent", "orchestrator", "unknown"],
-    "orchestrator": ["orchestrator", "runtime", "capability", "tool", "unknown"],
+    "orchestrator": ["orchestrator", "worker", "runtime", "capability", "tool", "unknown"],
+    "worker": ["worker", "capability", "unknown"],
     "runtime": ["runtime", "capability", "tool", "unknown"],
     "capability": ["capability", "unknown"],
     "tool": ["tool", "unknown"],
@@ -136,6 +156,18 @@ def scan_source(source_code: str, module_path: str = "<string>") -> List[Violati
                             rule=rule,
                             module=module_path,
                             detail=f"Agent imports '{target}' directly (forbidden).",
+                            line=lineno,
+                        )
+                    )
+        # ARCH-001..003 extended for worker layer (TASK-013).
+        if layer == "worker":
+            for forbidden, rule in WORKER_FORBIDDEN.items():
+                if target == forbidden or target.startswith(forbidden + "."):
+                    violations.append(
+                        Violation(
+                            rule=rule,
+                            module=module_path,
+                            detail=f"Worker imports '{target}' directly (forbidden).",
                             line=lineno,
                         )
                     )
