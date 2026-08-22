@@ -43,22 +43,22 @@ Ordered task index and status. Status values: `PLANNED | SPECIFIED | ... | DONE 
 | TASK-032 | M6 | Evaluation Harness | TASK-031 | DONE |
 | TASK-033 | M6 | Benchmark + Regression | TASK-032 | DONE |
 | TASK-034 | M6 | Doctor + Readiness | TASK-033 | DONE |
-| TASK-035 | M7 | Identity + RBAC | — | DONE |
-| TASK-036 | M7 | Multi-Tenancy | — | DONE |
-| TASK-037 | M7 | Distributed Runtime | — | DONE |
-| TASK-038 | M7 | Distributed Scheduler | — | DONE |
-| TASK-039 | M7 | Quota + Cost | — | DONE |
-| TASK-040 | M7 | Credential Isolation | — | DONE |
-| TASK-041 | M7 | HA + Audit + Recovery | — | DONE |
-| TASK-042 | M7 | Enterprise Operations | — | DONE |
-| TASK-043 | M8 | Public SDK | — | DONE |
-| TASK-044 | M8 | Plugin Runtime | — | DONE |
-| TASK-045 | M8 | Extension Contracts | — | DONE |
-| TASK-046 | M8 | Ecosystem Registry | — | DONE |
-| TASK-047 | M8 | Developer Kit | — | DONE |
-| TASK-048 | M8 | Ecosystem Hub | — | DONE |
-| TASK-049 | M8 | Certification | — | DONE |
-| TASK-050 | M9 | Autonomous Goal Engine | — | DONE |
+| TASK-035 | M7 | Identity + RBAC | TASK-034 | DONE |
+| TASK-036 | M7 | Multi-Tenancy | TASK-035 | DONE |
+| TASK-037 | M7 | Distributed Runtime | TASK-036 | DONE |
+| TASK-038 | M7 | Distributed Scheduler | TASK-037 | DONE |
+| TASK-039 | M7 | Quota + Cost | TASK-038 | DONE |
+| TASK-040 | M7 | Credential Isolation | TASK-039 | DONE |
+| TASK-041 | M7 | HA + Audit + Recovery | TASK-040 | DONE |
+| TASK-042 | M7 | Enterprise Operations | TASK-041 | DONE |
+| TASK-043 | M8 | Public SDK | TASK-042 | DONE |
+| TASK-044 | M8 | Plugin Runtime | TASK-043 | DONE |
+| TASK-045 | M8 | Extension Contracts | TASK-044 | DONE |
+| TASK-046 | M8 | Ecosystem Registry | TASK-045 | DONE |
+| TASK-047 | M8 | Developer Kit | TASK-046 | DONE |
+| TASK-048 | M8 | Ecosystem Hub | TASK-047 | DONE |
+| TASK-049 | M8 | Certification | TASK-048 | DONE |
+| TASK-050 | M9 | Autonomous Goal Engine | TASK-049 | DONE |
 
 ## Next action
 
