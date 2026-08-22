@@ -102,10 +102,48 @@ Ordered task index and status. Status values: `PLANNED | SPECIFIED | ... | DONE 
 | TASK-091 | M13 | Meta-Harness / Verify-the-Verifier | TASK-090 | DONE |
 | TASK-092 | M13 | System Readiness vs Harness Trust | TASK-091 | DONE |
 | TASK-093 | M13 | Behavioral Spec + ADR-0008 | TASK-092 | DONE |
+| TASK-094 | M14 | Detect + Diagnose | TASK-093 | DONE |
+| TASK-095 | M14 | Candidate Generation + Risk Scoring | TASK-094 | DONE |
+| TASK-096 | M14 | Simulation + Meta-Verification Gate | TASK-095 | DONE |
+| TASK-097 | M14 | Permission + Human Approval + Apply + Re-test + Rollback + Certification | TASK-096 | DONE |
+| TASK-098 | M14 | Remediation Integrity + Kill Switch | TASK-097 | DONE |
+
+| TASK-145 | M21 | Coding Loop State Machine | TASK-144,TASK-053,TASK-050 | PLANNED |
+| TASK-146 | M21 | Execution Observation | TASK-145,TASK-135,TASK-141 | PLANNED |
+| TASK-147 | M21 | Failure Classification | TASK-146,TASK-135 | PLANNED |
+| TASK-148 | M21 | Diagnostic Agent | TASK-147,TASK-146 | PLANNED |
+| TASK-149 | M21 | Repair Planner | TASK-148,TASK-026,TASK-055 | PLANNED |
+| TASK-150 | M21 | Progress + Regression Detection | TASK-149,TASK-033,TASK-055 | PLANNED |
+| TASK-151 | M21 | Verification Gate | TASK-150,TASK-142,TASK-078 | PLANNED |
+| TASK-152 | M21 | Context Refresh + Patch Chain | TASK-151,TASK-024,TASK-137 | PLANNED |
+| TASK-153 | M21 | Autonomous Safety Controller | TASK-152,TASK-067,TASK-068 | PLANNED |
+| TASK-154 | M21 | Autonomous Coding Harness | TASK-145,TASK-146,TASK-147,TASK-148,TASK-149,TASK-150,TASK-151,TASK-152,TASK-153,TASK-029,TASK-031,TASK-032 | PLANNED |
+
+| TASK-155 | M22 | Requirement → Evidence Mapping | TASK-144,TASK-142,TASK-001 | PLANNED |
+| TASK-156 | M22 | Test Adequacy Analyzer + Mutation Verifier | TASK-155,TASK-031,TASK-142 | PLANNED |
+| TASK-157 | M22 | Behavioral Verifier | TASK-155,TASK-032,TASK-142 | PLANNED |
+| TASK-158 | M22 | Contract Verifier | TASK-155,TASK-135,TASK-064,TASK-142 | PLANNED |
+| TASK-159 | M22 | Regression Verifier | TASK-155,TASK-033,TASK-142 | PLANNED |
+| TASK-160 | M22 | Security Verifier | TASK-155,TASK-143,TASK-070,TASK-142 | PLANNED |
+| TASK-161 | M22 | Performance Verifier | TASK-155,TASK-021,TASK-075,TASK-142 | PLANNED |
+| TASK-162 | M22 | Replay & Flaky Detector | TASK-155,TASK-030,TASK-079,TASK-142 | PLANNED |
+| TASK-163 | M22 | Evidence Collector + Evidence Integrity | TASK-155,TASK-141,TASK-078,TASK-001 | PLANNED |
+| TASK-164 | M22 | Trust Evaluator + CodingCertificate + Verification Harness | TASK-155,TASK-156,TASK-157,TASK-158,TASK-159,TASK-160,TASK-161,TASK-162,TASK-163,TASK-049,TASK-046,TASK-142 | PLANNED |
+
+| TASK-165 | M23 | Adversarial Evaluation Harness | TASK-164,TASK-029,TASK-031,TASK-001 | PLANNED |
+| TASK-166 | M23 | Evidence Attackers | TASK-165,TASK-163,TASK-078 | PLANNED |
+| TASK-167 | M23 | Test Weakness Attackers | TASK-165,TASK-156,TASK-142 | PLANNED |
+| TASK-168 | M23 | Requirement / Scope Attackers | TASK-165,TASK-155 | PLANNED |
+| TASK-169 | M23 | Certificate Attackers | TASK-165,TASK-164,TASK-049,TASK-046 | PLANNED |
+| TASK-170 | M23 | Prompt Injection Tester + Untrusted Artifact Isolation | TASK-165,TASK-040,TASK-113,TASK-136 | PLANNED |
+| TASK-171 | M23 | Execution Integrity Attackers | TASK-165,TASK-135,TASK-078,TASK-030,TASK-079 | PLANNED |
+| TASK-172 | M23 | Environment / Dependency Attackers | TASK-165,TASK-136,TASK-137,TASK-040 | PLANNED |
+| TASK-173 | M23 | Boundary Attackers | TASK-165,TASK-153,TASK-067,TASK-068 | PLANNED |
+| TASK-174 | M23 | Collusion Detector + Resilience Score + Attack Corpus Regression | TASK-165,TASK-166,TASK-167,TASK-168,TASK-169,TASK-170,TASK-171,TASK-172,TASK-173,TASK-033 | PLANNED |
 
 ## Next action
 
-TASK-093 `DONE` (2385 tests, M13 full: T089-T093 implemented, AC-089..093 PASS). M13 COMPLETE. ALL TASKS 001-093 DONE. Next milestone: M14 (T094-T098, Remediation).
+TASK-098 `DONE` (2420 tests, M14 full: T094-T098 implemented, AC-094..098 PASS). M14 COMPLETE. ALL TASKS 001-098 DONE. Next milestone: M15 (T099, Autonomous Harness Loop).
 
 ## Known implementation gaps (audit 2026-08-22) — CLOSED 2026-08-22
 

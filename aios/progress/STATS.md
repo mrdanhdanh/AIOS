@@ -3,11 +3,11 @@
 | Metric | Value |
 |--------|-------|
 | Total tasks (master spec) | 182 |
-| Tasks DONE | 93 |
+| Tasks DONE | 98 |
 | Tasks READY | 0 |
-| Tasks PLANNED | 89 |
+| Tasks PLANNED | 84 |
 | Governance modules | 7 (+ unified gate) |
-| Automated gate tests | 2385 |
+| Automated gate tests | 2420 |
 | Architecture rules (ARCH-A..H + ARCH-001..004) | 17 |
 | Lifecycle states | 12 |
 
@@ -193,6 +193,21 @@ extended: `governance/architecture`, `runtime`, `security`, `devkit`+`cli`,
 > `behavioral`, `harness_coverage`, `meta_harness`, `readiness_trust`, `behavioral_docs`.
 > Plus `docs/behavioral_spec.md` + `docs/adr/ADR-0008.md`. T089-T093 all DONE.
 
+## Per-module test counts (TASK-094..098, M14)
+
+| Module | Tests |
+|--------|-------|
+| remediation_detect | 9 |
+| remediation_candidate | 7 |
+| remediation_simulation | 7 |
+| remediation_apply | 6 |
+| remediation_integrity | 6 |
+| **Subtotal** | **35** |
+
+> M14 added **35** net-new automated tests (full suite 2385 → 2420). New packages:
+> `remediation_detect`, `remediation_candidate`, `remediation_simulation`,
+> `remediation_apply`, `remediation_integrity`. T094-T098 all DONE (Remediation chain).
+
 ## Grand total
 
-| **Total** | **1035** |
+| **Total** | **1070** |

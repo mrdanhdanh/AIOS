@@ -271,3 +271,9 @@ Append-only event log. Each entry: `ISO-UTC | task | event | detail`.
 2026-08-22T09:00:00Z | TASK-092 | DONE | System Readiness vs Harness Trust: aios/readiness_trust (ReadinessTrust/CombinedTrust/TrustGate + T073 certify); 6 tests green; Unified Gate PASS.
 2026-08-22T09:00:00Z | TASK-093 | DONE | Behavioral Spec + ADR-0008: aios/behavioral_docs (BehavioralDoc/BehavioralDocReviewer) + docs/behavioral_spec.md + docs/adr/ADR-0008.md; 6 tests green; Unified Gate PASS.
 2026-08-22T09:00:00Z | TASK-089..093 | DONE | M13 Behavioral/Harness complete: 5 new packages (T089-T093) + ADR-0008 + behavioral spec; +35 tests; full suite 2385/2385 PASS; all gates PASS.
+2026-08-22T10:00:00Z | TASK-094 | DONE | Detect + Diagnose: aios/remediation_detect (Incident/Symptom/Diagnosis/DetectDiagnoseEngine + T061/T069/T001); 9 tests green; Unified Gate PASS.
+2026-08-22T10:00:00Z | TASK-095 | DONE | Candidate Generation + Risk Scoring: aios/remediation_candidate (Candidate/CandidateEngine + T054/T067/T094); 7 tests green; Unified Gate PASS.
+2026-08-22T10:00:00Z | TASK-096 | DONE | Simulation + Meta-Verification Gate: aios/remediation_simulation (Sandbox/SimulationGateEngine + T030/T091/T095); 7 tests green; Unified Gate PASS.
+2026-08-22T10:00:00Z | TASK-097 | DONE | Permission + Human Approval + Apply + Re-test + Rollback + Certification: aios/remediation_apply (ApplyOrchestrator + T070/T054/T073/T096); 6 tests green; Unified Gate PASS.
+2026-08-22T10:00:00Z | TASK-098 | DONE | Remediation Integrity + Kill Switch: aios/remediation_integrity (RemediationIntegrityGate + T078/T068/T094-T097); 6 tests green; Unified Gate PASS.
+2026-08-22T10:00:00Z | TASK-094..098 | DONE | M14 Remediation complete: 5 new packages (T094-T098) + remediation chain; +35 tests; full suite 2420/2420 PASS; all gates PASS.
