@@ -97,10 +97,15 @@ Ordered task index and status. Status values: `PLANNED | SPECIFIED | ... | DONE 
 | TASK-086 | M12 | Backward Compatibility | TASK-085 | DONE |
 | TASK-087 | M12 | Compatibility Conformance | TASK-086 | DONE |
 | TASK-088 | M12 | Docs & ADR — Compatibility | TASK-087 | DONE |
+| TASK-089 | M13 | Behavioral Conformance | TASK-088 | DONE |
+| TASK-090 | M13 | Harness Coverage + Readiness | TASK-089 | DONE |
+| TASK-091 | M13 | Meta-Harness / Verify-the-Verifier | TASK-090 | DONE |
+| TASK-092 | M13 | System Readiness vs Harness Trust | TASK-091 | DONE |
+| TASK-093 | M13 | Behavioral Spec + ADR-0008 | TASK-092 | DONE |
 
 ## Next action
 
-TASK-088 `DONE` (2350 tests, M12 full: T084-T088 implemented, AC-084..088 PASS). M12 COMPLETE. ALL TASKS 001-088 DONE. Next milestone: M13 (T089-T093, Behavioral/Harness).
+TASK-093 `DONE` (2385 tests, M13 full: T089-T093 implemented, AC-089..093 PASS). M13 COMPLETE. ALL TASKS 001-093 DONE. Next milestone: M14 (T094-T098, Remediation).
 
 ## Known implementation gaps (audit 2026-08-22) — CLOSED 2026-08-22
 

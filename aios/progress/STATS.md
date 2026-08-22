@@ -3,11 +3,11 @@
 | Metric | Value |
 |--------|-------|
 | Total tasks (master spec) | 182 |
-| Tasks DONE | 88 |
+| Tasks DONE | 93 |
 | Tasks READY | 0 |
-| Tasks PLANNED | 94 |
+| Tasks PLANNED | 89 |
 | Governance modules | 7 (+ unified gate) |
-| Automated gate tests | 2350 |
+| Automated gate tests | 2385 |
 | Architecture rules (ARCH-A..H + ARCH-001..004) | 17 |
 | Lifecycle states | 12 |
 
@@ -178,6 +178,21 @@ extended: `governance/architecture`, `runtime`, `security`, `devkit`+`cli`,
 > `versioning`, `migration`, `backward_compat`, `conformance`, `compat_docs`.
 > Plus `docs/adr/ADR-Compatibility.md` + 4 compatibility guides. T084-T088 all DONE.
 
+## Per-module test counts (TASK-089..093, M13)
+
+| Module | Tests |
+|--------|-------|
+| behavioral | 9 |
+| harness_coverage | 7 |
+| meta_harness | 7 |
+| readiness_trust | 6 |
+| behavioral_docs | 6 |
+| **Subtotal** | **35** |
+
+> M13 added **35** net-new automated tests (full suite 2350 → 2385). New packages:
+> `behavioral`, `harness_coverage`, `meta_harness`, `readiness_trust`, `behavioral_docs`.
+> Plus `docs/behavioral_spec.md` + `docs/adr/ADR-0008.md`. T089-T093 all DONE.
+
 ## Grand total
 
-| **Total** | **1000** |
+| **Total** | **1035** |

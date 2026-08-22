@@ -265,3 +265,9 @@ Append-only event log. Each entry: `ISO-UTC | task | event | detail`.
 2026-08-22T08:00:00Z | TASK-087 | DONE | Compatibility Conformance: aios/conformance (ConformanceCheck/Report/Runner + certify T073); 7 tests green; Unified Gate PASS.
 2026-08-22T08:00:00Z | TASK-088 | DONE | Docs & ADR — Compatibility: aios/compat_docs (CompatDoc/CompatDocReviewer) + ADR-Compatibility.md + 4 guides; 7 tests green; Unified Gate PASS.
 2026-08-22T08:00:00Z | TASK-084..088 | DONE | M12 Compatibility complete: 5 new packages (T084-T088) + ADR + guides; +38 tests; full suite 2350/2350 PASS; all gates PASS.
+2026-08-22T09:00:00Z | TASK-089 | DONE | Behavioral Conformance: aios/behavioral (BehaviorScenario/BehaviorHarness/BehaviorConformanceChecker); 9 tests green; Unified Gate PASS.
+2026-08-22T09:00:00Z | TASK-090 | DONE | Harness Coverage + Readiness: aios/harness_coverage (CoverageMap/CoverageChecker/CoverageReport/Readiness); 7 tests green; Unified Gate PASS.
+2026-08-22T09:00:00Z | TASK-091 | DONE | Meta-Harness / Verify-the-Verifier: aios/meta_harness (MetaCheck/MetaResult/MetaHarness + T078 verifier lock); 7 tests green; Unified Gate PASS.
+2026-08-22T09:00:00Z | TASK-092 | DONE | System Readiness vs Harness Trust: aios/readiness_trust (ReadinessTrust/CombinedTrust/TrustGate + T073 certify); 6 tests green; Unified Gate PASS.
+2026-08-22T09:00:00Z | TASK-093 | DONE | Behavioral Spec + ADR-0008: aios/behavioral_docs (BehavioralDoc/BehavioralDocReviewer) + docs/behavioral_spec.md + docs/adr/ADR-0008.md; 6 tests green; Unified Gate PASS.
+2026-08-22T09:00:00Z | TASK-089..093 | DONE | M13 Behavioral/Harness complete: 5 new packages (T089-T093) + ADR-0008 + behavioral spec; +35 tests; full suite 2385/2385 PASS; all gates PASS.
