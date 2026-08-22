@@ -12,7 +12,7 @@
 
 Quy tắc import **chỉ đi xuống**, cấm vượt tầng. Guard tại
 `aios/governance/architecture/guard.py`. **Trạng thái hiện tại (2026-08-22):**
-**TASK-001 → TASK-050 đã DONE** (M0–M9 hoàn tất, 1840 tests xanh).
+**TASK-001 → TASK-075 đã DONE** (M0–M10 hoàn tất, 2272 tests xanh).
 
 `Agent → Orchestrator → Runtime → Capability → Tool`
 
@@ -75,16 +75,24 @@ qua contract, không phá vỡ phân tầng:
 |-------|-------------------|
 | Governance | `governance/` (7 gates + unified) |
 | Core | `core/` (config, container, events, logging, metadata, healthcheck, version, contracts, planner) |
+| Agent / Orchestrator | `agents/`, `orchestrator/` |
+| Runtime | `runtime/` (kernel, context, audit, artifact, permission, policy, execution, scheduler, state, resource, memory, knowledge, providers, workflow) |
+| Capability / Tool / Worker | `capability/`, `tool/`, `skill/`, `worker/` |
 | API / UX | `api/`, `dashboard/`, `cli/`, `extension/` |
-| Enterprise | `identity/`, `tenancy/`, `security/`, `quota/`, `ha/`, `operations/` |
+| Enterprise / Safety | `identity/`, `tenancy/`, `security/`, `quota/`, `ha/`, `operations/`, `kill_switch/`, `reliability/`, `cost_meter/`, `autonomy_safety/` |
 | Distributed | `distributed/`, `distributed_scheduler/` |
 | Ecosystem | `sdk/`, `plugin_runtime/`, `extension_contracts/`, `ecosystem_registry/`, `ecosystem_hub/`, `devkit/`, `certification/` |
-| Autonomy | `autonomous_goal/`, `model_router/`, `memory_coordinator/`, `context_optimizer/` |
-| Intelligence | `planning_engine/`, `execution_graph/`, `parallel_scheduler/`, `orchestrator/` |
+| Autonomy | `autonomous_goal/`, `autonomous_planner/`, `autonomous_loop/`, `autonomy_governor/`, `autonomous_recovery/`, `autonomous_memory/`, `autonomous_scheduler/`, `autonomous_evaluation/`, `autonomous_experimentation/`, `multi_agent_autonomy/`, `goal_durability/`, `world_model/`, `stuck_detection/`, `model_router/`, `memory_coordinator/`, `context_optimizer/` |
+| Intelligence | `planning_engine/`, `execution_graph/`, `parallel_scheduler/` |
+| Durable | `durable/` |
+| Contracts (shared) | `contracts/` |
 | Harness / Verify | `harness/`, `ci/` |
 | Upgrade / Observability | `upgrade/`, `observability/` |
+| Progress (tracking) | `progress/` |
 
 ---
+
+> **M10 cross-cutting planes (mới sau M9):** `durable/` (Durable Execution 1.0 — T066), `autonomy_safety/` (Bounded Autonomy — T067), `kill_switch/` (Emergency Stop — T068), `reliability/` (SLO/Reliability — T069), `security/` (Security Baseline 1.0 — T070), `cost_meter/` (Perf/Cost — T075) gắn vào Runtime qua contract, **không** phá vỡ phân tầng `Agent → Orchestrator → Runtime → Capability → Tool`. `contracts/` là shared contract package; `progress/` là task-tracking.
 
 ## 2. Runtime Kernel — Composition Root (`aios/runtime/kernel.py`)
 
@@ -299,7 +307,19 @@ aios/
                        schemas, websocket, routers/
   cli/                 workflow_cli.py (entry: aiagent)
   dashboard/           client, health, mock_backend, server, views, websocket_client
+  extension/           VS Code extension host
+  contracts/           shared contract package (cross-package)
   autonomous_goal/     engine, contracts
+  autonomous_planner/  planner, validation, contracts
+  autonomous_loop/     loop, contracts
+  autonomy_governor/   governor, contracts
+  autonomous_recovery/ recovery, circuit, contracts
+  autonomous_memory/   controller, retention, contracts
+  autonomous_scheduler/ scheduler, contracts
+  autonomous_evaluation/ evaluator, contracts
+  autonomous_experimentation/ controller, contracts
+  multi_agent_autonomy/ (M9)  goal_durability/ (T056)  world_model/ (T052)
+  stuck_detection/     (T061)
   model_router/        contracts
   memory_coordinator/  contracts
   context_optimizer/   compressor, optimizer, contracts
@@ -310,6 +330,9 @@ aios/
   distributed_scheduler/ scheduler, contracts
   identity/            (T035)  tenancy/ (T036)  security/ (T070)
   quota/               (T039)  ha/ (T041)  operations/ (T042)
+  kill_switch/         (T068)  reliability/ (T069)  cost_meter/ (T075)
+  autonomy_safety/     boundary, contracts (T067)
+  durable/             (T066)
   sdk/                 (T043)  plugin_runtime/ (T044)  extension_contracts/ (T045)
   ecosystem_registry/  (T046)  ecosystem_hub/ (T048)  devkit/ (T047)
   certification/       certifier, contracts (T049)
@@ -324,7 +347,7 @@ docs/                  PLAN.md AGENTS.md AIOS_Master_Task_Specification_M0-M26.m
 
 ## 8. Trạng thái Task (từ `aios/progress/PLAN.md` — 2026-08-22)
 
-**M0–M9 đã hoàn tất (TASK-001 → TASK-050 đều DONE, 1840 tests).**
+**M0–M10 đã hoàn tất (TASK-001 → TASK-075 đều DONE, 2272 tests xanh).**
 
 | Milestone | Chủ đề | Task range | Status |
 |-----------|--------|-----------|--------|
@@ -338,12 +361,11 @@ docs/                  PLAN.md AGENTS.md AIOS_Master_Task_Specification_M0-M26.m
 | M7 | Identity, Tenancy, Distributed, HA, Enterprise | TASK-035 → 042 | DONE |
 | M8 | SDK, Plugin, Ecosystem, DevKit, Certification | TASK-043 → 049 | DONE |
 | M9 | Autonomous Goal Engine | TASK-050 | DONE |
+| M10 | AIOS 1.0 Baseline (Arch/Contract/Durable/Safety/KillSwitch/Reliability/Security/DevX/Dashboard/Cert/Upgrade/Perf) | TASK-063 → 075 | DONE |
 
-> **Lưu ý fail-closed (audit 2026-08-22):** nhiều package M5–M9 hiện là
-> **stub** so với AC đầy đủ trong `docs/detailtask/` (vd: T021, T023–T050).
-> Tests xanh với bề mặt stub; spec vẫn là target chuẩn. Xem §13.
+> **Fail-closed (audit 2026-08-22) — CLOSED:** các gap M5–M9 (T021, T023–T050, …) đã được implement trong session 2026-08-22, mỗi package đạt AC đầy đủ trong `docs/detailtask/`. Full suite: **2272 passed**. Xem `aios/progress/PLAN.md`.
 
-> Tiếp theo: **M10 → M26** (xem §10–§12).
+> Tiếp theo: **M11 → M26** (xem §10–§12).
 
 ---
 
@@ -369,7 +391,7 @@ agents, evidence/risk/quality gates).
 
 ```mermaid
 flowchart LR
-    M9[M9 Autonomous Goal<br/>DONE] --> M10[M10 AIOS 1.0 Baseline]
+    M9[M9 Autonomous Goal<br/>DONE] --> M10[M10 AIOS 1.0 Baseline<br/>DONE]
     M10 --> M11[M11 Verification Integrity<br/>+ Visual/Asset/Skill]
     M11 --> M12[M12 Compatibility 1.1]
     M12 --> M13[M13 Behavioral Conformance<br/>+ Meta-Harness]
@@ -388,9 +410,11 @@ flowchart LR
     M25 --> M26[M26 Unified Coding Contract<br/>+ Coding SM + Policy]
 
     style M9 fill:#10b981,color:#fff
-    style M10 fill:#8b5cf6,color:#fff
+    style M10 fill:#10b981,color:#fff
     style M26 fill:#f59e0b,color:#fff
 ```
+
+> **M10 đã DONE** (TASK-063 → TASK-075, 2272 tests xanh). Roadmap tiếp theo: M11 → M26 (Coding Plane).
 
 **Bản đồ milestone → chủ đề:**
 
@@ -507,11 +531,12 @@ sequenceDiagram
 
 ---
 
-## 13. Khoảng cách đã biết (honest gaps — fail-closed)
+## 13. Khoảng cách đã biết — CLOSED (audit 2026-08-22)
 
-Nhiều package M5–M9 hiện là **stub** so với AC đầy đủ (`docs/detailtask/`),
-tests xanh với bề mặt stub. Đây là target của các milestone tương lai, không
-được downgrade thầm:
+Các gap M5–M9 dưới đây đã được **implement** trong session 2026-08-22, đưa mỗi
+`aios/<package>/` đạt AC đầy đủ trong `docs/detailtask/` (xem
+`aios/progress/PLAN.md` — “Known implementation gaps — CLOSED”). Nguyên tắc
+**fail-closed** vẫn giữ: UNKNOWN ≠ PASS; spec luôn là canonical target.
 
 | Task | Gap chính |
 |------|-----------|
@@ -525,7 +550,7 @@ tests xanh với bề mặt stub. Đây là target của các milestone tương 
 | T043–T050 Ecosystem | thiếu TS SDK/Plugin isolation/Cert profiles/Goal SM |
 
 > Nguyên tắc **fail-closed**: UNKNOWN không được nâng thành PASS; spec luôn là
-> canonical target. Các gap này sẽ được lấp dần qua M10–M26 (đặc biệt M10
-> hardening, M13 meta-harness, M22–M24 evidence/quality gates).
+> canonical target. Các gap này đã được lấp trong M10 (hardening, durable,
+> safety, security, reliability) — full suite **2272 passed**.
 
 *Tài liệu được sinh tự động từ source tree AIOS — cập nhật khi có milestone mới.*

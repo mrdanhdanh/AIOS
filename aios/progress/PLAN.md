@@ -84,10 +84,18 @@ Ordered task index and status. Status values: `PLANNED | SPECIFIED | ... | DONE 
 | TASK-073 | M10 | AIOS 1.0 Certification Suite | TASK-072 | DONE |
 | TASK-074 | M10 | Upgrade & Migration 1.0 | TASK-073 | DONE |
 | TASK-075 | M10 | Performance & Cost + Model Independence | TASK-074 | DONE |
+| TASK-076 | M11 | Reserved / Not Specified in Source | TASK-075 | DONE |
+| TASK-077 | M11 | Reserved / Not Specified in Source | TASK-076 | DONE |
+| TASK-078 | M11 | Verification Integrity / Fail-Closed Gate | TASK-077 | DONE |
+| TASK-079 | M11 | RenderReplay / Deterministic Harness | TASK-078 | DONE |
+| TASK-080 | M11 | Visual Evidence + Visual Regression + UI State Contract | TASK-079 | DONE |
+| TASK-081 | M11 | Asset Pipeline + Asset Capability Registry + Routing | TASK-080 | DONE |
+| TASK-082 | M11 | Creative Domain + Vendor Integrity + Reference Asset | TASK-081 | DONE |
+| TASK-083 | M11 | SkillDistiller + Static Deploy | TASK-082 | DONE |
 
 ## Next action
 
-TASK-075 `DONE` (2272 tests, M10 full: T063-T075 implemented, AC-063..075 PASS). M10 COMPLETE. ALL TASKS 001-075 DONE.
+TASK-083 `DONE` (2312 tests, M11 full: T076-T083 implemented, AC-076..083 PASS). M11 COMPLETE. ALL TASKS 001-083 DONE. Next milestone: M12 (T084-T088, Compatibility).
 
 ## Known implementation gaps (audit 2026-08-22) — CLOSED 2026-08-22
 

@@ -250,3 +250,12 @@ Append-only event log. Each entry: `ISO-UTC | task | event | detail`.
 2026-08-22T06:00:00Z | TASK-074 | DONE | Upgrade & Migration 1.0: aios/upgrade (MigrationPlan/Engine/rollback); 64 tests green; Unified Gate PASS.
 2026-08-22T06:00:00Z | TASK-075 | DONE | Perf & Cost + Model Independence: aios/model_router + aios/cost_meter; 34 tests green; Unified Gate PASS.
 2026-08-22T06:00:00Z | TASK-063..075 | DONE | M10 Architecture 1.0 complete: 6 new packages + extensions; +310 tests; full suite 2272/2272 PASS; all gates PASS.
+2026-08-22T07:00:00Z | TASK-076 | DONE | Reserved / Not Specified in Source: ID gap preserved (Rule 1); no implementation; Unified Gate PASS.
+2026-08-22T07:00:00Z | TASK-077 | DONE | Reserved / Not Specified in Source: ID gap preserved (Rule 1); no implementation; Unified Gate PASS.
+2026-08-22T07:00:00Z | TASK-078 | DONE | Verification Integrity / Fail-Closed Gate: aios/verification_integrity (IntegrityReport/VerifierLock/IntegrityChecker); 8 tests green; Unified Gate PASS.
+2026-08-22T07:00:00Z | TASK-079 | DONE | RenderReplay / Deterministic Harness: aios/replay (Recorder/Replayer/ReplaySession); 5 tests green; Unified Gate PASS.
+2026-08-22T07:00:00Z | TASK-080 | DONE | Visual Evidence + Visual Regression + UI State Contract: aios/visual_evidence (VisualCapture/UIStateContract/VisualRegression); 6 tests green; Unified Gate PASS.
+2026-08-22T07:00:00Z | TASK-081 | DONE | Asset Pipeline + Asset Capability Registry + Routing: aios/asset_pipeline (AssetRecord/Registry/AssetCapabilityRegistry/Router/Validator); 7 tests green; Unified Gate PASS.
+2026-08-22T07:00:00Z | TASK-082 | DONE | Creative Domain + Vendor Integrity + Reference Asset: aios/creative_domain (CreativeAsset/VendorIntegrity/ReferenceAsset/CreativeCapabilityRegistry); 7 tests green; Unified Gate PASS.
+2026-08-22T07:00:00Z | TASK-083 | DONE | SkillDistiller + Static Deploy: aios/skill_distiller (DistilledSkill/SkillDistiller/StaticPackage/StaticDeploy); 6 tests green; Unified Gate PASS.
+2026-08-22T07:00:00Z | TASK-076..083 | DONE | M11 Verification Integrity & Creative/Asset/Skill extensions complete: 6 new packages (T078-T083) + 2 reserved (T076-T077); +40 tests; full suite 2312/2312 PASS; all gates PASS.

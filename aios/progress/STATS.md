@@ -3,11 +3,11 @@
 | Metric | Value |
 |--------|-------|
 | Total tasks (master spec) | 182 |
-| Tasks DONE | 75 |
+| Tasks DONE | 83 |
 | Tasks READY | 0 |
-| Tasks PLANNED | 107 |
+| Tasks PLANNED | 99 |
 | Governance modules | 7 (+ unified gate) |
-| Automated gate tests | 2272 |
+| Automated gate tests | 2312 |
 | Architecture rules (ARCH-A..H + ARCH-001..004) | 17 |
 | Lifecycle states | 12 |
 
@@ -146,6 +146,22 @@ M10 added **310** net-new automated tests (full suite 1962 → 2272). New packag
 `contracts`, `durable`, `autonomy_safety`, `kill_switch`, `reliability`, `cost_meter`;
 extended: `governance/architecture`, `runtime`, `security`, `devkit`+`cli`,
 `dashboard`, `certification`, `upgrade`, `model_router`.
+
+## Per-module test counts (TASK-076..083, M11)
+
+| Module | Tests |
+|--------|-------|
+| verification_integrity | 8 |
+| replay | 5 |
+| visual_evidence | 6 |
+| asset_pipeline | 7 |
+| creative_domain | 7 |
+| skill_distiller | 6 |
+| **Subtotal** | **39** |
+
+> TASK-076/TASK-077 are reserved (no implementation/tests). M11 added **40** net-new
+> automated tests (full suite 2272 → 2312). New packages: `verification_integrity`,
+> `replay`, `visual_evidence`, `asset_pipeline`, `creative_domain`, `skill_distiller`.
 
 ## Grand total
 
