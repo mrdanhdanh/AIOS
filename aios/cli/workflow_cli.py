@@ -72,7 +72,17 @@ def build_parser() -> argparse.ArgumentParser:
     p_val2 = sub.add_parser("validate", help="Validate a workflow YAML file (alias)")
     p_val2.add_argument("workflow", help="Path to workflow YAML file")
     p_val2.set_defaults(func=_cmd_validate)
+    p_ci = sub.add_parser("ci", help="Local CI/CD checker (check|run|install-hook|uninstall-hook)")
+    p_ci.add_argument("rest", nargs=argparse.REMAINDER, help="ci subcommand and its options")
+    p_ci.set_defaults(func=_cmd_ci)
     return parser
+
+
+def _cmd_ci(args: argparse.Namespace) -> int:
+    from aios.ci.cli import main as ci_main
+
+    # Delegate the remaining tokens (everything after `aiagent ci`) to the CI CLI.
+    return ci_main(args.rest)
 
 
 def main(argv: list[str] | None = None) -> int:
