@@ -3,11 +3,11 @@
 | Metric | Value |
 |--------|-------|
 | Total tasks (master spec) | 182 |
-| Tasks DONE | 83 |
+| Tasks DONE | 88 |
 | Tasks READY | 0 |
-| Tasks PLANNED | 99 |
+| Tasks PLANNED | 94 |
 | Governance modules | 7 (+ unified gate) |
-| Automated gate tests | 2312 |
+| Automated gate tests | 2350 |
 | Architecture rules (ARCH-A..H + ARCH-001..004) | 17 |
 | Lifecycle states | 12 |
 
@@ -162,6 +162,21 @@ extended: `governance/architecture`, `runtime`, `security`, `devkit`+`cli`,
 > TASK-076/TASK-077 are reserved (no implementation/tests). M11 added **40** net-new
 > automated tests (full suite 2272 → 2312). New packages: `verification_integrity`,
 > `replay`, `visual_evidence`, `asset_pipeline`, `creative_domain`, `skill_distiller`.
+
+## Per-module test counts (TASK-084..088, M12)
+
+| Module | Tests |
+|--------|-------|
+| versioning | 9 |
+| migration | 8 |
+| backward_compat | 7 |
+| conformance | 7 |
+| compat_docs | 7 |
+| **Subtotal** | **38** |
+
+> M12 added **38** net-new automated tests (full suite 2312 → 2350). New packages:
+> `versioning`, `migration`, `backward_compat`, `conformance`, `compat_docs`.
+> Plus `docs/adr/ADR-Compatibility.md` + 4 compatibility guides. T084-T088 all DONE.
 
 ## Grand total
 

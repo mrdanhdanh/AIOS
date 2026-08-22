@@ -92,10 +92,15 @@ Ordered task index and status. Status values: `PLANNED | SPECIFIED | ... | DONE 
 | TASK-081 | M11 | Asset Pipeline + Asset Capability Registry + Routing | TASK-080 | DONE |
 | TASK-082 | M11 | Creative Domain + Vendor Integrity + Reference Asset | TASK-081 | DONE |
 | TASK-083 | M11 | SkillDistiller + Static Deploy | TASK-082 | DONE |
+| TASK-084 | M12 | Version + Compatibility Baseline | TASK-083 | DONE |
+| TASK-085 | M12 | Migration 1.0 → 1.1 | TASK-084 | DONE |
+| TASK-086 | M12 | Backward Compatibility | TASK-085 | DONE |
+| TASK-087 | M12 | Compatibility Conformance | TASK-086 | DONE |
+| TASK-088 | M12 | Docs & ADR — Compatibility | TASK-087 | DONE |
 
 ## Next action
 
-TASK-083 `DONE` (2312 tests, M11 full: T076-T083 implemented, AC-076..083 PASS). M11 COMPLETE. ALL TASKS 001-083 DONE. Next milestone: M12 (T084-T088, Compatibility).
+TASK-088 `DONE` (2350 tests, M12 full: T084-T088 implemented, AC-084..088 PASS). M12 COMPLETE. ALL TASKS 001-088 DONE. Next milestone: M13 (T089-T093, Behavioral/Harness).
 
 ## Known implementation gaps (audit 2026-08-22) — CLOSED 2026-08-22
 

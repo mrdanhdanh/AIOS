@@ -259,3 +259,9 @@ Append-only event log. Each entry: `ISO-UTC | task | event | detail`.
 2026-08-22T07:00:00Z | TASK-082 | DONE | Creative Domain + Vendor Integrity + Reference Asset: aios/creative_domain (CreativeAsset/VendorIntegrity/ReferenceAsset/CreativeCapabilityRegistry); 7 tests green; Unified Gate PASS.
 2026-08-22T07:00:00Z | TASK-083 | DONE | SkillDistiller + Static Deploy: aios/skill_distiller (DistilledSkill/SkillDistiller/StaticPackage/StaticDeploy); 6 tests green; Unified Gate PASS.
 2026-08-22T07:00:00Z | TASK-076..083 | DONE | M11 Verification Integrity & Creative/Asset/Skill extensions complete: 6 new packages (T078-T083) + 2 reserved (T076-T077); +40 tests; full suite 2312/2312 PASS; all gates PASS.
+2026-08-22T08:00:00Z | TASK-084 | DONE | Version + Compatibility Baseline: aios/versioning (VersionPolicy/ChangeType/VersionBump/VersionDecision/VersionBaseline/CompatibilityMatrix/VersionPolicyEngine); 9 tests green; Unified Gate PASS.
+2026-08-22T08:00:00Z | TASK-085 | DONE | Migration 1.0→1.1: aios/migration (MigrationStep/Plan/State/Runner + dry-run/apply/rollback); 8 tests green; Unified Gate PASS.
+2026-08-22T08:00:00Z | TASK-086 | DONE | Backward Compatibility: aios/backward_compat (CompatSurface/Check/Result/BackwardCompatChecker/CompatTestSuite); 7 tests green; Unified Gate PASS.
+2026-08-22T08:00:00Z | TASK-087 | DONE | Compatibility Conformance: aios/conformance (ConformanceCheck/Report/Runner + certify T073); 7 tests green; Unified Gate PASS.
+2026-08-22T08:00:00Z | TASK-088 | DONE | Docs & ADR — Compatibility: aios/compat_docs (CompatDoc/CompatDocReviewer) + ADR-Compatibility.md + 4 guides; 7 tests green; Unified Gate PASS.
+2026-08-22T08:00:00Z | TASK-084..088 | DONE | M12 Compatibility complete: 5 new packages (T084-T088) + ADR + guides; +38 tests; full suite 2350/2350 PASS; all gates PASS.
