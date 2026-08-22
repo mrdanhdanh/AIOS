@@ -6,7 +6,7 @@
 ## 1. Quick start (new session)
 
 1. Read `docs/PLAN.md` → `AGENTS.md` → `aios/progress/README.md`.
-2. `pip install -e ".[dev]"` (requires Python ≥3.11, `pyyaml` only runtime dep).
+2. `pip install -e ".[dev]"` (requires Python ≥3.11, `pyyaml` only runtime dep). To run the **full** suite or API tests (`test_api.py`) also install the API extra — `pip install -e ".[dev,api]"` — otherwise `pytest aios` fails with `ModuleNotFoundError: fastapi` (the recurring CI breakage).
 3. `python -m pytest aios -q` — must stay green; coverage `fail_under: 80` ([`pyproject.toml`](pyproject.toml)).
 4. Pick next `READY` task from `aios/progress/PLAN.md` (check `DependencyGraph.is_ready`).
 
@@ -127,6 +127,10 @@ Use `aios.core.container` (singleton/scoped/transient, thread-safe), `aios.core.
 * **Spec-first:** trước khi claim `PASS`/`DONE`, phải đọc `docs/detailtask/T00X.md` + `aios/progress/tasks/TASK-00X/` và đối chiếu từng AC trong bảng — không đoán.
 * **Không khôi phục:** khi user nói "không khôi phục / làm lại từ đầu / không được khôi phục", xóa/recreate từ `aios/progress/tasks/_TEMPLATE/` — không reuse `implementation/` cũ.
 * **Chẩn đoán trước khi retry (bắt buộc):** cấm `Try Again`/`retry`/`thử lại`/`fix`/`sửa giúp tôi` trống. Khi fail phải chạy `python aios/governance/cli/gate_check.py --task TASK-00X` + `python -m pytest aios -q` rồi báo `Violation(rule,module,line)` hoặc test failure cụ thể trước khi thử lại. User cũng phải dán lỗi đầy đủ, không nói chung chung.
+* **Ngôn ngữ giao tiếp (bắt buộc):** user yêu cầu giao tiếp bằng **tiếng Việt** — mọi trả lời, giải thích, tóm tắt đều bằng tiếng Việt. Commit message / code comment giữ tiếng Anh chuẩn.
+* **Local CI gate trước khi push / claim DONE (bắt buộc):** luôn chạy `aiagent ci check` (hoặc `python aios/governance/cli/gate_check.py --task TASK-00X` — mặc định `--ci` bật, scope=full) trước khi push hoặc tuyên bố task DONE. Phát hiện sớm lỗi như `ModuleNotFoundError: fastapi` (thiếu extra `api`) trước khi lên CI. Cấm push khi local CI FAIL (fail-closed).
+* **Tự chủ theo lô + auto-stop:** khi được giao chuỗi TASK đã lên lịch, tự thực hiện tuần tự, tự quyết định thứ tự không cần hỏi lại mỗi bước. Nhưng **ngưng lại** sau khi cùng 1 lỗi lặp lại nhiều lần (không loop "Try Again"/"thử lại" vô tận) — báo cáo root cause rồi chờ user.
+* **Short approval = proceed:** khi user chỉ nói "có"/"duyệt"/"ok", hiểu là phê duyệt và tiếp tục bước tiếp theo, không cần xác nhận lại.
 * **PowerShell contract (Windows):** workspace chạy PowerShell — cấm bash-isms `head`, `&&`, `grep`, `2>&1 | head`. Dùng `pip show fastapi`, `pip list | Select-String fastapi`, `Select-Object -First 20`, `;` cho sequence. Kiểm tra `pyproject.toml` dependencies trước khi kết luận thiếu package.
 * **Workspace path:** luôn dùng path tương đối `${workspaceFolder}` (`d:\AIOS` / `aios/...`); cấm hardcode `OneDrive\Desktop\AIAGENT` legacy.
 * **Session hygiene:** sau ~15 turns hoặc paste >2k chars, chạy `/compact` hoặc mở session mới; ưu tiên file reference thay vì paste dài; 0 checkpoints hiện tại — session dài không compact làm tăng input tokens mỗi turn.
