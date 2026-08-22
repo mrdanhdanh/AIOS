@@ -114,11 +114,11 @@ Ordered task index and status. Status values: `PLANNED | SPECIFIED | ... | DONE 
 | TASK-102 | M15 | Trust Budget + Autonomy Levels + SAFE-STOP | TASK-101 | DONE |
 | TASK-103 | M15 | Autonomy Constitution + Audit Trail | TASK-102 | DONE |
 
-| TASK-104 | M16 | Independent Harness Integration Foundation | TASK-103 | PLANNED |
-| TASK-105 | M16 | Independent Verification Oracle | TASK-104 | PLANNED |
-| TASK-106 | M16 | Behavioral Conformance Bridge | TASK-105 | PLANNED |
-| TASK-107 | M16 | Permission + Sandbox Bridge | TASK-106 | PLANNED |
-| TASK-108 | M16 | Management Console / Independent Harness Integration | TASK-107 | PLANNED |
+| TASK-104 | M16 | Independent Harness Integration Foundation | TASK-103 | DONE |
+| TASK-105 | M16 | Independent Verification Oracle | TASK-104 | DONE |
+| TASK-106 | M16 | Behavioral Conformance Bridge | TASK-105 | DONE |
+| TASK-107 | M16 | Permission + Sandbox Bridge | TASK-106 | DONE |
+| TASK-108 | M16 | Management Console / Independent Harness Integration | TASK-107 | DONE |
 
 | TASK-109 | M17 | Model Contracts | TASK-108 | PLANNED |
 | TASK-110 | M17 | Provider Registry + Lifecycle | TASK-109 | PLANNED |

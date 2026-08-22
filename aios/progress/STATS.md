@@ -3,11 +3,11 @@
 | Metric | Value |
 |--------|-------|
 | Total tasks (master spec) | 182 |
-| Tasks DONE | 103 |
+| Tasks DONE | 108 |
 | Tasks READY | 0 |
-| Tasks PLANNED | 79 |
+| Tasks PLANNED | 74 |
 | Governance modules | 7 (+ unified gate) |
-| Automated gate tests | 2450 |
+| Automated gate tests | 2479 |
 | Architecture rules (ARCH-A..H + ARCH-001..004) | 17 |
 | Lifecycle states | 12 |
 
@@ -223,6 +223,22 @@ extended: `governance/architecture`, `runtime`, `security`, `devkit`+`cli`,
 > `autonomous_harness_loop`, `failure_corpus`, `continuous_certification`,
 > `trust_budget`, `autonomy_constitution`. T099-T103 all DONE (Autonomous Harness).
 
+## Per-module test counts (TASK-104..108, M16)
+
+| Module | Tests |
+|--------|-------|
+| independent_harness/foundation (T104) | 6 |
+| independent_harness/oracle (T105) | 6 |
+| independent_harness/behavioral_bridge (T106) | 6 |
+| independent_harness/permission_sandbox_bridge (T107) | 6 |
+| independent_harness/console (T108) | 5 |
+| **Subtotal** | **29** |
+
+> M16 added **29** net-new automated tests (full suite 2450 → 2479). New package:
+> `independent_harness` (foundation/oracle/behavioral_bridge/permission_sandbox_bridge/console)
+> + `aios/api/routers/independent_harness.py` + `IndependentHarnessView` (Dashboard View 11).
+> T104-T108 all DONE (Independent Harness Integration). AIOS retains policy authority.
+
 ## Grand total
 
-| **Total** | **1100** |
+| **Total** | **1129** |

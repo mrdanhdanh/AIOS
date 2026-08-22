@@ -189,3 +189,30 @@ class HealthView:
             "healthy_count": self.healthy_count,
             "unhealthy_count": self.unhealthy_count,
         }
+
+
+@dataclass
+class IndependentHarnessView:
+    """View 11 — Independent Harness Console: aggregated external verification.
+
+    Pure data shaping — mirrors the API /independent-harness/status response.
+    AIOS retains authority; the console only displays (TASK-108).
+    """
+
+    console_id: str = ""
+    harness_status: str = "no-data"
+    independent_results_summary: dict[str, Any] = field(default_factory=dict)
+    aios_authority_flag: str = "aios"
+    operator_action: str = "view-only"
+    evidence_ref: str = ""
+
+    def to_dict(self) -> dict[str, Any]:
+        return {
+            "view": "independent_harness",
+            "console_id": self.console_id,
+            "harness_status": self.harness_status,
+            "independent_results_summary": self.independent_results_summary,
+            "aios_authority_flag": self.aios_authority_flag,
+            "operator_action": self.operator_action,
+            "evidence_ref": self.evidence_ref,
+        }
