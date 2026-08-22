@@ -5,7 +5,7 @@ Ordered task index and status. Status values: `PLANNED | SPECIFIED | ... | DONE 
 | Task | Milestone | Title | Dependencies | Status |
 |------|-----------|-------|--------------|--------|
 | TASK-001 | M0 | Task Governance System | — | DONE |
-| TASK-002 | M1 | Monorepo + aios_core Scaffold | TASK-001 | DONE |
+| TASK-002 | M1 | Monorepo + aios Scaffold | TASK-001 | DONE |
 | TASK-003 | M1 | Kernel Foundations | TASK-002 | DONE |
 | TASK-004 | M1 | Runtime Services I | TASK-003 | DONE |
 | TASK-005 | M1 | Runtime Services II | TASK-004 | DONE |
@@ -21,10 +21,10 @@ Ordered task index and status. Status values: `PLANNED | SPECIFIED | ... | DONE 
 
 | TASK-012 | M2 | Operational Orchestration | TASK-010 | DONE |
 | TASK-013 | M2 | Worker Plane | TASK-010,TASK-012 | DONE |
-| TASK-014 | M2 | Tool + Capability Layer | TASK-010,TASK-012,TASK-013 | DONE |
+| TASK-014 | M2 | Tool + Capability Layer | TASK-010,TASK-013 | DONE |
 | TASK-015 | M2 | Plugin / Skill Execution | TASK-014 | DONE |
 | TASK-016 | M2 | Architecture Hardening | TASK-010,TASK-011,TASK-012,TASK-013,TASK-014,TASK-015 | DONE |
-| TASK-017 | M3 | FastAPI REST + WebSocket | TASK-010,TASK-011,TASK-012,TASK-013,TASK-014,TASK-015,TASK-016 | DONE |
+| TASK-017 | M3 | FastAPI REST + WebSocket | TASK-016 | DONE |
 
 | TASK-018 | M3 | Dashboard SPA | TASK-017 | DONE |
 | TASK-019 | M3 | VS Code Extension | TASK-017 | DONE |
@@ -63,3 +63,38 @@ Ordered task index and status. Status values: `PLANNED | SPECIFIED | ... | DONE 
 ## Next action
 
 TASK-050 `DONE` (1840 tests, 42 new for M8+M9 tasks, AC-043..050 PASS). M8+M9 COMPLETE. ALL TASKS 018-050 DONE.
+
+## Known implementation gaps (audit 2026-08-22) — CLOSED 2026-08-22
+
+All gaps listed below were **implemented** in the session of 2026-08-22, bringing
+each `aios/<package>/` implementation to meet its `docs/detailtask/` acceptance
+criteria. Each task's new modules are covered by dedicated tests (see per-task
+`tests/` files). Full suite: **1962 passed**.
+
+- **T021** Observability → added `observability/health_api.py` + `dashboard.py` (fail-closed UNKNOWN≠PASS).
+- **T023** Memory Coordinator → `filters`/`ranking_policy` on `MemoryQuery`, `provenance`/`checksum`/`scope` on `MemoryCandidate`, `filter.py` + retrieval observability.
+- **T024** Context Optimizer → `ExtractiveCompressor`+`LLMCompressor`, priority enum aligned, non-ASCII bug fixed.
+- **T025** Model Router → `FallbackResolver` fallback chain + extended `ModelRequirement`/`ModelCandidate`.
+- **T028** Parallel Scheduler → `DispatchDecision` enum + `ANY_SUCCESS`/`ALL_COMPLETED` join policies.
+- **T029** Harness Kernel → `HarnessRegistry` (AC-029-02) + `HarnessContext`/`HarnessEvent`/`HarnessArtifact`/`HarnessReport`.
+- **T030** Execution Verification → `ReplayEngine` + expanded `EvidencePackage`.
+- **T031** Test Harness → `test_harness.py` (`FakeRuntime`/`FakeTool`/`GoldenScenario`/`TestHarness`/`run_harness_test`).
+- **T032** Evaluation Harness → `evaluators.py` (Evaluator base + Deterministic/Semantic/LLM/Human/Composite + trajectory eval).
+- **T033** Benchmark → `GateEvaluator` (PASS/WARNING/FAIL/INCONCLUSIVE) + named primitives.
+- **T034** Doctor + Readiness → `readiness.py` (13 domain doctors + `ReadinessEngine` fail-closed).
+- **T035** Identity + RBAC → `abac.py` + `delegation.py` (ABAC engine, delegation w/ attenuation).
+- **T036** Multi-Tenancy → `Organization`/`Project`/`Workspace`/`TenantContext` + `resolve_scope`/`assert_same_tenant`/`filter_by_tenant`.
+- **T041** HA + Audit + Recovery → `health.py`/`lease.py`/`recovery.py`/`audit.py` (hash-chained audit, single-active lease).
+- **T042** Enterprise Operations → `metrics.py`/`health.py` + tenant-scoped operations.
+- **T043** Public SDK → error model + `SDKVersion` compat + `MockAIOSClient` + `discovery.py`.
+- **T044** Plugin Runtime → `manifest.py`/`resolver.py` + validate-before-load/rollback/snapshots.
+- **T045** Extension Contracts → `ExtensionContext` + `compatibility.py`/`evidence.py` + boundary check.
+- **T046** Ecosystem Registry → `TrustState` + search/resolve_version/is_compatible/set_trust/checksum.
+- **T047** Developer Kit → `manifest.py`/`packaging.py`/`cli.py` (`create`/`validate`/`test`/`simulate`/`package`/`inspect`).
+- **T048** Ecosystem Hub → search/is_compatible/install via PluginRuntime + checksum/provenance.
+- **T049** Certification → `pipeline.py` + profiles/checks/revocation reasons/expiry.
+- **T050** Autonomous Goal Engine → `state_machine.py`/`policy.py` + objectives/progress/policy boundary/evidence.
+
+### Minor governance-artifact inconsistencies (still open, non-blocking)
+- Task-folder `implementation/` dirs are empty for T015, T016, T029, T041, T044, T045, T049, T050 (real code lives in `aios/<package>/`).
+- Regression artifact casing inconsistent: `REGRESSION.md` (uppercase) for T011/012/013/014/016/017 vs canonical `regression.md` (lowercase) elsewhere.

@@ -3,6 +3,7 @@ from __future__ import annotations
 import pytest
 from aios.autonomous_goal.contracts import Goal, GoalPlan, GoalStatus
 from aios.autonomous_goal.engine import AutonomousGoalEngine
+from aios.autonomous_goal.policy import AutonomyLevel
 
 class TestAutonomousGoal:
     def test_create_goal(self):
@@ -17,13 +18,15 @@ class TestAutonomousGoal:
         assert len(plan.steps) == 2
         assert g.status == GoalStatus.EXECUTING
     def test_complete_goal(self):
-        engine = AutonomousGoalEngine()
+        engine = AutonomousGoalEngine(autonomy=AutonomyLevel.AUTONOMOUS)
         g = engine.create_goal("Task")
+        engine.plan_goal(g.goal_id, ["s1"])
         engine.complete_goal(g.goal_id)
         assert g.status == GoalStatus.COMPLETED
     def test_fail_goal(self):
-        engine = AutonomousGoalEngine()
+        engine = AutonomousGoalEngine(autonomy=AutonomyLevel.AUTONOMOUS)
         g = engine.create_goal("Task")
+        engine.plan_goal(g.goal_id, ["s1"])
         engine.fail_goal(g.goal_id)
         assert g.status == GoalStatus.FAILED
     def test_not_found(self):

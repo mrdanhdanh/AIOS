@@ -171,7 +171,13 @@ class TestMemoryCoordinator:
         coord = MemoryCoordinator()
         for mt in MemoryType:
             store = self._make_store([
-                MemoryCandidate(f"m-{mt.value}", mt, f"content for {mt}", timestamp=time.time()),
+                MemoryCandidate(
+                    f"m-{mt.value}",
+                    mt,
+                    f"content for {mt}",
+                    timestamp=time.time(),
+                    provenance=[f"src-{mt.value}"],
+                ),
             ])
             coord.register_store(mt, store)
         query = MemoryQuery(

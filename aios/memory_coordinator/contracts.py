@@ -25,8 +25,10 @@ class MemoryQuery:
     workflow_id: str = ""
     agent_id: str = ""
     scope: str = ""
+    filters: dict[str, Any] = field(default_factory=dict)
     max_candidates: int = 50
     token_budget: int = 4000
+    ranking_policy: str = "default"
     required_provenance: bool = True
 
     def to_dict(self) -> dict[str, Any]:
@@ -34,6 +36,9 @@ class MemoryQuery:
             "query_text": self.query_text,
             "memory_types": [t.value for t in self.memory_types],
             "execution_id": self.execution_id,
+            "scope": self.scope,
+            "filters": self.filters,
+            "ranking_policy": self.ranking_policy,
             "token_budget": self.token_budget,
             "required_provenance": self.required_provenance,
         }
@@ -51,6 +56,9 @@ class MemoryCandidate:
     execution_id: str = ""
     timestamp: float = 0.0
     token_count: int = 0
+    provenance: list[str] = field(default_factory=list)
+    checksum: str = ""
+    scope: str = ""
     metadata: dict[str, Any] = field(default_factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -61,6 +69,9 @@ class MemoryCandidate:
             "score": self.score,
             "source": self.source,
             "token_count": self.token_count,
+            "provenance": self.provenance,
+            "checksum": self.checksum,
+            "scope": self.scope,
         }
 
 

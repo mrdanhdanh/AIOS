@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import hashlib
+import time
 import uuid
 from dataclasses import dataclass, field
 from enum import Enum
@@ -107,4 +108,60 @@ class RunResult:
             "passed": self.passed, "verdict": self.verdict,
             "assertions": [a.to_dict() for a in self.assertions],
             "evidence_refs": self.evidence_refs,
+        }
+
+
+@dataclass
+class HarnessContext:
+    """Execution context a harness run executes within."""
+    tenant_id: str = ""
+    scope: str = "test"
+    config: dict[str, Any] = field(default_factory=dict)
+
+    def to_dict(self) -> dict[str, Any]:
+        return {"tenant_id": self.tenant_id, "scope": self.scope, "config": self.config}
+
+
+@dataclass
+class HarnessEvent:
+    """An event emitted during a harness run."""
+    event_id: str = field(default_factory=lambda: uuid.uuid4().hex[:12])
+    kind: str = ""
+    payload: dict[str, Any] = field(default_factory=dict)
+    timestamp: float = field(default_factory=time.time)
+
+    def to_dict(self) -> dict[str, Any]:
+        return {"event_id": self.event_id, "kind": self.kind, "payload": self.payload}
+
+
+@dataclass
+class HarnessArtifact:
+    """An artifact produced/consumed by a harness run."""
+    artifact_id: str = field(default_factory=lambda: uuid.uuid4().hex[:12])
+    name: str = ""
+    content_hash: str = ""
+    kind: str = "file"
+
+    def to_dict(self) -> dict[str, Any]:
+        return {"artifact_id": self.artifact_id, "name": self.name, "content_hash": self.content_hash, "kind": self.kind}
+
+
+@dataclass
+class HarnessReport:
+    """Aggregated report of a harness run."""
+    run_id: str = ""
+    spec_id: str = ""
+    verdict: str = "PENDING"
+    events: list[HarnessEvent] = field(default_factory=list)
+    artifacts: list[HarnessArtifact] = field(default_factory=list)
+    summary: dict[str, Any] = field(default_factory=dict)
+
+    def to_dict(self) -> dict[str, Any]:
+        return {
+            "run_id": self.run_id,
+            "spec_id": self.spec_id,
+            "verdict": self.verdict,
+            "events": [e.to_dict() for e in self.events],
+            "artifacts": [a.to_dict() for a in self.artifacts],
+            "summary": self.summary,
         }

@@ -25,6 +25,13 @@ class ModelRequirement:
     required_capabilities: list[str] = field(default_factory=list)
     policy: RoutingPolicy = RoutingPolicy.BALANCED
     prefer_offline: bool = False
+    minimum_quality: float = 0.0
+    preferred_provider: str = ""
+    preferred_model: str = ""
+    locality: str = ""
+    tool_calling_required: bool = False
+    structured_output_required: bool = False
+    fallback_allowed: bool = True
 
     def to_dict(self) -> dict[str, Any]:
         return {
@@ -33,6 +40,13 @@ class ModelRequirement:
             "max_cost_per_token": self.max_cost_per_token,
             "policy": self.policy.value,
             "prefer_offline": self.prefer_offline,
+            "minimum_quality": self.minimum_quality,
+            "preferred_provider": self.preferred_provider,
+            "preferred_model": self.preferred_model,
+            "locality": self.locality,
+            "tool_calling_required": self.tool_calling_required,
+            "structured_output_required": self.structured_output_required,
+            "fallback_allowed": self.fallback_allowed,
         }
 
 
@@ -47,6 +61,8 @@ class ModelCandidate:
     latency_ms: float = 100.0
     capabilities: list[str] = field(default_factory=list)
     is_healthy: bool = True
+    quality: float = 0.0
+    availability: float = 1.0
     metadata: dict[str, Any] = field(default_factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -57,6 +73,8 @@ class ModelCandidate:
             "cost_per_token": self.cost_per_token,
             "latency_ms": self.latency_ms,
             "is_healthy": self.is_healthy,
+            "quality": self.quality,
+            "availability": self.availability,
         }
 
 

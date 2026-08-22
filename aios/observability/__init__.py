@@ -2,7 +2,9 @@
 
 from aios.observability.arch_health import ArchitectureHealth, ViolationReport
 from aios.observability.audit import AuditEntry, AuditService
+from aios.observability.dashboard import DashboardIntegration, DashboardSnapshot
 from aios.observability.doctor import DoctorService, HealthReport
+from aios.observability.health_api import HealthAPI, SystemHealth
 from aios.observability.metrics import MetricsCollector, MetricSnapshot
 from aios.observability.profiler import ProfilerService, ProfileResult
 from aios.observability.prompt_history import PromptHistory, PromptRecord
@@ -20,4 +22,8 @@ __all__ = [
     "HealthReport",
     "ArchitectureHealth",
     "ViolationReport",
+    "HealthAPI",
+    "SystemHealth",
+    "DashboardIntegration",
+    "DashboardSnapshot",
 ]

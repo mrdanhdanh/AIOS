@@ -18,6 +18,7 @@ from aios.model_router.contracts import (
     ModelSelection,
     RoutingPolicy,
 )
+from aios.model_router.fallback import FallbackResolver
 from aios.model_router.health import ModelHealthTracker
 
 
@@ -30,6 +31,7 @@ class ModelRouter:
     def __init__(self, health_tracker: ModelHealthTracker | None = None) -> None:
         self._candidates: list[ModelCandidate] = []
         self._health = health_tracker or ModelHealthTracker()
+        self._fallback = FallbackResolver()
         self._selection_history: list[ModelSelection] = []
 
     def register_candidate(self, candidate: ModelCandidate) -> None:
@@ -86,10 +88,20 @@ class ModelRouter:
             self._selection_history.append(selection)
             return selection
 
-        # Score eligible candidates by policy
-        scored = self._score_by_policy(eligible, requirement.policy)
-        best = scored[0]
+        # Build fallback-ordered chain and pick the first (preferred first).
+        chain = self._fallback.resolve(requirement, eligible)
+        if not chain:
+            selection = ModelSelection(
+                model=None,
+                selected=False,
+                explanation="No eligible model after fallback resolution (fail-closed)",
+                alternatives_rejected=rejected,
+                provenance=["model_router:fail_closed"],
+            )
+            self._selection_history.append(selection)
+            return selection
 
+        best = chain[0]
         selection = ModelSelection(
             model=best,
             selected=True,

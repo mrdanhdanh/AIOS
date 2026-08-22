@@ -112,3 +112,108 @@ class ReleaseGate:
             "regressions": len(regressed),
             "total_compared": len(comparisons),
         }
+
+
+class GateVerdict(str, Enum):
+    PASS = "pass"
+    WARNING = "warning"
+    FAIL = "fail"
+    INCONCLUSIVE = "inconclusive"
+
+
+@dataclass
+class BenchmarkMetric:
+    name: str
+    value: float = 0.0
+    threshold: float = 0.0
+    is_hard: bool = False
+
+
+@dataclass
+class BenchmarkBaseline:
+    name: str
+    metrics: dict[str, float] = field(default_factory=dict)
+    timestamp: float = field(default_factory=time.time)
+
+
+@dataclass
+class BenchmarkCandidate:
+    name: str
+    metrics: dict[str, float] = field(default_factory=dict)
+    timestamp: float = field(default_factory=time.time)
+
+
+@dataclass
+class BenchmarkComparison:
+    metric_name: str
+    baseline_value: float
+    candidate_value: float
+    delta: float
+    verdict: GateVerdict
+
+
+@dataclass
+class BenchmarkFinding:
+    severity: GateVerdict
+    message: str
+
+
+@dataclass
+class BenchmarkReport:
+    verdict: GateVerdict
+    findings: list[BenchmarkFinding] = field(default_factory=list)
+    comparisons: list[BenchmarkComparison] = field(default_factory=list)
+
+    def to_dict(self) -> dict[str, Any]:
+        return {
+            "verdict": self.verdict.value,
+            "findings": [f.message for f in self.findings],
+            "comparisons": len(self.comparisons),
+        }
+
+
+class GateEvaluator:
+    """Regression gate with PASS/WARNING/FAIL/INCONCLUSIVE verdicts (AC-033-01..04).
+
+    Fail-closed: missing baseline → INCONCLUSIVE; any hard metric breach → FAIL.
+    """
+
+    def __init__(self, warning_threshold: float = 0.1, fail_threshold: float = 0.25) -> None:
+        self.warning_threshold = warning_threshold
+        self.fail_threshold = fail_threshold
+
+    def evaluate(self, baseline: BenchmarkBaseline, candidate: BenchmarkCandidate) -> BenchmarkReport:
+        if not baseline.metrics:
+            return BenchmarkReport(verdict=GateVerdict.INCONCLUSIVE, findings=[BenchmarkFinding(GateVerdict.INCONCLUSIVE, "No baseline")])
+
+        findings: list[BenchmarkFinding] = []
+        comparisons: list[BenchmarkComparison] = []
+        has_fail = False
+        has_warning = False
+
+        for metric, b_val in baseline.metrics.items():
+            c_val = candidate.metrics.get(metric, 0.0)
+            if b_val == 0:
+                delta = 0.0
+                verdict = GateVerdict.INCONCLUSIVE
+            else:
+                delta = (c_val - b_val) / abs(b_val)
+                if delta <= -self.fail_threshold:
+                    verdict = GateVerdict.FAIL
+                    has_fail = True
+                    findings.append(BenchmarkFinding(GateVerdict.FAIL, f"{metric} regressed {delta:.1%}"))
+                elif delta <= -self.warning_threshold:
+                    verdict = GateVerdict.WARNING
+                    has_warning = True
+                    findings.append(BenchmarkFinding(GateVerdict.WARNING, f"{metric} degraded {delta:.1%}"))
+                else:
+                    verdict = GateVerdict.PASS
+            comparisons.append(BenchmarkComparison(metric, b_val, c_val, delta, verdict))
+
+        if has_fail:
+            overall = GateVerdict.FAIL
+        elif has_warning:
+            overall = GateVerdict.WARNING
+        else:
+            overall = GateVerdict.PASS
+        return BenchmarkReport(verdict=overall, findings=findings, comparisons=comparisons)

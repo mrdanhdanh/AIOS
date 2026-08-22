@@ -22,6 +22,7 @@ from aios.memory_coordinator.contracts import (
     MemoryType,
 )
 from aios.memory_coordinator.dedup import Deduplicator
+from aios.memory_coordinator.filter import MemoryFilter
 from aios.memory_coordinator.ranker import Ranker
 
 
@@ -47,7 +48,14 @@ class MemoryCoordinator:
     ) -> None:
         self._ranker = ranker or Ranker()
         self._dedup = dedup or Deduplicator()
+        self._filter = MemoryFilter()
         self._stores: dict[MemoryType, MemoryStoreProtocol] = {}
+        self._retrieval_stats: dict[str, int] = {
+            "retrieve_calls": 0,
+            "candidates_retrieved": 0,
+            "candidates_filtered": 0,
+            "candidates_selected": 0,
+        }
 
     def register_store(self, memory_type: MemoryType, store: MemoryStoreProtocol) -> None:
         """Register a memory store for a specific type."""
@@ -64,6 +72,7 @@ class MemoryCoordinator:
         """
         active_stores = stores or self._stores
         all_candidates: list[MemoryCandidate] = []
+        self._retrieval_stats["retrieve_calls"] += 1
 
         for mem_type in query.memory_types:
             store = active_stores.get(mem_type)
@@ -77,6 +86,7 @@ class MemoryCoordinator:
             candidates = [c for c in candidates if c.memory_type == mem_type]
             all_candidates.extend(candidates)
 
+        self._retrieval_stats["candidates_retrieved"] += len(all_candidates)
         return all_candidates
 
     def rank_and_dedup(
@@ -133,11 +143,17 @@ class MemoryCoordinator:
         # Step 1: Retrieve
         candidates = self.retrieve(query)
 
+        # Step 1b: Filter (scope / metadata / provenance)
+        before_filter = len(candidates)
+        candidates = self._filter.apply(query, candidates)
+        self._retrieval_stats["candidates_filtered"] += before_filter - len(candidates)
+
         # Step 2: Rank and dedup
         processed = self.rank_and_dedup(candidates, query.query_text)
 
         # Step 3: Select within budget
         selection = self.select_within_budget(processed, query.token_budget)
+        self._retrieval_stats["candidates_selected"] += len(selection.selected)
 
         # Step 4: Build provenance
         provenance = [
@@ -152,5 +168,10 @@ class MemoryCoordinator:
                 "total_candidates": len(candidates),
                 "after_dedup": len(processed),
                 "selected_count": len(selection.selected),
+                "retrieval_stats": dict(self._retrieval_stats),
             },
         )
+
+    def retrieval_stats(self) -> dict[str, int]:
+        """Observability surface for retrieval (AC-023 observability)."""
+        return dict(self._retrieval_stats)

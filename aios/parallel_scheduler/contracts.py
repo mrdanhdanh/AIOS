@@ -13,6 +13,17 @@ class JoinPolicy(str, Enum):
     ALL_COMPLETED = "all_completed"
 
 
+class DispatchDecision(str, Enum):
+    """Decision for dispatching a node."""
+
+    READY = "ready"
+    WAITING_DEPENDENCY = "waiting_dependency"
+    WAITING_RESOURCE = "waiting_resource"
+    WAITING_POLICY = "waiting_policy"
+    BLOCKED = "blocked"
+    REJECTED = "rejected"
+
+
 class SchedulerState(str, Enum):
     IDLE = "idle"
     RUNNING = "running"

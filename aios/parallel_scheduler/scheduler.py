@@ -11,7 +11,12 @@ from __future__ import annotations
 import time
 from typing import Any
 
-from aios.parallel_scheduler.contracts import JoinPolicy, ScheduledNode, SchedulerState
+from aios.parallel_scheduler.contracts import (
+    DispatchDecision,
+    JoinPolicy,
+    ScheduledNode,
+    SchedulerState,
+)
 
 
 class ParallelScheduler:
@@ -48,17 +53,41 @@ class ParallelScheduler:
             if target in self._nodes:
                 self._nodes[target].dependencies.append(source)
 
+    def _dependencies_satisfied(self, node: ScheduledNode) -> bool:
+        """Evaluate dependency satisfaction per the active JoinPolicy."""
+        if not node.dependencies:
+            return True
+        dep_states = [
+            self._nodes.get(d, ScheduledNode(state="pending")).state
+            for d in node.dependencies
+        ]
+        if self._join_policy == JoinPolicy.ALL_SUCCESS:
+            return all(s == "completed" for s in dep_states)
+        if self._join_policy == JoinPolicy.ANY_SUCCESS:
+            return any(s == "completed" for s in dep_states)
+        if self._join_policy == JoinPolicy.ALL_COMPLETED:
+            # All dependencies must have finished (completed or failed), none pending/running.
+            return all(s in ("completed", "failed") for s in dep_states)
+        return False
+
+    def decision_for(self, node_id: str) -> DispatchDecision:
+        """Return the dispatch decision for a node (AC-028 JoinPolicy variants)."""
+        node = self._nodes.get(node_id)
+        if node is None:
+            return DispatchDecision.REJECTED
+        if node.state != "pending":
+            return DispatchDecision.BLOCKED
+        if self._dependencies_satisfied(node):
+            return DispatchDecision.READY
+        return DispatchDecision.WAITING_DEPENDENCY
+
     def get_ready_nodes(self) -> list[str]:
-        """Get nodes whose dependencies are all satisfied."""
+        """Get nodes whose dependencies are satisfied per the active JoinPolicy."""
         ready = []
         for nid, node in self._nodes.items():
             if node.state != "pending":
                 continue
-            deps_met = all(
-                self._nodes.get(d, ScheduledNode(state="completed")).state == "completed"
-                for d in node.dependencies
-            )
-            if deps_met:
+            if self._dependencies_satisfied(node):
                 ready.append(nid)
         return sorted(ready)  # Deterministic
 

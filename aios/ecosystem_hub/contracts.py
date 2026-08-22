@@ -18,5 +18,17 @@ class HubEntry:
     status: HubStatus = HubStatus.DRAFT
     author: str = ""
     downloads: int = 0
+    capabilities: list[str] = field(default_factory=list)
+    checksum: str = ""
+    provenance: list[str] = field(default_factory=list)
     def to_dict(self) -> dict[str, Any]:
-        return {"entry_id": self.entry_id, "name": self.name, "status": self.status.value, "downloads": self.downloads}
+        return {
+            "entry_id": self.entry_id,
+            "name": self.name,
+            "version": self.version,
+            "status": self.status.value,
+            "downloads": self.downloads,
+            "capabilities": self.capabilities,
+            "checksum": self.checksum,
+            "provenance": self.provenance,
+        }
