@@ -108,6 +108,58 @@ Ordered task index and status. Status values: `PLANNED | SPECIFIED | ... | DONE 
 | TASK-097 | M14 | Permission + Human Approval + Apply + Re-test + Rollback + Certification | TASK-096 | DONE |
 | TASK-098 | M14 | Remediation Integrity + Kill Switch | TASK-097 | DONE |
 
+| TASK-099 | M15 | Autonomous Harness Loop | TASK-098 | DONE |
+| TASK-100 | M15 | Failure-Corpus Improvement Engine | TASK-099 | DONE |
+| TASK-101 | M15 | Continuous Certification | TASK-100 | DONE |
+| TASK-102 | M15 | Trust Budget + Autonomy Levels + SAFE-STOP | TASK-101 | DONE |
+| TASK-103 | M15 | Autonomy Constitution + Audit Trail | TASK-102 | DONE |
+
+| TASK-104 | M16 | Independent Harness Integration Foundation | TASK-103 | PLANNED |
+| TASK-105 | M16 | Independent Verification Oracle | TASK-104 | PLANNED |
+| TASK-106 | M16 | Behavioral Conformance Bridge | TASK-105 | PLANNED |
+| TASK-107 | M16 | Permission + Sandbox Bridge | TASK-106 | PLANNED |
+| TASK-108 | M16 | Management Console / Independent Harness Integration | TASK-107 | PLANNED |
+
+| TASK-109 | M17 | Model Contracts | TASK-108 | PLANNED |
+| TASK-110 | M17 | Provider Registry + Lifecycle | TASK-109 | PLANNED |
+| TASK-111 | M17 | Model Registry + Deterministic Resolver | TASK-110 | PLANNED |
+| TASK-112 | M17 | Inference Runtime Orchestration | TASK-111 | PLANNED |
+| TASK-113 | M17 | Credential + Permission + Policy Integration | TASK-112 | PLANNED |
+| TASK-114 | M17 | Retry / Timeout / Streaming / Cancellation | TASK-113 | PLANNED |
+| TASK-115 | M17 | Usage / Cost / Audit / Evidence | TASK-114 | PLANNED |
+| TASK-116 | M17 | Provider Conformance + Certification | TASK-115 | PLANNED |
+
+| TASK-117 | M18 | Repository Scanner | TASK-116 | PLANNED |
+| TASK-118 | M18 | Source / Symbol Index | TASK-117 | PLANNED |
+| TASK-119 | M18 | Dependency Graph | TASK-118 | PLANNED |
+| TASK-120 | M18 | Semantic + Hybrid Index | TASK-119 | PLANNED |
+| TASK-121 | M18 | Context Retriever | TASK-120 | PLANNED |
+| TASK-122 | M18 | Context Builder + Budget | TASK-121 | PLANNED |
+| TASK-123 | M18 | Context Verification + Evidence | TASK-122 | PLANNED |
+| TASK-124 | M18 | Context Harness + Conformance | TASK-123 | PLANNED |
+
+| TASK-125 | M19 | Coder Agent Contract + State Machine | TASK-124 | PLANNED |
+| TASK-126 | M19 | Coding Planner + PlanVerifier | TASK-125 | PLANNED |
+| TASK-127 | M19 | Code Generation Runtime | TASK-126 | PLANNED |
+| TASK-128 | M19 | Patch Engine | TASK-127 | PLANNED |
+| TASK-129 | M19 | Code Review Agent | TASK-128 | PLANNED |
+| TASK-130 | M19 | Coding Artifact + CodingEvidence | TASK-129 | PLANNED |
+| TASK-131 | M19 | Coder Conformance Harness + Security | TASK-130 | PLANNED |
+| TASK-132 | M19 | Autonomy Level + Permission Integration | TASK-131 | PLANNED |
+| TASK-133 | M19 | Prompt Architecture + PromptBuilder + Versioning | TASK-132 | PLANNED |
+| TASK-134 | M19 | File Safety Boundary + Scope Enforcement | TASK-133 | PLANNED |
+
+| TASK-135 | M20 | Execution Contract | TASK-134 | PLANNED |
+| TASK-136 | M20 | Sandbox Manager | TASK-135 | PLANNED |
+| TASK-137 | M20 | Workspace / Snapshot Manager | TASK-136 | PLANNED |
+| TASK-138 | M20 | Resource + Network + Command Policy | TASK-137 | PLANNED |
+| TASK-139 | M20 | Test Runner | TASK-138 | PLANNED |
+| TASK-140 | M20 | Build / Lint Runner | TASK-139 | PLANNED |
+| TASK-141 | M20 | Output + Artifact Collector | TASK-140 | PLANNED |
+| TASK-142 | M20 | Verification Engine | TASK-141 | PLANNED |
+| TASK-143 | M20 | Security + Replay Harness | TASK-142 | PLANNED |
+| TASK-144 | M20 | Execution Evidence + Conformance | TASK-143 | PLANNED |
+
 | TASK-145 | M21 | Coding Loop State Machine | TASK-144,TASK-053,TASK-050 | PLANNED |
 | TASK-146 | M21 | Execution Observation | TASK-145,TASK-135,TASK-141 | PLANNED |
 | TASK-147 | M21 | Failure Classification | TASK-146,TASK-135 | PLANNED |
@@ -141,9 +193,56 @@ Ordered task index and status. Status values: `PLANNED | SPECIFIED | ... | DONE 
 | TASK-173 | M23 | Boundary Attackers | TASK-165,TASK-153,TASK-067,TASK-068 | PLANNED |
 | TASK-174 | M23 | Collusion Detector + Resilience Score + Attack Corpus Regression | TASK-165,TASK-166,TASK-167,TASK-168,TASK-169,TASK-170,TASK-171,TASK-172,TASK-173,TASK-033 | PLANNED |
 
+| TASK-175 | M24 | Quality Gate + Gate States | TASK-164,TASK-151,TASK-001 | PLANNED |
+| TASK-176 | M24 | Risk Model + Classification | TASK-175,TASK-164 | PLANNED |
+| TASK-177 | M24 | Policy Engine + Profiles + Precedence | TASK-176,TASK-113,TASK-138 | PLANNED |
+| TASK-178 | M24 | Exception Management | TASK-177,TASK-097,TASK-055 | PLANNED |
+| TASK-179 | M24 | Quality Debt Tracking | TASK-178,TASK-175,TASK-021 | PLANNED |
+| TASK-180 | M24 | Release Gate + Decision Explainability | TASK-175,TASK-179,TASK-181 | PLANNED |
+| TASK-181 | M24 | Governance Ledger + Provenance Graph | TASK-180,TASK-001,TASK-078 | PLANNED |
+| TASK-182 | M24 | Trust Lifecycle + Invalidation + Selective Reverification | TASK-181,TASK-164,TASK-049,TASK-046 | PLANNED |
+| TASK-183 | M24 | Approval Workflow + Rollback Recommendation | TASK-182,TASK-097,TASK-055 | PLANNED |
+| TASK-184 | M24 | Quality Dashboard + Governance Harness | TASK-175,TASK-176,TASK-177,TASK-178,TASK-179,TASK-180,TASK-181,TASK-182,TASK-183,TASK-072,TASK-021 | PLANNED |
+
+| TASK-185 | M25 | Coding Evaluation Contract | TASK-032,TASK-001 | PLANNED |
+| TASK-186 | M25 | Evaluation Engine | TASK-185,TASK-032,TASK-078 | PLANNED |
+| TASK-187 | M25 | Quality Dimensions | TASK-186,TASK-185 | PLANNED |
+| TASK-188 | M25 | Benchmark Registry | TASK-187,TASK-033,TASK-185 | PLANNED |
+| TASK-189 | M25 | Baseline Manager | TASK-188,TASK-033 | PLANNED |
+| TASK-190 | M25 | Regression Detector | TASK-189,TASK-159,TASK-033 | PLANNED |
+| TASK-191 | M25 | Agent Behavior Evaluator | TASK-186,TASK-157,TASK-187 | PLANNED |
+| TASK-192 | M25 | Efficiency Evaluator | TASK-186,TASK-161,TASK-187 | PLANNED |
+| TASK-193 | M25 | Failure Attribution | TASK-186,TASK-148,TASK-147 | PLANNED |
+| TASK-194 | M25 | Evaluation Store | TASK-186,TASK-185,TASK-163,TASK-001 | PLANNED |
+| TASK-195 | M25 | Model / Agent Benchmark | TASK-188,TASK-189,TASK-186,TASK-190 | PLANNED |
+| TASK-196 | M25 | Continuous Evaluation | TASK-185,TASK-186,TASK-187,TASK-188,TASK-189,TASK-190,TASK-191,TASK-192,TASK-193,TASK-194,TASK-195,TASK-021 | PLANNED |
+
+| TASK-197 | M26 | Unified Coding Contract | TASK-125,TASK-185,TASK-001 | PLANNED |
+| TASK-198 | M26 | Coding State Machine | TASK-197,TASK-125,TASK-145 | PLANNED |
+| TASK-199 | M26 | Coding Policy Engine | TASK-198,TASK-177,TASK-113 | PLANNED |
+| TASK-200 | M26 | Risk Engine | TASK-199,TASK-176,TASK-164 | PLANNED |
+| TASK-201 | M26 | Approval Gate | TASK-200,TASK-183,TASK-097 | PLANNED |
+| TASK-202 | M26 | Autonomous Guardrails | TASK-201,TASK-153,TASK-067,TASK-068 | PLANNED |
+| TASK-203 | M26 | Safe Stop / Resume | TASK-202,TASK-102,TASK-068 | PLANNED |
+| TASK-204 | M26 | Recovery Orchestrator | TASK-203,TASK-055,TASK-094 | PLANNED |
+| TASK-205 | M26 | Artifact Lineage | TASK-204,TASK-130,TASK-078 | PLANNED |
+| TASK-206 | M26 | Coding Session | TASK-205,TASK-198,TASK-125 | PLANNED |
+| TASK-207 | M26 | Session Fork | TASK-206,TASK-137,TASK-136 | PLANNED |
+| TASK-208 | M26 | Multi-Agent Coding | TASK-207,TASK-059,TASK-125 | PLANNED |
+| TASK-209 | M26 | Parallel Coding | TASK-208,TASK-028,TASK-206 | PLANNED |
+| TASK-210 | M26 | Change Impact Analysis | TASK-209,TASK-119,TASK-121 | PLANNED |
+| TASK-211 | M26 | Repository Knowledge Graph Integration | TASK-210,TASK-117,TASK-007 | PLANNED |
+| TASK-212 | M26 | Coding Doctor | TASK-211,TASK-034,TASK-021 | PLANNED |
+| TASK-213 | M26 | Coding Health Score | TASK-212,TASK-187,TASK-186 | PLANNED |
+| TASK-214 | M26 | Release Gate | TASK-213,TASK-180,TASK-175 | PLANNED |
+| TASK-215 | M26 | Coding Certification | TASK-214,TASK-049,TASK-164 | PLANNED |
+| TASK-216 | M26 | Benchmark Gate | TASK-215,TASK-195,TASK-033 | PLANNED |
+| TASK-217 | M26 | AIOS 2.0 Coding Integration | TASK-197,TASK-198,TASK-199,TASK-200,TASK-201,TASK-202,TASK-203,TASK-204,TASK-205,TASK-206,TASK-207,TASK-208,TASK-209,TASK-210,TASK-211,TASK-212,TASK-213,TASK-214,TASK-215,TASK-216,TASK-021 | PLANNED |
+| TASK-218 | M26 | Full M0–M26 Regression | TASK-217,TASK-001,TASK-033 | PLANNED |
+
 ## Next action
 
-TASK-098 `DONE` (2420 tests, M14 full: T094-T098 implemented, AC-094..098 PASS). M14 COMPLETE. ALL TASKS 001-098 DONE. Next milestone: M15 (T099, Autonomous Harness Loop).
+TASK-103 `DONE` (2450 tests, M15 full: T099-T103 implemented, AC-099..103 PASS). M15 COMPLETE. ALL TASKS 001-103 DONE. Next milestone: M16 (T104, Independent Harness Integration Foundation).
 
 ## Known implementation gaps (audit 2026-08-22) — CLOSED 2026-08-22
 

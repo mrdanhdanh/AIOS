@@ -277,3 +277,9 @@ Append-only event log. Each entry: `ISO-UTC | task | event | detail`.
 2026-08-22T10:00:00Z | TASK-097 | DONE | Permission + Human Approval + Apply + Re-test + Rollback + Certification: aios/remediation_apply (ApplyOrchestrator + T070/T054/T073/T096); 6 tests green; Unified Gate PASS.
 2026-08-22T10:00:00Z | TASK-098 | DONE | Remediation Integrity + Kill Switch: aios/remediation_integrity (RemediationIntegrityGate + T078/T068/T094-T097); 6 tests green; Unified Gate PASS.
 2026-08-22T10:00:00Z | TASK-094..098 | DONE | M14 Remediation complete: 5 new packages (T094-T098) + remediation chain; +35 tests; full suite 2420/2420 PASS; all gates PASS.
+2026-08-22T11:00:00Z | TASK-099 | DONE | Autonomous Harness Loop: aios/autonomous_harness_loop (HarnessLoopRun/HarnessLoopEngine + T062/T030/T078/T091/T094-T098/T054); 6 tests green; Unified Gate PASS.
+2026-08-22T11:00:00Z | TASK-100 | DONE | Failure-Corpus Improvement Engine: aios/failure_corpus (CorpusEntry/FailureCorpus/Engine + T094/T099/T090/T001); 6 tests green; Unified Gate PASS.
+2026-08-22T11:00:00Z | TASK-101 | DONE | Continuous Certification: aios/continuous_certification (ContinuousCertRun/Engine + T073/T087/T090/T091/T099); 6 tests green; Unified Gate PASS.
+2026-08-22T11:00:00Z | TASK-102 | DONE | Trust Budget + Autonomy Levels + SAFE-STOP: aios/trust_budget (TrustBudget/Engine + T067/T068/T054/T001); 6 tests green; Unified Gate PASS.
+2026-08-22T11:00:00Z | TASK-103 | DONE | Autonomy Constitution + Audit Trail: aios/autonomy_constitution (AuditEntry/AutonomyConstitution/AuditTrail/Engine + CONSTITUTION.md ADR + T067/T102/T078/T068/T001); 6 tests green; Unified Gate PASS.
+2026-08-22T11:00:00Z | TASK-099..103 | DONE | M15 Autonomous Harness complete: 5 new packages (T099-T103) + CONSTITUTION.md; +30 tests; full suite 2450/2450 PASS; all gates PASS.
