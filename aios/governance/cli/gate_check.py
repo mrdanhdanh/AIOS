@@ -8,6 +8,12 @@ absence of architecture violations in its implementation/ folder (Rule 3).
 Usage:
     python aios/governance/cli/gate_check.py --task TASK-001
     python aios/governance/cli/gate_check.py --task TASK-001 --detailed
+    python aios/governance/cli/gate_check.py --task TASK-001 --ci --ci-scope full
+
+The optional --ci flag also runs the local CI/CD checker (aios.ci) so a task
+cannot be closed when the same failures CI would catch (e.g. a missing
+dependency such as fastapi) are present. Fail-closed: a CI failure blocks the
+gate.
 """
 
 from __future__ import annotations
@@ -21,6 +27,7 @@ from typing import List
 # Make the repo root importable when run directly (python aios/.../gate_check.py).
 sys.path.insert(0, str(Path(__file__).resolve().parents[3]))
 
+from aios.ci.checker import run_ci_check
 from aios.governance.architecture import ArchitectureGuard
 from aios.governance.gates import GateComponent, UnifiedTaskGate
 from aios.governance.lifecycle import LIFECYCLE_ORDER, STATE_ARTIFACTS
@@ -62,10 +69,42 @@ def _check_architecture(task_dir: str) -> GateComponent:
     return GateComponent("architecture", False, f"violations: {sorted(rules)}")
 
 
+def _check_ci(scope: str) -> GateComponent:
+    """Run the local CI/CD checker (mirrors GitHub Actions) as a gate component."""
+    report = run_ci_check(scope=scope)
+    parts = []
+    for r in report.results:
+        if r.name == "dependencies" and r.status.value != "pass":
+            parts.append(r.detail)
+        elif r.name in ("core-tests", "full-suite"):
+            parts.append(f"{r.name}={r.detail}")
+    detail = "; ".join(parts) if parts else f"all checks passed (scope={scope})"
+    return GateComponent("ci", report.overall.ok, f"[{report.overall.value}] {detail}")
+
+
 def main(argv: List[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description="Run the Unified Task Gate for a task.")
     parser.add_argument("--task", required=True, help="Task id, e.g. TASK-001")
     parser.add_argument("--detailed", action="store_true")
+    parser.add_argument(
+        "--ci",
+        dest="ci",
+        action="store_true",
+        default=True,
+        help="Run the local CI/CD checker as part of the gate (default: on).",
+    )
+    parser.add_argument(
+        "--no-ci",
+        dest="ci",
+        action="store_false",
+        help="Skip the local CI/CD checker.",
+    )
+    parser.add_argument(
+        "--ci-scope",
+        choices=["core", "full"],
+        default="full",
+        help="Which CI scope to run (default: full — mirrors CI exactly).",
+    )
     args = parser.parse_args(argv)
 
     task_dir = os.path.join(PROGRESS_ROOT, args.task)
@@ -83,6 +122,9 @@ def main(argv: List[str] | None = None) -> int:
     gate.register("evidence", lambda c: GateComponent("evidence", True, "provenance recorded"))
     gate.register("test_evaluate", lambda c: GateComponent("test_evaluate", True, "deterministic-first"))
     gate.register("regression", lambda c: GateComponent("regression", True, "closure green"))
+    # CI check auto-runs at the end of task processing (fail-closed).
+    if args.ci:
+        gate.register("ci", lambda c: _check_ci(args.ci_scope))
 
     result = gate.evaluate({})
     print(result.summary())
