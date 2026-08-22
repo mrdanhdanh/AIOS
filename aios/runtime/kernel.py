@@ -15,10 +15,13 @@ Layering: ``runtime`` layer — relative imports only.
 
 from __future__ import annotations
 
-from typing import Optional
+from typing import Any, Optional
 
+from aios.core.config import Config
 from aios.core.container import Container, Lifetime
 from aios.core.events import EventBus
+
+from aios.runtime.config_guard import require_valid_config
 
 from aios.capability.capability import CapabilityRegistry
 from aios.capability.catalog import SystemCatalog
@@ -55,7 +58,14 @@ class KernelError(Exception):
 class RuntimeKernel:
     """Composition root that wires all runtime services into a Container."""
 
-    def __init__(self, container: Optional[Container] = None) -> None:
+    def __init__(
+        self,
+        container: Optional[Container] = None,
+        config: Optional[Config] = None,
+    ) -> None:
+        # Fail-closed: refuse to start with an invalid configuration (T065).
+        if config is not None:
+            require_valid_config(config)
         self.container = container or Container()
         self._wire()
 

@@ -114,3 +114,36 @@ class ModelHealth:
             "healthy": self.healthy,
             "failure_count": self.failure_count,
         }
+
+
+@dataclass
+class ModelRoute:
+    """Policy-driven route for an intent (TASK-075 independence contract).
+
+    Selection is policy-driven (never a hardcoded single provider). The route
+    carries its fallback chain, a cost estimate, a latency budget, and an
+    ``evidence_ref`` for provenance (AC6).
+    """
+
+    intent: str
+    selected_provider: str
+    fallback_providers: list[str] = field(default_factory=list)
+    cost_estimate: float = 0.0
+    latency_budget: float = 0.0
+    evidence_ref: str = ""
+    policy: RoutingPolicy = RoutingPolicy.BALANCED
+    selected_model: str | None = None
+    provenance: list[str] = field(default_factory=list)
+
+    def to_dict(self) -> dict[str, Any]:
+        return {
+            "intent": self.intent,
+            "selected_provider": self.selected_provider,
+            "fallback_providers": list(self.fallback_providers),
+            "cost_estimate": self.cost_estimate,
+            "latency_budget": self.latency_budget,
+            "evidence_ref": self.evidence_ref,
+            "policy": self.policy.value,
+            "selected_model": self.selected_model,
+            "provenance": list(self.provenance),
+        }

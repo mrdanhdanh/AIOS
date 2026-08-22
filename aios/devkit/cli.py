@@ -37,3 +37,33 @@ class DevKitCLI:
         result = self.create(project_name, template)
         result["inspected"] = True
         return result
+
+    # --- T071: DevArtifact scaffolding + conformance -------------------------
+
+    def scaffold(
+        self,
+        kind: str,
+        name: str,
+        version: str = "1.0.0",
+        author: str = "",
+    ) -> dict:
+        """Generate a capability/agent/tool/workflow skeleton (T071 DX)."""
+        artifact = self._scaffold.scaffold_artifact(kind, name, version, author)
+        return artifact.to_dict()
+
+    def verify(self, artifact_dict: dict) -> dict:
+        """Verify a scaffolded artifact against T063 + T064 (T071 DX)."""
+        from aios.devkit.scaffold import GeneratedFile, ScaffoldArtifact
+        artifact = ScaffoldArtifact(
+            kind=artifact_dict.get("kind", ""),
+            name=artifact_dict.get("name", ""),
+            version=artifact_dict.get("version", ""),
+            author=artifact_dict.get("author", ""),
+            template_version=artifact_dict.get("template_version", ""),
+            spec=artifact_dict.get("spec", {}),
+            files=[
+                GeneratedFile(path=f.get("path", ""), code=f.get("code", ""), module_path=f.get("module_path", ""))
+                for f in artifact_dict.get("files", [])
+            ],
+        )
+        return self._scaffold.verify_conformance(artifact)

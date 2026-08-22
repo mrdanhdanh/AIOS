@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import sys
 from pathlib import Path
 
@@ -75,6 +76,26 @@ def build_parser() -> argparse.ArgumentParser:
     p_ci = sub.add_parser("ci", help="Local CI/CD checker (check|run|install-hook|uninstall-hook)")
     p_ci.add_argument("rest", nargs=argparse.REMAINDER, help="ci subcommand and its options")
     p_ci.set_defaults(func=_cmd_ci)
+    # Stable DX surface (T071): version + dx (scaffold/verify/policy).
+    p_ver = sub.add_parser("version", help="Print the aiagent CLI version")
+    p_ver.set_defaults(func=_cmd_version)
+    p_dx = sub.add_parser("dx", help="Developer Experience tooling (scaffold/verify/policy)")
+    dx_sub = p_dx.add_subparsers(dest="dx_command", required=True)
+    p_sc = dx_sub.add_parser("scaffold", help="Scaffold a capability/agent/tool/workflow skeleton")
+    p_sc.add_argument("kind", choices=["capability", "agent", "tool", "workflow"])
+    p_sc.add_argument("name", help="Artifact name")
+    p_sc.add_argument("--version", default="1.0.0", help="Artifact version (default 1.0.0)")
+    p_sc.add_argument("--author", default="", help="Author name")
+    p_sc.add_argument("--out", default=None, help="Directory to write generated files")
+    p_sc.set_defaults(func=_cmd_dx_scaffold)
+    p_vr = dx_sub.add_parser("verify", help="Verify a scaffolded artifact against T063+T064")
+    p_vr.add_argument("dir", help="Directory containing the scaffolded artifact")
+    p_vr.set_defaults(func=_cmd_dx_verify)
+    p_po = dx_sub.add_parser("policy", help="Check CLI stability / breaking-change rule")
+    p_po.add_argument("--baseline", default="", help="Comma-separated baseline command list")
+    p_po.add_argument("--current", default="", help="Comma-separated current command list")
+    p_po.add_argument("--baseline-version", default=None, help="Baseline CLI version")
+    p_po.set_defaults(func=_cmd_dx_policy)
     return parser
 
 
@@ -83,6 +104,105 @@ def _cmd_ci(args: argparse.Namespace) -> int:
 
     # Delegate the remaining tokens (everything after `aiagent ci`) to the CI CLI.
     return ci_main(args.rest)
+
+
+def _cmd_version(args: argparse.Namespace) -> int:
+    from aios.devkit.cli_version import CLI_VERSION
+    print(f"aios {CLI_VERSION}")
+    return 0
+
+
+def _cmd_dx_scaffold(args: argparse.Namespace) -> int:
+    from aios.devkit.cli import DevKitCLI
+    from aios.devkit.errors import format_actionable
+
+    try:
+        cli = DevKitCLI()
+        artifact = cli.scaffold(args.kind, args.name, args.version or "1.0.0", args.author or "")
+        if args.out:
+            from aios.devkit.scaffold import ScaffoldArtifact, GeneratedFile
+            full = ScaffoldArtifact(
+                kind=artifact["kind"], name=artifact["name"], version=artifact["version"],
+                author=artifact["author"], template_version=artifact["template_version"],
+                spec=artifact["spec"],
+                files=[GeneratedFile(f["path"], f["code"], f["module_path"]) for f in artifact["files"]],
+            )
+            written = cli._scaffold.render(full, args.out)
+            print(f"scaffolded {args.kind} '{args.name}' -> {len(written)} files in {args.out}")
+        else:
+            print(f"scaffolded {artifact['kind']} '{artifact['name']}' v{artifact['version']} "
+                  f"(template {artifact['template_version']})")
+        return 0
+    except Exception as exc:  # noqa: BLE001 - actionable DX error
+        print(format_actionable(exc), file=sys.stderr)
+        return 1
+
+
+def _cmd_dx_verify(args: argparse.Namespace) -> int:
+    from aios.devkit.scaffold import DevKitScaffold
+    from aios.devkit.errors import format_actionable
+
+    try:
+        scaffold = DevKitScaffold()
+        files = []
+        spec: dict = {}
+        base = args.dir
+        for root, _dirs, names in os.walk(base):
+            for nm in names:
+                if nm.endswith(".py") or nm == "extension_spec.json":
+                    full = os.path.join(root, nm)
+                    with open(full, "r", encoding="utf-8") as fh:
+                        code = fh.read()
+                    rel = os.path.relpath(full, base).replace(os.sep, "/")
+                    module_path = rel if nm.endswith(".py") else "extension_spec.json"
+                    files.append((code, module_path))
+                    if nm == "extension_spec.json":
+                        spec = json.loads(code)
+        if not spec:
+            print("verify FAILED: no extension_spec.json found", file=sys.stderr)
+            return 1
+        artifact = scaffold.scaffold_artifact(
+            spec.get("kind", "capability"), spec.get("name", ""), spec.get("version", "1.0.0")
+        )
+        # Rebuild artifact files from disk for an honest verification.
+        from aios.devkit.scaffold import GeneratedFile, ScaffoldArtifact
+        py_files = [GeneratedFile(rel, code, mp) for (code, mp) in files if mp.endswith(".py")]
+        artifact = ScaffoldArtifact(
+            kind=spec.get("kind", "capability"), name=spec.get("name", ""),
+            version=spec.get("version", "1.0.0"), author="", template_version="1.0.0",
+            spec=spec, files=py_files,
+        )
+        result = scaffold.verify_conformance(artifact)
+        status = "PASS" if result["passed"] else "FAIL"
+        print(f"[{status}] architecture={result['architecture']['passed']} "
+              f"contract={result['contract']['valid']} boundary={result['boundary']['valid']}")
+        if not result["passed"]:
+            print(f"  arch_violations={result['architecture']['violations']}", file=sys.stderr)
+            print(f"  contract_errors={result['contract']['errors']}", file=sys.stderr)
+            return 1
+        return 0
+    except Exception as exc:  # noqa: BLE001 - actionable DX error
+        print(format_actionable(exc), file=sys.stderr)
+        return 1
+
+
+def _cmd_dx_policy(args: argparse.Namespace) -> int:
+    from aios.devkit.cli_version import CLI_VERSION, CliVersionPolicy
+    from aios.devkit.errors import format_actionable
+
+    policy = CliVersionPolicy(current_version=CLI_VERSION)
+    baseline = args.baseline.split(",") if args.baseline else []
+    current = args.current.split(",") if args.current else []
+    try:
+        removed = policy.assert_stable(baseline, current, args.baseline_version)
+        if removed:
+            print(f"breaking change detected (removed {removed}) but version bumped to {CLI_VERSION}")
+        else:
+            print(f"cli stable: no breaking changes (version {CLI_VERSION})")
+        return 0
+    except Exception as exc:  # noqa: BLE001 - actionable DX error
+        print(format_actionable(exc), file=sys.stderr)
+        return 1
 
 
 def main(argv: list[str] | None = None) -> int:

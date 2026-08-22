@@ -22,14 +22,18 @@ from dataclasses import dataclass, field
 from enum import Enum
 from typing import Dict, List, Optional
 
+from .observability import ObservabilityHook
+
 
 __all__ = [
     "ResourceError",
+    "ResourceExhausted",
     "GrantStatus",
     "ResourceDecision",
     "ResourceRequest",
     "ResourceGrant",
     "ResourcePool",
+    "ResourceGuard",
 ]
 
 # Canonical resource types per spec §2.9 (extensible — custom types allowed).
@@ -212,3 +216,93 @@ class ResourcePool:
     def waiting_count(self, resource: str) -> int:
         with self._lock:
             return len(self._waiting.get(resource, ()))
+
+
+# --------------------------------------------------------------------------- #
+# TASK-065 hardening: resource limit guards (exhaustion -> degrade safe).
+# --------------------------------------------------------------------------- #
+
+class ResourceExhausted(Exception):
+    """Raised when a resource is exhausted and cannot be granted."""
+
+
+class ResourceGuard:
+    """Guards resource exhaustion and degrades safely (TASK-065 hardening).
+
+    Wraps a :class:`ResourcePool` and refuses work that would exhaust a
+    resource, instead signalling the caller to *degrade safely* (return
+    ``False`` / ``None``) rather than raising into the hot path. Emits an
+    observability trace on every exhaustion event.
+
+    Layering: runtime layer — relative import of :mod:`.observability` only.
+    """
+
+    def __init__(
+        self,
+        pool: "ResourcePool",
+        *,
+        exhaustion_threshold: float = 1.0,
+        observability: Optional["ObservabilityHook"] = None,
+        component: str = "resource",
+    ) -> None:
+        if exhaustion_threshold <= 0.0 or exhaustion_threshold > 1.0:
+            raise ResourceError("exhaustion_threshold must be in (0, 1]")
+        self._pool = pool
+        self._threshold = exhaustion_threshold
+        self._obs = observability or ObservabilityHook(component=component)
+        self._component = component
+
+    # ------------------------------------------------------------------ #
+    def utilization(self, resource: str) -> float:
+        """Return used/capacity ratio in [0, 1]; 0.0 when unregistered."""
+        with self._pool._lock:
+            cap = self._pool._capacity.get(resource)
+            if cap is None or cap == 0:
+                return 0.0
+            return self._pool._used.get(resource, 0) / cap
+
+    def is_exhausted(self, resource: str) -> bool:
+        """True when utilization has reached the exhaustion threshold."""
+        return self.utilization(resource) >= self._threshold
+
+    def guard(self, resource: str, amount: int = 1) -> bool:
+        """Return ``True`` if *amount* can be safely consumed.
+
+        Degrades safely: when the resource would be exhausted (or is already
+        exhausted) the guard returns ``False`` and emits a trace instead of
+        raising into the caller. The caller should degrade (skip/queue/refuse).
+        """
+        if amount <= 0:
+            raise ResourceError("amount must be positive")
+        with self._pool._lock:
+            cap = self._pool._capacity.get(resource)
+            if cap is None:
+                # Unknown resource — refuse safely rather than assume capacity.
+                self._obs.trace_failure(
+                    ResourceExhausted(f"unknown resource: {resource!r}"),
+                    component=self._component,
+                    evidence_ref=f"guard:{resource}",
+                    resource=resource,
+                    amount=amount,
+                )
+                return False
+            projected = self._pool._used.get(resource, 0) + amount
+            if projected > cap or self.is_exhausted(resource):
+                self._obs.trace_failure(
+                    ResourceExhausted(
+                        f"resource {resource!r} exhausted "
+                        f"({self._pool._used.get(resource, 0)}/{cap})"
+                    ),
+                    component=self._component,
+                    evidence_ref=f"guard:{resource}",
+                    resource=resource,
+                    used=self._pool._used.get(resource, 0),
+                    capacity=cap,
+                    amount=amount,
+                )
+                return False
+        return True
+
+    def degrade_safe(self, resource: str, amount: int = 1) -> bool:
+        """Alias for :meth:`guard` — degrade safely when exhausted."""
+        return self.guard(resource, amount)

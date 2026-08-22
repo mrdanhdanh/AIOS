@@ -11,10 +11,16 @@ from __future__ import annotations
 
 from typing import Any
 
+from aios.autonomous_recovery import (
+    FailureClassifier,
+    RecoveryController,
+    RecoveryStrategy,
+)
 from aios.model_router.contracts import (
     ModelCandidate,
     ModelHealth,
     ModelRequirement,
+    ModelRoute,
     ModelSelection,
     RoutingPolicy,
 )
@@ -38,11 +44,13 @@ class ModelRouter:
         """Register a model candidate."""
         self._candidates.append(candidate)
 
-    def select(self, requirement: ModelRequirement) -> ModelSelection:
-        """Select the best model for the given requirement.
+    def _eligible_chain(
+        self, requirement: ModelRequirement
+    ) -> tuple[list[str], list[ModelCandidate], list[ModelCandidate]]:
+        """Return (rejected, eligible, fallback-ordered chain) for a requirement.
 
-        AC-025-01: Policy + capability + cost + health.
-        AC-025-10: Fail-closed if no eligible model.
+        Single source of truth for eligibility used by both :meth:`select` and
+        :meth:`route`. Deterministic and fail-closed.
         """
         rejected: list[str] = []
         eligible: list[ModelCandidate] = []
@@ -77,6 +85,17 @@ class ModelRouter:
 
             eligible.append(c)
 
+        chain = self._fallback.resolve(requirement, eligible)
+        return rejected, eligible, chain
+
+    def select(self, requirement: ModelRequirement) -> ModelSelection:
+        """Select the best model for the given requirement.
+
+        AC-025-01: Policy + capability + cost + health.
+        AC-025-10: Fail-closed if no eligible model.
+        """
+        rejected, eligible, chain = self._eligible_chain(requirement)
+
         if not eligible:
             selection = ModelSelection(
                 model=None,
@@ -88,8 +107,6 @@ class ModelRouter:
             self._selection_history.append(selection)
             return selection
 
-        # Build fallback-ordered chain and pick the first (preferred first).
-        chain = self._fallback.resolve(requirement, eligible)
         if not chain:
             selection = ModelSelection(
                 model=None,
@@ -111,6 +128,89 @@ class ModelRouter:
         )
         self._selection_history.append(selection)
         return selection
+
+    def route(
+        self,
+        intent: str,
+        policy: RoutingPolicy = RoutingPolicy.BALANCED,
+        *,
+        cost_estimate: float | None = None,
+        latency_budget: float | None = None,
+        evidence_ref: str = "",
+        **requirement_kwargs: object,
+    ) -> ModelRoute:
+        """Build a policy-driven :class:`ModelRoute` for an intent (TASK-075).
+
+        Selection is policy-driven (no hardcoded provider). The returned route
+        carries the fallback provider chain, a cost estimate, a latency budget,
+        and an ``evidence_ref`` for provenance.
+        """
+        requirement = ModelRequirement(task_type=intent, policy=policy, **requirement_kwargs)
+        _rejected, _eligible, chain = self._eligible_chain(requirement)
+
+        if not chain:
+            return ModelRoute(
+                intent=intent,
+                selected_provider="",
+                fallback_providers=[],
+                cost_estimate=0.0,
+                latency_budget=0.0,
+                evidence_ref=evidence_ref or "model_router:fail_closed",
+                policy=policy,
+                selected_model=None,
+                provenance=["model_router:fail_closed"],
+            )
+
+        selected = chain[0]
+        fallback_providers = [c.provider for c in chain[1:]]
+        return ModelRoute(
+            intent=intent,
+            selected_provider=selected.provider,
+            fallback_providers=fallback_providers,
+            cost_estimate=cost_estimate if cost_estimate is not None else selected.cost_per_token,
+            latency_budget=latency_budget if latency_budget is not None else selected.latency_ms,
+            evidence_ref=evidence_ref or f"model_router:{policy.value}",
+            policy=policy,
+            selected_model=selected.model_id,
+            provenance=[f"model_router:{policy.value}"],
+        )
+
+    def attempt_fallback(
+        self,
+        route: ModelRoute,
+        failed_provider: str,
+        failure_reason: str = "provider unavailable",
+    ) -> ModelRoute | None:
+        """Route to the next fallback provider when one fails (T055).
+
+        Uses the autonomous-recovery controller to decide the strategy. A
+        provider/dependency failure maps to ``FALLBACK`` and yields the next
+        provider in the chain. Any other strategy (e.g. ``SAFE_STOP`` for an
+        unknown failure) returns ``None`` — fail-closed.
+        """
+        classifier = FailureClassifier()
+        controller = RecoveryController()
+        failure_class = classifier.classify(failure_reason)
+        strategy = controller.decide_strategy(failure_class, 0)
+        if strategy is not RecoveryStrategy.FALLBACK:
+            return None
+
+        ordered = [route.selected_provider] + list(route.fallback_providers)
+        remaining = [p for p in ordered if p != failed_provider]
+        if not remaining:
+            return None
+
+        return ModelRoute(
+            intent=route.intent,
+            selected_provider=remaining[0],
+            fallback_providers=remaining[1:],
+            cost_estimate=route.cost_estimate,
+            latency_budget=route.latency_budget,
+            evidence_ref=route.evidence_ref,
+            policy=route.policy,
+            selected_model=None,
+            provenance=list(route.provenance) + [f"model_router:fallback_from:{failed_provider}"],
+        )
 
     def _score_by_policy(
         self,

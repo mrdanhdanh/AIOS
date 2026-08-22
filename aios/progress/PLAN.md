@@ -71,10 +71,23 @@ Ordered task index and status. Status values: `PLANNED | SPECIFIED | ... | DONE 
 | TASK-060 | M9 | Autonomous Evaluation | TASK-059 | DONE |
 | TASK-061 | M9 | Advanced Stuck Detection | TASK-060 | DONE |
 | TASK-062 | M9 | Autonomous Scheduler | TASK-054 | DONE |
+| TASK-063 | M10 | AIOS Architecture 1.0 | TASK-062 | DONE |
+| TASK-064 | M10 | Public Contract Freeze | TASK-063 | DONE |
+| TASK-065 | M10 | Runtime Production Hardening | TASK-064 | DONE |
+| TASK-066 | M10 | Durable Execution 1.0 | TASK-065 | DONE |
+| TASK-067 | M10 | Autonomy Safety 1.0 | TASK-066 | DONE |
+| TASK-068 | M10 | Kill Switch | TASK-067 | DONE |
+| TASK-069 | M10 | Reliability Engineering | TASK-068 | DONE |
+| TASK-070 | M10 | AIOS Security Baseline | TASK-069 | DONE |
+| TASK-071 | M10 | AIOS 1.0 Developer Experience | TASK-070 | DONE |
+| TASK-072 | M10 | AIOS Dashboard 1.0 | TASK-071 | DONE |
+| TASK-073 | M10 | AIOS 1.0 Certification Suite | TASK-072 | DONE |
+| TASK-074 | M10 | Upgrade & Migration 1.0 | TASK-073 | DONE |
+| TASK-075 | M10 | Performance & Cost + Model Independence | TASK-074 | DONE |
 
 ## Next action
 
-TASK-062 `DONE` (2052 tests, M9 full: T051-T062 implemented, AC-051..062 PASS). M9 COMPLETE. ALL TASKS 001-062 DONE.
+TASK-075 `DONE` (2272 tests, M10 full: T063-T075 implemented, AC-063..075 PASS). M10 COMPLETE. ALL TASKS 001-075 DONE.
 
 ## Known implementation gaps (audit 2026-08-22) — CLOSED 2026-08-22
 
@@ -106,6 +119,19 @@ criteria. Each task's new modules are covered by dedicated tests (see per-task
 - **T048** Ecosystem Hub → search/is_compatible/install via PluginRuntime + checksum/provenance.
 - **T049** Certification → `pipeline.py` + profiles/checks/revocation reasons/expiry.
 - **T050** Autonomous Goal Engine → `state_machine.py`/`policy.py` + objectives/progress/policy boundary/evidence.
+
+## M10 implementation (2026-08-22)
+
+M10 (Architecture 1.0) froze the 1.0 baseline and added production hardening,
+safety, security, reliability and certification controls. New packages:
+`aios/contracts` (T064), `aios/durable` (T066), `aios/autonomy_safety` (T067),
+`aios/kill_switch` (T068), `aios/reliability` (T069), `aios/cost_meter` (T075);
+extended: `aios/governance/architecture` (T063 ADR + baseline), `aios/runtime`
+(T065 hardening), `aios/security` (T070), `aios/devkit`+`aios/cli` (T071),
+`aios/dashboard` (T072), `aios/certification` (T073 release certifier),
+`aios/upgrade` (T074 migration engine), `aios/model_router` (T075 routing).
+Full suite: **2272 passed** (was 1962; +310 M10 tests). All 13 M10 tasks PASS
+the unified gate (lifecycle artifacts + architecture guard + full CI suite).
 
 ### Minor governance-artifact inconsistencies (still open, non-blocking)
 - Task-folder `implementation/` dirs are empty for T015, T016, T029, T041, T044, T045, T049, T050 (real code lives in `aios/<package>/`).

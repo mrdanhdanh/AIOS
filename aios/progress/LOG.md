@@ -236,3 +236,17 @@ Append-only event log. Each entry: `ISO-UTC | task | event | detail`.
 2026-08-22T05:00:00Z | TASK-062 | IMPLEMENTING | autonomous_scheduler (contracts/scheduler) + 10 tests.
 2026-08-22T05:00:00Z | TASK-062 | DONE | AC-062 PASS; 10 tests green; Unified Gate PASS.
 2026-08-22T05:00:00Z | TASK-051..062 | DONE | M9 Autonomous complete: 12 packages, 108 new tests; full suite 2052/2052 PASS; all gates PASS.
+2026-08-22T06:00:00Z | TASK-063 | DONE | AIOS Architecture 1.0 freeze: ADR-ARCH-1.0 + baseline.py; guard codified 1.0; 124 tests green; Unified Gate PASS.
+2026-08-22T06:00:00Z | TASK-064 | DONE | Public Contract Freeze: aios/contracts (Contract/ContractRegistry/conformance); 17 tests green; Unified Gate PASS.
+2026-08-22T06:00:00Z | TASK-065 | DONE | Runtime Production Hardening: config_guard/retry/resource/observability/health; 264 tests green; Unified Gate PASS.
+2026-08-22T06:00:00Z | TASK-066 | DONE | Durable Execution 1.0: aios/durable (CheckpointStore/ResumeProtocol/IdempotencyGuard); 14 tests green; Unified Gate PASS.
+2026-08-22T06:00:00Z | TASK-067 | DONE | Autonomy Safety 1.0: aios/autonomy_safety (AutonomyContext/Registry/boundary/SafeStop); 16 tests green; Unified Gate PASS.
+2026-08-22T06:00:00Z | TASK-068 | DONE | Kill Switch: aios/kill_switch (HaltSignal/Controller/persistence/audit); 23 tests green; Unified Gate PASS.
+2026-08-22T06:00:00Z | TASK-069 | DONE | Reliability Engineering: aios/reliability (SLO/ErrorBudget/CircuitBreaker/retry); 12 tests green; Unified Gate PASS.
+2026-08-22T06:00:00Z | TASK-070 | DONE | AIOS Security Baseline: aios/security (context/auth/secrets/broker/audit); 27 tests green; Unified Gate PASS.
+2026-08-22T06:00:00Z | TASK-071 | DONE | AIOS 1.0 DX: aios/devkit + aios/cli (scaffold/conformance/version); 27 tests green; Unified Gate PASS.
+2026-08-22T06:00:00Z | TASK-072 | DONE | AIOS Dashboard 1.0: aios/dashboard (read-only views/auth/evidence); 140 tests green; Unified Gate PASS.
+2026-08-22T06:00:00Z | TASK-073 | DONE | AIOS 1.0 Certification Suite: aios/certification/release (ReleaseCertifier/certificate); 9 tests green; Unified Gate PASS.
+2026-08-22T06:00:00Z | TASK-074 | DONE | Upgrade & Migration 1.0: aios/upgrade (MigrationPlan/Engine/rollback); 64 tests green; Unified Gate PASS.
+2026-08-22T06:00:00Z | TASK-075 | DONE | Perf & Cost + Model Independence: aios/model_router + aios/cost_meter; 34 tests green; Unified Gate PASS.
+2026-08-22T06:00:00Z | TASK-063..075 | DONE | M10 Architecture 1.0 complete: 6 new packages + extensions; +310 tests; full suite 2272/2272 PASS; all gates PASS.

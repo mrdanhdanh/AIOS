@@ -38,6 +38,7 @@ from aios.core.planner import ExecutionPlan, Step, StepStatus
 
 from .audit import AuditStatus, AuditTrail
 from .context import ContextStore, RuntimeContext
+from .observability import ObservabilityHook
 from .policy import PolicyDecision, PolicyEngine, PolicyRequest
 
 
@@ -213,6 +214,7 @@ class Executor:
         state_store: Optional[Any] = None,
         resource_pool: Optional[Any] = None,
         scheduler: Optional[Any] = None,
+        observability: Optional[ObservabilityHook] = None,
     ) -> None:
         self._policy = policy
         self._audit = audit
@@ -222,6 +224,7 @@ class Executor:
         self._state_store = state_store
         self._resource_pool = resource_pool
         self._scheduler = scheduler
+        self._obs = observability
         self._lock = threading.RLock()
 
     # ------------------------------------------------------------------ #
@@ -541,6 +544,15 @@ class Executor:
                 attempt_records.append(rec)
                 # Timeout is terminal — do not retry per spec, observable & audit via _record_step
                 # Ensure background thread does not continue unbounded: cancel future
+                if self._obs is not None:
+                    self._obs.trace_failure(
+                        last_error or "timeout",
+                        component="execution",
+                        evidence_ref=f"{execution_id}:{step.step_id}:attempt-{attempts}",
+                        step_id=step.step_id,
+                        attempt=attempts,
+                        category="timeout",
+                    )
                 return StepResult(
                     step.step_id, "TIMEOUT", error=last_error, attempts=attempts,
                     attempt_records=attempt_records,
@@ -556,6 +568,16 @@ class Executor:
                     status="FAILED", error=last_error, latency_ms=latency,
                 )
                 attempt_records.append(rec)
+                if self._obs is not None:
+                    self._obs.trace_failure(
+                        exc,
+                        component="execution",
+                        evidence_ref=f"{execution_id}:{step.step_id}:attempt-{attempts}",
+                        step_id=step.step_id,
+                        attempt=attempts,
+                        category=last_category,
+                        retryable=retry_policy.is_retryable(last_category),
+                    )
                 # Check retryability
                 if not retry_policy.is_retryable(last_category):
                     break

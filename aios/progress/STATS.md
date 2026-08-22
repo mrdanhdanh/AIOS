@@ -3,11 +3,11 @@
 | Metric | Value |
 |--------|-------|
 | Total tasks (master spec) | 182 |
-| Tasks DONE | 62 |
+| Tasks DONE | 75 |
 | Tasks READY | 0 |
-| Tasks PLANNED | 120 |
+| Tasks PLANNED | 107 |
 | Governance modules | 7 (+ unified gate) |
-| Automated gate tests | 2052 |
+| Automated gate tests | 2272 |
 | Architecture rules (ARCH-A..H + ARCH-001..004) | 17 |
 | Lifecycle states | 12 |
 
@@ -140,6 +140,13 @@
 | orchestrator/orchestration_integration | 16 |
 | **Subtotal** | **89** |
 
+## M10 (TASK-063..075) — net new tests
+
+M10 added **310** net-new automated tests (full suite 1962 → 2272). New packages:
+`contracts`, `durable`, `autonomy_safety`, `kill_switch`, `reliability`, `cost_meter`;
+extended: `governance/architecture`, `runtime`, `security`, `devkit`+`cli`,
+`dashboard`, `certification`, `upgrade`, `model_router`.
+
 ## Grand total
 
-| **Total** | **690** |
+| **Total** | **1000** |

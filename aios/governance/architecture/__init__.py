@@ -14,12 +14,34 @@ from .guard import (
     Violation,
     scan_source,
 )
+from .baseline import (
+    ARCHITECTURE_VERSION,
+    FROZEN_ALLOWED_IMPORT_LAYERS,
+    FROZEN_ARCH_RULES,
+    FROZEN_LAYER_CONTRACT,
+    FROZEN_LAYER_KEYWORDS,
+    classify,
+    frozen_arch_rules,
+    frozen_layer_contract,
+    is_frozen_layer,
+    scan,
+)
 
 __all__ = [
     "ARCH_RULES",
+    "ARCHITECTURE_VERSION",
     "ArchitectureError",
     "ArchitectureGuard",
     "GateResult",
     "Violation",
     "scan_source",
+    "FROZEN_LAYER_CONTRACT",
+    "FROZEN_ARCH_RULES",
+    "FROZEN_LAYER_KEYWORDS",
+    "FROZEN_ALLOWED_IMPORT_LAYERS",
+    "frozen_layer_contract",
+    "frozen_arch_rules",
+    "is_frozen_layer",
+    "classify",
+    "scan",
 ]

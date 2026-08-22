@@ -21,6 +21,19 @@ from aios.dashboard.views import (
     HealthView,
 )
 from aios.dashboard.websocket_client import DashboardWebSocketClient
+from aios.dashboard.observability_views import (
+    DashboardAuthError,
+    DashboardView,
+    DashboardViewType,
+    ObservabilityDashboard,
+    ReadOnlySource,
+    ReadOnlyViolation,
+    default_dashboard,
+)
+from aios.dashboard.api_bridge import (
+    create_dashboard_router,
+    register_dashboard_router,
+)
 
 __all__ = [
     "DashboardClient",
@@ -40,4 +53,13 @@ __all__ = [
     "ModelsView",
     "PromptsView",
     "HealthView",
+    "DashboardView",
+    "DashboardViewType",
+    "ObservabilityDashboard",
+    "ReadOnlySource",
+    "ReadOnlyViolation",
+    "DashboardAuthError",
+    "default_dashboard",
+    "create_dashboard_router",
+    "register_dashboard_router",
 ]

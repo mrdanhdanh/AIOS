@@ -182,3 +182,18 @@ class AutonomyGovernor:
     @property
     def budget(self) -> AutonomyBudget:
         return self._budget
+
+    def state(self) -> dict[str, Any]:
+        """Read-only snapshot of current autonomy governance state.
+
+        Used by the observability dashboard (TASK-072) to render the AUTONOMY
+        view. This is a pure projection — it never mutates policy, budget, or
+        scope, and is safe to call from a read-only surface.
+        """
+        return {
+            "mode": self._policy.mode.value,
+            "policy": self._policy.to_dict(),
+            "budget": self._budget.to_dict(),
+            "scope": dict(self._scope),
+            "last_reason": self._last_reason,
+        }
