@@ -47,7 +47,7 @@ aios/
   runtime/     kernel.py context.py audit.py artifact.py permission.py policy.py execution.py scheduler.py state.py resource.py memory.py knowledge.py providers/ workflow/
   core/        config.py logging.py metadata.py healthcheck.py version.py contracts.py container.py events.py planner.py
   agents/      orchestrator.py spec_writer.py critic.py reviewer.py
-  harness/     placeholder (M6)
+  harness/     implemented (M6 DONE: kernel.py verification.py scenario.py evaluation.py evaluators.py benchmark.py doctor.py readiness.py registry.py contracts.py; extended M11–M15, M22–M23)
   cli/         workflow_cli.py  (entry: aiagent)
   progress/    PLAN.md LOG.md STATS.md tasks/<TASK-xxx>/ _TEMPLATE/
 configs/ default.yaml development.yaml test.yaml
