@@ -11,7 +11,8 @@
 ## 1. Phân tầng kiến trúc (Enforced Layering — ARCH-001..004)
 
 Quy tắc import **chỉ đi xuống**, cấm vượt tầng. Guard tại
-`aios/governance/architecture/guard.py`.
+`aios/governance/architecture/guard.py`. **Trạng thái hiện tại (2026-08-22):**
+**TASK-001 → TASK-050 đã DONE** (M0–M9 hoàn tất, 1840 tests xanh).
 
 `Agent → Orchestrator → Runtime → Capability → Tool`
 
@@ -25,17 +26,16 @@ Quy tắc import **chỉ đi xuống**, cấm vượt tầng. Guard tại
 ```mermaid
 flowchart TB
     subgraph L5["Layer 5 — AGENT (pure, I/O-free)"]
-        A1[Spec-Writer]
-        A2[Critic]
-        A3[Reviewer]
-        A4[Orchestrator Agent]
+        A1[Spec-Writer / Critic / Reviewer]
+        A4[Orchestrator Agent v2]
+        AGOAL[Autonomous Goal Engine]
     end
     subgraph L4["Layer 4 — ORCHESTRATOR"]
-        O1[Orchestrator]
+        O1[Orchestrator v2]
         O2[Decision Pipeline]
-        O3[Goal Manager]
-        O4[Task Queue]
-        O5[Workflow Matcher]
+        O3[Planning Engine]
+        O4[Parallel / Distributed Scheduler]
+        O5[Execution Graph]
     end
     subgraph L3["Layer 3 — RUNTIME (Control Substrate)"]
         R1[Kernel - Container]
@@ -43,26 +43,46 @@ flowchart TB
         R3[Scheduler / State / Resource]
         R4[Memory / Knowledge / Context / Audit]
         R5[Executor]
+        R6[Model Router / Providers]
     end
     subgraph L2["Layer 2 — CAPABILITY"]
         C1[Capability Registry]
         C2[Catalog / Graph / Prompt]
         C3[Skill Manager + Sandbox]
+        C4[Tool Registry + Adapters]
     end
-    subgraph L1["Layer 1 — TOOL"]
-        T1[Tool Registry]
-        T2[Adapters]
+    subgraph L1["Layer 1 — TOOL / WORKER"]
+        T1[Worker Plane]
+        T2[Plugin / Skill Runtime]
         T3[Providers - Mock/OpenAI/Ollama]
     end
 
     A4 --> O1 --> R1 --> C1 --> T1
+    AGOAL -.->|objectives| O3
     O2 -.->|Policy Check| R2
     R5 -.->|Resource + Scheduler + State| R3
 
     style R1 fill:#0ea5e9,stroke:#0284c7,color:#fff
     style O1 fill:#8b5cf6,stroke:#7c3aed,color:#fff
     style A4 fill:#f59e0b,stroke:#d97706,color:#fff
+    style AGOAL fill:#f59e0b,stroke:#d97706,color:#fff
 ```
+
+**Các plane ngang (cross-cutting) hiện có trong `aios/`** — gắn vào Runtime
+qua contract, không phá vỡ phân tầng:
+
+| Plane | Packages hiện tại |
+|-------|-------------------|
+| Governance | `governance/` (7 gates + unified) |
+| Core | `core/` (config, container, events, logging, metadata, healthcheck, version, contracts, planner) |
+| API / UX | `api/`, `dashboard/`, `cli/`, `extension/` |
+| Enterprise | `identity/`, `tenancy/`, `security/`, `quota/`, `ha/`, `operations/` |
+| Distributed | `distributed/`, `distributed_scheduler/` |
+| Ecosystem | `sdk/`, `plugin_runtime/`, `extension_contracts/`, `ecosystem_registry/`, `ecosystem_hub/`, `devkit/`, `certification/` |
+| Autonomy | `autonomous_goal/`, `model_router/`, `memory_coordinator/`, `context_optimizer/` |
+| Intelligence | `planning_engine/`, `execution_graph/`, `parallel_scheduler/`, `orchestrator/` |
+| Harness / Verify | `harness/`, `ci/` |
+| Upgrade / Observability | `upgrade/`, `observability/` |
 
 ---
 
@@ -255,59 +275,75 @@ sequenceDiagram
 
 ---
 
-## 7. Cấu trúc Monorepo
+## 7. Cấu trúc Monorepo (thực tế — 2026-08-22)
 
 ```
 aios/
-  core/          config, container, events, logging, metadata,
-                 healthcheck, version, contracts, planner
-  governance/    task_registry/ dependency/ architecture/
-                 deterministic/ evidence/ lifecycle/ regression/
-                 gates/ cli/
-  runtime/       kernel, context, audit, artifact, permission,
-                 policy, execution, scheduler, state, resource,
-                 memory, knowledge, providers/, workflow/
-  orchestrator/  decision_pipeline, planner, normalizer, rule_engine,
-                 workflow_matcher, execution_plan, goal_manager,
-                 task_queue, failure_recovery, permission_broker
-  capability/    capability, catalog, graph, prompt
-  skill/         manager, registry, resolver, sandbox
-  tool/          adapters, registry, contracts
-  worker/        contract, execution, lifecycle, registry, router, workers
-  agents/        orchestrator, spec_writer, critic, reviewer
-  api/           app, auth, contracts, deps, errors, events,
-                 schemas, websocket, routers/
-  cli/           workflow_cli.py (entry: aiagent)
-  harness/       placeholder (M6)
-  progress/      PLAN.md LOG.md STATS.md tasks/<TASK-xxx>/ _TEMPLATE/
-configs/         default.yaml development.yaml test.yaml
-docs/            PLAN.md AGENTS.md AIOS_Master_Task_Specification_M0-M26.md detailtask/
+  core/                config, container, events, logging, metadata,
+                       healthcheck, version, contracts, planner
+  governance/          task_registry/ dependency/ architecture/
+                       deterministic/ evidence/ lifecycle/ regression/
+                       gates/ cli/
+  runtime/             kernel, context, audit, artifact, permission,
+                       policy, execution, scheduler, state, resource,
+                       memory, knowledge, providers/, workflow/
+  orchestrator/        decision_pipeline, planner, normalizer, rule_engine,
+                       workflow_matcher, execution_plan, goal_manager,
+                       task_queue, failure_recovery, permission_broker
+  capability/          capability, catalog, graph, prompt
+  skill/               manager, registry, resolver, sandbox
+  tool/                adapters, registry, contracts
+  worker/              contract, execution, lifecycle, registry, router, workers
+  agents/              orchestrator, spec_writer, critic, reviewer
+  api/                 app, auth, contracts, deps, errors, events,
+                       schemas, websocket, routers/
+  cli/                 workflow_cli.py (entry: aiagent)
+  dashboard/           client, health, mock_backend, server, views, websocket_client
+  autonomous_goal/     engine, contracts
+  model_router/        contracts
+  memory_coordinator/  contracts
+  context_optimizer/   compressor, optimizer, contracts
+  planning_engine/     contracts
+  execution_graph/     compiler, contracts
+  parallel_scheduler/  contracts, scheduler
+  distributed/         node_manager, contracts
+  distributed_scheduler/ scheduler, contracts
+  identity/            (T035)  tenancy/ (T036)  security/ (T070)
+  quota/               (T039)  ha/ (T041)  operations/ (T042)
+  sdk/                 (T043)  plugin_runtime/ (T044)  extension_contracts/ (T045)
+  ecosystem_registry/  (T046)  ecosystem_hub/ (T048)  devkit/ (T047)
+  certification/       certifier, contracts (T049)
+  harness/             (T029+)  ci/ checker, cli
+  upgrade/             (T020)  observability/ (T021)
+  progress/            PLAN.md LOG.md STATS.md tasks/<TASK-xxx>/ _TEMPLATE/
+configs/               default.yaml development.yaml test.yaml
+docs/                  PLAN.md AGENTS.md AIOS_Master_Task_Specification_M0-M26.md detailtask/
 ```
 
 ---
 
-## 8. Trạng thái Task (từ `aios/progress/PLAN.md`)
+## 8. Trạng thái Task (từ `aios/progress/PLAN.md` — 2026-08-22)
 
-| Task | Milestone | Title | Dependencies | Status |
-|------|-----------|-------|--------------|--------|
-| TASK-001 | M0 | Task Governance System | — | DONE |
-| TASK-002 | M1 | Monorepo + aios_core Scaffold | TASK-001 | DONE |
-| TASK-003 | M1 | Kernel Foundations | TASK-002 | DONE |
-| TASK-004 | M1 | Runtime Services I | TASK-003 | DONE |
-| TASK-005 | M1 | Runtime Services II | TASK-004 | DONE |
-| TASK-006 | M1 | Model Contract + Provider Registry | TASK-004,TASK-005 | DONE |
-| TASK-007 | M1 | Memory + Knowledge | TASK-003 | DONE |
-| TASK-008 | M1 | Workflow Definition + Compiler | TASK-003 | DONE |
-| TASK-009 | M1 | Capability Foundation | TASK-003 | DONE |
-| TASK-011 | M1 | M1 Remediation / Architecture Hardening | TASK-005,TASK-009 | DONE |
-| TASK-010 | M2 | Decision Pipeline | TASK-011 | DONE |
-| TASK-012 | M2 | Operational Orchestration | TASK-010 | DONE |
-| TASK-013 | M2 | Worker Plane | TASK-010,TASK-012 | DONE |
-| TASK-014 | M2 | Tool + Capability Layer | TASK-010,TASK-012,TASK-013 | DONE |
-| TASK-015 | M2 | Plugin / Skill Execution | TASK-014 | DONE |
-| TASK-016 | M2 | Architecture Hardening | TASK-010,TASK-012,TASK-013,TASK-014,TASK-015 | DONE |
+**M0–M9 đã hoàn tất (TASK-001 → TASK-050 đều DONE, 1840 tests).**
 
-> M2 complete. Next: M3 tasks (`READY` per master spec).
+| Milestone | Chủ đề | Task range | Status |
+|-----------|--------|-----------|--------|
+| M0 | Task Governance System | TASK-001 | DONE |
+| M1 | Monorepo + Runtime foundations | TASK-002 → 009, 011 | DONE |
+| M2 | Orchestration + workers + tools | TASK-010, 012 → 016 | DONE |
+| M3 | API + Dashboard + Extension | TASK-017 → 019 | DONE |
+| M4 | Upgrade / Observability / Orchestrator v2 | TASK-020 → 022 | DONE |
+| M5 | Memory, context, model, planning, execution | TASK-023 → 028 | DONE |
+| M6 | Harness Kernel + Verification + Benchmark | TASK-029 → 034 | DONE |
+| M7 | Identity, Tenancy, Distributed, HA, Enterprise | TASK-035 → 042 | DONE |
+| M8 | SDK, Plugin, Ecosystem, DevKit, Certification | TASK-043 → 049 | DONE |
+| M9 | Autonomous Goal Engine | TASK-050 | DONE |
+
+> **Lưu ý fail-closed (audit 2026-08-22):** nhiều package M5–M9 hiện là
+> **stub** so với AC đầy đủ trong `docs/detailtask/` (vd: T021, T023–T050).
+> Tests xanh với bề mặt stub; spec vẫn là target chuẩn. Xem §13.
+
+> Tiếp theo: **M10 → M26** (xem §10–§12).
 
 ---
 
@@ -322,5 +358,174 @@ aiagent validate  |  aiagent simulate            # workflow CLI (aios/cli/workfl
 ```
 
 ---
+
+## 10. Lộ trình tương lai — Roadmap M10 → M26
+
+Sau M9 (Autonomous Goal), AIOS tiến tới **AIOS 1.0** (M10–M13: đóng băng
+architecture/contract, hardening, durable execution, autonomy safety, security
+baseline, devX, dashboard 1.0, certification suite) rồi mở rộng sang **Coding
+Plane** (M14–M26: verify-the-verifier, autonomous harness, autonomous coding
+agents, evidence/risk/quality gates).
+
+```mermaid
+flowchart LR
+    M9[M9 Autonomous Goal<br/>DONE] --> M10[M10 AIOS 1.0 Baseline]
+    M10 --> M11[M11 Verification Integrity<br/>+ Visual/Asset/Skill]
+    M11 --> M12[M12 Compatibility 1.1]
+    M12 --> M13[M13 Behavioral Conformance<br/>+ Meta-Harness]
+    M13 --> M14[M14 Diagnose / Simulate<br/>+ Autonomous Harness]
+    M14 --> M15[M15 Autonomous Loop<br/>Planner/World/Gov/Recovery]
+    M15 --> M16[M16 Independent Harness<br/>+ Verification Oracle]
+    M16 --> M17[M17 Model Contracts<br/>+ Provider Lifecycle]
+    M17 --> M18[M18 Repo Scanner<br/>+ Symbol Index]
+    M18 --> M19[M19 Coder Agent<br/>+ Coding Planner]
+    M19 --> M20[M20 Execution Contract<br/>+ Sandbox Manager]
+    M20 --> M21[M21 Coding Loop SM<br/>+ Execution Observation]
+    M21 --> M22[M22 Req→Evidence<br/>+ Mutation Verifier]
+    M22 --> M23[M23 Adversarial Eval<br/>+ Evidence Attackers]
+    M23 --> M24[M24 Quality Gate<br/>+ Risk Model]
+    M24 --> M25[M25 Coding Eval<br/>+ Evaluation Engine]
+    M25 --> M26[M26 Unified Coding Contract<br/>+ Coding SM + Policy]
+
+    style M9 fill:#10b981,color:#fff
+    style M10 fill:#8b5cf6,color:#fff
+    style M26 fill:#f59e0b,color:#fff
+```
+
+**Bản đồ milestone → chủ đề:**
+
+| Milestone | Chủ đề chính | Task tiêu biểu |
+|-----------|--------------|----------------|
+| M10 | AIOS 1.0 Baseline | T063 Architecture 1.0, T064 Contract Freeze, T065 Runtime Hardening, T066 Durable Execution, T067 Autonomy Safety, T068 Kill Switch, T069 Reliability, T070 Security Baseline, T071 DevX, T072 Dashboard 1.0, T073 Cert Suite, T074 Upgrade/Migration 1.0, T075 Perf/Cost |
+| M11 | Verification Integrity + Creative | T078 Fail-Closed Gate, T079 RenderReplay, T080 Visual Evidence, T081 Asset Pipeline, T082 Creative Domain, T083 SkillDistiller |
+| M12 | Compatibility 1.1 | T084 Version+Compat Baseline, T085 Migration 1.0→1.1, T086 Backward Compat, T087 Conformance, T088 Docs/ADR |
+| M13 | Behavioral Conformance + Meta-Harness | T089 Behavioral Conformance, T090 Harness Coverage, T091 Meta-Harness, T092 System Readiness, T093 Behavioral Spec |
+| M14 | Diagnose / Simulate / Autonomous Harness | T094 Detect+Diagnose, T095 Candidate+Risk, T096 Simulation+Meta-Verify, T097 Permission+Human Approval, T098 Remediation+Kill Switch, T099 Autonomous Harness Loop, T100 Failure-Corpus |
+| M15 | Autonomous Loop | T051 Planner, T052 World Model, T053 Loop, T054 Governor, T055 Recovery, T056 Long-Horizon, T057 Memory, T058 Experimentation, T059 Multi-Agent, T060 Evaluation, T061 Stuck Detection, T062 Scheduler |
+| M16 | Independent Harness + Oracle | T104 Integration Foundation, T105 Verification Oracle |
+| M17 | Model Contracts + Provider Lifecycle | T109 Model Contracts, T110 Provider Registry+Lifecycle |
+| M18 | Repo Intelligence | T117 Repository Scanner, T118 Source/Symbol Index |
+| M19 | Coder Agent | T125 Coder Agent Contract+SM, T126 Coding Planner+PlanVerifier |
+| M20 | Execution + Sandbox | T135 Execution Contract, T136 Sandbox Manager |
+| M21 | Coding Loop | T145 Coding Loop SM, T146 Execution Observation |
+| M22 | Evidence Adequacy | T155 Req→Evidence Mapping, T156 Test Adequacy+Mutation Verifier |
+| M23 | Adversarial | T165 Adversarial Eval Harness, T166 Evidence Attackers |
+| M24 | Quality + Risk | T175 Quality Gate+States, T176 Risk Model+Classification |
+| M25 | Coding Evaluation | T185 Coding Eval Contract, T186 Evaluation Engine |
+| M26 | Unified Coding Plane | T197 Unified Coding Contract, T198 Coding SM, T199 Coding Policy Engine |
+
+---
+
+## 11. Kiến trúc mục tiêu — AIOS 1.0 + Coding Plane
+
+```mermaid
+flowchart TB
+    subgraph EXT["External Surfaces"]
+        UX[Dashboard 1.0 / VS Code Ext / Public SDK]
+        API[FastAPI REST + WebSocket]
+    end
+    subgraph GOV["Governance (fail-closed)"]
+        UG[Unified Task Gate<br/>7 rules AND]
+        HAR[Harness / Meta-Harness<br/>Verify-the-Verifier]
+        ORACLE[Independent Verification Oracle<br/>M16]
+    end
+    subgraph AUTO["Autonomy Plane (M15)"]
+        AG[Autonomous Goal Engine]
+        PL[Planner + World Model]
+        GOV2[Autonomy Governor + Kill Switch]
+        LOOP[Autonomous Loop + Recovery]
+    end
+    subgraph CORE["Core Control Substrate"]
+        ORC[Orchestrator v2 + Scheduler + Execution Graph]
+        RT[Runtime Kernel + Policy + Permission]
+        CAP[Capability / Skill / Tool / Worker]
+    end
+    subgraph CODE["Coding Plane (M19–M26)"]
+        CA[Coder Agent Contract + SM]
+        CP[Coding Planner + PlanVerifier]
+        CL[Coding Loop SM + Observation]
+        CE[Coding Eval + Unified Contract + Policy]
+    end
+    subgraph ENT["Enterprise / Distributed"]
+        ID[Identity/RBAC + Tenancy]
+        DIST[Distributed Runtime + Scheduler]
+        HA[HA + Audit + Recovery]
+        QUOTA[Quota + Cost]
+    end
+    subgraph ECO["Ecosystem"]
+        SDK[Public SDK] REG[Ecosystem Registry] HUB[Ecosystem Hub] CERT[Certification]
+    end
+
+    UX --> API --> ORC
+    ORC --> RT --> CAP
+    AG --> PL --> LOOP --> GOV2
+    GOV2 -.->|bounded autonomy| ORC
+    CA --> CP --> CL --> CE
+    CE -.->|evidence| HAR
+    HAR --> UG --> ORACLE
+    RT -.-> ENT
+    CAP -.-> ECO
+
+    style UG fill:#8b5cf6,color:#fff
+    style ORACLE fill:#8b5cf6,color:#fff
+    style HAR fill:#0ea5e9,color:#fff
+    style GOV2 fill:#ef4444,color:#fff
+    style RT fill:#10b981,color:#fff
+```
+
+---
+
+## 12. Vòng lặp Tự chủ & Verification Oracle (M15–M16)
+
+```mermaid
+sequenceDiagram
+    participant G as Goal Engine (M9)
+    participant P as Planner/World Model (M15)
+    participant L as Autonomous Loop (M15)
+    participant R as Runtime Executor
+    participant H as Harness / Meta-Harness (M13)
+    participant O as Independent Oracle (M16)
+    participant K as Kill Switch / Governor (M10/M15)
+
+    G->>P: objective
+    P->>L: plan + sub-goals
+    loop bounded autonomy
+        L->>R: ExecutionPlan (policy-checked)
+        R-->>L: result + evidence
+        L->>H: verify evidence
+        H->>O: independent invariant check
+        O-->>H: PASS / FAIL
+        alt FAIL / risk high
+            H->>K: trigger kill switch
+            K-->>L: halt + recovery
+        else PASS
+            L->>L: progress + next step
+        end
+    end
+    L-->>G: goal status + provenance chain
+```
+
+---
+
+## 13. Khoảng cách đã biết (honest gaps — fail-closed)
+
+Nhiều package M5–M9 hiện là **stub** so với AC đầy đủ (`docs/detailtask/`),
+tests xanh với bề mặt stub. Đây là target của các milestone tương lai, không
+được downgrade thầm:
+
+| Task | Gap chính |
+|------|-----------|
+| T021 Observability | thiếu Health API / Dashboard-integration chuyên biệt |
+| T023 Memory Coordinator | thiếu `filters`/`ranking_policy`/`provenance`/`checksum` |
+| T024 Context Optimizer | gộp sub-component, non-ASCII id `P5参考资料` |
+| T025 Model Router | thiếu `FallbackResolver`/fallback chain |
+| T028 Parallel Scheduler | `JoinPolicy` chỉ `ALL_SUCCESS` |
+| T029–T034 Harness | thiếu Registry/Replay/Evaluators/Doctor modules + CLI |
+| T035–T042 Enterprise | thiếu ABAC/Tenant boundary/HA audit/Operations endpoints |
+| T043–T050 Ecosystem | thiếu TS SDK/Plugin isolation/Cert profiles/Goal SM |
+
+> Nguyên tắc **fail-closed**: UNKNOWN không được nâng thành PASS; spec luôn là
+> canonical target. Các gap này sẽ được lấp dần qua M10–M26 (đặc biệt M10
+> hardening, M13 meta-harness, M22–M24 evidence/quality gates).
 
 *Tài liệu được sinh tự động từ source tree AIOS — cập nhật khi có milestone mới.*

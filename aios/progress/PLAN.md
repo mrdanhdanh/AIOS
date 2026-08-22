@@ -59,10 +59,22 @@ Ordered task index and status. Status values: `PLANNED | SPECIFIED | ... | DONE 
 | TASK-048 | M8 | Ecosystem Hub | TASK-047 | DONE |
 | TASK-049 | M8 | Certification | TASK-048 | DONE |
 | TASK-050 | M9 | Autonomous Goal Engine | TASK-049 | DONE |
+| TASK-051 | M9 | Autonomous Planner | TASK-050 | DONE |
+| TASK-052 | M9 | World Model | TASK-051 | DONE |
+| TASK-053 | M9 | Autonomous Loop | TASK-051 | DONE |
+| TASK-054 | M9 | Autonomy Governor | TASK-053 | DONE |
+| TASK-055 | M9 | Autonomous Recovery | TASK-054 | DONE |
+| TASK-056 | M9 | Goal Durability | TASK-055 | DONE |
+| TASK-057 | M9 | Autonomous Memory | TASK-056 | DONE |
+| TASK-058 | M9 | Autonomous Experimentation | TASK-057 | DONE |
+| TASK-059 | M9 | Multi-Agent Autonomy | TASK-058 | DONE |
+| TASK-060 | M9 | Autonomous Evaluation | TASK-059 | DONE |
+| TASK-061 | M9 | Advanced Stuck Detection | TASK-060 | DONE |
+| TASK-062 | M9 | Autonomous Scheduler | TASK-054 | DONE |
 
 ## Next action
 
-TASK-050 `DONE` (1840 tests, 42 new for M8+M9 tasks, AC-043..050 PASS). M8+M9 COMPLETE. ALL TASKS 018-050 DONE.
+TASK-062 `DONE` (2052 tests, M9 full: T051-T062 implemented, AC-051..062 PASS). M9 COMPLETE. ALL TASKS 001-062 DONE.
 
 ## Known implementation gaps (audit 2026-08-22) — CLOSED 2026-08-22
 

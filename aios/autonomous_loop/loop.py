@@ -57,6 +57,8 @@ class LoopController:
         self._world_model = world_model
         self._config = config or LoopConfig()
         self._cycles: list[AutonomousCycle] = []
+        self._total_cost: float = 0.0
+        self._total_failures: int = 0
 
     def run(self, goal_id: str, context: dict[str, Any] | None = None) -> list[AutonomousCycle]:
         context = context or {}
@@ -76,12 +78,13 @@ class LoopController:
             if cycle.status == CycleStatus.FAILED:
                 break
 
-            # Stop-condition checks (deterministic).
+            # Stop-condition checks (deterministic). Use loop-level
+            # accumulators, not per-cycle values.
             if cycle.iteration >= self._config.max_iterations:
                 cycle.status = CycleStatus.STOPPED
                 cycle.stop_condition = StopCondition.MAX_ITERATIONS
                 break
-            if cycle.cost > self._config.max_cost:
+            if self._total_cost > self._config.max_cost:
                 cycle.status = CycleStatus.STOPPED
                 cycle.stop_condition = StopCondition.MAX_COST
                 break
@@ -89,7 +92,7 @@ class LoopController:
                 cycle.status = CycleStatus.STOPPED
                 cycle.stop_condition = StopCondition.MAX_RUNTIME
                 break
-            if cycle.failures >= self._config.max_failures:
+            if self._total_failures >= self._config.max_failures:
                 cycle.status = CycleStatus.STOPPED
                 cycle.stop_condition = StopCondition.REPEATED_FAILURE
                 break
@@ -129,6 +132,9 @@ class LoopController:
         cycle.execution_ref = execution.get("execution_id", "")
         if execution.get("failed"):
             cycle.failures += 1
+            self._total_failures += 1
+        self._total_cost += float(execution.get("cost", 0.0))
+        cycle.cost = self._total_cost
 
         cycle.status = CycleStatus.OBSERVING
         post_observation = self._observer(cycle)

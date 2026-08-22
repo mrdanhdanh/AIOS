@@ -119,6 +119,7 @@ Use `aios.core.container` (singleton/scoped/transient, thread-safe), `aios.core.
 ## 10. Conventions & pitfalls
 
 * **Python ≥3.11**, `pyyaml` only runtime dep. Run `pip install -e ".[dev]"` before `pytest`; `pip install -e ".[api]"` for FastAPI (`TASK-017+` only), `pip install -e ".[dev,api]"` for both. `fastapi`/`pydantic`/`uvicorn` are **not** in base deps — `ModuleNotFoundError: fastapi` before TASK-017 is expected.
+* **fastapi pre-flight (bắt buộc cho TASK-017+ / API):** trước khi claim DONE hoặc chạy API test, chạy `python -c "import fastapi"`; nếu fail thì `pip install -e ".[dev,api]"` rồi verify lại. Tuyệt đối không để user phải hỏi "sao chạy import fastapi bị lỗi" — pre-flight này phải chạy tự động trước mọi API work.
 * **Never** add `subprocess`/`os`/provider/filesystem imports inside `aios/agents/` — architecture gate fails closed on parse errors too.
 * **Never** bypass Runtime/Capability/Permission/Policy — agents receive capabilities via injection.
 * **Naming:** task IDs `TASK-xxx` are immutable and never reused, even after deprecation.
@@ -127,6 +128,8 @@ Use `aios.core.container` (singleton/scoped/transient, thread-safe), `aios.core.
 * **Spec-first:** trước khi claim `PASS`/`DONE`, phải đọc `docs/detailtask/T00X.md` + `aios/progress/tasks/TASK-00X/` và đối chiếu từng AC trong bảng — không đoán.
 * **Không khôi phục:** khi user nói "không khôi phục / làm lại từ đầu / không được khôi phục", xóa/recreate từ `aios/progress/tasks/_TEMPLATE/` — không reuse `implementation/` cũ.
 * **Chẩn đoán trước khi retry (bắt buộc):** cấm `Try Again`/`retry`/`thử lại`/`fix`/`sửa giúp tôi` trống. Khi fail phải chạy `python aios/governance/cli/gate_check.py --task TASK-00X` + `python -m pytest aios -q` rồi báo `Violation(rule,module,line)` hoặc test failure cụ thể trước khi thử lại. User cũng phải dán lỗi đầy đủ, không nói chung chung.
+* **Cấm "Continue to iterate?" / autopilot mù:** trong chế độ autopilot, khi lệnh/test fail, agent PHẢI tự chạy `gate_check.py` + `pytest` và báo lỗi cụ thể trước khi gửi bất kỳ message "Continue"/"Try Again"/"tiếp tục" nào. Tuyệt đối không loop "Try Again" chờ user — nếu lỗi lặp >2 lần thì auto-stop và báo root cause (theo quy tắc "Tự chủ theo lô + auto-stop").
+* **Xử lý terminal lỗi (tiết kiệm token):** khi terminal báo lỗi, ưu tiên đọc qua terminal tool / chạy lệnh chẩn đoán trực tiếp; cấm paste nguyên output terminal >2k chars vào chat. Tóm tắt lỗi thành 1 dòng (exit code + tên test fail / Violation) rồi chạy `gate_check.py`/`pytest` để lấy chi tiết.
 * **Ngôn ngữ giao tiếp (bắt buộc):** user yêu cầu giao tiếp bằng **tiếng Việt** — mọi trả lời, giải thích, tóm tắt đều bằng tiếng Việt. Commit message / code comment giữ tiếng Anh chuẩn.
 * **Local CI gate trước khi push / claim DONE (bắt buộc):** luôn chạy `aiagent ci check` (hoặc `python aios/governance/cli/gate_check.py --task TASK-00X` — mặc định `--ci` bật, scope=full) trước khi push hoặc tuyên bố task DONE. Phát hiện sớm lỗi như `ModuleNotFoundError: fastapi` (thiếu extra `api`) trước khi lên CI. Cấm push khi local CI FAIL (fail-closed).
 * **Tự chủ theo lô + auto-stop:** khi được giao chuỗi TASK đã lên lịch, tự thực hiện tuần tự, tự quyết định thứ tự không cần hỏi lại mỗi bước. Nhưng **ngưng lại** sau khi cùng 1 lỗi lặp lại nhiều lần (không loop "Try Again"/"thử lại" vô tận) — báo cáo root cause rồi chờ user.

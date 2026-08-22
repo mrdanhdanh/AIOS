@@ -37,7 +37,9 @@ def test_loop_stops_at_max_iterations():
 def test_loop_stops_at_max_cost():
     def costly_actor(cycle, ctx):
         return {"execution_id": "x", "cost": 0.6, "failed": False}
-    loop = AutonomousLoop(_observer, costly_actor, _evaluator, config=LoopConfig(max_cost=1.0))
+    def cost_obs(cycle):
+        return {"observation_id": "o", "progress": min(0.9, cycle.iteration * 0.3)}
+    loop = AutonomousLoop(cost_obs, costly_actor, _evaluator, config=LoopConfig(max_cost=1.0))
     cycles = loop.run("g1")
     assert cycles[-1].stop_condition == StopCondition.MAX_COST
 
