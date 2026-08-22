@@ -21,7 +21,7 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install -e ".[dev]"
+          pip install -e ".[dev,api]"
       - name: Run tests (TASK-002 bootstrap)
         run: |
           python -m pytest aios/core/tests -v --tb=short
