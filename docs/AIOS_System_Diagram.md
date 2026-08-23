@@ -8,11 +8,56 @@
 
 ---
 
+## 0. Tổng quan Big Picture (End-to-End)
+
+Một request đi từ Client → API/CLI → Decision Pipeline (deterministic-first) →
+Runtime Executor → Capability/Skill/Tool, đồng thời được giám sát bởi Governance
+(7 gates) và sinh Evidence có provenance.
+
+```mermaid
+flowchart LR
+    CLIENT([Client<br/>API · CLI · Extension · Dashboard])
+
+    subgraph ENTRY["Entry & Decision"]
+        GW["FastAPI / aiagent CLI"]
+        DP["Decision Pipeline<br/>KNOWN_INTENTS?"]
+    end
+
+    subgraph STACK["5-Layer Stack (downward-only)"]
+        AG["Agent"] --> OR["Orchestrator"] --> RT["Runtime Kernel"] --> CAP["Capability"] --> TL["Tool / Worker"]
+    end
+
+    subgraph GOV["Governance — 7 Gates → Unified (fail-closed)"]
+        G["Registry · Dependency · Architecture<br/>Deterministic · Evidence · Lifecycle · Regression"]
+    end
+
+    subgraph EVID["Evidence & Provenance"]
+        E["Evidence → Run → Artifact → Task → Requirement"]
+    end
+
+    CLIENT --> GW --> DP
+    DP -->|INSUFFICIENT| OR
+    DP -->|SUFFICIENT| CLIENT
+    RT --> E
+    E --> G
+    G -->|PASS| DONE([DONE])
+    G -->|FAIL| BLOCK([BLOCKED])
+
+    style CLIENT fill:#0ea5e9,color:#fff
+    style RT fill:#10b981,color:#fff
+    style G fill:#8b5cf6,color:#fff
+    style DONE fill:#10b981,color:#fff
+    style BLOCK fill:#ef4444,color:#fff
+```
+
+---
+
 ## 1. Phân tầng kiến trúc (Enforced Layering — ARCH-001..004)
 
 Quy tắc import **chỉ đi xuống**, cấm vượt tầng. Guard tại
-`aios/governance/architecture/guard.py`. **Trạng thái hiện tại (2026-08-23):**
-**TASK-001 → TASK-132 đã DONE** (M0–M19 đang tiến hành; 134 tasks DONE, bao gồm TASK-219), cộng TASK-133–T134 PLANNED. Test count xem §8.
+`aios/governance/architecture/guard.py`. **Trạng thái hiện tại (2026-08-24):**
+**M0–M26 đã DONE** — toàn bộ `TASK-001 → TASK-218` + `TASK-219` đều `DONE`
+(3138 tests, roadmap M0–M26 CLOSED). Xem §8.
 
 `Agent → Orchestrator → Runtime → Capability → Tool`
 
@@ -25,47 +70,69 @@ Quy tắc import **chỉ đi xuống**, cấm vượt tầng. Guard tại
 
 ```mermaid
 flowchart TB
+    %% ===================== Cross-cutting planes =====================
+    subgraph X["Cross-Cutting Planes — gắn Runtime qua contract (không phá vỡ phân tầng)"]
+        direction LR
+        XG["Governance<br/>7 Gates + Unified"]
+        XC["Core<br/>Config · Container · Events · Logging"]
+        XE["Enterprise / Safety<br/>Identity · Tenancy · Security · Quota · HA · KillSwitch · Reliability · CostMeter"]
+        XD["Distributed<br/>Node · Distributed Scheduler"]
+        XEC["Ecosystem<br/>SDK · Plugin · Extension · Certification · Hub · DevKit"]
+        XA["Autonomy<br/>Goal · Planner · Loop · Governor · Recovery · Memory · Scheduler · Eval · Experiment · WorldModel"]
+        XH["Harness / Verify<br/>Harness · CI · Meta · Independent · Coverage · TrustBudget"]
+        XM["Model Runtime<br/>Inference Orchestration"]
+        XC2["Coding Plane<br/>Coder · Remediation · Verification · Evidence"]
+    end
+
+    %% ===================== 5-layer stack =====================
     subgraph L5["Layer 5 — AGENT (pure, I/O-free)"]
-        A1[Spec-Writer / Critic / Reviewer]
-        A4[Orchestrator Agent v2]
-        AGOAL[Autonomous Goal Engine]
+        A1["Spec-Writer · Critic · Reviewer"]
+        A2["Orchestrator Agent v2"]
+        A3["Autonomous Goal Engine"]
     end
     subgraph L4["Layer 4 — ORCHESTRATOR"]
-        O1[Orchestrator v2]
-        O2[Decision Pipeline]
-        O3[Planning Engine]
-        O4[Parallel / Distributed Scheduler]
-        O5[Execution Graph]
+        O1["Orchestrator v2"]
+        O2["Decision Pipeline"]
+        O3["Planning Engine"]
+        O4["Parallel / Distributed Scheduler"]
+        O5["Execution Graph"]
     end
     subgraph L3["Layer 3 — RUNTIME (Control Substrate)"]
-        R1[Kernel - Container]
-        R2[Policy + Permission]
-        R3[Scheduler / State / Resource]
-        R4[Memory / Knowledge / Context / Audit]
-        R5[Executor]
-        R6[Model Router / Providers]
+        R1["Kernel · Container"]
+        R2["Policy + Permission"]
+        R3["Scheduler · State · Resource"]
+        R4["Memory · Knowledge · Context · Audit"]
+        R5["Executor"]
+        R6["Model Router · Providers"]
     end
     subgraph L2["Layer 2 — CAPABILITY"]
-        C1[Capability Registry]
-        C2[Catalog / Graph / Prompt]
-        C3[Skill Manager + Sandbox]
-        C4[Tool Registry + Adapters]
+        C1["Capability Registry"]
+        C2["Catalog · Graph · Prompt"]
+        C3["Skill Manager + Sandbox"]
+        C4["Tool Registry + Adapters"]
     end
     subgraph L1["Layer 1 — TOOL / WORKER"]
-        T1[Worker Plane]
-        T2[Plugin / Skill Runtime]
-        T3[Providers - Mock/OpenAI/Ollama]
+        T1["Worker Plane"]
+        T2["Plugin / Skill Runtime"]
+        T3["Providers · Mock / OpenAI / Ollama"]
     end
 
-    A4 --> O1 --> R1 --> C1 --> T1
-    AGOAL -.->|objectives| O3
+    %% ===================== downward-only wiring =====================
+    A2 --> O1 --> R1 --> C1 --> T1
+    A3 -.->|objectives| O3
     O2 -.->|Policy Check| R2
     R5 -.->|Resource + Scheduler + State| R3
+    R1 -.->|resolve| C1
+    X -.->|contract| R1
 
+    %% ===================== styling =====================
     style R1 fill:#0ea5e9,stroke:#0284c7,color:#fff
     style O1 fill:#8b5cf6,stroke:#7c3aed,color:#fff
-    style A4 fill:#f59e0b,stroke:#d97706,color:#fff
-    style AGOAL fill:#f59e0b,stroke:#d97706,color:#fff
+    style A2 fill:#f59e0b,stroke:#d97706,color:#fff
+    style A3 fill:#f59e0b,stroke:#d97706,color:#fff
+    style X fill:#1e293b,stroke:#475569,color:#e2e8f0
+    classDef layer fill:#0f172a,stroke:#334155,color:#e2e8f0;
+    class L5,L4,L3,L2,L1 layer;
 ```
 
 **Các plane ngang (cross-cutting) hiện có trong `aios/`** — gắn vào Runtime
@@ -292,7 +359,7 @@ sequenceDiagram
 
 ---
 
-## 7. Cấu trúc Monorepo (thực tế — 2026-08-23)
+## 7. Cấu trúc Monorepo (thực tế — 2026-08-24)
 
 ```
 aios/
@@ -384,9 +451,9 @@ docs/                  PLAN.md AGENTS.md AIOS_Master_Task_Specification_M0-M26.m
 
 ---
 
-## 8. Trạng thái Task (từ `aios/progress/PLAN.md` — 2026-08-23)
+## 8. Trạng thái Task (từ `aios/progress/PLAN.md` — 2026-08-24)
 
-**M0–M19 đã hoàn tất (TASK-001 → TASK-134 đều DONE, 135 tasks), cộng TASK-219.**
+**M0–M26 đã hoàn tất (TASK-001 → TASK-218 + TASK-219 đều DONE, 3138 tests). Roadmap M0–M26 CLOSED.**
 
 | Milestone | Chủ đề | Task range | Status |
 |-----------|--------|-----------|--------|
@@ -409,11 +476,18 @@ docs/                  PLAN.md AGENTS.md AIOS_Master_Task_Specification_M0-M26.m
 | M16 | Independent Harness + Verification Oracle | TASK-104 → 108 | DONE |
 | M17 | Model Contracts + Provider Lifecycle | TASK-109 → 116 | DONE |
 | M18 | Repo Intelligence (Scanner/Symbol/Dep/Index/Context) | TASK-117 → 124 | DONE |
-| M19 | Coder Agent (Contract/Planner/Generation runtime) | TASK-125 → 132 (133+ PLANNED) | IN PROGRESS |
+| M19 | Coder Agent (Contract/Planner/Generation runtime) | TASK-125 → 134 | DONE |
+| M20 | Execution + Sandbox (M20 Coding Plane) | TASK-135 → 144 | DONE |
+| M21 | Coding Loop (SM + Observation + Repair) | TASK-145 → 154 | DONE |
+| M22 | Evidence Adequacy (Req→Evidence + Verifiers) | TASK-155 → 164 | DONE |
+| M23 | Adversarial Eval (Evidence/Test/Scope Attackers) | TASK-165 → 174 | DONE |
+| M24 | Quality Gate + Risk + Governance Ledger | TASK-175 → 184 | DONE |
+| M25 | Coding Evaluation Engine + Benchmarks | TASK-185 → 196 | DONE |
+| M26 | Unified Coding Plane (Final Milestone) | TASK-197 → 218 | DONE |
 
-> **Fail-closed (audit 2026-08-22) — CLOSED:** các gap M5–M9 (T021, T023–T050, …) đã được implement trong session 2026-08-22, mỗi package đạt AC đầy đủ trong `docs/detailtask/`. Full suite: **2608 passed** (2026-08-23). Xem `aios/progress/PLAN.md`.
+> **Fail-closed (audit 2026-08-22) — CLOSED:** các gap M5–M9 (T021, T023–T050, …) đã được implement trong session 2026-08-22, mỗi package đạt AC đầy đủ trong `docs/detailtask/`. Full suite: **3138 passed** (2026-08-24). Xem `aios/progress/PLAN.md`.
 
-> Tiếp theo: **M20 → M26** (M11–M19 đã DONE, xem §10–§12).
+> **Roadmap M0–M26 CLOSED (2026-08-24):** toàn bộ 218 tasks + TASK-219 `DONE`. Không còn milestone PLANNED.
 
 ---
 
@@ -459,10 +533,16 @@ flowchart LR
 
     style M9 fill:#10b981,color:#fff
     style M10 fill:#10b981,color:#fff
-    style M26 fill:#f59e0b,color:#fff
+    style M20 fill:#10b981,color:#fff
+    style M21 fill:#10b981,color:#fff
+    style M22 fill:#10b981,color:#fff
+    style M23 fill:#10b981,color:#fff
+    style M24 fill:#10b981,color:#fff
+    style M25 fill:#10b981,color:#fff
+    style M26 fill:#10b981,color:#fff
 ```
 
-> **M10 → M19 đã DONE** (TASK-063 → TASK-134; M19 hoàn tất T125-T134). Roadmap tiếp theo: M20 → M26 (Coding Plane, 84 tasks PLANNED).
+> **M0 → M26 đã DONE** (TASK-001 → TASK-218 + TASK-219; 3138 tests). Roadmap M0–M26 CLOSED (2026-08-24) — không còn milestone PLANNED.
 
 **Bản đồ milestone → chủ đề:**
 
@@ -479,13 +559,13 @@ flowchart LR
 | M17 | Model Contracts + Provider Lifecycle | T109 → 116 | DONE |
 | M18 | Repo Intelligence | T117 → 124 | DONE |
 | M19 | Coder Agent | T125 → 134 | DONE |
-| M20 | Execution + Sandbox | T135 → 136 | PLANNED |
-| M21 | Coding Loop | T145 → 146 | PLANNED |
-| M22 | Evidence Adequacy | T155 → 156 | PLANNED |
-| M23 | Adversarial | T165 → 166 | PLANNED |
-| M24 | Quality + Risk | T175 → 176 | PLANNED |
-| M25 | Coding Evaluation | T185 → 186 | PLANNED |
-| M26 | Unified Coding Plane | T197 → 199 | PLANNED |
+| M20 | Execution + Sandbox | T135 → 144 | DONE |
+| M21 | Coding Loop | T145 → 154 | DONE |
+| M22 | Evidence Adequacy | T155 → 164 | DONE |
+| M23 | Adversarial | T165 → 174 | DONE |
+| M24 | Quality + Risk | T175 → 184 | DONE |
+| M25 | Coding Evaluation | T185 → 196 | DONE |
+| M26 | Unified Coding Plane | T197 → 218 | DONE |
 
 ---
 
@@ -600,6 +680,6 @@ Các gap M5–M9 dưới đây đã được **implement** trong session 2026-08
 
 > Nguyên tắc **fail-closed**: UNKNOWN không được nâng thành PASS; spec luôn là
 > canonical target. Các gap này đã được lấp trong M10 (hardening, durable,
-> safety, security, reliability) — full suite **2608 passed** (2026-08-23).
+> safety, security, reliability) — full suite hiện tại **3138 passed** (2026-08-24, M0–M26 CLOSED).
 
 *Tài liệu được sinh tự động từ source tree AIOS — cập nhật khi có milestone mới.*

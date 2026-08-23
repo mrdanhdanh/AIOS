@@ -245,6 +245,17 @@ Ordered task index and status. Status values: `PLANNED | SPECIFIED | ... | DONE 
 
 M26 `DONE` (3138 tests, M26 full: T197-T218 implemented in `aios/coding_edition/`, AC-197..218 PASS). M26 COMPLETE — final milestone of roadmap M0-M26. ALL TASKS 001-218 + TASK-219 DONE. Roadmap M0-M26 CLOSED (2026-08-24).
 
+## M27 — Control-Plane Extension (post-M26)
+
+| TASK-220 | M27 | AIOS Coordinator Agent (control-plane + chat agent) | TASK-001,TASK-008,TASK-125 | DONE |
+
+M27 opens a lightweight control-plane layer: `CoordinatorAgent` (pure, I/O-free,
+capability-injected) drives the agent-role pipeline (spec → critique×2 →
+breakdown → review → orchestrate/close) and a custom VS Code chat agent
+(`.github/agents/aios-coordinator.agent.md`) lets users pick it from the chat
+picker and auto-follow the governance next-step loop. Unified Gate PASS;
+3141 tests green (2026-08-24).
+
 ## Known implementation gaps (audit 2026-08-22) — CLOSED 2026-08-22
 
 All gaps listed below were **implemented** in the session of 2026-08-22, bringing
