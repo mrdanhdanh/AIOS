@@ -10,6 +10,7 @@
 | Deterministic (không timestamp) | PASS | `test_deterministic_conversion` |
 | Architecture gate sạch (ARCH-001..004) | PASS | `test_architecture_clean` |
 | **Thực tế: clone `ui-ux-pro-max-skill` (Claude layout)** | PASS | `test_cloned_skill_layout_detection`, `test_parse_cloned_skill_package`, `test_convert_and_load_cloned_skill` |
+| **Persist: package lưu `skills/ui-ux-pro-max/` reload được** | PASS | `test_persisted_skills.py` |
 | Regression closure PASS | PASS | `pytest aios -q` (toàn bộ suite green) |
 
 ## Layout support summary (nhớ khi review sau này)

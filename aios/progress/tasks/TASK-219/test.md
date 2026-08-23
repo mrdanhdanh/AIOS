@@ -29,6 +29,7 @@ Clone `https://github.com/nextlevelbuilder/ui-ux-pro-max-skill` (layout `claude`
 ## Layout coverage
 - `copilot` (root `SKILL.md`): `test_convert_skill_dir_writes_package`, `test_convert_then_install_enable`, `test_deterministic_conversion`.
 - `claude` (`skill.json` + `.claude/skills/*/SKILL.md`): `test_real_skill.py` (3 tests, clone thực tế).
+- `persisted` (`skills/ui-ux-pro-max/` on disk): `test_persisted_skills.py` (reload + enable).
 
 ## Result
-`12 passed` (9 unit + 3 real-skill; xác nhận tại bước TESTING + thực tế clone).
+`13 passed` (9 unit + 3 real-skill + 1 persisted; xác nhận tại bước TESTING + thực tế clone + persist).

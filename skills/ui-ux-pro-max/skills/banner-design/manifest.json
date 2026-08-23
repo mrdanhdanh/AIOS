@@ -1,0 +1,34 @@
+{
+  "author": "NextLevelBuilder",
+  "checksum": "",
+  "configuration": {},
+  "dependencies": [],
+  "description": "Design banners for social media, ads, website heroes, creative assets, and print. Multiple art direction options with AI-generated visuals. Actions: design, create, generate banner. Platforms: Facebook, Twitter/X, LinkedIn, YouTube, Instagram, Google Display, website hero, print. Styles: minimalist, gradient, bold typography, photo-based, illustrated, geometric, retro, glassmorphism, 3D, neon, duotone, editorial, collage. Uses ui-ux-pro-max, frontend-design, ai-artist, ai-multimodal skills.",
+  "enabled": false,
+  "entrypoint": "SKILL.md",
+  "install_location": "/skills/banner-design/1.0.0",
+  "install_source": "git",
+  "metadata": {
+    "frontmatter": {
+      "argument-hint": "[platform] [style] [dimensions]",
+      "description": "Design banners for social media, ads, website heroes, creative assets, and print. Multiple art direction options with AI-generated visuals. Actions: design, create, generate banner. Platforms: Facebook, Twitter/X, LinkedIn, YouTube, Instagram, Google Display, website hero, print. Styles: minimalist, gradient, bold typography, photo-based, illustrated, geometric, retro, glassmorphism, 3D, neon, duotone, editorial, collage. Uses ui-ux-pro-max, frontend-design, ai-artist, ai-multimodal skills.",
+      "license": "MIT",
+      "metadata": {
+        "author": "claudekit",
+        "version": "1.0.0"
+      },
+      "name": "banner-design"
+    },
+    "source": "github-copilot-skill"
+  },
+  "name": "banner-design",
+  "permissions": [],
+  "required_capabilities": [],
+  "resources": {
+    "instructions_chars": 7617
+  },
+  "runtime": "python3.11",
+  "skill_id": "banner-design",
+  "status": "pending",
+  "version": "1.0.0"
+}

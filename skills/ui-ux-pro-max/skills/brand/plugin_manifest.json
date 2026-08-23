@@ -1,0 +1,10 @@
+{
+  "capabilities": [
+    "brand"
+  ],
+  "dependencies": [],
+  "min_runtime_version": "1.0.0",
+  "name": "brand",
+  "plugin_id": "brand",
+  "version": "1.0.0"
+}

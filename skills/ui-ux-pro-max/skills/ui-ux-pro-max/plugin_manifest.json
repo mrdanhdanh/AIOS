@@ -1,0 +1,10 @@
+{
+  "capabilities": [
+    "ui-ux-pro-max"
+  ],
+  "dependencies": [],
+  "min_runtime_version": "1.0.0",
+  "name": "ui-ux-pro-max",
+  "plugin_id": "ui-ux-pro-max",
+  "version": "1.0.0"
+}

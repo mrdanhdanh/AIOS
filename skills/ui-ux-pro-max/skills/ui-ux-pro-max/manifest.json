@@ -1,0 +1,28 @@
+{
+  "author": "NextLevelBuilder",
+  "checksum": "",
+  "configuration": {},
+  "dependencies": [],
+  "description": "UI/UX design intelligence for web, mobile, and desktop. This skill should be used when designing, building, reviewing, or fixing interfaces, including pages, components, design systems, accessibility, interaction, responsive layout, typography, color, charts, and stack-specific UI implementation. Searchable local data: 79 searchable styles (50 active), 192 product palettes and reasoning profiles, 74 font pairings, 119 UX guidelines, 105 icons, 17 GSAP presets, 25 chart types, and 22 stacks.",
+  "enabled": false,
+  "entrypoint": "scripts/core.py",
+  "install_location": "/skills/ui-ux-pro-max/1.0.0",
+  "install_source": "git",
+  "metadata": {
+    "frontmatter": {
+      "description": "UI/UX design intelligence for web, mobile, and desktop. This skill should be used when designing, building, reviewing, or fixing interfaces, including pages, components, design systems, accessibility, interaction, responsive layout, typography, color, charts, and stack-specific UI implementation. Searchable local data: 79 searchable styles (50 active), 192 product palettes and reasoning profiles, 74 font pairings, 119 UX guidelines, 105 icons, 17 GSAP presets, 25 chart types, and 22 stacks.",
+      "name": "ui-ux-pro-max"
+    },
+    "source": "github-copilot-skill"
+  },
+  "name": "ui-ux-pro-max",
+  "permissions": [],
+  "required_capabilities": [],
+  "resources": {
+    "instructions_chars": 15381
+  },
+  "runtime": "python3.11",
+  "skill_id": "ui-ux-pro-max",
+  "status": "pending",
+  "version": "1.0.0"
+}

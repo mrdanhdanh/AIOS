@@ -1,0 +1,33 @@
+{
+  "author": "NextLevelBuilder",
+  "checksum": "",
+  "configuration": {},
+  "dependencies": [],
+  "description": "Brand voice, visual identity, messaging frameworks, asset management, brand consistency. Activate for branded content, tone of voice, marketing assets, brand compliance, style guides.",
+  "enabled": false,
+  "entrypoint": "SKILL.md",
+  "install_location": "/skills/brand/1.0.0",
+  "install_source": "git",
+  "metadata": {
+    "frontmatter": {
+      "argument-hint": "[update|review|create] [args]",
+      "description": "Brand voice, visual identity, messaging frameworks, asset management, brand consistency. Activate for branded content, tone of voice, marketing assets, brand compliance, style guides.",
+      "metadata": {
+        "author": "claudekit",
+        "version": "1.0.0"
+      },
+      "name": "brand"
+    },
+    "source": "github-copilot-skill"
+  },
+  "name": "brand",
+  "permissions": [],
+  "required_capabilities": [],
+  "resources": {
+    "instructions_chars": 2616
+  },
+  "runtime": "python3.11",
+  "skill_id": "brand",
+  "status": "pending",
+  "version": "1.0.0"
+}

@@ -1,0 +1,10 @@
+{
+  "kind": "skill",
+  "layout": "claude",
+  "manifest_path": "manifest.json",
+  "name": "banner-design",
+  "plugin_manifest_path": "plugin_manifest.json",
+  "skill_id": "banner-design",
+  "source": "git",
+  "version": "1.0.0"
+}

@@ -1,0 +1,10 @@
+{
+  "capabilities": [
+    "banner-design"
+  ],
+  "dependencies": [],
+  "min_runtime_version": "1.0.0",
+  "name": "banner-design",
+  "plugin_id": "banner-design",
+  "version": "1.0.0"
+}

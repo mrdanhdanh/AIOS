@@ -291,4 +291,5 @@ extended: `governance/architecture`, `runtime`, `security`, `devkit`+`cli`,
 | skill/github_bridge/converter | 3 |
 | skill/github_bridge/architecture | 1 |
 | skill/github_bridge/real_skill | 3 |
-| **Subtotal** | **12** |
+| skill/github_bridge/persisted | 1 |
+| **Subtotal** | **13** |

@@ -1,0 +1,10 @@
+{
+  "capabilities": [
+    "ui-styling"
+  ],
+  "dependencies": [],
+  "min_runtime_version": "1.0.0",
+  "name": "ui-styling",
+  "plugin_id": "ui-styling",
+  "version": "1.0.0"
+}

@@ -13,6 +13,7 @@ Bridge hỗ trợ **2 layout** GitHub skill, tự phát hiện qua `detect_skill
 2. **`claude`** — `skill.json` (package metadata) + `.claude/skills/<name>/SKILL.md` (multi-sub-skill, ví dụ `ui-ux-pro-max`, `brand`, `design`...). → 1 package chứa N sub-skill, mỗi sub-skill 1 `SkillContract`.
 
 > Thực tế đã validate: clone `https://github.com/nextlevelbuilder/ui-ux-pro-max-skill` (layout `claude`, 7 sub-skill) → convert + `SkillManager.install`+`enable` mọi sub-skill → `ENABLED`. Xem `tests/test_real_skill.py`.
+> **Skill đã lưu trữ thực tế:** `skills/ui-ux-pro-max/` (7 sub-skill: banner-design, brand, design, design-system, slides, ui-styling, ui-ux-pro-max), sinh bởi `tools/install_github_skill.py`. Test reload: `tests/test_persisted_skills.py`.
 > Nếu sau này gặp skill layout khác (vd Cursor `.cursor/rules`, Windsurf...), mở rộng `detect_skill_layout` + `parse_skill_package` trong `parser.py` — đừng viết lại converter.
 
 ## Deliverables

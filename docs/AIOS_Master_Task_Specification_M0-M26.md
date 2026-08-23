@@ -1550,7 +1550,9 @@ Xây **bridge/adapter** chuyển đổi một GitHub Copilot skill (thư mục c
 - Tích hợp `SkillManager` (T015) + `PluginManifest` (T044) + `ArchitectureGuard` (T063).
 
 **Deliverables**
-- `aios/skill/github_bridge/{parser,adapter,converter}.py` + `__init__.py` + `tests/test_bridge.py` (9 tests).
+- `aios/skill/github_bridge/{parser,adapter,converter}.py` + `__init__.py` + `tests/` (13 tests: 9 unit + 3 real-skill + 1 persisted).
+- `tools/install_github_skill.py` — CLI clone/convert/install/enable persistent.
+- **Skill thực tế đã lưu:** `skills/ui-ux-pro-max/` (7 sub-skill từ `nextlevelbuilder/ui-ux-pro-max-skill`, layout `claude`).
 - Task artifacts + evidence + ADR/docs.
 
 **Acceptance Criteria**
@@ -1560,6 +1562,7 @@ Xây **bridge/adapter** chuyển đổi một GitHub Copilot skill (thư mục c
 - Contract sinh ra có thể `install` + `enable` qua `SkillManager` → status `ENABLED`.
 - Cùng input skill + converter → cùng package (deterministic, không timestamp).
 - Architecture gate quét package → không vi phạm ARCH-001..004.
+- Persist: package sinh ra lưu được dưới `skills/` và reload + enable lại qua `SkillManager` (test_persisted_skills).
 - Regression của TASK-047/083/046/049 PASS; không vi phạm invariants.
 
 **Dependency / Gate**

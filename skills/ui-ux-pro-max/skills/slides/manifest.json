@@ -1,0 +1,33 @@
+{
+  "author": "NextLevelBuilder",
+  "checksum": "",
+  "configuration": {},
+  "dependencies": [],
+  "description": "Create strategic HTML presentations with Chart.js, design tokens, responsive layouts, copywriting formulas, and contextual slide strategies.",
+  "enabled": false,
+  "entrypoint": "SKILL.md",
+  "install_location": "/skills/slides/1.0.0",
+  "install_source": "git",
+  "metadata": {
+    "frontmatter": {
+      "argument-hint": "[topic] [slide-count]",
+      "description": "Create strategic HTML presentations with Chart.js, design tokens, responsive layouts, copywriting formulas, and contextual slide strategies.",
+      "metadata": {
+        "author": "claudekit",
+        "version": "1.0.0"
+      },
+      "name": "slides"
+    },
+    "source": "github-copilot-skill"
+  },
+  "name": "slides",
+  "permissions": [],
+  "required_capabilities": [],
+  "resources": {
+    "instructions_chars": 872
+  },
+  "runtime": "python3.11",
+  "skill_id": "slides",
+  "status": "pending",
+  "version": "1.0.0"
+}
