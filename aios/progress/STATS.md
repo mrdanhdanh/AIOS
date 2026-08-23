@@ -8,7 +8,7 @@
 | Tasks PLANNED | 85 |
 | Tasks BLOCKED | 0 |
 | Governance modules | 7 (+ unified gate) |
-| Automated gate tests | 2659 passed (2026-08-23) |
+| Automated gate tests | 2667 passed (2026-08-23) |
 | Architecture rules (ARCH-A..H + ARCH-001..004) | 17 |
 | Lifecycle states | 12 |
 
@@ -380,9 +380,20 @@ extended: `governance/architecture`, `runtime`, `security`, `devkit`+`cli`,
 
 > T133 DONE (Prompt Architecture + PromptBuilder + Versioning). Immutable versioning (T001 Rule 1), fail-closed build (T078), provenance (T001 Rule 5), deterministic.
 
+## Per-module test counts (TASK-134, M19)
+
+| Module | Tests |
+|--------|-------|
+| coder/filesafety (FileSafetyBoundary) | 6 |
+| coder/filesafety (fail-closed/provenance) | 1 |
+| coder/filesafety (architecture) | 1 |
+| **Subtotal** | **8** |
+
+> T134 DONE (File Safety Boundary + Scope Enforcement). Scope root enforcement, fail-closed escape rejection (T113), provenance (T001 Rule 5). **M19 COMPLETE** (T125-T134, 88 new tests).
+
 ## Grand total
 
-| **Total** | **1253** |
+| **Total** | **1262** |
 
 ## Per-module test counts (TASK-219)
 

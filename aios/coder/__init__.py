@@ -74,6 +74,12 @@ from aios.coder.prompt import (
     PromptRegistry,
     PromptTemplate,
 )
+from aios.coder.filesafety import (
+    FileSafetyBoundary,
+    FileSafetyError,
+    ScopeDecision,
+    ScopeStatus,
+)
 
 __all__ = [
     "CoderAgentContract",
@@ -122,4 +128,8 @@ __all__ = [
     "PromptError",
     "PromptRegistry",
     "PromptTemplate",
+    "FileSafetyBoundary",
+    "FileSafetyError",
+    "ScopeDecision",
+    "ScopeStatus",
 ]
