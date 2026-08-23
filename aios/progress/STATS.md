@@ -2,12 +2,13 @@
 
 | Metric | Value |
 |--------|-------|
-| Total tasks (master spec) | 183 |
-| Tasks DONE | 125 |
+| Total tasks (master spec) | 219 |
+| Tasks DONE | 134 |
 | Tasks READY | 0 |
-| Tasks PLANNED | 57 |
+| Tasks PLANNED | 85 |
+| Tasks BLOCKED | 0 |
 | Governance modules | 7 (+ unified gate) |
-| Automated gate tests | 2650 |
+| Automated gate tests | 2659 passed (2026-08-23) |
 | Architecture rules (ARCH-A..H + ARCH-001..004) | 17 |
 | Lifecycle states | 12 |
 
@@ -368,9 +369,20 @@ extended: `governance/architecture`, `runtime`, `security`, `devkit`+`cli`,
 
 > T132 DONE (Autonomy Level + Permission Integration). 3-level mapping, fail-closed permission (T113), provenance (T001 Rule 5).
 
+## Per-module test counts (TASK-133, M19)
+
+| Module | Tests |
+|--------|-------|
+| coder/prompt (PromptRegistry) | 4 |
+| coder/prompt (PromptBuilder) | 4 |
+| coder/prompt (architecture/provenance) | 1 |
+| **Subtotal** | **9** |
+
+> T133 DONE (Prompt Architecture + PromptBuilder + Versioning). Immutable versioning (T001 Rule 1), fail-closed build (T078), provenance (T001 Rule 5), deterministic.
+
 ## Grand total
 
-| **Total** | **1244** |
+| **Total** | **1253** |
 
 ## Per-module test counts (TASK-219)
 

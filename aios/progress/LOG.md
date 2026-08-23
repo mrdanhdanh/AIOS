@@ -526,6 +526,18 @@ Append-only event log. Each entry: `ISO-UTC | task | event | detail`.
 2026-08-23T00:00:00Z | TASK-132 | EVALUATING | all AC verified (level->permission, fail-closed, provenance).
 2026-08-23T00:00:00Z | TASK-132 | REGRESSION | full suite 2650 passed; architecture gate PASS; no prior-milestone regression.
 2026-08-23T00:00:00Z | TASK-132 | DONE | Unified Task Gate PASS; 9 new tests; autonomy+permission established.
+2026-08-23T00:00:00Z | TASK-133 | READY | dependency TASK-132 DONE.
+2026-08-23T00:00:00Z | TASK-133 | CREATED | Prompt Architecture + PromptBuilder + Versioning initialized.
+2026-08-23T00:00:00Z | TASK-133 | SPECIFIED | spec.md written.
+2026-08-23T00:00:00Z | TASK-133 | CRITIQUED_1 | critique-1.md written.
+2026-08-23T00:00:00Z | TASK-133 | CRITIQUED_2 | critique-2.md written.
+2026-08-23T00:00:00Z | TASK-133 | BROKEN_DOWN | tasks.md written.
+2026-08-23T00:00:00Z | TASK-133 | REVIEWED | review.md written.
+2026-08-23T00:00:00Z | TASK-133 | IMPLEMENTING | aios/coder/prompt.py (PromptRegistry, PromptTemplate, PromptBuilder, BuiltPrompt).
+2026-08-23T00:00:00Z | TASK-133 | TESTING | 9 automated tests passing in aios/coder/tests/test_prompt.py.
+2026-08-23T00:00:00Z | TASK-133 | EVALUATING | all AC verified (versioning immutable, fail-closed build, provenance, deterministic).
+2026-08-23T00:00:00Z | TASK-133 | REGRESSION | full suite 2659 passed; architecture gate PASS; no prior-milestone regression.
+2026-08-23T00:00:00Z | TASK-133 | DONE | Unified Task Gate PASS; 9 new tests; prompt architecture established.
 2026-08-23T00:00:00Z | TASK-219 | PERSIST | Installed real skill: skills/ui-ux-pro-max/ (7 sub-skill from nextlevelbuilder/ui-ux-pro-max-skill, claude layout) via tools/install_github_skill.py; all ENABLED.
 2026-08-23T00:00:00Z | TASK-219 | TESTING | 13 bridge tests passing (9 unit + 3 real-skill + 1 persisted); 313 skill/plugin/bridge/architecture regression green.
 2026-08-23T00:00:00Z | TASK-219 | DONE | Skill plugin thuc te da co: skills/ui-ux-pro-max/ (banner-design, brand, design, design-system, slides, ui-styling, ui-ux-pro-max).

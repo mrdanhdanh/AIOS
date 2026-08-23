@@ -147,7 +147,7 @@ Ordered task index and status. Status values: `PLANNED | SPECIFIED | ... | DONE 
 | TASK-130 | M19 | Coding Artifact + CodingEvidence | TASK-129 | DONE |
 | TASK-131 | M19 | Coder Conformance Harness + Security | TASK-130 | DONE |
 | TASK-132 | M19 | Autonomy Level + Permission Integration | TASK-131 | DONE |
-| TASK-133 | M19 | Prompt Architecture + PromptBuilder + Versioning | TASK-132 | PLANNED |
+| TASK-133 | M19 | Prompt Architecture + PromptBuilder + Versioning | TASK-132 | DONE |
 | TASK-134 | M19 | File Safety Boundary + Scope Enforcement | TASK-133 | PLANNED |
 
 | TASK-135 | M20 | Execution Contract | TASK-134 | PLANNED |

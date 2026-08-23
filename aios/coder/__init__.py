@@ -67,6 +67,13 @@ from aios.coder.autonomy import (
     PermissionDecision,
     PermissionError_ as CoderPermissionError,
 )
+from aios.coder.prompt import (
+    BuiltPrompt,
+    PromptBuilder,
+    PromptError,
+    PromptRegistry,
+    PromptTemplate,
+)
 
 __all__ = [
     "CoderAgentContract",
@@ -110,4 +117,9 @@ __all__ = [
     "AutonomyPermissionBroker",
     "PermissionDecision",
     "CoderPermissionError",
+    "BuiltPrompt",
+    "PromptBuilder",
+    "PromptError",
+    "PromptRegistry",
+    "PromptTemplate",
 ]
