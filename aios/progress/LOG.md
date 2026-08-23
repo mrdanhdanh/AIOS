@@ -329,3 +329,4 @@ Append-only event log. Each entry: `ISO-UTC | task | event | detail`.
 2026-08-23T00:00:00Z | TASK-219 | EXTENDED | Bridge supports Claude package layout (skill.json + .claude/skills/*/SKILL.md) + real-skill integration test (ui-ux-pro-max-skill).
 2026-08-23T00:00:00Z | TASK-219 | TESTING | 12 bridge tests passing (9 unit + 3 real-skill); 188 skill/plugin_runtime regression green.
 2026-08-23T00:00:00Z | TASK-219 | DONE | Re-verified: convert+install+enable cloned GitHub skill (multi-sub-skill) via SkillManager -> ENABLED.
+2026-08-23T00:00:00Z | TASK-219 | DOC | Bo sung ghi chu layout support (copilot + claude) vao spec/evaluation/regression/test de nho khi mo session moi.

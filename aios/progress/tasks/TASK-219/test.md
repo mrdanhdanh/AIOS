@@ -24,7 +24,11 @@ python -m pytest aios/skill/github_bridge/tests/test_bridge.py -q
 | `test_convert_and_load_cloned_skill` | Convert + install + enable mọi sub-skill qua lifecycle thật. |
 
 ## Real-world check
-Clone `https://github.com/nextlevelbuilder/ui-ux-pro-max-skill` vào `tmp_skill_test/ui-ux-pro-max-skill`, chạy `test_real_skill.py` → 3 passed (layout detection, parse, convert+load).
+Clone `https://github.com/nextlevelbuilder/ui-ux-pro-max-skill` (layout `claude`) vào `tmp_skill_test/ui-ux-pro-max-skill`, chạy `test_real_skill.py` → 3 passed (layout detection, parse, convert+load mọi sub-skill).
+
+## Layout coverage
+- `copilot` (root `SKILL.md`): `test_convert_skill_dir_writes_package`, `test_convert_then_install_enable`, `test_deterministic_conversion`.
+- `claude` (`skill.json` + `.claude/skills/*/SKILL.md`): `test_real_skill.py` (3 tests, clone thực tế).
 
 ## Result
-`12 passed` (xác nhận tại bước TESTING + thực tế clone).
+`12 passed` (9 unit + 3 real-skill; xác nhận tại bước TESTING + thực tế clone).

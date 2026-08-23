@@ -1544,7 +1544,8 @@ Hoàn thiện năng lực được định nghĩa cho milestone và mở rộng 
 Xây **bridge/adapter** chuyển đổi một GitHub Copilot skill (thư mục chứa `SKILL.md` + `scripts/` + `agents/`) thành một **AIOS Skill Plugin** có thể nạp qua lifecycle chuẩn (`SkillManager.install` → `enable`). Tận dụng khung có sẵn `aios/skill` (TASK-015, M2) và `aios/plugin_runtime` (TASK-044, M8) — **không** viết lại runtime.
 
 **Phạm vi**
-- `aios/skill/github_bridge/`: `parser.py` (parse `SKILL.md` frontmatter + body, `agents/*.yaml`), `adapter.py` (map → `SkillContract` + `PluginManifest`), `converter.py` (sinh package: `manifest.json`, `prompts/instructions.md`, `scripts/`, `plugin_manifest.json`, `catalog/skill-<id>.json`).
+- `aios/skill/github_bridge/`: `parser.py` (parse `SKILL.md` frontmatter + body, `agents/*.yaml`, `skill.json` + `.claude/skills/*/SKILL.md`), `adapter.py` (map → `SkillContract` + `PluginManifest`), `converter.py` (sinh package: `skills/<id>/manifest.json`, `prompts/instructions.md`, `SKILL.md`, `plugin_manifest.json`, `catalog/skill-<id>.json`, `package_index.json`).
+- Hỗ trợ **2 layout** (tự detect): `copilot` (root `SKILL.md` → 1 skill) và `claude` (`skill.json` + `.claude/skills/<name>/SKILL.md` → N sub-skill, mỗi sub-skill 1 contract). Đã thực tế validate với `ui-ux-pro-max-skill` (7 sub-skill).
 - Ánh xạ: `SKILL.md`→`SkillContract`; `scripts/*.py`→`entrypoint`; `agents/*.yaml` `tools`→`required_capabilities`; permission hints→`ALLOWED_PERMISSIONS`; runtime→`ALLOWED_RUNTIMES`.
 - Tích hợp `SkillManager` (T015) + `PluginManifest` (T044) + `ArchitectureGuard` (T063).
 
