@@ -3,12 +3,12 @@
 | Metric | Value |
 |--------|-------|
 | Total tasks (master spec) | 219 |
-| Tasks DONE | 185 |
+| Tasks DONE | 197 |
 | Tasks READY | 0 |
-| Tasks PLANNED | 35 |
+| Tasks PLANNED | 23 |
 | Tasks BLOCKED | 0 |
 | Governance modules | 7 (+ unified gate) |
-| Automated gate tests | 3018 passed (2026-08-23) |
+| Automated gate tests | 3102 passed (2026-08-23) |
 | Architecture rules (ARCH-A..H + ARCH-001..004) | 17 |
 | Lifecycle states | 12 |
 
@@ -751,9 +751,95 @@ extended: `governance/architecture`, `runtime`, `security`, `devkit`+`cli`,
 
 > T184 DONE (Quality Dashboard + Governance Harness). **M24 COMPLETE** (T175-T184, 70 new tests).
 
+## Per-module test counts (TASK-185, M25)
+
+| Module | Tests |
+|--------|-------|
+| evaluation/evaluation_contract (EvaluationContractValidator) | 7 |
+| **Subtotal** | **7** |
+
+## Per-module test counts (TASK-186, M25)
+
+| Module | Tests |
+|--------|-------|
+| evaluation/evaluation_engine (EvaluationEngine) | 7 |
+| **Subtotal** | **7** |
+
+## Per-module test counts (TASK-187, M25)
+
+| Module | Tests |
+|--------|-------|
+| evaluation/quality_dimensions (QualityDimensionEvaluator) | 7 |
+| **Subtotal** | **7** |
+
+## Per-module test counts (TASK-188, M25)
+
+| Module | Tests |
+|--------|-------|
+| evaluation/benchmark_registry (BenchmarkRegistry) | 7 |
+| **Subtotal** | **7** |
+
+## Per-module test counts (TASK-189, M25)
+
+| Module | Tests |
+|--------|-------|
+| evaluation/baseline_manager (BaselineManager) | 7 |
+| **Subtotal** | **7** |
+
+## Per-module test counts (TASK-190, M25)
+
+| Module | Tests |
+|--------|-------|
+| evaluation/regression_detector (RegressionDetector) | 7 |
+| **Subtotal** | **7** |
+
+## Per-module test counts (TASK-191, M25)
+
+| Module | Tests |
+|--------|-------|
+| evaluation/agent_behavior_evaluator (AgentBehaviorEvaluator) | 7 |
+| **Subtotal** | **7** |
+
+## Per-module test counts (TASK-192, M25)
+
+| Module | Tests |
+|--------|-------|
+| evaluation/efficiency_evaluator (EfficiencyEvaluator) | 7 |
+| **Subtotal** | **7** |
+
+## Per-module test counts (TASK-193, M25)
+
+| Module | Tests |
+|--------|-------|
+| evaluation/failure_attribution (FailureAttributor) | 7 |
+| **Subtotal** | **7** |
+
+## Per-module test counts (TASK-194, M25)
+
+| Module | Tests |
+|--------|-------|
+| evaluation/evaluation_store (EvaluationStore) | 7 |
+| **Subtotal** | **7** |
+
+## Per-module test counts (TASK-195, M25)
+
+| Module | Tests |
+|--------|-------|
+| evaluation/model_agent_benchmark (ModelAgentBenchmark) | 7 |
+| **Subtotal** | **7** |
+
+## Per-module test counts (TASK-196, M25)
+
+| Module | Tests |
+|--------|-------|
+| evaluation/continuous_evaluation (ContinuousEvaluation) | 7 |
+| **Subtotal** | **7** |
+
+> T196 DONE (Continuous Evaluation). **M25 COMPLETE** (T185-T196, 84 new tests).
+
 ## Grand total
 
-| **Total** | **1613** |
+| **Total** | **1697** |
 
 ## Per-module test counts (TASK-219)
 

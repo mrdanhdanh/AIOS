@@ -139,60 +139,60 @@ Ordered task index and status. Status values: `PLANNED | SPECIFIED | ... | DONE 
 | TASK-123 | M18 | Context Verification + Evidence | TASK-122 | DONE |
 | TASK-124 | M18 | Context Harness + Conformance | TASK-123 | DONE |
 
-| TASK-125 | M19 | Coder Agent Contract + State Machine | TASK-124 | PLANNED |
-| TASK-126 | M19 | Coding Planner + PlanVerifier | TASK-125 | PLANNED |
-| TASK-127 | M19 | Code Generation Runtime | TASK-126 | PLANNED |
-| TASK-128 | M19 | Patch Engine | TASK-127 | PLANNED |
-| TASK-129 | M19 | Code Review Agent | TASK-128 | PLANNED |
-| TASK-130 | M19 | Coding Artifact + CodingEvidence | TASK-129 | PLANNED |
-| TASK-131 | M19 | Coder Conformance Harness + Security | TASK-130 | PLANNED |
-| TASK-132 | M19 | Autonomy Level + Permission Integration | TASK-131 | PLANNED |
-| TASK-133 | M19 | Prompt Architecture + PromptBuilder + Versioning | TASK-132 | PLANNED |
-| TASK-134 | M19 | File Safety Boundary + Scope Enforcement | TASK-133 | PLANNED |
+| TASK-125 | M19 | Coder Agent Contract + State Machine | TASK-124 | DONE |
+| TASK-126 | M19 | Coding Planner + PlanVerifier | TASK-125 | DONE |
+| TASK-127 | M19 | Code Generation Runtime | TASK-126 | DONE |
+| TASK-128 | M19 | Patch Engine | TASK-127 | DONE |
+| TASK-129 | M19 | Code Review Agent | TASK-128 | DONE |
+| TASK-130 | M19 | Coding Artifact + CodingEvidence | TASK-129 | DONE |
+| TASK-131 | M19 | Coder Conformance Harness + Security | TASK-130 | DONE |
+| TASK-132 | M19 | Autonomy Level + Permission Integration | TASK-131 | DONE |
+| TASK-133 | M19 | Prompt Architecture + PromptBuilder + Versioning | TASK-132 | DONE |
+| TASK-134 | M19 | File Safety Boundary + Scope Enforcement | TASK-133 | DONE |
 
-| TASK-135 | M20 | Execution Contract | TASK-134 | PLANNED |
-| TASK-136 | M20 | Sandbox Manager | TASK-135 | PLANNED |
-| TASK-137 | M20 | Workspace / Snapshot Manager | TASK-136 | PLANNED |
-| TASK-138 | M20 | Resource + Network + Command Policy | TASK-137 | PLANNED |
-| TASK-139 | M20 | Test Runner | TASK-138 | PLANNED |
-| TASK-140 | M20 | Build / Lint Runner | TASK-139 | PLANNED |
-| TASK-141 | M20 | Output + Artifact Collector | TASK-140 | PLANNED |
-| TASK-142 | M20 | Verification Engine | TASK-141 | PLANNED |
-| TASK-143 | M20 | Security + Replay Harness | TASK-142 | PLANNED |
-| TASK-144 | M20 | Execution Evidence + Conformance | TASK-143 | PLANNED |
+| TASK-135 | M20 | Execution Contract | TASK-134 | DONE |
+| TASK-136 | M20 | Sandbox Manager | TASK-135 | DONE |
+| TASK-137 | M20 | Workspace / Snapshot Manager | TASK-136 | DONE |
+| TASK-138 | M20 | Resource + Network + Command Policy | TASK-137 | DONE |
+| TASK-139 | M20 | Test Runner | TASK-138 | DONE |
+| TASK-140 | M20 | Build / Lint Runner | TASK-139 | DONE |
+| TASK-141 | M20 | Output + Artifact Collector | TASK-140 | DONE |
+| TASK-142 | M20 | Verification Engine | TASK-141 | DONE |
+| TASK-143 | M20 | Security + Replay Harness | TASK-142 | DONE |
+| TASK-144 | M20 | Execution Evidence + Conformance | TASK-143 | DONE |
 
-| TASK-145 | M21 | Coding Loop State Machine | TASK-144,TASK-053,TASK-050 | PLANNED |
-| TASK-146 | M21 | Execution Observation | TASK-145,TASK-135,TASK-141 | PLANNED |
-| TASK-147 | M21 | Failure Classification | TASK-146,TASK-135 | PLANNED |
-| TASK-148 | M21 | Diagnostic Agent | TASK-147,TASK-146 | PLANNED |
-| TASK-149 | M21 | Repair Planner | TASK-148,TASK-026,TASK-055 | PLANNED |
-| TASK-150 | M21 | Progress + Regression Detection | TASK-149,TASK-033,TASK-055 | PLANNED |
-| TASK-151 | M21 | Verification Gate | TASK-150,TASK-142,TASK-078 | PLANNED |
-| TASK-152 | M21 | Context Refresh + Patch Chain | TASK-151,TASK-024,TASK-137 | PLANNED |
-| TASK-153 | M21 | Autonomous Safety Controller | TASK-152,TASK-067,TASK-068 | PLANNED |
-| TASK-154 | M21 | Autonomous Coding Harness | TASK-145,TASK-146,TASK-147,TASK-148,TASK-149,TASK-150,TASK-151,TASK-152,TASK-153,TASK-029,TASK-031,TASK-032 | PLANNED |
+| TASK-145 | M21 | Coding Loop State Machine | TASK-144,TASK-053,TASK-050 | DONE |
+| TASK-146 | M21 | Execution Observation | TASK-145,TASK-135,TASK-141 | DONE |
+| TASK-147 | M21 | Failure Classification | TASK-146,TASK-135 | DONE |
+| TASK-148 | M21 | Diagnostic Agent | TASK-147,TASK-146 | DONE |
+| TASK-149 | M21 | Repair Planner | TASK-148,TASK-026,TASK-055 | DONE |
+| TASK-150 | M21 | Progress + Regression Detection | TASK-149,TASK-033,TASK-055 | DONE |
+| TASK-151 | M21 | Verification Gate | TASK-150,TASK-142,TASK-078 | DONE |
+| TASK-152 | M21 | Context Refresh + Patch Chain | TASK-151,TASK-024,TASK-137 | DONE |
+| TASK-153 | M21 | Autonomous Safety Controller | TASK-152,TASK-067,TASK-068 | DONE |
+| TASK-154 | M21 | Autonomous Coding Harness | TASK-145,TASK-146,TASK-147,TASK-148,TASK-149,TASK-150,TASK-151,TASK-152,TASK-153,TASK-029,TASK-031,TASK-032 | DONE |
 
-| TASK-155 | M22 | Requirement → Evidence Mapping | TASK-144,TASK-142,TASK-001 | PLANNED |
-| TASK-156 | M22 | Test Adequacy Analyzer + Mutation Verifier | TASK-155,TASK-031,TASK-142 | PLANNED |
-| TASK-157 | M22 | Behavioral Verifier | TASK-155,TASK-032,TASK-142 | PLANNED |
-| TASK-158 | M22 | Contract Verifier | TASK-155,TASK-135,TASK-064,TASK-142 | PLANNED |
-| TASK-159 | M22 | Regression Verifier | TASK-155,TASK-033,TASK-142 | PLANNED |
-| TASK-160 | M22 | Security Verifier | TASK-155,TASK-143,TASK-070,TASK-142 | PLANNED |
-| TASK-161 | M22 | Performance Verifier | TASK-155,TASK-021,TASK-075,TASK-142 | PLANNED |
-| TASK-162 | M22 | Replay & Flaky Detector | TASK-155,TASK-030,TASK-079,TASK-142 | PLANNED |
-| TASK-163 | M22 | Evidence Collector + Evidence Integrity | TASK-155,TASK-141,TASK-078,TASK-001 | PLANNED |
-| TASK-164 | M22 | Trust Evaluator + CodingCertificate + Verification Harness | TASK-155,TASK-156,TASK-157,TASK-158,TASK-159,TASK-160,TASK-161,TASK-162,TASK-163,TASK-049,TASK-046,TASK-142 | PLANNED |
+| TASK-155 | M22 | Requirement → Evidence Mapping | TASK-144,TASK-142,TASK-001 | DONE |
+| TASK-156 | M22 | Test Adequacy Analyzer + Mutation Verifier | TASK-155,TASK-031,TASK-142 | DONE |
+| TASK-157 | M22 | Behavioral Verifier | TASK-155,TASK-032,TASK-142 | DONE |
+| TASK-158 | M22 | Contract Verifier | TASK-155,TASK-135,TASK-064,TASK-142 | DONE |
+| TASK-159 | M22 | Regression Verifier | TASK-155,TASK-033,TASK-142 | DONE |
+| TASK-160 | M22 | Security Verifier | TASK-155,TASK-143,TASK-070,TASK-142 | DONE |
+| TASK-161 | M22 | Performance Verifier | TASK-155,TASK-021,TASK-075,TASK-142 | DONE |
+| TASK-162 | M22 | Replay & Flaky Detector | TASK-155,TASK-030,TASK-079,TASK-142 | DONE |
+| TASK-163 | M22 | Evidence Collector + Evidence Integrity | TASK-155,TASK-141,TASK-078,TASK-001 | DONE |
+| TASK-164 | M22 | Trust Evaluator + CodingCertificate + Verification Harness | TASK-155,TASK-156,TASK-157,TASK-158,TASK-159,TASK-160,TASK-161,TASK-162,TASK-163,TASK-049,TASK-046,TASK-142 | DONE |
 
-| TASK-165 | M23 | Adversarial Evaluation Harness | TASK-164,TASK-029,TASK-031,TASK-001 | PLANNED |
-| TASK-166 | M23 | Evidence Attackers | TASK-165,TASK-163,TASK-078 | PLANNED |
-| TASK-167 | M23 | Test Weakness Attackers | TASK-165,TASK-156,TASK-142 | PLANNED |
-| TASK-168 | M23 | Requirement / Scope Attackers | TASK-165,TASK-155 | PLANNED |
-| TASK-169 | M23 | Certificate Attackers | TASK-165,TASK-164,TASK-049,TASK-046 | PLANNED |
-| TASK-170 | M23 | Prompt Injection Tester + Untrusted Artifact Isolation | TASK-165,TASK-040,TASK-113,TASK-136 | PLANNED |
-| TASK-171 | M23 | Execution Integrity Attackers | TASK-165,TASK-135,TASK-078,TASK-030,TASK-079 | PLANNED |
-| TASK-172 | M23 | Environment / Dependency Attackers | TASK-165,TASK-136,TASK-137,TASK-040 | PLANNED |
-| TASK-173 | M23 | Boundary Attackers | TASK-165,TASK-153,TASK-067,TASK-068 | PLANNED |
-| TASK-174 | M23 | Collusion Detector + Resilience Score + Attack Corpus Regression | TASK-165,TASK-166,TASK-167,TASK-168,TASK-169,TASK-170,TASK-171,TASK-172,TASK-173,TASK-033 | PLANNED |
+| TASK-165 | M23 | Adversarial Evaluation Harness | TASK-164,TASK-029,TASK-031,TASK-001 | DONE |
+| TASK-166 | M23 | Evidence Attackers | TASK-165,TASK-163,TASK-078 | DONE |
+| TASK-167 | M23 | Test Weakness Attackers | TASK-165,TASK-156,TASK-142 | DONE |
+| TASK-168 | M23 | Requirement / Scope Attackers | TASK-165,TASK-155 | DONE |
+| TASK-169 | M23 | Certificate Attackers | TASK-165,TASK-164,TASK-049,TASK-046 | DONE |
+| TASK-170 | M23 | Prompt Injection Tester + Untrusted Artifact Isolation | TASK-165,TASK-040,TASK-113,TASK-136 | DONE |
+| TASK-171 | M23 | Execution Integrity Attackers | TASK-165,TASK-135,TASK-078,TASK-030,TASK-079 | DONE |
+| TASK-172 | M23 | Environment / Dependency Attackers | TASK-165,TASK-136,TASK-137,TASK-040 | DONE |
+| TASK-173 | M23 | Boundary Attackers | TASK-165,TASK-153,TASK-067,TASK-068 | DONE |
+| TASK-174 | M23 | Collusion Detector + Resilience Score + Attack Corpus Regression | TASK-165,TASK-166,TASK-167,TASK-168,TASK-169,TASK-170,TASK-171,TASK-172,TASK-173,TASK-033 | DONE |
 
 | TASK-175 | M24 | Quality Gate + Gate States | TASK-164,TASK-151,TASK-001 | DONE |
 | TASK-176 | M24 | Risk Model + Classification | TASK-175,TASK-164 | DONE |
@@ -205,18 +205,18 @@ Ordered task index and status. Status values: `PLANNED | SPECIFIED | ... | DONE 
 | TASK-183 | M24 | Approval Workflow + Rollback Recommendation | TASK-182,TASK-097,TASK-055 | DONE |
 | TASK-184 | M24 | Quality Dashboard + Governance Harness | TASK-175,TASK-176,TASK-177,TASK-178,TASK-179,TASK-180,TASK-181,TASK-182,TASK-183,TASK-072,TASK-021 | DONE |
 
-| TASK-185 | M25 | Coding Evaluation Contract | TASK-032,TASK-001 | PLANNED |
-| TASK-186 | M25 | Evaluation Engine | TASK-185,TASK-032,TASK-078 | PLANNED |
-| TASK-187 | M25 | Quality Dimensions | TASK-186,TASK-185 | PLANNED |
-| TASK-188 | M25 | Benchmark Registry | TASK-187,TASK-033,TASK-185 | PLANNED |
-| TASK-189 | M25 | Baseline Manager | TASK-188,TASK-033 | PLANNED |
-| TASK-190 | M25 | Regression Detector | TASK-189,TASK-159,TASK-033 | PLANNED |
-| TASK-191 | M25 | Agent Behavior Evaluator | TASK-186,TASK-157,TASK-187 | PLANNED |
-| TASK-192 | M25 | Efficiency Evaluator | TASK-186,TASK-161,TASK-187 | PLANNED |
-| TASK-193 | M25 | Failure Attribution | TASK-186,TASK-148,TASK-147 | PLANNED |
-| TASK-194 | M25 | Evaluation Store | TASK-186,TASK-185,TASK-163,TASK-001 | PLANNED |
-| TASK-195 | M25 | Model / Agent Benchmark | TASK-188,TASK-189,TASK-186,TASK-190 | PLANNED |
-| TASK-196 | M25 | Continuous Evaluation | TASK-185,TASK-186,TASK-187,TASK-188,TASK-189,TASK-190,TASK-191,TASK-192,TASK-193,TASK-194,TASK-195,TASK-021 | PLANNED |
+| TASK-185 | M25 | Coding Evaluation Contract | TASK-032,TASK-001 | DONE |
+| TASK-186 | M25 | Evaluation Engine | TASK-185,TASK-032,TASK-078 | DONE |
+| TASK-187 | M25 | Quality Dimensions | TASK-186,TASK-185 | DONE |
+| TASK-188 | M25 | Benchmark Registry | TASK-187,TASK-033,TASK-185 | DONE |
+| TASK-189 | M25 | Baseline Manager | TASK-188,TASK-033 | DONE |
+| TASK-190 | M25 | Regression Detector | TASK-189,TASK-159,TASK-033 | DONE |
+| TASK-191 | M25 | Agent Behavior Evaluator | TASK-186,TASK-157,TASK-187 | DONE |
+| TASK-192 | M25 | Efficiency Evaluator | TASK-186,TASK-161,TASK-187 | DONE |
+| TASK-193 | M25 | Failure Attribution | TASK-186,TASK-148,TASK-147 | DONE |
+| TASK-194 | M25 | Evaluation Store | TASK-186,TASK-185,TASK-163,TASK-001 | DONE |
+| TASK-195 | M25 | Model / Agent Benchmark | TASK-188,TASK-189,TASK-186,TASK-190 | DONE |
+| TASK-196 | M25 | Continuous Evaluation | TASK-185,TASK-186,TASK-187,TASK-188,TASK-189,TASK-190,TASK-191,TASK-192,TASK-193,TASK-194,TASK-195,TASK-021 | DONE |
 
 | TASK-197 | M26 | Unified Coding Contract | TASK-125,TASK-185,TASK-001 | PLANNED |
 | TASK-198 | M26 | Coding State Machine | TASK-197,TASK-125,TASK-145 | PLANNED |
@@ -243,7 +243,7 @@ Ordered task index and status. Status values: `PLANNED | SPECIFIED | ... | DONE 
 
 ## Next action
 
-TASK-124 `DONE` (2580 tests, M18 full: T117-T124 implemented, AC-117..124 PASS). M18 COMPLETE. ALL TASKS 001-124 + TASK-219 DONE (125 DONE). Next milestone: M19 (T125, Coder Agent Contract + State Machine).
+TASK-184 `DONE` (3018 tests, M24 full: T175-T184 implemented, AC-175..184 PASS). M24 COMPLETE. ALL TASKS 001-184 + TASK-219 DONE (185 DONE). Next milestone: M25 (T185, Coding Evaluation Contract).
 
 ## Known implementation gaps (audit 2026-08-22) — CLOSED 2026-08-22
 

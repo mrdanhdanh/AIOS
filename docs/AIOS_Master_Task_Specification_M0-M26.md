@@ -3714,7 +3714,7 @@ Triển khai quality dashboard + governance harness như một năng lực có c
 
 ## TASK-185 — Coding Evaluation Contract
 
-> **Trạng thái thực tế (2026-08-23):** PLANNED — chưa triển khai.
+> **Trạng thái thực tế (2026-08-23):** DONE — đã triển khai (2026-08-23).
 
 **Mục tiêu**  
 Triển khai coding evaluation contract như một năng lực có contract, evidence và harness riêng.
@@ -3733,7 +3733,7 @@ Triển khai coding evaluation contract như một năng lực có contract, evi
 
 ## TASK-186 — Evaluation Engine
 
-> **Trạng thái thực tế (2026-08-23):** PLANNED — chưa triển khai.
+> **Trạng thái thực tế (2026-08-23):** DONE — đã triển khai (2026-08-23).
 
 **Mục tiêu**  
 Triển khai evaluation engine như một năng lực có contract, evidence và harness riêng.
@@ -3752,7 +3752,7 @@ Triển khai evaluation engine như một năng lực có contract, evidence và
 
 ## TASK-187 — Quality Dimensions
 
-> **Trạng thái thực tế (2026-08-23):** PLANNED — chưa triển khai.
+> **Trạng thái thực tế (2026-08-23):** DONE — đã triển khai (2026-08-23).
 
 **Mục tiêu**  
 Triển khai quality dimensions như một năng lực có contract, evidence và harness riêng.
@@ -3771,7 +3771,7 @@ Triển khai quality dimensions như một năng lực có contract, evidence v�
 
 ## TASK-188 — Benchmark Registry
 
-> **Trạng thái thực tế (2026-08-23):** PLANNED — chưa triển khai.
+> **Trạng thái thực tế (2026-08-23):** DONE — đã triển khai (2026-08-23).
 
 **Mục tiêu**  
 Triển khai benchmark registry như một năng lực có contract, evidence và harness riêng.
@@ -3790,7 +3790,7 @@ Triển khai benchmark registry như một năng lực có contract, evidence v�
 
 ## TASK-189 — Baseline Manager
 
-> **Trạng thái thực tế (2026-08-23):** PLANNED — chưa triển khai.
+> **Trạng thái thực tế (2026-08-23):** DONE — đã triển khai (2026-08-23).
 
 **Mục tiêu**  
 Triển khai baseline manager như một năng lực có contract, evidence và harness riêng.
@@ -3809,7 +3809,7 @@ Triển khai baseline manager như một năng lực có contract, evidence và 
 
 ## TASK-190 — Regression Detector
 
-> **Trạng thái thực tế (2026-08-23):** PLANNED — chưa triển khai.
+> **Trạng thái thực tế (2026-08-23):** DONE — đã triển khai (2026-08-23).
 
 **Mục tiêu**  
 Triển khai regression detector như một năng lực có contract, evidence và harness riêng.
@@ -3828,7 +3828,7 @@ Triển khai regression detector như một năng lực có contract, evidence v
 
 ## TASK-191 — Agent Behavior Evaluator
 
-> **Trạng thái thực tế (2026-08-23):** PLANNED — chưa triển khai.
+> **Trạng thái thực tế (2026-08-23):** DONE — đã triển khai (2026-08-23).
 
 **Mục tiêu**  
 Triển khai agent behavior evaluator như một năng lực có contract, evidence và harness riêng.
@@ -3847,7 +3847,7 @@ Triển khai agent behavior evaluator như một năng lực có contract, evide
 
 ## TASK-192 — Efficiency Evaluator
 
-> **Trạng thái thực tế (2026-08-23):** PLANNED — chưa triển khai.
+> **Trạng thái thực tế (2026-08-23):** DONE — đã triển khai (2026-08-23).
 
 **Mục tiêu**  
 Triển khai efficiency evaluator như một năng lực có contract, evidence và harness riêng.
@@ -3866,7 +3866,7 @@ Triển khai efficiency evaluator như một năng lực có contract, evidence 
 
 ## TASK-193 — Failure Attribution
 
-> **Trạng thái thực tế (2026-08-23):** PLANNED — chưa triển khai.
+> **Trạng thái thực tế (2026-08-23):** DONE — đã triển khai (2026-08-23).
 
 **Mục tiêu**  
 Triển khai failure attribution như một năng lực có contract, evidence và harness riêng.
@@ -3885,7 +3885,7 @@ Triển khai failure attribution như một năng lực có contract, evidence v
 
 ## TASK-194 — Evaluation Store
 
-> **Trạng thái thực tế (2026-08-23):** PLANNED — chưa triển khai.
+> **Trạng thái thực tế (2026-08-23):** DONE — đã triển khai (2026-08-23).
 
 **Mục tiêu**  
 Triển khai evaluation store như một năng lực có contract, evidence và harness riêng.
@@ -3904,7 +3904,7 @@ Triển khai evaluation store như một năng lực có contract, evidence và 
 
 ## TASK-195 — Model / Agent Benchmark
 
-> **Trạng thái thực tế (2026-08-23):** PLANNED — chưa triển khai.
+> **Trạng thái thực tế (2026-08-23):** DONE — đã triển khai (2026-08-23).
 
 **Mục tiêu**  
 Triển khai model / agent benchmark như một năng lực có contract, evidence và harness riêng.
@@ -3923,7 +3923,7 @@ Triển khai model / agent benchmark như một năng lực có contract, eviden
 
 ## TASK-196 — Continuous Evaluation
 
-> **Trạng thái thực tế (2026-08-23):** PLANNED — chưa triển khai.
+> **Trạng thái thực tế (2026-08-23):** DONE — đã triển khai (2026-08-23).
 
 **Mục tiêu**  
 Triển khai continuous evaluation như một năng lực có contract, evidence và harness riêng.

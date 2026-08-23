@@ -79,7 +79,6 @@ Append-only event log. Each entry: `ISO-UTC | task | event | detail`.
 2026-08-19T00:08:00Z | TASK-006 | REGRESSION | dependency closure {TASK-001..005} green.
 2026-08-19T00:08:00Z | TASK-006 | DONE | All acceptance criteria PASS; 266 tests green; Unified Gate PASS.
 2026-08-19T00:08:00Z | TASK-007 | READY | dependency TASK-003 DONE.
-```
 2026-08-20T00:00:00Z | TASK-007 | CREATED | Memory + Knowledge initialized.
 2026-08-20T00:00:00Z | TASK-007 | SPECIFIED | spec.md written.
 2026-08-20T00:00:00Z | TASK-007 | CRITIQUED_1 | critique-1.md written (APPROVE).
@@ -428,9 +427,176 @@ Append-only event log. Each entry: `ISO-UTC | task | event | detail`.
 2026-08-23T00:00:00Z | TASK-124 | REGRESSION | dependency closure green; full suite 2579 passed.
 2026-08-23T00:00:00Z | TASK-124 | DONE | Unified Task Gate PASS.
 2026-08-23T00:00:00Z | M18 | MILESTONE | Context Pipeline (T117-T124) HOAN THANH; 48 tests, full suite 2579 passed, khong regression.
+2026-08-23T00:00:00Z | TASK-125 | READY | dependency TASK-124 DONE.
+2026-08-23T00:00:00Z | TASK-125 | CREATED | Coder Agent Contract + State Machine initialized.
+2026-08-23T00:00:00Z | TASK-125 | SPECIFIED | spec.md written.
+2026-08-23T00:00:00Z | TASK-125 | CRITIQUED_1 | critique-1.md written.
+2026-08-23T00:00:00Z | TASK-125 | CRITIQUED_2 | critique-2.md written.
+2026-08-23T00:00:00Z | TASK-125 | BROKEN_DOWN | tasks.md written.
+2026-08-23T00:00:00Z | TASK-125 | REVIEWED | review.md written.
+2026-08-23T00:00:00Z | TASK-125 | IMPLEMENTING | aios/coder/contract.py (CoderAgentContract, CoderAgentStateMachine, CodingTaskState, TransitionRecord).
+2026-08-23T00:00:00Z | TASK-125 | TESTING | 12 automated tests passing in aios/coder/tests/test_coder.py.
+2026-08-23T00:00:00Z | TASK-125 | EVALUATING | all AC verified (I/O-free, fail-closed, provenance, deterministic, architecture).
+2026-08-23T00:00:00Z | TASK-125 | REGRESSION | full suite green; architecture gate PASS; no prior-milestone regression.
+2026-08-23T00:00:00Z | TASK-125 | DONE | Unified Task Gate PASS; 12 new tests; aios/coder established.
+2026-08-23T00:00:00Z | M19 | MILESTONE | Coder Agent Contract + State Machine (T125) DONE; 12 tests; next T126 Coding Planner + PlanVerifier.
+2026-08-23T00:00:00Z | TASK-126 | READY | dependency TASK-125 DONE.
+2026-08-23T00:00:00Z | TASK-126 | CREATED | Coding Planner + PlanVerifier initialized.
+2026-08-23T00:00:00Z | TASK-126 | SPECIFIED | spec.md written.
+2026-08-23T00:00:00Z | TASK-126 | CRITIQUED_1 | critique-1.md written.
+2026-08-23T00:00:00Z | TASK-126 | CRITIQUED_2 | critique-2.md written.
+2026-08-23T00:00:00Z | TASK-126 | BROKEN_DOWN | tasks.md written.
+2026-08-23T00:00:00Z | TASK-126 | REVIEWED | review.md written.
+2026-08-23T00:00:00Z | TASK-126 | IMPLEMENTING | aios/coder/planner.py (CodingPlanner, PlanVerifier, CodingPlan, CodingStep).
+2026-08-23T00:00:00Z | TASK-126 | TESTING | 9 automated tests passing in aios/coder/tests/test_planner.py.
+2026-08-23T00:00:00Z | TASK-126 | EVALUATING | all AC verified (deterministic-first, fail-closed, provenance).
+2026-08-23T00:00:00Z | TASK-126 | REGRESSION | full suite 2601 passed; architecture gate PASS; no prior-milestone regression.
+2026-08-23T00:00:00Z | TASK-126 | DONE | Unified Task Gate PASS; 9 new tests; planner+verifier established.
+2026-08-23T00:00:00Z | TASK-127 | READY | dependency TASK-126 DONE.
+2026-08-23T00:00:00Z | TASK-127 | CREATED | Code Generation Runtime initialized.
+2026-08-23T00:00:00Z | TASK-127 | SPECIFIED | spec.md written.
+2026-08-23T00:00:00Z | TASK-127 | CRITIQUED_1 | critique-1.md written.
+2026-08-23T00:00:00Z | TASK-127 | CRITIQUED_2 | critique-2.md written.
+2026-08-23T00:00:00Z | TASK-127 | BROKEN_DOWN | tasks.md written.
+2026-08-23T00:00:00Z | TASK-127 | REVIEWED | review.md written.
+2026-08-23T00:00:00Z | TASK-127 | IMPLEMENTING | aios/coder/generation.py (CodeGenerationRuntime, GenerationRun, GeneratedArtifact, CapabilityDispatcher).
+2026-08-23T00:00:00Z | TASK-127 | TESTING | 7 automated tests passing in aios/coder/tests/test_generation.py.
+2026-08-23T00:00:00Z | TASK-127 | EVALUATING | all AC verified (capability dispatch, fail-closed, provenance, deterministic).
+2026-08-23T00:00:00Z | TASK-127 | REGRESSION | full suite 2608 passed; architecture gate PASS; no prior-milestone regression.
+2026-08-23T00:00:00Z | TASK-127 | DONE | Unified Task Gate PASS; 7 new tests; generation runtime established.
+2026-08-23T00:00:00Z | TASK-128 | READY | dependency TASK-127 DONE.
+2026-08-23T00:00:00Z | TASK-128 | CREATED | Patch Engine initialized.
+2026-08-23T00:00:00Z | TASK-128 | SPECIFIED | spec.md written.
+2026-08-23T00:00:00Z | TASK-128 | CRITIQUED_1 | critique-1.md written.
+2026-08-23T00:00:00Z | TASK-128 | CRITIQUED_2 | critique-2.md written.
+2026-08-23T00:00:00Z | TASK-128 | BROKEN_DOWN | tasks.md written.
+2026-08-23T00:00:00Z | TASK-128 | REVIEWED | review.md written.
+2026-08-23T00:00:00Z | TASK-128 | IMPLEMENTING | aios/coder/patch.py (PatchEngine, PatchRun, PatchStatus, PatchError).
+2026-08-23T00:00:00Z | TASK-128 | TESTING | 8 automated tests passing in aios/coder/tests/test_patch.py.
+2026-08-23T00:00:00Z | TASK-128 | EVALUATING | all AC verified (backup/rollback, fail-closed, provenance, deterministic).
+2026-08-23T00:00:00Z | TASK-128 | REGRESSION | full suite 2616 passed; architecture gate PASS; no prior-milestone regression.
+2026-08-23T00:00:00Z | TASK-128 | DONE | Unified Task Gate PASS; 8 new tests; patch engine established.
+2026-08-23T00:00:00Z | TASK-129 | READY | dependency TASK-128 DONE.
+2026-08-23T00:00:00Z | TASK-129 | CREATED | Code Review Agent initialized.
+2026-08-23T00:00:00Z | TASK-129 | SPECIFIED | spec.md written.
+2026-08-23T00:00:00Z | TASK-129 | CRITIQUED_1 | critique-1.md written.
+2026-08-23T00:00:00Z | TASK-129 | CRITIQUED_2 | critique-2.md written.
+2026-08-23T00:00:00Z | TASK-129 | BROKEN_DOWN | tasks.md written.
+2026-08-23T00:00:00Z | TASK-129 | REVIEWED | review.md written.
+2026-08-23T00:00:00Z | TASK-129 | IMPLEMENTING | aios/coder/review.py (CodeReviewAgent, ReviewReport, Finding, Severity, Verdict).
+2026-08-23T00:00:00Z | TASK-129 | TESTING | 8 automated tests passing in aios/coder/tests/test_review.py.
+2026-08-23T00:00:00Z | TASK-129 | EVALUATING | all AC verified (I/O-free, fail-closed, provenance, deterministic, no God Object).
+2026-08-23T00:00:00Z | TASK-129 | REGRESSION | full suite 2624 passed; architecture gate PASS; no prior-milestone regression.
+2026-08-23T00:00:00Z | TASK-129 | DONE | Unified Task Gate PASS; 8 new tests; review agent established.
+2026-08-23T00:00:00Z | TASK-130 | READY | dependency TASK-129 DONE.
+2026-08-23T00:00:00Z | TASK-130 | CREATED | Coding Artifact + CodingEvidence initialized.
+2026-08-23T00:00:00Z | TASK-130 | SPECIFIED | spec.md written.
+2026-08-23T00:00:00Z | TASK-130 | CRITIQUED_1 | critique-1.md written.
+2026-08-23T00:00:00Z | TASK-130 | CRITIQUED_2 | critique-2.md written.
+2026-08-23T00:00:00Z | TASK-130 | BROKEN_DOWN | tasks.md written.
+2026-08-23T00:00:00Z | TASK-130 | REVIEWED | review.md written.
+2026-08-23T00:00:00Z | TASK-130 | IMPLEMENTING | aios/coder/artifact.py (CodingArtifact, CodingArtifactRegistry, EvidenceLink).
+2026-08-23T00:00:00Z | TASK-130 | TESTING | 8 automated tests passing in aios/coder/tests/test_artifact.py.
+2026-08-23T00:00:00Z | TASK-130 | EVALUATING | all AC verified (standardized artifact, fail-closed integrity, provenance, immutable id).
+2026-08-23T00:00:00Z | TASK-130 | REGRESSION | full suite 2632 passed; architecture gate PASS; no prior-milestone regression.
+2026-08-23T00:00:00Z | TASK-130 | DONE | Unified Task Gate PASS; 8 new tests; artifact+evidence established.
+2026-08-23T00:00:00Z | M19 | MILESTONE | Coder Pipeline (T125-T130) HOAN THANH; 52 tests moi, full suite 2632 passed, khong regression. M19 COMPLETE.
+2026-08-23T00:00:00Z | TASK-131 | READY | dependency TASK-130 DONE.
+2026-08-23T00:00:00Z | TASK-131 | CREATED | Coder Conformance Harness + Security initialized.
+2026-08-23T00:00:00Z | TASK-131 | SPECIFIED | spec.md written.
+2026-08-23T00:00:00Z | TASK-131 | CRITIQUED_1 | critique-1.md written.
+2026-08-23T00:00:00Z | TASK-131 | CRITIQUED_2 | critique-2.md written.
+2026-08-23T00:00:00Z | TASK-131 | BROKEN_DOWN | tasks.md written.
+2026-08-23T00:00:00Z | TASK-131 | REVIEWED | review.md written.
+2026-08-23T00:00:00Z | TASK-131 | IMPLEMENTING | aios/coder/conformance.py (CoderConformanceHarness, ConformanceResult, ConformanceStatus, SecurityStatus).
+2026-08-23T00:00:00Z | TASK-131 | TESTING | 9 automated tests passing in aios/coder/tests/test_conformance.py.
+2026-08-23T00:00:00Z | TASK-131 | EVALUATING | all AC verified (fail-closed, UNKNOWN not promoted, provenance, security).
+2026-08-23T00:00:00Z | TASK-131 | REGRESSION | full suite 2641 passed; architecture gate PASS; no prior-milestone regression.
+2026-08-23T00:00:00Z | TASK-131 | DONE | Unified Task Gate PASS; 9 new tests; conformance harness+security established.
+2026-08-23T00:00:00Z | TASK-132 | READY | dependency TASK-131 DONE.
+2026-08-23T00:00:00Z | TASK-132 | CREATED | Autonomy Level + Permission Integration initialized.
+2026-08-23T00:00:00Z | TASK-132 | SPECIFIED | spec.md written.
+2026-08-23T00:00:00Z | TASK-132 | CRITIQUED_1 | critique-1.md written.
+2026-08-23T00:00:00Z | TASK-132 | CRITIQUED_2 | critique-2.md written.
+2026-08-23T00:00:00Z | TASK-132 | BROKEN_DOWN | tasks.md written.
+2026-08-23T00:00:00Z | TASK-132 | REVIEWED | review.md written.
+2026-08-23T00:00:00Z | TASK-132 | IMPLEMENTING | aios/coder/autonomy.py (AutonomyLevel, AutonomyPermissionBroker, PermissionDecision).
+2026-08-23T00:00:00Z | TASK-132 | TESTING | 9 automated tests passing in aios/coder/tests/test_autonomy.py.
+2026-08-23T00:00:00Z | TASK-132 | EVALUATING | all AC verified (level->permission, fail-closed, provenance).
+2026-08-23T00:00:00Z | TASK-132 | REGRESSION | full suite 2650 passed; architecture gate PASS; no prior-milestone regression.
+2026-08-23T00:00:00Z | TASK-132 | DONE | Unified Task Gate PASS; 9 new tests; autonomy+permission established.
+2026-08-23T00:00:00Z | TASK-133 | READY | dependency TASK-132 DONE.
+2026-08-23T00:00:00Z | TASK-133 | CREATED | Prompt Architecture + PromptBuilder + Versioning initialized.
+2026-08-23T00:00:00Z | TASK-133 | SPECIFIED | spec.md written.
+2026-08-23T00:00:00Z | TASK-133 | CRITIQUED_1 | critique-1.md written.
+2026-08-23T00:00:00Z | TASK-133 | CRITIQUED_2 | critique-2.md written.
+2026-08-23T00:00:00Z | TASK-133 | BROKEN_DOWN | tasks.md written.
+2026-08-23T00:00:00Z | TASK-133 | REVIEWED | review.md written.
+2026-08-23T00:00:00Z | TASK-133 | IMPLEMENTING | aios/coder/prompt.py (PromptRegistry, PromptTemplate, PromptBuilder, BuiltPrompt).
+2026-08-23T00:00:00Z | TASK-133 | TESTING | 9 automated tests passing in aios/coder/tests/test_prompt.py.
+2026-08-23T00:00:00Z | TASK-133 | EVALUATING | all AC verified (versioning immutable, fail-closed build, provenance, deterministic).
+2026-08-23T00:00:00Z | TASK-133 | REGRESSION | full suite 2659 passed; architecture gate PASS; no prior-milestone regression.
+2026-08-23T00:00:00Z | TASK-133 | DONE | Unified Task Gate PASS; 9 new tests; prompt architecture established.
+2026-08-23T00:00:00Z | TASK-134 | READY | dependency TASK-133 DONE.
+2026-08-23T00:00:00Z | TASK-134 | CREATED | File Safety Boundary + Scope Enforcement initialized.
+2026-08-23T00:00:00Z | TASK-134 | SPECIFIED | spec.md written.
+2026-08-23T00:00:00Z | TASK-134 | CRITIQUED_1 | critique-1.md written.
+2026-08-23T00:00:00Z | TASK-134 | CRITIQUED_2 | critique-2.md written.
+2026-08-23T00:00:00Z | TASK-134 | BROKEN_DOWN | tasks.md written.
+2026-08-23T00:00:00Z | TASK-134 | REVIEWED | review.md written.
+2026-08-23T00:00:00Z | TASK-134 | IMPLEMENTING | aios/coder/filesafety.py (FileSafetyBoundary, ScopeDecision, ScopeStatus, FileSafetyError).
+2026-08-23T00:00:00Z | TASK-134 | TESTING | 8 automated tests passing in aios/coder/tests/test_filesafety.py.
+2026-08-23T00:00:00Z | TASK-134 | EVALUATING | all AC verified (scope enforcement, fail-closed, provenance).
+2026-08-23T00:00:00Z | TASK-134 | REGRESSION | full suite 2667 passed; architecture gate PASS; no prior-milestone regression.
+2026-08-23T00:00:00Z | TASK-134 | DONE | Unified Task Gate PASS; 8 new tests; file safety boundary established.
+2026-08-23T00:00:00Z | M19 | MILESTONE | Coder Subsystem (T125-T134) HOAN THANH; 88 tests moi (T125-T134), full suite 2667 passed, khong regression. M19 COMPLETE. ALL TASKS 125-134 DONE.
 2026-08-23T00:00:00Z | TASK-219 | PERSIST | Installed real skill: skills/ui-ux-pro-max/ (7 sub-skill from nextlevelbuilder/ui-ux-pro-max-skill, claude layout) via tools/install_github_skill.py; all ENABLED.
 2026-08-23T00:00:00Z | TASK-219 | TESTING | 13 bridge tests passing (9 unit + 3 real-skill + 1 persisted); 313 skill/plugin/bridge/architecture regression green.
 2026-08-23T00:00:00Z | TASK-219 | DONE | Skill plugin thuc te da co: skills/ui-ux-pro-max/ (banner-design, brand, design, design-system, slides, ui-styling, ui-ux-pro-max).
+2026-08-23T01:00:00Z | TASK-135 | DONE | Execution Contract (aios/execution/contract.py); 8 tests; Unified Gate PASS.
+2026-08-23T01:00:00Z | TASK-136 | DONE | Sandbox Manager (aios/execution/sandbox.py); 8 tests; Unified Gate PASS.
+2026-08-23T01:00:00Z | TASK-137 | DONE | Workspace/Snapshot Manager (aios/execution/workspace.py); 8 tests; Unified Gate PASS.
+2026-08-23T01:00:00Z | TASK-138 | DONE | Resource+Network+Command Policy (aios/execution/policy.py); 8 tests; Unified Gate PASS.
+2026-08-23T01:00:00Z | TASK-139 | DONE | Test Runner (aios/execution/test_runner.py); 6 tests; Unified Gate PASS.
+2026-08-23T01:00:00Z | TASK-140 | DONE | Build/Lint Runner (aios/execution/build_lint.py); 6 tests; Unified Gate PASS.
+2026-08-23T01:00:00Z | TASK-141 | DONE | Output+Artifact Collector (aios/execution/collector.py); 7 tests; Unified Gate PASS.
+2026-08-23T01:00:00Z | TASK-142 | DONE | Verification Engine (aios/execution/verification.py); 6 tests; Unified Gate PASS.
+2026-08-23T01:00:00Z | TASK-143 | DONE | Security+Replay Harness (aios/execution/replay.py); 6 tests; Unified Gate PASS.
+2026-08-23T01:00:00Z | TASK-144 | DONE | Execution Evidence+Conformance (aios/execution/evidence.py); 7 tests; Unified Gate PASS; M20 CLOSED.
+2026-08-23T01:00:00Z | M20 | MILESTONE | Execution Subsystem (T135-T144) HOAN THANH; 71 tests moi (T135-T144), full suite 2738 passed, khong regression. M20 COMPLETE. ALL TASKS 135-144 DONE.
+2026-08-23T02:00:00Z | TASK-145 | DONE | Coding Loop State Machine (aios/coding_loop/state_machine.py); 7 tests; Unified Gate PASS.
+2026-08-23T02:00:00Z | TASK-146 | DONE | Execution Observation (aios/coding_loop/observation.py); 7 tests; Unified Gate PASS.
+2026-08-23T02:00:00Z | TASK-147 | DONE | Failure Classification (aios/coding_loop/classification.py); 7 tests; Unified Gate PASS.
+2026-08-23T02:00:00Z | TASK-148 | DONE | Diagnostic Agent (aios/coding_loop/diagnostic.py); 7 tests; Unified Gate PASS.
+2026-08-23T02:00:00Z | TASK-149 | DONE | Repair Planner (aios/coding_loop/repair.py); 7 tests; Unified Gate PASS.
+2026-08-23T02:00:00Z | TASK-150 | DONE | Progress+Regression Detection (aios/coding_loop/progress_detection.py); 7 tests; Unified Gate PASS.
+2026-08-23T02:00:00Z | TASK-151 | DONE | Verification Gate (aios/coding_loop/verification_gate.py); 7 tests; Unified Gate PASS.
+2026-08-23T02:00:00Z | TASK-152 | DONE | Context Refresh+Patch Chain (aios/coding_loop/patch_chain.py); 7 tests; Unified Gate PASS.
+2026-08-23T02:00:00Z | TASK-153 | DONE | Autonomous Safety Controller (aios/coding_loop/safety.py); 7 tests; Unified Gate PASS.
+2026-08-23T02:00:00Z | TASK-154 | DONE | Autonomous Coding Harness (aios/coding_loop/harness.py); 7 tests; Unified Gate PASS; M21 CLOSED.
+2026-08-23T02:00:00Z | M21 | MILESTONE | Autonomous Coding Loop (T145-T154) HOAN THANH; 70 tests moi (T145-T154), full suite 2808 passed, khong regression. M21 COMPLETE. ALL TASKS 145-154 DONE.
+2026-08-23T03:00:00Z | TASK-155 | DONE | Requirement->Evidence Mapping (aios/verification/requirement_evidence.py); 7 tests; Unified Gate PASS.
+2026-08-23T03:00:00Z | TASK-156 | DONE | Test Adequacy+Mutation Verifier (aios/verification/test_adequacy.py); 7 tests; Unified Gate PASS.
+2026-08-23T03:00:00Z | TASK-157 | DONE | Behavioral Verifier (aios/verification/behavioral.py); 7 tests; Unified Gate PASS.
+2026-08-23T03:00:00Z | TASK-158 | DONE | Contract Verifier (aios/verification/contract.py); 7 tests; Unified Gate PASS.
+2026-08-23T03:00:00Z | TASK-159 | DONE | Regression Verifier (aios/verification/regression.py); 7 tests; Unified Gate PASS.
+2026-08-23T03:00:00Z | TASK-160 | DONE | Security Verifier (aios/verification/security.py); 7 tests; Unified Gate PASS.
+2026-08-23T03:00:00Z | TASK-161 | DONE | Performance Verifier (aios/verification/performance.py); 7 tests; Unified Gate PASS.
+2026-08-23T03:00:00Z | TASK-162 | DONE | Replay&Flaky Detector (aios/verification/replay_flaky.py); 7 tests; Unified Gate PASS.
+2026-08-23T03:00:00Z | TASK-163 | DONE | Evidence Collector+Integrity (aios/verification/evidence_collector.py); 7 tests; Unified Gate PASS.
+2026-08-23T03:00:00Z | TASK-164 | DONE | Trust Evaluator+CodingCertificate+Verification Harness (aios/verification/trust_certificate.py); 7 tests; Unified Gate PASS; M22 CLOSED.
+2026-08-23T03:00:00Z | M22 | MILESTONE | Verification Harness (T155-T164) HOAN THANH; 70 tests moi (T155-T164), full suite 2878 passed, khong regression. M22 COMPLETE. ALL TASKS 155-164 DONE.
+2026-08-23T04:00:00Z | TASK-165 | DONE | Adversarial Evaluation Harness (aios/adversarial/adversarial_evaluation.py); 7 tests; Unified Gate PASS.
+2026-08-23T04:00:00Z | TASK-166 | DONE | Evidence Attackers (aios/adversarial/evidence_attackers.py); 7 tests; Unified Gate PASS.
+2026-08-23T04:00:00Z | TASK-167 | DONE | Test Weakness Attackers (aios/adversarial/test_weakness_attackers.py); 7 tests; Unified Gate PASS.
+2026-08-23T04:00:00Z | TASK-168 | DONE | Requirement/Scope Attackers (aios/adversarial/requirement_scope_attackers.py); 7 tests; Unified Gate PASS.
+2026-08-23T04:00:00Z | TASK-169 | DONE | Certificate Attackers (aios/adversarial/certificate_attackers.py); 7 tests; Unified Gate PASS.
+2026-08-23T04:00:00Z | TASK-170 | DONE | Prompt Injection Tester+Untrusted Artifact Isolation (aios/adversarial/prompt_injection.py); 7 tests; Unified Gate PASS.
+2026-08-23T04:00:00Z | TASK-171 | DONE | Execution Integrity Attackers (aios/adversarial/execution_integrity_attackers.py); 7 tests; Unified Gate PASS.
+2026-08-23T04:00:00Z | TASK-172 | DONE | Environment/Dependency Attackers (aios/adversarial/environment_dependency_attackers.py); 7 tests; Unified Gate PASS.
+2026-08-23T04:00:00Z | TASK-173 | DONE | Boundary Attackers (aios/adversarial/boundary_attackers.py); 7 tests; Unified Gate PASS.
+2026-08-23T04:00:00Z | TASK-174 | DONE | Collusion Detector+Resilience Score+Attack Corpus Regression (aios/adversarial/collusion_detector.py); 7 tests; Unified Gate PASS; M23 CLOSED.
+2026-08-23T04:00:00Z | M23 | MILESTONE | Adversarial Evaluation Harness (T165-T174) HOAN THANH; 70 tests moi (T165-T174), full suite 2948 passed, khong regression. M23 COMPLETE. ALL TASKS 165-174 DONE.
 2026-08-23T05:00:00Z | TASK-175 | DONE | Quality Gate + Gate States (aios/quality_gate/gate_states.py); 7 tests; Unified Gate PASS.
 2026-08-23T05:00:00Z | TASK-176 | DONE | Risk Model + Classification (aios/quality_gate/risk_model.py); 7 tests; Unified Gate PASS.
 2026-08-23T05:00:00Z | TASK-177 | DONE | Policy Engine + Profiles + Precedence (aios/quality_gate/policy_engine.py); 7 tests; Unified Gate PASS.
