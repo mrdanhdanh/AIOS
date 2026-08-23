@@ -3,12 +3,12 @@
 | Metric | Value |
 |--------|-------|
 | Total tasks (master spec) | 219 |
-| Tasks DONE | 155 |
+| Tasks DONE | 165 |
 | Tasks READY | 0 |
-| Tasks PLANNED | 65 |
+| Tasks PLANNED | 55 |
 | Tasks BLOCKED | 0 |
 | Governance modules | 7 (+ unified gate) |
-| Automated gate tests | 2808 passed (2026-08-23) |
+| Automated gate tests | 2878 passed (2026-08-23) |
 | Architecture rules (ARCH-A..H + ARCH-001..004) | 17 |
 | Lifecycle states | 12 |
 
@@ -535,9 +535,81 @@ extended: `governance/architecture`, `runtime`, `security`, `devkit`+`cli`,
 
 > T154 DONE (Autonomous Coding Harness). **M21 COMPLETE** (T145-T154, 70 new tests).
 
+## Per-module test counts (TASK-155, M22)
+
+| Module | Tests |
+|--------|-------|
+| verification/requirement_evidence (RequirementEvidenceMapper) | 7 |
+| **Subtotal** | **7** |
+
+## Per-module test counts (TASK-156, M22)
+
+| Module | Tests |
+|--------|-------|
+| verification/test_adequacy (TestAdequacyAnalyzer) | 7 |
+| **Subtotal** | **7** |
+
+## Per-module test counts (TASK-157, M22)
+
+| Module | Tests |
+|--------|-------|
+| verification/behavioral (BehavioralVerifier) | 7 |
+| **Subtotal** | **7** |
+
+## Per-module test counts (TASK-158, M22)
+
+| Module | Tests |
+|--------|-------|
+| verification/contract (ContractVerifier) | 7 |
+| **Subtotal** | **7** |
+
+## Per-module test counts (TASK-159, M22)
+
+| Module | Tests |
+|--------|-------|
+| verification/regression (RegressionVerifier) | 7 |
+| **Subtotal** | **7** |
+
+## Per-module test counts (TASK-160, M22)
+
+| Module | Tests |
+|--------|-------|
+| verification/security (SecurityVerifier) | 7 |
+| **Subtotal** | **7** |
+
+## Per-module test counts (TASK-161, M22)
+
+| Module | Tests |
+|--------|-------|
+| verification/performance (PerformanceVerifier) | 7 |
+| **Subtotal** | **7** |
+
+## Per-module test counts (TASK-162, M22)
+
+| Module | Tests |
+|--------|-------|
+| verification/replay_flaky (ReplayFlakyDetector) | 7 |
+| **Subtotal** | **7** |
+
+## Per-module test counts (TASK-163, M22)
+
+| Module | Tests |
+|--------|-------|
+| verification/evidence_collector (EvidenceCollector) | 7 |
+| **Subtotal** | **7** |
+
+## Per-module test counts (TASK-164, M22)
+
+| Module | Tests |
+|--------|-------|
+| verification/trust_certificate (VerificationHarness) | 7 |
+| **Subtotal** | **7** |
+
+> T164 DONE (Trust Evaluator + CodingCertificate + Verification Harness). **M22 COMPLETE** (T155-T164, 70 new tests).
+
 ## Grand total
 
-| **Total** | **1403** |
+| **Total** | **1473** |
 
 ## Per-module test counts (TASK-219)
 

@@ -576,4 +576,15 @@ Append-only event log. Each entry: `ISO-UTC | task | event | detail`.
 2026-08-23T02:00:00Z | TASK-153 | DONE | Autonomous Safety Controller (aios/coding_loop/safety.py); 7 tests; Unified Gate PASS.
 2026-08-23T02:00:00Z | TASK-154 | DONE | Autonomous Coding Harness (aios/coding_loop/harness.py); 7 tests; Unified Gate PASS; M21 CLOSED.
 2026-08-23T02:00:00Z | M21 | MILESTONE | Autonomous Coding Loop (T145-T154) HOAN THANH; 70 tests moi (T145-T154), full suite 2808 passed, khong regression. M21 COMPLETE. ALL TASKS 145-154 DONE.
+2026-08-23T03:00:00Z | TASK-155 | DONE | Requirement->Evidence Mapping (aios/verification/requirement_evidence.py); 7 tests; Unified Gate PASS.
+2026-08-23T03:00:00Z | TASK-156 | DONE | Test Adequacy+Mutation Verifier (aios/verification/test_adequacy.py); 7 tests; Unified Gate PASS.
+2026-08-23T03:00:00Z | TASK-157 | DONE | Behavioral Verifier (aios/verification/behavioral.py); 7 tests; Unified Gate PASS.
+2026-08-23T03:00:00Z | TASK-158 | DONE | Contract Verifier (aios/verification/contract.py); 7 tests; Unified Gate PASS.
+2026-08-23T03:00:00Z | TASK-159 | DONE | Regression Verifier (aios/verification/regression.py); 7 tests; Unified Gate PASS.
+2026-08-23T03:00:00Z | TASK-160 | DONE | Security Verifier (aios/verification/security.py); 7 tests; Unified Gate PASS.
+2026-08-23T03:00:00Z | TASK-161 | DONE | Performance Verifier (aios/verification/performance.py); 7 tests; Unified Gate PASS.
+2026-08-23T03:00:00Z | TASK-162 | DONE | Replay&Flaky Detector (aios/verification/replay_flaky.py); 7 tests; Unified Gate PASS.
+2026-08-23T03:00:00Z | TASK-163 | DONE | Evidence Collector+Integrity (aios/verification/evidence_collector.py); 7 tests; Unified Gate PASS.
+2026-08-23T03:00:00Z | TASK-164 | DONE | Trust Evaluator+CodingCertificate+Verification Harness (aios/verification/trust_certificate.py); 7 tests; Unified Gate PASS; M22 CLOSED.
+2026-08-23T03:00:00Z | M22 | MILESTONE | Verification Harness (T155-T164) HOAN THANH; 70 tests moi (T155-T164), full suite 2878 passed, khong regression. M22 COMPLETE. ALL TASKS 155-164 DONE.
 ```

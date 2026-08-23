@@ -172,16 +172,16 @@ Ordered task index and status. Status values: `PLANNED | SPECIFIED | ... | DONE 
 | TASK-153 | M21 | Autonomous Safety Controller | TASK-152,TASK-067,TASK-068 | DONE |
 | TASK-154 | M21 | Autonomous Coding Harness | TASK-145,TASK-146,TASK-147,TASK-148,TASK-149,TASK-150,TASK-151,TASK-152,TASK-153,TASK-029,TASK-031,TASK-032 | DONE |
 
-| TASK-155 | M22 | Requirement → Evidence Mapping | TASK-144,TASK-142,TASK-001 | PLANNED |
-| TASK-156 | M22 | Test Adequacy Analyzer + Mutation Verifier | TASK-155,TASK-031,TASK-142 | PLANNED |
-| TASK-157 | M22 | Behavioral Verifier | TASK-155,TASK-032,TASK-142 | PLANNED |
-| TASK-158 | M22 | Contract Verifier | TASK-155,TASK-135,TASK-064,TASK-142 | PLANNED |
-| TASK-159 | M22 | Regression Verifier | TASK-155,TASK-033,TASK-142 | PLANNED |
-| TASK-160 | M22 | Security Verifier | TASK-155,TASK-143,TASK-070,TASK-142 | PLANNED |
-| TASK-161 | M22 | Performance Verifier | TASK-155,TASK-021,TASK-075,TASK-142 | PLANNED |
-| TASK-162 | M22 | Replay & Flaky Detector | TASK-155,TASK-030,TASK-079,TASK-142 | PLANNED |
-| TASK-163 | M22 | Evidence Collector + Evidence Integrity | TASK-155,TASK-141,TASK-078,TASK-001 | PLANNED |
-| TASK-164 | M22 | Trust Evaluator + CodingCertificate + Verification Harness | TASK-155,TASK-156,TASK-157,TASK-158,TASK-159,TASK-160,TASK-161,TASK-162,TASK-163,TASK-049,TASK-046,TASK-142 | PLANNED |
+| TASK-155 | M22 | Requirement → Evidence Mapping | TASK-144,TASK-142,TASK-001 | DONE |
+| TASK-156 | M22 | Test Adequacy Analyzer + Mutation Verifier | TASK-155,TASK-031,TASK-142 | DONE |
+| TASK-157 | M22 | Behavioral Verifier | TASK-155,TASK-032,TASK-142 | DONE |
+| TASK-158 | M22 | Contract Verifier | TASK-155,TASK-135,TASK-064,TASK-142 | DONE |
+| TASK-159 | M22 | Regression Verifier | TASK-155,TASK-033,TASK-142 | DONE |
+| TASK-160 | M22 | Security Verifier | TASK-155,TASK-143,TASK-070,TASK-142 | DONE |
+| TASK-161 | M22 | Performance Verifier | TASK-155,TASK-021,TASK-075,TASK-142 | DONE |
+| TASK-162 | M22 | Replay & Flaky Detector | TASK-155,TASK-030,TASK-079,TASK-142 | DONE |
+| TASK-163 | M22 | Evidence Collector + Evidence Integrity | TASK-155,TASK-141,TASK-078,TASK-001 | DONE |
+| TASK-164 | M22 | Trust Evaluator + CodingCertificate + Verification Harness | TASK-155,TASK-156,TASK-157,TASK-158,TASK-159,TASK-160,TASK-161,TASK-162,TASK-163,TASK-049,TASK-046,TASK-142 | DONE |
 
 | TASK-165 | M23 | Adversarial Evaluation Harness | TASK-164,TASK-029,TASK-031,TASK-001 | PLANNED |
 | TASK-166 | M23 | Evidence Attackers | TASK-165,TASK-163,TASK-078 | PLANNED |

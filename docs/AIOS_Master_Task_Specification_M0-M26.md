@@ -3132,7 +3132,7 @@ Triển khai autonomous coding harness như một năng lực có contract, evid
 
 ## TASK-155 — Requirement → Evidence Mapping
 
-> **Trạng thái thực tế (2026-08-23):** PLANNED — chưa triển khai.
+> **Trạng thái thực tế (2026-08-23):** DONE — `aios/verification/requirement_evidence.py` (RequirementEvidenceMapper); **7 automated tests**; fail-closed PASS (Unified Gate AND 7 rules).
 
 **Mục tiêu**  
 Triển khai requirement → evidence mapping như một năng lực có contract, evidence và harness riêng.
@@ -3151,7 +3151,7 @@ Triển khai requirement → evidence mapping như một năng lực có contrac
 
 ## TASK-156 — Test Adequacy Analyzer + Mutation Verifier
 
-> **Trạng thái thực tế (2026-08-23):** PLANNED — chưa triển khai.
+> **Trạng thái thực tế (2026-08-23):** DONE — `aios/verification/test_adequacy.py` (TestAdequacyAnalyzer); **7 automated tests**; fail-closed PASS (Unified Gate AND 7 rules).
 
 **Mục tiêu**  
 Triển khai test adequacy analyzer + mutation verifier như một năng lực có contract, evidence và harness riêng.
@@ -3170,7 +3170,7 @@ Triển khai test adequacy analyzer + mutation verifier như một năng lực c
 
 ## TASK-157 — Behavioral Verifier
 
-> **Trạng thái thực tế (2026-08-23):** PLANNED — chưa triển khai.
+> **Trạng thái thực tế (2026-08-23):** DONE — `aios/verification/behavioral.py` (BehavioralVerifier); **7 automated tests**; fail-closed PASS (Unified Gate AND 7 rules).
 
 **Mục tiêu**  
 Triển khai behavioral verifier như một năng lực có contract, evidence và harness riêng.
@@ -3189,7 +3189,7 @@ Triển khai behavioral verifier như một năng lực có contract, evidence v
 
 ## TASK-158 — Contract Verifier
 
-> **Trạng thái thực tế (2026-08-23):** PLANNED — chưa triển khai.
+> **Trạng thái thực tế (2026-08-23):** DONE — `aios/verification/contract.py` (ContractVerifier); **7 automated tests**; fail-closed PASS (Unified Gate AND 7 rules).
 
 **Mục tiêu**  
 Triển khai contract verifier như một năng lực có contract, evidence và harness riêng.
@@ -3208,7 +3208,7 @@ Triển khai contract verifier như một năng lực có contract, evidence và
 
 ## TASK-159 — Regression Verifier
 
-> **Trạng thái thực tế (2026-08-23):** PLANNED — chưa triển khai.
+> **Trạng thái thực tế (2026-08-23):** DONE — `aios/verification/regression.py` (RegressionVerifier); **7 automated tests**; fail-closed PASS (Unified Gate AND 7 rules).
 
 **Mục tiêu**  
 Triển khai regression verifier như một năng lực có contract, evidence và harness riêng.
@@ -3227,7 +3227,7 @@ Triển khai regression verifier như một năng lực có contract, evidence v
 
 ## TASK-160 — Security Verifier
 
-> **Trạng thái thực tế (2026-08-23):** PLANNED — chưa triển khai.
+> **Trạng thái thực tế (2026-08-23):** DONE — `aios/verification/security.py` (SecurityVerifier); **7 automated tests**; fail-closed PASS (Unified Gate AND 7 rules).
 
 **Mục tiêu**  
 Triển khai security verifier như một năng lực có contract, evidence và harness riêng.
@@ -3246,7 +3246,7 @@ Triển khai security verifier như một năng lực có contract, evidence và
 
 ## TASK-161 — Performance Verifier
 
-> **Trạng thái thực tế (2026-08-23):** PLANNED — chưa triển khai.
+> **Trạng thái thực tế (2026-08-23):** DONE — `aios/verification/performance.py` (PerformanceVerifier); **7 automated tests**; fail-closed PASS (Unified Gate AND 7 rules).
 
 **Mục tiêu**  
 Triển khai performance verifier như một năng lực có contract, evidence và harness riêng.
@@ -3265,7 +3265,7 @@ Triển khai performance verifier như một năng lực có contract, evidence 
 
 ## TASK-162 — Replay & Flaky Detector
 
-> **Trạng thái thực tế (2026-08-23):** PLANNED — chưa triển khai.
+> **Trạng thái thực tế (2026-08-23):** DONE — `aios/verification/replay_flaky.py` (ReplayFlakyDetector); **7 automated tests**; fail-closed PASS (Unified Gate AND 7 rules).
 
 **Mục tiêu**  
 Triển khai replay & flaky detector như một năng lực có contract, evidence và harness riêng.
@@ -3284,7 +3284,7 @@ Triển khai replay & flaky detector như một năng lực có contract, eviden
 
 ## TASK-163 — Evidence Collector + Evidence Integrity
 
-> **Trạng thái thực tế (2026-08-23):** PLANNED — chưa triển khai.
+> **Trạng thái thực tế (2026-08-23):** DONE — `aios/verification/evidence_collector.py` (EvidenceCollector); **7 automated tests**; fail-closed PASS (Unified Gate AND 7 rules).
 
 **Mục tiêu**  
 Triển khai evidence collector + evidence integrity như một năng lực có contract, evidence và harness riêng.
@@ -3303,7 +3303,7 @@ Triển khai evidence collector + evidence integrity như một năng lực có 
 
 ## TASK-164 — Trust Evaluator + CodingCertificate + Verification Harness
 
-> **Trạng thái thực tế (2026-08-23):** PLANNED — chưa triển khai.
+> **Trạng thái thực tế (2026-08-23):** DONE — `aios/verification/trust_certificate.py` (VerificationHarness); **7 automated tests**; fail-closed PASS (Unified Gate AND 7 rules).
 
 **Mục tiêu**  
 Triển khai trust evaluator + codingcertificate + verification harness như một năng lực có contract, evidence và harness riêng.
