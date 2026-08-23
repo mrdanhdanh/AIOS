@@ -554,4 +554,15 @@ Append-only event log. Each entry: `ISO-UTC | task | event | detail`.
 2026-08-23T00:00:00Z | TASK-219 | PERSIST | Installed real skill: skills/ui-ux-pro-max/ (7 sub-skill from nextlevelbuilder/ui-ux-pro-max-skill, claude layout) via tools/install_github_skill.py; all ENABLED.
 2026-08-23T00:00:00Z | TASK-219 | TESTING | 13 bridge tests passing (9 unit + 3 real-skill + 1 persisted); 313 skill/plugin/bridge/architecture regression green.
 2026-08-23T00:00:00Z | TASK-219 | DONE | Skill plugin thuc te da co: skills/ui-ux-pro-max/ (banner-design, brand, design, design-system, slides, ui-styling, ui-ux-pro-max).
+2026-08-23T01:00:00Z | TASK-135 | DONE | Execution Contract (aios/execution/contract.py); 8 tests; Unified Gate PASS.
+2026-08-23T01:00:00Z | TASK-136 | DONE | Sandbox Manager (aios/execution/sandbox.py); 8 tests; Unified Gate PASS.
+2026-08-23T01:00:00Z | TASK-137 | DONE | Workspace/Snapshot Manager (aios/execution/workspace.py); 8 tests; Unified Gate PASS.
+2026-08-23T01:00:00Z | TASK-138 | DONE | Resource+Network+Command Policy (aios/execution/policy.py); 8 tests; Unified Gate PASS.
+2026-08-23T01:00:00Z | TASK-139 | DONE | Test Runner (aios/execution/test_runner.py); 6 tests; Unified Gate PASS.
+2026-08-23T01:00:00Z | TASK-140 | DONE | Build/Lint Runner (aios/execution/build_lint.py); 6 tests; Unified Gate PASS.
+2026-08-23T01:00:00Z | TASK-141 | DONE | Output+Artifact Collector (aios/execution/collector.py); 7 tests; Unified Gate PASS.
+2026-08-23T01:00:00Z | TASK-142 | DONE | Verification Engine (aios/execution/verification.py); 6 tests; Unified Gate PASS.
+2026-08-23T01:00:00Z | TASK-143 | DONE | Security+Replay Harness (aios/execution/replay.py); 6 tests; Unified Gate PASS.
+2026-08-23T01:00:00Z | TASK-144 | DONE | Execution Evidence+Conformance (aios/execution/evidence.py); 7 tests; Unified Gate PASS; M20 CLOSED.
+2026-08-23T01:00:00Z | M20 | MILESTONE | Execution Subsystem (T135-T144) HOAN THANH; 71 tests moi (T135-T144), full suite 2738 passed, khong regression. M20 COMPLETE. ALL TASKS 135-144 DONE.
 ```

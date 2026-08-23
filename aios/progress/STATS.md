@@ -3,12 +3,12 @@
 | Metric | Value |
 |--------|-------|
 | Total tasks (master spec) | 219 |
-| Tasks DONE | 134 |
+| Tasks DONE | 145 |
 | Tasks READY | 0 |
-| Tasks PLANNED | 85 |
+| Tasks PLANNED | 75 |
 | Tasks BLOCKED | 0 |
 | Governance modules | 7 (+ unified gate) |
-| Automated gate tests | 2667 passed (2026-08-23) |
+| Automated gate tests | 2738 passed (2026-08-23) |
 | Architecture rules (ARCH-A..H + ARCH-001..004) | 17 |
 | Lifecycle states | 12 |
 
@@ -391,9 +391,81 @@ extended: `governance/architecture`, `runtime`, `security`, `devkit`+`cli`,
 
 > T134 DONE (File Safety Boundary + Scope Enforcement). Scope root enforcement, fail-closed escape rejection (T113), provenance (T001 Rule 5). **M19 COMPLETE** (T125-T134, 88 new tests).
 
+## Per-module test counts (TASK-135, M20)
+
+| Module | Tests |
+|--------|-------|
+| execution/contract (ExecutionContract/Request/Response) | 8 |
+| **Subtotal** | **8** |
+
+## Per-module test counts (TASK-136, M20)
+
+| Module | Tests |
+|--------|-------|
+| execution/sandbox (SandboxManager) | 8 |
+| **Subtotal** | **8** |
+
+## Per-module test counts (TASK-137, M20)
+
+| Module | Tests |
+|--------|-------|
+| execution/workspace (WorkspaceManager) | 8 |
+| **Subtotal** | **8** |
+
+## Per-module test counts (TASK-138, M20)
+
+| Module | Tests |
+|--------|-------|
+| execution/policy (PolicyEngine) | 9 |
+| **Subtotal** | **9** |
+
+## Per-module test counts (TASK-139, M20)
+
+| Module | Tests |
+|--------|-------|
+| execution/test_runner (TestRunner) | 6 |
+| **Subtotal** | **6** |
+
+## Per-module test counts (TASK-140, M20)
+
+| Module | Tests |
+|--------|-------|
+| execution/build_lint (BuildLintRunner) | 6 |
+| **Subtotal** | **6** |
+
+## Per-module test counts (TASK-141, M20)
+
+| Module | Tests |
+|--------|-------|
+| execution/collector (OutputArtifactCollector) | 7 |
+| **Subtotal** | **7** |
+
+## Per-module test counts (TASK-142, M20)
+
+| Module | Tests |
+|--------|-------|
+| execution/verification (VerificationEngine) | 6 |
+| **Subtotal** | **6** |
+
+## Per-module test counts (TASK-143, M20)
+
+| Module | Tests |
+|--------|-------|
+| execution/replay (SecurityReplayHarness) | 6 |
+| **Subtotal** | **6** |
+
+## Per-module test counts (TASK-144, M20)
+
+| Module | Tests |
+|--------|-------|
+| execution/evidence (ExecutionEvidenceRegistry) | 7 |
+| **Subtotal** | **7** |
+
+> T144 DONE (Execution Evidence + Conformance). **M20 COMPLETE** (T135-T144, 71 new tests).
+
 ## Grand total
 
-| **Total** | **1262** |
+| **Total** | **1333** |
 
 ## Per-module test counts (TASK-219)
 

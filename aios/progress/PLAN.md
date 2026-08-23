@@ -150,16 +150,16 @@ Ordered task index and status. Status values: `PLANNED | SPECIFIED | ... | DONE 
 | TASK-133 | M19 | Prompt Architecture + PromptBuilder + Versioning | TASK-132 | DONE |
 | TASK-134 | M19 | File Safety Boundary + Scope Enforcement | TASK-133 | DONE |
 
-| TASK-135 | M20 | Execution Contract | TASK-134 | PLANNED |
-| TASK-136 | M20 | Sandbox Manager | TASK-135 | PLANNED |
-| TASK-137 | M20 | Workspace / Snapshot Manager | TASK-136 | PLANNED |
-| TASK-138 | M20 | Resource + Network + Command Policy | TASK-137 | PLANNED |
-| TASK-139 | M20 | Test Runner | TASK-138 | PLANNED |
-| TASK-140 | M20 | Build / Lint Runner | TASK-139 | PLANNED |
-| TASK-141 | M20 | Output + Artifact Collector | TASK-140 | PLANNED |
-| TASK-142 | M20 | Verification Engine | TASK-141 | PLANNED |
-| TASK-143 | M20 | Security + Replay Harness | TASK-142 | PLANNED |
-| TASK-144 | M20 | Execution Evidence + Conformance | TASK-143 | PLANNED |
+| TASK-135 | M20 | Execution Contract | TASK-134 | DONE |
+| TASK-136 | M20 | Sandbox Manager | TASK-135 | DONE |
+| TASK-137 | M20 | Workspace / Snapshot Manager | TASK-136 | DONE |
+| TASK-138 | M20 | Resource + Network + Command Policy | TASK-137 | DONE |
+| TASK-139 | M20 | Test Runner | TASK-138 | DONE |
+| TASK-140 | M20 | Build / Lint Runner | TASK-139 | DONE |
+| TASK-141 | M20 | Output + Artifact Collector | TASK-140 | DONE |
+| TASK-142 | M20 | Verification Engine | TASK-141 | DONE |
+| TASK-143 | M20 | Security + Replay Harness | TASK-142 | DONE |
+| TASK-144 | M20 | Execution Evidence + Conformance | TASK-143 | DONE |
 
 | TASK-145 | M21 | Coding Loop State Machine | TASK-144,TASK-053,TASK-050 | PLANNED |
 | TASK-146 | M21 | Execution Observation | TASK-145,TASK-135,TASK-141 | PLANNED |
