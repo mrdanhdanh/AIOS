@@ -243,7 +243,7 @@ Ordered task index and status. Status values: `PLANNED | SPECIFIED | ... | DONE 
 
 ## Next action
 
-TASK-103 `DONE` (2450 tests, M15 full: T099-T103 implemented, AC-099..103 PASS). M15 COMPLETE. ALL TASKS 001-103 DONE. Next milestone: M16 (T104, Independent Harness Integration Foundation).
+TASK-124 `DONE` (2580 tests, M18 full: T117-T124 implemented, AC-117..124 PASS). M18 COMPLETE. ALL TASKS 001-124 + TASK-219 DONE (125 DONE). Next milestone: M19 (T125, Coder Agent Contract + State Machine).
 
 ## Known implementation gaps (audit 2026-08-22) — CLOSED 2026-08-22
 

@@ -29,3 +29,6 @@ Thumbs.db
 # AIOS runtime data (not source)
 aios/data/
 *.log
+
+# Local skill clone cache (TASK-219 real-skill test)
+tmp_skill_test/
