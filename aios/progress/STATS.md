@@ -7,7 +7,7 @@
 | Tasks READY | 0 |
 | Tasks PLANNED | 57 |
 | Governance modules | 7 (+ unified gate) |
-| Automated gate tests | 2579 |
+| Automated gate tests | 2591 |
 | Architecture rules (ARCH-A..H + ARCH-001..004) | 17 |
 | Lifecycle states | 12 |
 
@@ -278,9 +278,22 @@ extended: `governance/architecture`, `runtime`, `security`, `devkit`+`cli`,
 > integrating T001 (Evidence), T078 (Integrity), T040/T113 (Security), T024 (Context Optimizer).
 > T117-T124 all DONE (Context Pipeline). Deterministic-first, fail-closed, no LLM in any stage.
 
+## Per-module test counts (TASK-125, M19)
+
+| Module | Tests |
+|--------|-------|
+| coder/contract (CoderAgentContract) | 4 |
+| coder/contract (CoderAgentStateMachine) | 6 |
+| coder/contract (architecture/layer) | 2 |
+| **Subtotal** | **12** |
+
+> M19 opened with **12** net-new automated tests (full suite → 2591). New package:
+> `aios/coder` (contract) integrating T001 (Evidence/Rule 5/6), T013 (Worker), T113 (Policy), ARCH (Guard).
+> T125 DONE (Coder Agent Contract + State Machine). Deterministic-first, fail-closed, provenance on every transition.
+
 ## Grand total
 
-| **Total** | **1174** |
+| **Total** | **1186** |
 
 ## Per-module test counts (TASK-219)
 

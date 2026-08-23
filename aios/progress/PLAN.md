@@ -139,7 +139,7 @@ Ordered task index and status. Status values: `PLANNED | SPECIFIED | ... | DONE 
 | TASK-123 | M18 | Context Verification + Evidence | TASK-122 | DONE |
 | TASK-124 | M18 | Context Harness + Conformance | TASK-123 | DONE |
 
-| TASK-125 | M19 | Coder Agent Contract + State Machine | TASK-124 | PLANNED |
+| TASK-125 | M19 | Coder Agent Contract + State Machine | TASK-124 | DONE |
 | TASK-126 | M19 | Coding Planner + PlanVerifier | TASK-125 | PLANNED |
 | TASK-127 | M19 | Code Generation Runtime | TASK-126 | PLANNED |
 | TASK-128 | M19 | Patch Engine | TASK-127 | PLANNED |
