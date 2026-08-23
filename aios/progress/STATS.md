@@ -2,12 +2,12 @@
 
 | Metric | Value |
 |--------|-------|
-| Total tasks (master spec) | 182 |
-| Tasks DONE | 116 |
+| Total tasks (master spec) | 183 |
+| Tasks DONE | 117 |
 | Tasks READY | 0 |
-| Tasks PLANNED | 66 |
+| Tasks PLANNED | 65 |
 | Governance modules | 7 (+ unified gate) |
-| Automated gate tests | 2519 |
+| Automated gate tests | 2528 |
 | Architecture rules (ARCH-A..H + ARCH-001..004) | 17 |
 | Lifecycle states | 12 |
 
@@ -262,3 +262,13 @@ extended: `governance/architecture`, `runtime`, `security`, `devkit`+`cli`,
 ## Grand total
 
 | **Total** | **1174** |
+
+## Per-module test counts (TASK-219)
+
+| Module | Tests |
+|--------|-------|
+| skill/github_bridge/parser | 3 |
+| skill/github_bridge/adapter | 2 |
+| skill/github_bridge/converter | 3 |
+| skill/github_bridge/architecture | 1 |
+| **Subtotal** | **9** |

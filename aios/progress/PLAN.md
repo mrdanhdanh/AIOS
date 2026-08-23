@@ -92,6 +92,7 @@ Ordered task index and status. Status values: `PLANNED | SPECIFIED | ... | DONE 
 | TASK-081 | M11 | Asset Pipeline + Asset Capability Registry + Routing | TASK-080 | DONE |
 | TASK-082 | M11 | Creative Domain + Vendor Integrity + Reference Asset | TASK-081 | DONE |
 | TASK-083 | M11 | SkillDistiller + Static Deploy | TASK-082 | DONE |
+| TASK-219 | M11 | GitHub Skill → AIOS Skill Plugin Bridge | TASK-083 | DONE |
 | TASK-084 | M12 | Version + Compatibility Baseline | TASK-083 | DONE |
 | TASK-085 | M12 | Migration 1.0 → 1.1 | TASK-084 | DONE |
 | TASK-086 | M12 | Backward Compatibility | TASK-085 | DONE |

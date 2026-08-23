@@ -1538,6 +1538,33 @@ Hoàn thiện năng lực được định nghĩa cho milestone và mở rộng 
 **Dependency / Gate**
 - Theo dependency của milestone.
 
+## TASK-219 — GitHub Skill → AIOS Skill Plugin Bridge (Amendment)
+
+**Mục tiêu**  
+Xây **bridge/adapter** chuyển đổi một GitHub Copilot skill (thư mục chứa `SKILL.md` + `scripts/` + `agents/`) thành một **AIOS Skill Plugin** có thể nạp qua lifecycle chuẩn (`SkillManager.install` → `enable`). Tận dụng khung có sẵn `aios/skill` (TASK-015, M2) và `aios/plugin_runtime` (TASK-044, M8) — **không** viết lại runtime.
+
+**Phạm vi**
+- `aios/skill/github_bridge/`: `parser.py` (parse `SKILL.md` frontmatter + body, `agents/*.yaml`), `adapter.py` (map → `SkillContract` + `PluginManifest`), `converter.py` (sinh package: `manifest.json`, `prompts/instructions.md`, `scripts/`, `plugin_manifest.json`, `catalog/skill-<id>.json`).
+- Ánh xạ: `SKILL.md`→`SkillContract`; `scripts/*.py`→`entrypoint`; `agents/*.yaml` `tools`→`required_capabilities`; permission hints→`ALLOWED_PERMISSIONS`; runtime→`ALLOWED_RUNTIMES`.
+- Tích hợp `SkillManager` (T015) + `PluginManifest` (T044) + `ArchitectureGuard` (T063).
+
+**Deliverables**
+- `aios/skill/github_bridge/{parser,adapter,converter}.py` + `__init__.py` + `tests/test_bridge.py` (9 tests).
+- Task artifacts + evidence + ADR/docs.
+
+**Acceptance Criteria**
+- Parse `SKILL.md` (có/không frontmatter) → structured data đúng.
+- `to_skill_contract` sinh `SkillContract` hợp lệ (`validate()` PASS).
+- `convert_skill_dir` sinh package đầy đủ (manifest + prompts + scripts + plugin_manifest + catalog).
+- Contract sinh ra có thể `install` + `enable` qua `SkillManager` → status `ENABLED`.
+- Cùng input skill + converter → cùng package (deterministic, không timestamp).
+- Architecture gate quét package → không vi phạm ARCH-001..004.
+- Regression của TASK-047/083/046/049 PASS; không vi phạm invariants.
+
+**Dependency / Gate**
+- TASK-083 (SkillDistiller, M11) → TASK-219 (M11) → TASK-084 (M12).
+- T015 (skill), T044 (plugin runtime), T063 (architecture guard), T046 (ecosystem registry), T049 (certification).
+
 ---
 
 # M12

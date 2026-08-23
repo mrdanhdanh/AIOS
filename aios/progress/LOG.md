@@ -314,3 +314,15 @@ Append-only event log. Each entry: `ISO-UTC | task | event | detail`.
 2026-08-23T00:00:00Z | TASK-116 | IMPLEMENTING | aios/model_runtime/conformance.py (ConformanceSuite/ProviderCertifier/ProviderCertification + fail-closed certify, T049/T078 integration) + 6 tests.
 2026-08-23T00:00:00Z | TASK-116 | DONE | AC-116 PASS; 6 tests green; Unified Gate PASS.
 2026-08-23T00:00:00Z | TASK-109..116 | DONE | M17 Model Runtime complete: aios/model_runtime (contracts/provider_registry/model_registry/orchestration/security/resilience/usage/conformance) + 42 tests; full suite 2519/2519 PASS; all gates PASS.
+
+2026-08-23T00:00:00Z | TASK-219 | CREATED | GitHub Skill -> AIOS Skill Plugin Bridge (Amendment, M11) initialized.
+2026-08-23T00:00:00Z | TASK-219 | SPECIFIED | spec.md written.
+2026-08-23T00:00:00Z | TASK-219 | CRITIQUED_1 | critique-1.md written.
+2026-08-23T00:00:00Z | TASK-219 | CRITIQUED_2 | critique-2.md written.
+2026-08-23T00:00:00Z | TASK-219 | BROKEN_DOWN | tasks.md written.
+2026-08-23T00:00:00Z | TASK-219 | REVIEWED | review.md written (APPROVED).
+2026-08-23T00:00:00Z | TASK-219 | IMPLEMENTING | aios/skill/github_bridge (parser/adapter/converter + tests, 9 tests).
+2026-08-23T00:00:00Z | TASK-219 | TESTING | 9 bridge tests passing.
+2026-08-23T00:00:00Z | TASK-219 | EVALUATING | all 7 acceptance criteria verified.
+2026-08-23T00:00:00Z | TASK-219 | REGRESSION | dependency closure {T015,T044,T046,T047,T049,T063,T083} green.
+2026-08-23T00:00:00Z | TASK-219 | DONE | Unified Task Gate PASS; bridge converts GitHub Copilot skill -> AIOS SkillContract + PluginManifest, install+enable -> ENABLED.
