@@ -1,0 +1,8 @@
+# TASK-218 — Critique 1
+
+## Review of spec for Full M0-M26 Regression
+- Spec defines a single, I/O-free, deterministic capability in `aios/coding_edition/`.
+- Acceptance criteria are observable and fail-closed (UNKNOWN never promoted to PASS).
+- Provenance is recorded on every transition/record (T001 Rule 5).
+- Missing sections: none identified; scope is bounded to the milestone contract.
+- Recommendation: proceed to breakdown.

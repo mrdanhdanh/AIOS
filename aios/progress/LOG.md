@@ -608,4 +608,28 @@ Append-only event log. Each entry: `ISO-UTC | task | event | detail`.
 2026-08-23T05:00:00Z | TASK-183 | DONE | Approval Workflow + Rollback Recommendation (aios/quality_gate/approval_workflow.py); 7 tests; Unified Gate PASS.
 2026-08-23T05:00:00Z | TASK-184 | DONE | Quality Dashboard + Governance Harness (aios/quality_gate/dashboard.py); 7 tests; Unified Gate PASS; M24 CLOSED.
 2026-08-23T05:00:00Z | M24 | MILESTONE | Governance & Quality (T175-T184) HOAN THANH; 70 tests moi (T175-T184), full suite 3018 passed, khong regression. M24 COMPLETE. ALL TASKS 175-184 DONE.
+2026-08-23T06:00:00Z | M25 | MILESTONE | Evaluation & Benchmark (T185-T196) HOAN THANH; 84 tests moi (T185-T196), full suite 3102 passed, khong regression. M25 COMPLETE. ALL TASKS 185-196 DONE.
+2026-08-24T00:00:00Z | TASK-197 | DONE | Unified Coding Contract (aios/coding_edition/contract.py); 3 tests; Unified Gate PASS.
+2026-08-24T00:00:00Z | TASK-198 | DONE | Coding State Machine (aios/coding_edition/state_machine.py); 4 tests; Unified Gate PASS.
+2026-08-24T00:00:00Z | TASK-199 | DONE | Coding Policy Engine (aios/coding_edition/policy.py); 2 tests; Unified Gate PASS.
+2026-08-24T00:00:00Z | TASK-200 | DONE | Risk Engine (aios/coding_edition/risk.py); 2 tests; Unified Gate PASS.
+2026-08-24T00:00:00Z | TASK-201 | DONE | Approval Gate (aios/coding_edition/approval.py); 2 tests; Unified Gate PASS.
+2026-08-24T00:00:00Z | TASK-202 | DONE | Autonomous Guardrails (aios/coding_edition/guardrails.py); 2 tests; Unified Gate PASS.
+2026-08-24T00:00:00Z | TASK-203 | DONE | Safe Stop / Resume (aios/coding_edition/safe_stop.py); 2 tests; Unified Gate PASS.
+2026-08-24T00:00:00Z | TASK-204 | DONE | Recovery Orchestrator (aios/coding_edition/recovery.py); 2 tests; Unified Gate PASS.
+2026-08-24T00:00:00Z | TASK-205 | DONE | Artifact Lineage (aios/coding_edition/lineage.py); 2 tests; Unified Gate PASS.
+2026-08-24T00:00:00Z | TASK-206 | DONE | Coding Session (aios/coding_edition/session.py); 2 tests; Unified Gate PASS.
+2026-08-24T00:00:00Z | TASK-207 | DONE | Session Fork (aios/coding_edition/session_fork.py); 1 test; Unified Gate PASS.
+2026-08-24T00:00:00Z | TASK-208 | DONE | Multi-Agent Coding (aios/coding_edition/multi_agent.py); 1 test; Unified Gate PASS.
+2026-08-24T00:00:00Z | TASK-209 | DONE | Parallel Coding (aios/coding_edition/parallel.py); 2 tests; Unified Gate PASS.
+2026-08-24T00:00:00Z | TASK-210 | DONE | Change Impact Analysis (aios/coding_edition/impact.py); 1 test; Unified Gate PASS.
+2026-08-24T00:00:00Z | TASK-211 | DONE | Repository Knowledge Graph Integration (aios/coding_edition/knowledge_graph.py); 1 test; Unified Gate PASS.
+2026-08-24T00:00:00Z | TASK-212 | DONE | Coding Doctor (aios/coding_edition/doctor.py); 1 test; Unified Gate PASS.
+2026-08-24T00:00:00Z | TASK-213 | DONE | Coding Health Score (aios/coding_edition/health.py); 2 tests; Unified Gate PASS.
+2026-08-24T00:00:00Z | TASK-214 | DONE | Release Gate (aios/coding_edition/release.py); 1 test; Unified Gate PASS.
+2026-08-24T00:00:00Z | TASK-215 | DONE | Coding Certification (aios/coding_edition/certification.py); 1 test; Unified Gate PASS.
+2026-08-24T00:00:00Z | TASK-216 | DONE | Benchmark Gate (aios/coding_edition/benchmark.py); 2 tests; Unified Gate PASS.
+2026-08-24T00:00:00Z | TASK-217 | DONE | AIOS 2.0 Coding Integration (aios/coding_edition/integration.py); 2 tests; Unified Gate PASS.
+2026-08-24T00:00:00Z | TASK-218 | DONE | Full M0-M26 Regression (aios/coding_edition/regression.py); 2 tests; Unified Gate PASS.
+2026-08-24T00:00:00Z | M26 | MILESTONE | AIOS 2.0 Coding Edition (T197-T218) HOAN THANH; 39 tests moi (T197-T218), full suite 3138 passed, khong regression. M26 COMPLETE — final milestone. ALL TASKS 001-218 + TASK-219 DONE. Roadmap M0-M26 CLOSED.
 ```
