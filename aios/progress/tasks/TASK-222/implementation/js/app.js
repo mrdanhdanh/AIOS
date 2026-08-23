@@ -203,4 +203,23 @@
   quizRestart.addEventListener("click", startQuiz);
 
   startQuiz();
+
+  /* ---------- Theme toggle (ui-ux-pro-max: dark mode) ---------- */
+  const themeToggle = document.getElementById("themeToggle");
+  const themeLabel = document.getElementById("themeLabel");
+  const root = document.documentElement;
+  function applyTheme(theme) {
+    root.setAttribute("data-theme", theme);
+    themeLabel.textContent = theme === "dark" ? "Sáng" : "Tối";
+    themeToggle.firstChild.textContent = theme === "dark" ? "☀️ " : "🌙 ";
+    try { localStorage.setItem("n5-theme", theme); } catch (e) {}
+  }
+  const saved = (function () {
+    try { return localStorage.getItem("n5-theme"); } catch (e) { return null; }
+  })();
+  if (saved) applyTheme(saved);
+  else if (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) applyTheme("dark");
+  themeToggle.addEventListener("click", () => {
+    applyTheme(root.getAttribute("data-theme") === "dark" ? "light" : "dark");
+  });
 })();

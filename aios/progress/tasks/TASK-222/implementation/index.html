@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="vi" data-theme="light">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -7,21 +7,26 @@
   <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
+  <a href="#main" class="skip-link">Bỏ qua đến nội dung</a>
   <header class="site-header">
-    <div class="brand">
-      <span class="logo">日</span>
-      <div>
-        <h1>Học tiếng Nhật N5</h1>
-        <p class="subtitle">Hiragana · Katakana · Từ vựng · Ngữ pháp · Trắc nghiệm</p>
+    <div class="header-top">
+      <div class="brand">
+        <span class="logo">日</span>
+        <div>
+          <h1>Học tiếng Nhật N5</h1>
+          <p class="subtitle">Hiragana · Katakana · Từ vựng · Ngữ pháp · Trắc nghiệm</p>
+        </div>
       </div>
+      <button id="themeToggle" class="theme-toggle" aria-label="Chuyển giao diện sáng/tối">🌙 <span id="themeLabel">Tối</span></button>
     </div>
-    <nav class="tabs" id="tabs">
+    <nav class="tabs" id="tabs" aria-label="Chuyển mục">
       <button class="tab active" data-tab="kana">Chữ cái</button>
       <button class="tab" data-tab="vocab">Từ vựng</button>
       <button class="tab" data-tab="grammar">Ngữ pháp</button>
       <button class="tab" data-tab="quiz">Trắc nghiệm</button>
     </nav>
   </header>
+  <main id="main">
 
   <main>
     <!-- KANA -->

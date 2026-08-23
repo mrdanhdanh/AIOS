@@ -50,3 +50,22 @@ def test_app_js_wires_ui():
     assert "renderVocab" in app
     assert "startQuiz" in app
     assert "GRAMMAR" in app
+
+
+def test_theme_toggle_present():
+    html = _read("index.html")
+    assert 'id="themeToggle"' in html
+    assert 'data-theme="light"' in html
+    app = _read("js/app.js")
+    assert "applyTheme" in app
+    assert "localStorage" in app
+
+
+def test_design_tokens_defined():
+    css = _read("css/style.css")
+    # ui-ux-pro-max design-system: 3-layer tokens + dark theme
+    assert ":root" in css
+    assert "[data-theme=\"dark\"]" in css
+    assert "--primary:" in css
+    assert "--space" in css or "--sp-" in css
+    assert ":focus-visible" in css

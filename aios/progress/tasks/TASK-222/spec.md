@@ -11,9 +11,10 @@ Hiragana, Katakana, vocabulary, grammar, and a self-quiz.
 
 ## Deliverables
 - `implementation/index.html`
-- `implementation/css/style.css`
+- `implementation/css/style.css` (restyled with **ui-ux-pro-max** skill: design-system
+  3-layer tokens, Japanese-inspired palette, dark mode, accessibility)
 - `implementation/js/data.js` (KANA, VOCAB, GRAMMAR datasets)
-- `implementation/js/app.js` (tab switching, kana render, vocab search/filter, quiz)
+- `implementation/js/app.js` (tab switching, kana render, vocab search/filter, quiz, theme toggle)
 - `implementation/test_website.py` (pytest smoke tests, integrated into AIOS suite)
 
 ## Acceptance Criteria
