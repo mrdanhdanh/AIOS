@@ -7,7 +7,7 @@
 | Tasks READY | 0 |
 | Tasks PLANNED | 57 |
 | Governance modules | 7 (+ unified gate) |
-| Automated gate tests | 2624 |
+| Automated gate tests | 2632 |
 | Architecture rules (ARCH-A..H + ARCH-001..004) | 17 |
 | Lifecycle states | 12 |
 
@@ -335,9 +335,20 @@ extended: `governance/architecture`, `runtime`, `security`, `devkit`+`cli`,
 
 > T129 DONE (Code Review Agent). I/O-free, capability-injected (T125), fail-closed verdict (T078), no God Object (T022), provenance (T001 Rule 5), deterministic.
 
+## Per-module test counts (TASK-130, M19)
+
+| Module | Tests |
+|--------|-------|
+| coder/artifact (CodingArtifact) | 4 |
+| coder/artifact (fail-closed/integrity) | 3 |
+| coder/artifact (architecture/immutable) | 1 |
+| **Subtotal** | **8** |
+
+> T130 DONE (Coding Artifact + CodingEvidence). Standardized 3-kind artifact (T078 hash), provenance chain (T001 Rule 5), fail-closed integrity gate, immutable id (T001 Rule 1), deterministic. **M19 COMPLETE** (T125-T130, 52 new tests).
+
 ## Grand total
 
-| **Total** | **1218** |
+| **Total** | **1226** |
 
 ## Per-module test counts (TASK-219)
 

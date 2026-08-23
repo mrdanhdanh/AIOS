@@ -46,6 +46,14 @@ from aios.coder.review import (
     Severity,
     Verdict,
 )
+from aios.coder.artifact import (
+    ArtifactError,
+    ArtifactKind,
+    ArtifactStatus,
+    CodingArtifact,
+    CodingArtifactRegistry,
+    EvidenceLink,
+)
 
 __all__ = [
     "CoderAgentContract",
@@ -74,4 +82,10 @@ __all__ = [
     "ReviewReport",
     "Severity",
     "Verdict",
+    "ArtifactError",
+    "ArtifactKind",
+    "ArtifactStatus",
+    "CodingArtifact",
+    "CodingArtifactRegistry",
+    "EvidenceLink",
 ]

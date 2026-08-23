@@ -489,6 +489,19 @@ Append-only event log. Each entry: `ISO-UTC | task | event | detail`.
 2026-08-23T00:00:00Z | TASK-129 | EVALUATING | all AC verified (I/O-free, fail-closed, provenance, deterministic, no God Object).
 2026-08-23T00:00:00Z | TASK-129 | REGRESSION | full suite 2624 passed; architecture gate PASS; no prior-milestone regression.
 2026-08-23T00:00:00Z | TASK-129 | DONE | Unified Task Gate PASS; 8 new tests; review agent established.
+2026-08-23T00:00:00Z | TASK-130 | READY | dependency TASK-129 DONE.
+2026-08-23T00:00:00Z | TASK-130 | CREATED | Coding Artifact + CodingEvidence initialized.
+2026-08-23T00:00:00Z | TASK-130 | SPECIFIED | spec.md written.
+2026-08-23T00:00:00Z | TASK-130 | CRITIQUED_1 | critique-1.md written.
+2026-08-23T00:00:00Z | TASK-130 | CRITIQUED_2 | critique-2.md written.
+2026-08-23T00:00:00Z | TASK-130 | BROKEN_DOWN | tasks.md written.
+2026-08-23T00:00:00Z | TASK-130 | REVIEWED | review.md written.
+2026-08-23T00:00:00Z | TASK-130 | IMPLEMENTING | aios/coder/artifact.py (CodingArtifact, CodingArtifactRegistry, EvidenceLink).
+2026-08-23T00:00:00Z | TASK-130 | TESTING | 8 automated tests passing in aios/coder/tests/test_artifact.py.
+2026-08-23T00:00:00Z | TASK-130 | EVALUATING | all AC verified (standardized artifact, fail-closed integrity, provenance, immutable id).
+2026-08-23T00:00:00Z | TASK-130 | REGRESSION | full suite 2632 passed; architecture gate PASS; no prior-milestone regression.
+2026-08-23T00:00:00Z | TASK-130 | DONE | Unified Task Gate PASS; 8 new tests; artifact+evidence established.
+2026-08-23T00:00:00Z | M19 | MILESTONE | Coder Pipeline (T125-T130) HOAN THANH; 52 tests moi, full suite 2632 passed, khong regression. M19 COMPLETE.
 2026-08-23T00:00:00Z | TASK-219 | PERSIST | Installed real skill: skills/ui-ux-pro-max/ (7 sub-skill from nextlevelbuilder/ui-ux-pro-max-skill, claude layout) via tools/install_github_skill.py; all ENABLED.
 2026-08-23T00:00:00Z | TASK-219 | TESTING | 13 bridge tests passing (9 unit + 3 real-skill + 1 persisted); 313 skill/plugin/bridge/architecture regression green.
 2026-08-23T00:00:00Z | TASK-219 | DONE | Skill plugin thuc te da co: skills/ui-ux-pro-max/ (banner-design, brand, design, design-system, slides, ui-styling, ui-ux-pro-max).
