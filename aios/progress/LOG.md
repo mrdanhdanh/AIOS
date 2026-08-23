@@ -289,3 +289,28 @@ Append-only event log. Each entry: `ISO-UTC | task | event | detail`.
 2026-08-22T12:00:00Z | TASK-107 | DONE | Permission + Sandbox Bridge: aios/independent_harness/permission_sandbox_bridge.py (PermissionSandboxReport/Bridge + T105/T104/T035/T040/T113); 6 tests green; Unified Gate PASS.
 2026-08-22T12:00:00Z | TASK-108 | DONE | Management Console / Independent Harness Integration: aios/independent_harness/console.py + aios/api/routers/independent_harness.py + aios/dashboard/views.py (IndependentHarnessView); 5 tests green; Unified Gate PASS.
 2026-08-22T12:00:00Z | TASK-104..108 | DONE | M16 Independent Harness Integration complete: aios/independent_harness (foundation/oracle/behavioral_bridge/permission_sandbox_bridge/console) + API router + Dashboard View 11; +29 tests; full suite 2477/2477 PASS; all gates PASS.
+2026-08-23T00:00:00Z | TASK-109 | READY | dependency TASK-108 DONE.
+2026-08-23T00:00:00Z | TASK-109 | IMPLEMENTING | aios/model_runtime/contracts.py (ModelContract/ModelRequest/ModelResponse/UsageSchema/CapabilityDeclaration/PolicyBoundary/validate_contract) + 6 tests.
+2026-08-23T00:00:00Z | TASK-109 | DONE | AC-109 PASS; 6 tests green; Unified Gate PASS.
+2026-08-23T00:00:00Z | TASK-110 | READY | dependency TASK-109 DONE.
+2026-08-23T00:00:00Z | TASK-110 | IMPLEMENTING | aios/model_runtime/provider_registry.py (ProviderRegistry/ProviderRecord/LifecycleEvent + immutable id + lifecycle + health) + 6 tests.
+2026-08-23T00:00:00Z | TASK-110 | DONE | AC-110 PASS; 6 tests green; Unified Gate PASS.
+2026-08-23T00:00:00Z | TASK-111 | READY | dependency TASK-109 DONE.
+2026-08-23T00:00:00Z | TASK-111 | IMPLEMENTING | aios/model_runtime/model_registry.py (ModelRegistry/ModelResolver + deterministic rule-based resolver, LLM call count = 0) + 6 tests.
+2026-08-23T00:00:00Z | TASK-111 | DONE | AC-111 PASS; 6 tests green; Unified Gate PASS.
+2026-08-23T00:00:00Z | TASK-112 | READY | dependency TASK-110/T111 DONE.
+2026-08-23T00:00:00Z | TASK-112 | IMPLEMENTING | aios/model_runtime/orchestration.py (InferenceOrchestrator/InferencePlan + deterministic plan/dispatch) + 4 tests.
+2026-08-23T00:00:00Z | TASK-112 | DONE | AC-112 PASS; 4 tests green; Unified Gate PASS.
+2026-08-23T00:00:00Z | TASK-113 | READY | dependency TASK-112 DONE.
+2026-08-23T00:00:00Z | TASK-113 | IMPLEMENTING | aios/model_runtime/security.py (SecurityGate/SecurityContext/CredentialBoundary/PermissionCheck/PolicyPrecheck + T035/T040 integration) + 6 tests.
+2026-08-23T00:00:00Z | TASK-113 | DONE | AC-113 PASS; 6 tests green; Unified Gate PASS.
+2026-08-23T00:00:00Z | TASK-114 | READY | dependency TASK-112/T113 DONE.
+2026-08-23T00:00:00Z | TASK-114 | IMPLEMENTING | aios/model_runtime/resilience.py (ResilienceManager/ResilienceConfig/CancellationToken/StreamChunk + bounded retry/timeout/stream/cancel) + 6 tests.
+2026-08-23T00:00:00Z | TASK-114 | DONE | AC-114 PASS; 6 tests green; Unified Gate PASS.
+2026-08-23T00:00:00Z | TASK-115 | READY | dependency TASK-112/T114 DONE.
+2026-08-23T00:00:00Z | TASK-115 | IMPLEMENTING | aios/model_runtime/usage.py (UsageCollector/UsageRecord/AuditLog/CostCompute + tamper-evident audit, T078/T039/T001 integration) + 5 tests.
+2026-08-23T00:00:00Z | TASK-115 | DONE | AC-115 PASS; 5 tests green; Unified Gate PASS.
+2026-08-23T00:00:00Z | TASK-116 | READY | dependency TASK-110/T111/T112/T115 DONE.
+2026-08-23T00:00:00Z | TASK-116 | IMPLEMENTING | aios/model_runtime/conformance.py (ConformanceSuite/ProviderCertifier/ProviderCertification + fail-closed certify, T049/T078 integration) + 6 tests.
+2026-08-23T00:00:00Z | TASK-116 | DONE | AC-116 PASS; 6 tests green; Unified Gate PASS.
+2026-08-23T00:00:00Z | TASK-109..116 | DONE | M17 Model Runtime complete: aios/model_runtime (contracts/provider_registry/model_registry/orchestration/security/resilience/usage/conformance) + 42 tests; full suite 2519/2519 PASS; all gates PASS.

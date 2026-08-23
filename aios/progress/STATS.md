@@ -3,11 +3,11 @@
 | Metric | Value |
 |--------|-------|
 | Total tasks (master spec) | 182 |
-| Tasks DONE | 108 |
+| Tasks DONE | 116 |
 | Tasks READY | 0 |
-| Tasks PLANNED | 74 |
+| Tasks PLANNED | 66 |
 | Governance modules | 7 (+ unified gate) |
-| Automated gate tests | 2479 |
+| Automated gate tests | 2519 |
 | Architecture rules (ARCH-A..H + ARCH-001..004) | 17 |
 | Lifecycle states | 12 |
 
@@ -239,6 +239,26 @@ extended: `governance/architecture`, `runtime`, `security`, `devkit`+`cli`,
 > + `aios/api/routers/independent_harness.py` + `IndependentHarnessView` (Dashboard View 11).
 > T104-T108 all DONE (Independent Harness Integration). AIOS retains policy authority.
 
+## Per-module test counts (TASK-109..116, M17)
+
+| Module | Tests |
+|--------|-------|
+| model_runtime/contracts (T109) | 6 |
+| model_runtime/provider_registry (T110) | 6 |
+| model_runtime/model_registry (T111) | 6 |
+| model_runtime/orchestration (T112) | 4 |
+| model_runtime/security (T113) | 6 |
+| model_runtime/resilience (T114) | 6 |
+| model_runtime/usage (T115) | 5 |
+| model_runtime/conformance (T116) | 6 |
+| **Subtotal** | **45** |
+
+> M17 added **45** net-new automated tests (full suite 2479 → 2519). New package:
+> `aios/model_runtime` (contracts/provider_registry/model_registry/orchestration/security/resilience/usage/conformance)
+> integrating T001 (Evidence), T025 (Health), T035 (Identity/RBAC), T040 (Credential),
+> T049 (Certification), T078 (Integrity), T039 (Quota). T109-T116 all DONE (Model Runtime).
+> Vendor-neutral, deterministic-first, fail-closed; no LLM in resolver/orchestration.
+
 ## Grand total
 
-| **Total** | **1129** |
+| **Total** | **1174** |

@@ -120,14 +120,14 @@ Ordered task index and status. Status values: `PLANNED | SPECIFIED | ... | DONE 
 | TASK-107 | M16 | Permission + Sandbox Bridge | TASK-106 | DONE |
 | TASK-108 | M16 | Management Console / Independent Harness Integration | TASK-107 | DONE |
 
-| TASK-109 | M17 | Model Contracts | TASK-108 | PLANNED |
-| TASK-110 | M17 | Provider Registry + Lifecycle | TASK-109 | PLANNED |
-| TASK-111 | M17 | Model Registry + Deterministic Resolver | TASK-110 | PLANNED |
-| TASK-112 | M17 | Inference Runtime Orchestration | TASK-111 | PLANNED |
-| TASK-113 | M17 | Credential + Permission + Policy Integration | TASK-112 | PLANNED |
-| TASK-114 | M17 | Retry / Timeout / Streaming / Cancellation | TASK-113 | PLANNED |
-| TASK-115 | M17 | Usage / Cost / Audit / Evidence | TASK-114 | PLANNED |
-| TASK-116 | M17 | Provider Conformance + Certification | TASK-115 | PLANNED |
+| TASK-109 | M17 | Model Contracts | TASK-108 | DONE |
+| TASK-110 | M17 | Provider Registry + Lifecycle | TASK-109 | DONE |
+| TASK-111 | M17 | Model Registry + Deterministic Resolver | TASK-110 | DONE |
+| TASK-112 | M17 | Inference Runtime Orchestration | TASK-111 | DONE |
+| TASK-113 | M17 | Credential + Permission + Policy Integration | TASK-112 | DONE |
+| TASK-114 | M17 | Retry / Timeout / Streaming / Cancellation | TASK-113 | DONE |
+| TASK-115 | M17 | Usage / Cost / Audit / Evidence | TASK-114 | DONE |
+| TASK-116 | M17 | Provider Conformance + Certification | TASK-115 | DONE |
 
 | TASK-117 | M18 | Repository Scanner | TASK-116 | PLANNED |
 | TASK-118 | M18 | Source / Symbol Index | TASK-117 | PLANNED |
