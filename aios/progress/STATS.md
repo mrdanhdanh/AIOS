@@ -7,7 +7,7 @@
 | Tasks READY | 0 |
 | Tasks PLANNED | 65 |
 | Governance modules | 7 (+ unified gate) |
-| Automated gate tests | 2528 |
+| Automated gate tests | 2537 |
 | Architecture rules (ARCH-A..H + ARCH-001..004) | 17 |
 | Lifecycle states | 12 |
 
@@ -271,4 +271,5 @@ extended: `governance/architecture`, `runtime`, `security`, `devkit`+`cli`,
 | skill/github_bridge/adapter | 2 |
 | skill/github_bridge/converter | 3 |
 | skill/github_bridge/architecture | 1 |
-| **Subtotal** | **9** |
+| skill/github_bridge/real_skill | 3 |
+| **Subtotal** | **12** |

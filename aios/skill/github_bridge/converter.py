@@ -23,7 +23,13 @@ from pathlib import Path
 from typing import Any, Dict, List, Optional
 
 from .adapter import to_plugin_manifest, to_skill_contract
-from .parser import SkillParseError, discover_capabilities, parse_skill_md
+from .parser import (
+    SkillParseError,
+    detect_skill_layout,
+    discover_capabilities,
+    parse_skill_md,
+    parse_skill_package,
+)
 
 
 class GitHubSkillConvertError(Exception):
@@ -65,75 +71,105 @@ def convert_skill_dir(
     author: str = "",
     install_source: str = "git",
 ) -> Dict[str, Any]:
-    """Convert a GitHub skill directory into an AIOS skill package on disk."""
+    """Convert a GitHub skill directory into an AIOS skill package on disk.
+
+    Supports both layouts:
+      * Copilot  — single root ``SKILL.md`` -> one skill package.
+      * Claude   — ``skill.json`` + ``.claude/skills/<name>/SKILL.md`` ->
+        one package containing multiple sub-skills (each its own contract).
+
+    Returns ``{layout, package_dir, skills:[{skill_id, contract, plugin_manifest}]}``.
+    """
     skill_dir = Path(skill_dir)
     out_dir = Path(out_dir)
     if not skill_dir.is_dir():
         raise GitHubSkillConvertError(f"Skill directory not found: {skill_dir}")
-    skill_md = skill_dir / "SKILL.md"
-    if not skill_md.is_file():
-        raise GitHubSkillConvertError(f"No SKILL.md in {skill_dir}")
 
-    parsed = parse_skill_md(skill_md)
-    sid = skill_id or _slugify(parsed.get("name", skill_dir.name))
-    entrypoint = _discover_entrypoint(skill_dir)
-    caps = discover_capabilities(skill_dir)
+    layout = detect_skill_layout(skill_dir)
+    if layout == "unknown":
+        raise GitHubSkillConvertError(
+            f"Unrecognized skill layout in {skill_dir}: expected SKILL.md or skill.json+.claude/skills"
+        )
 
-    contract = to_skill_contract(
-        parsed,
-        skill_id=sid,
-        version=version,
-        runtime=runtime,
-        permissions=permissions,
-        required_capabilities=caps,
-        entrypoint=entrypoint,
-        install_source=install_source,
-        author=author,
-    )
-
+    pkg = parse_skill_package(skill_dir)
     out_dir.mkdir(parents=True, exist_ok=True)
-    # Drop runtime-generated timestamps so the on-disk package is fully
-    # deterministic (same input skill -> identical manifest bytes). They are
-    # regenerated when the skill is installed via SkillManager.
-    manifest_dict = contract.to_dict()
-    manifest_dict.pop("created_at", None)
-    manifest_dict.pop("updated_at", None)
-    _write_json(out_dir / "manifest.json", manifest_dict)
 
-    prompts_dir = out_dir / "prompts"
-    prompts_dir.mkdir(exist_ok=True)
-    (prompts_dir / "instructions.md").write_text(
-        parsed.get("body", ""), encoding="utf-8"
-    )
+    # Copy the whole source skill verbatim as a reference bundle.
+    ref_dir = out_dir / "source"
+    if ref_dir.exists():
+        shutil.rmtree(ref_dir)
+    shutil.copytree(skill_dir, ref_dir, ignore=shutil.ignore_patterns(".git"))
 
-    src_scripts = skill_dir / "scripts"
-    if src_scripts.is_dir():
-        dst_scripts = out_dir / "scripts"
-        if dst_scripts.exists():
-            shutil.rmtree(dst_scripts)
-        shutil.copytree(src_scripts, dst_scripts)
+    skills_out: List[Dict[str, Any]] = []
+    for sk in pkg["skills"]:
+        sid = sk["id"]
+        sub_out = out_dir / "skills" / sid
+        sub_out.mkdir(parents=True, exist_ok=True)
 
-    shutil.copyfile(skill_md, out_dir / "SKILL.md")
+        caps = discover_capabilities(Path(sk["path"]).parent)
+        # Instruction-only skills have no executable script; use the SKILL.md
+        # file itself as the entrypoint so the lifecycle's entrypoint check
+        # passes (the skill is a prompt/instruction package).
+        entrypoint = _discover_entrypoint(Path(sk["path"]).parent)
+        if not entrypoint:
+            entrypoint = "SKILL.md"
+        contract = to_skill_contract(
+            sk,
+            skill_id=sid,
+            version=version,
+            runtime=runtime,
+            permissions=permissions,
+            required_capabilities=caps,
+            entrypoint=entrypoint,
+            install_source=install_source,
+            author=author or pkg["package"].get("author", ""),
+        )
 
-    plugin = to_plugin_manifest(contract)
-    _write_json(out_dir / "plugin_manifest.json", plugin.to_dict())
+        manifest_dict = contract.to_dict()
+        manifest_dict.pop("created_at", None)
+        manifest_dict.pop("updated_at", None)
+        _write_json(sub_out / "manifest.json", manifest_dict)
 
-    catalog = {
-        "kind": "skill",
-        "skill_id": sid,
-        "name": contract.name,
-        "version": contract.version,
+        prompts_dir = sub_out / "prompts"
+        prompts_dir.mkdir(exist_ok=True)
+        (prompts_dir / "instructions.md").write_text(sk.get("body", ""), encoding="utf-8")
+
+        # Copy the original SKILL.md so the entrypoint ("SKILL.md") resolves.
+        shutil.copyfile(Path(sk["path"]), sub_out / "SKILL.md")
+
+        plugin = to_plugin_manifest(contract)
+        _write_json(sub_out / "plugin_manifest.json", plugin.to_dict())
+
+        catalog = {
+            "kind": "skill",
+            "skill_id": sid,
+            "name": contract.name,
+            "version": contract.version,
+            "source": install_source,
+            "layout": layout,
+            "manifest_path": "manifest.json",
+            "plugin_manifest_path": "plugin_manifest.json",
+        }
+        catalog_dir = sub_out / "catalog"
+        catalog_dir.mkdir(exist_ok=True)
+        _write_json(catalog_dir / f"skill-{sid}.json", catalog)
+
+        skills_out.append(
+            {"skill_id": sid, "contract": contract, "plugin_manifest": plugin}
+        )
+
+    # Package-level index for the ecosystem registry.
+    index = {
+        "kind": "skill-package",
+        "layout": layout,
         "source": install_source,
-        "manifest_path": "manifest.json",
-        "plugin_manifest_path": "plugin_manifest.json",
+        "package": pkg["package"],
+        "skills": [s["skill_id"] for s in skills_out],
     }
-    catalog_dir = out_dir / "catalog"
-    catalog_dir.mkdir(exist_ok=True)
-    _write_json(catalog_dir / f"skill-{sid}.json", catalog)
+    _write_json(out_dir / "package_index.json", index)
 
     return {
-        "skill_id": sid,
-        "contract": contract,
-        "plugin_manifest": plugin,
+        "layout": layout,
         "package_dir": str(out_dir),
+        "skills": skills_out,
     }

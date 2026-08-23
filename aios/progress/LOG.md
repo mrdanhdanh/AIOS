@@ -326,3 +326,6 @@ Append-only event log. Each entry: `ISO-UTC | task | event | detail`.
 2026-08-23T00:00:00Z | TASK-219 | EVALUATING | all 7 acceptance criteria verified.
 2026-08-23T00:00:00Z | TASK-219 | REGRESSION | dependency closure {T015,T044,T046,T047,T049,T063,T083} green.
 2026-08-23T00:00:00Z | TASK-219 | DONE | Unified Task Gate PASS; bridge converts GitHub Copilot skill -> AIOS SkillContract + PluginManifest, install+enable -> ENABLED.
+2026-08-23T00:00:00Z | TASK-219 | EXTENDED | Bridge supports Claude package layout (skill.json + .claude/skills/*/SKILL.md) + real-skill integration test (ui-ux-pro-max-skill).
+2026-08-23T00:00:00Z | TASK-219 | TESTING | 12 bridge tests passing (9 unit + 3 real-skill); 188 skill/plugin_runtime regression green.
+2026-08-23T00:00:00Z | TASK-219 | DONE | Re-verified: convert+install+enable cloned GitHub skill (multi-sub-skill) via SkillManager -> ENABLED.

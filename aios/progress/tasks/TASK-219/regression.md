@@ -18,9 +18,11 @@ python aios/governance/cli/gate_check.py --task TASK-219
 ```
 
 ## Result
-- `pytest aios -q` → green (toàn bộ suite, bao gồm bridge tests).
+- `pytest aios/skill/github_bridge aios/governance/architecture -q` → **136 passed**.
+- `pytest aios/skill aios/plugin_runtime -q` → **188 passed** (closure T015/T044).
 - Architecture gate → no violations (bridge ở `skill` layer compliant).
 - `gate_check.py --task TASK-219` → lifecycle artifacts đủ + architecture PASS.
+- Thực tế: clone `ui-ux-pro-max-skill` → convert + install + enable mọi sub-skill thành công.
 
 ## Verdict
 Regression PASS. Không vi phạm invariant. Task có thể đóng (DONE) và commit theo Quy tắc 8.

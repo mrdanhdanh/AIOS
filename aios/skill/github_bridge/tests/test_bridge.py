@@ -106,15 +106,18 @@ def test_convert_skill_dir_writes_package(tmp_path):
     skill = _make_skill(tmp_path)
     out = tmp_path / "pkg"
     result = convert_skill_dir(skill, out, skill_id="ui-ux-pro-max")
-    assert result["skill_id"] == "ui-ux-pro-max"
-    assert (out / "manifest.json").is_file()
-    assert (out / "prompts" / "instructions.md").is_file()
-    assert (out / "scripts" / "run.py").is_file()
-    assert (out / "SKILL.md").is_file()
-    assert (out / "plugin_manifest.json").is_file()
-    assert (out / "catalog" / "skill-ui-ux-pro-max.json").is_file()
+    assert result["layout"] == "copilot"
+    assert len(result["skills"]) == 1
+    sub = out / "skills" / "ui-ux-pro-max"
+    assert (sub / "manifest.json").is_file()
+    assert (sub / "prompts" / "instructions.md").is_file()
+    assert (sub / "SKILL.md").is_file()
+    assert (sub / "plugin_manifest.json").is_file()
+    assert (sub / "catalog" / "skill-ui-ux-pro-max.json").is_file()
+    assert (out / "package_index.json").is_file()
+    assert (out / "source" / "SKILL.md").is_file()
 
-    manifest = json.loads((out / "manifest.json").read_text(encoding="utf-8"))
+    manifest = json.loads((sub / "manifest.json").read_text(encoding="utf-8"))
     assert manifest["skill_id"] == "ui-ux-pro-max"
     assert "ui.render" in manifest["required_capabilities"]
 
@@ -123,7 +126,7 @@ def test_convert_then_install_enable(tmp_path):
     skill = _make_skill(tmp_path)
     out = tmp_path / "pkg"
     result = convert_skill_dir(skill, out, skill_id="ui-ux-pro-max")
-    contract = result["contract"]
+    contract = result["skills"][0]["contract"]
 
     mgr = SkillManager()  # no injected runtime services -> offline default
     installed = mgr.install(contract, source="git")
@@ -138,8 +141,8 @@ def test_deterministic_conversion(tmp_path):
     out2 = tmp_path / "pkg2"
     convert_skill_dir(skill, out1, skill_id="ui-ux-pro-max")
     convert_skill_dir(skill, out2, skill_id="ui-ux-pro-max")
-    m1 = (out1 / "manifest.json").read_bytes()
-    m2 = (out2 / "manifest.json").read_bytes()
+    m1 = (out1 / "skills" / "ui-ux-pro-max" / "manifest.json").read_bytes()
+    m2 = (out2 / "skills" / "ui-ux-pro-max" / "manifest.json").read_bytes()
     assert m1 == m2
 
 

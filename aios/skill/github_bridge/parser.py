@@ -10,6 +10,7 @@ Layering: ``skill`` layer — stdlib + ``aios.core`` only. No ``subprocess``/``o
 
 from __future__ import annotations
 
+import json
 import re
 from pathlib import Path
 from typing import Any, Dict, List, Optional
@@ -98,3 +99,73 @@ def discover_capabilities(skill_dir: str | Path) -> List[str]:
                 if isinstance(item, str) and item not in caps:
                     caps.append(item)
     return caps
+
+
+def parse_skill_json(path: str | Path) -> Dict[str, Any]:
+    """Parse a package-level ``skill.json`` (Claude/Cursor skill package)."""
+    p = Path(path)
+    if not p.is_file():
+        raise SkillParseError(f"skill.json not found: {p}")
+    try:
+        data = json.loads(p.read_text(encoding="utf-8")) or {}
+    except Exception as exc:  # noqa: BLE001
+        raise SkillParseError(f"Invalid JSON in {p.name}: {exc}") from exc
+    if not isinstance(data, dict):
+        raise SkillParseError(f"skill.json must be a mapping in {p.name}")
+    return data
+
+
+def detect_skill_layout(skill_dir: str | Path) -> str:
+    """Return the detected skill layout.
+
+    * ``copilot``  — single ``SKILL.md`` at the root.
+    * ``claude``   — ``skill.json`` + ``.claude/skills/<name>/SKILL.md`` (multi-skill).
+    * ``unknown``  — neither found.
+    """
+    skill_dir = Path(skill_dir)
+    if (skill_dir / "SKILL.md").is_file():
+        return "copilot"
+    if (skill_dir / "skill.json").is_file() and (skill_dir / ".claude" / "skills").is_dir():
+        return "claude"
+    return "unknown"
+
+
+def parse_skill_package(skill_dir: str | Path) -> Dict[str, Any]:
+    """Parse a GitHub skill directory into a normalized package descriptor.
+
+    Supports both the Copilot layout (single root ``SKILL.md``) and the Claude
+    package layout (``skill.json`` + ``.claude/skills/<name>/SKILL.md``). Returns
+    ``{layout, package, skills:[{id, name, description, body, frontmatter, path}]}``.
+    """
+    skill_dir = Path(skill_dir)
+    if not skill_dir.is_dir():
+        raise SkillParseError(f"Skill directory not found: {skill_dir}")
+
+    layout = detect_skill_layout(skill_dir)
+    package: Dict[str, Any] = {}
+    skills: List[Dict[str, Any]] = []
+
+    if layout == "copilot":
+        parsed = parse_skill_md(skill_dir / "SKILL.md")
+        skills.append({**parsed, "id": _slugify(parsed["name"]), "path": str(skill_dir / "SKILL.md")})
+    elif layout == "claude":
+        package = parse_skill_json(skill_dir / "skill.json")
+        skills_root = skill_dir / ".claude" / "skills"
+        for sk in sorted(skills_root.iterdir()):
+            sk_md = sk / "SKILL.md"
+            if not sk_md.is_file():
+                continue
+            parsed = parse_skill_md(sk_md)
+            skills.append({**parsed, "id": _slugify(parsed["name"]), "path": str(sk_md)})
+    else:
+        raise SkillParseError(
+            f"Unrecognized skill layout in {skill_dir}: expected SKILL.md or skill.json+.claude/skills"
+        )
+
+    return {"layout": layout, "package": package, "skills": skills}
+
+
+def _slugify(name: str) -> str:
+    s = re.sub(r"[^a-zA-Z0-9_\-\.]", "-", (name or "").strip().lower())
+    s = re.sub(r"-+", "-", s).strip("-.")
+    return s or "github-skill"
