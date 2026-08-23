@@ -3520,7 +3520,7 @@ Triển khai collusion detector + resilience score + attack corpus regression nh
 
 ## TASK-175 — Quality Gate + Gate States
 
-> **Trạng thái thực tế (2026-08-23):** PLANNED — chưa triển khai.
+> **Trạng thái thực tế (2026-08-23):** DONE — đã triển khai (2026-08-23).
 
 **Mục tiêu**  
 Triển khai quality gate + gate states như một năng lực có contract, evidence và harness riêng.
@@ -3539,7 +3539,7 @@ Triển khai quality gate + gate states như một năng lực có contract, evi
 
 ## TASK-176 — Risk Model + Classification
 
-> **Trạng thái thực tế (2026-08-23):** PLANNED — chưa triển khai.
+> **Trạng thái thực tế (2026-08-23):** DONE — đã triển khai (2026-08-23).
 
 **Mục tiêu**  
 Triển khai risk model + classification như một năng lực có contract, evidence và harness riêng.
@@ -3558,7 +3558,7 @@ Triển khai risk model + classification như một năng lực có contract, ev
 
 ## TASK-177 — Policy Engine + Profiles + Precedence
 
-> **Trạng thái thực tế (2026-08-23):** PLANNED — chưa triển khai.
+> **Trạng thái thực tế (2026-08-23):** DONE — đã triển khai (2026-08-23).
 
 **Mục tiêu**  
 Triển khai policy engine + profiles + precedence như một năng lực có contract, evidence và harness riêng.
@@ -3577,7 +3577,7 @@ Triển khai policy engine + profiles + precedence như một năng lực có co
 
 ## TASK-178 — Exception Management
 
-> **Trạng thái thực tế (2026-08-23):** PLANNED — chưa triển khai.
+> **Trạng thái thực tế (2026-08-23):** DONE — đã triển khai (2026-08-23).
 
 **Mục tiêu**  
 Triển khai exception management như một năng lực có contract, evidence và harness riêng.
@@ -3596,7 +3596,7 @@ Triển khai exception management như một năng lực có contract, evidence 
 
 ## TASK-179 — Quality Debt Tracking
 
-> **Trạng thái thực tế (2026-08-23):** PLANNED — chưa triển khai.
+> **Trạng thái thực tế (2026-08-23):** DONE — đã triển khai (2026-08-23).
 
 **Mục tiêu**  
 Triển khai quality debt tracking như một năng lực có contract, evidence và harness riêng.
@@ -3615,7 +3615,7 @@ Triển khai quality debt tracking như một năng lực có contract, evidence
 
 ## TASK-180 — Release Gate + Decision Explainability
 
-> **Trạng thái thực tế (2026-08-23):** PLANNED — chưa triển khai.
+> **Trạng thái thực tế (2026-08-23):** DONE — đã triển khai (2026-08-23).
 
 **Mục tiêu**  
 Triển khai release gate + decision explainability như một năng lực có contract, evidence và harness riêng.
@@ -3634,7 +3634,7 @@ Triển khai release gate + decision explainability như một năng lực có c
 
 ## TASK-181 — Governance Ledger + Provenance Graph
 
-> **Trạng thái thực tế (2026-08-23):** PLANNED — chưa triển khai.
+> **Trạng thái thực tế (2026-08-23):** DONE — đã triển khai (2026-08-23).
 
 **Mục tiêu**  
 Triển khai governance ledger + provenance graph như một năng lực có contract, evidence và harness riêng.
@@ -3653,7 +3653,7 @@ Triển khai governance ledger + provenance graph như một năng lực có con
 
 ## TASK-182 — Trust Lifecycle + Invalidation + Selective Reverification
 
-> **Trạng thái thực tế (2026-08-23):** PLANNED — chưa triển khai.
+> **Trạng thái thực tế (2026-08-23):** DONE — đã triển khai (2026-08-23).
 
 **Mục tiêu**  
 Triển khai trust lifecycle + invalidation + selective reverification như một năng lực có contract, evidence và harness riêng.
@@ -3672,7 +3672,7 @@ Triển khai trust lifecycle + invalidation + selective reverification như mộ
 
 ## TASK-183 — Approval Workflow + Rollback Recommendation
 
-> **Trạng thái thực tế (2026-08-23):** PLANNED — chưa triển khai.
+> **Trạng thái thực tế (2026-08-23):** DONE — đã triển khai (2026-08-23).
 
 **Mục tiêu**  
 Triển khai approval workflow + rollback recommendation như một năng lực có contract, evidence và harness riêng.
@@ -3691,7 +3691,7 @@ Triển khai approval workflow + rollback recommendation như một năng lực 
 
 ## TASK-184 — Quality Dashboard + Governance Harness
 
-> **Trạng thái thực tế (2026-08-23):** PLANNED — chưa triển khai.
+> **Trạng thái thực tế (2026-08-23):** DONE — đã triển khai (2026-08-23).
 
 **Mục tiêu**  
 Triển khai quality dashboard + governance harness như một năng lực có contract, evidence và harness riêng.

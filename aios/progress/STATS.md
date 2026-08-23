@@ -3,12 +3,12 @@
 | Metric | Value |
 |--------|-------|
 | Total tasks (master spec) | 219 |
-| Tasks DONE | 175 |
+| Tasks DONE | 185 |
 | Tasks READY | 0 |
-| Tasks PLANNED | 45 |
+| Tasks PLANNED | 35 |
 | Tasks BLOCKED | 0 |
 | Governance modules | 7 (+ unified gate) |
-| Automated gate tests | 2948 passed (2026-08-23) |
+| Automated gate tests | 3018 passed (2026-08-23) |
 | Architecture rules (ARCH-A..H + ARCH-001..004) | 17 |
 | Lifecycle states | 12 |
 
@@ -679,9 +679,81 @@ extended: `governance/architecture`, `runtime`, `security`, `devkit`+`cli`,
 
 > T174 DONE (Collusion Detector + Resilience Score + Attack Corpus Regression). **M23 COMPLETE** (T165-T174, 70 new tests).
 
+## Per-module test counts (TASK-175, M24)
+
+| Module | Tests |
+|--------|-------|
+| quality_gate/gate_states (QualityGate) | 7 |
+| **Subtotal** | **7** |
+
+## Per-module test counts (TASK-176, M24)
+
+| Module | Tests |
+|--------|-------|
+| quality_gate/risk_model (RiskModel) | 7 |
+| **Subtotal** | **7** |
+
+## Per-module test counts (TASK-177, M24)
+
+| Module | Tests |
+|--------|-------|
+| quality_gate/policy_engine (PolicyEngine) | 7 |
+| **Subtotal** | **7** |
+
+## Per-module test counts (TASK-178, M24)
+
+| Module | Tests |
+|--------|-------|
+| quality_gate/exception_management (ExceptionManager) | 7 |
+| **Subtotal** | **7** |
+
+## Per-module test counts (TASK-179, M24)
+
+| Module | Tests |
+|--------|-------|
+| quality_gate/quality_debt (QualityDebtTracker) | 7 |
+| **Subtotal** | **7** |
+
+## Per-module test counts (TASK-180, M24)
+
+| Module | Tests |
+|--------|-------|
+| quality_gate/release_gate (ReleaseGate) | 7 |
+| **Subtotal** | **7** |
+
+## Per-module test counts (TASK-181, M24)
+
+| Module | Tests |
+|--------|-------|
+| quality_gate/ledger (GovernanceLedger/ProvenanceGraph) | 7 |
+| **Subtotal** | **7** |
+
+## Per-module test counts (TASK-182, M24)
+
+| Module | Tests |
+|--------|-------|
+| quality_gate/trust_lifecycle (TrustLifecycle) | 7 |
+| **Subtotal** | **7** |
+
+## Per-module test counts (TASK-183, M24)
+
+| Module | Tests |
+|--------|-------|
+| quality_gate/approval_workflow (ApprovalWorkflow) | 7 |
+| **Subtotal** | **7** |
+
+## Per-module test counts (TASK-184, M24)
+
+| Module | Tests |
+|--------|-------|
+| quality_gate/dashboard (QualityDashboard/GovernanceHarness) | 7 |
+| **Subtotal** | **7** |
+
+> T184 DONE (Quality Dashboard + Governance Harness). **M24 COMPLETE** (T175-T184, 70 new tests).
+
 ## Grand total
 
-| **Total** | **1543** |
+| **Total** | **1613** |
 
 ## Per-module test counts (TASK-219)
 
