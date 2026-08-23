@@ -7,7 +7,7 @@
 | Tasks READY | 0 |
 | Tasks PLANNED | 57 |
 | Governance modules | 7 (+ unified gate) |
-| Automated gate tests | 2591 |
+| Automated gate tests | 2601 |
 | Architecture rules (ARCH-A..H + ARCH-001..004) | 17 |
 | Lifecycle states | 12 |
 
@@ -291,9 +291,20 @@ extended: `governance/architecture`, `runtime`, `security`, `devkit`+`cli`,
 > `aios/coder` (contract) integrating T001 (Evidence/Rule 5/6), T013 (Worker), T113 (Policy), ARCH (Guard).
 > T125 DONE (Coder Agent Contract + State Machine). Deterministic-first, fail-closed, provenance on every transition.
 
+## Per-module test counts (TASK-126, M19)
+
+| Module | Tests |
+|--------|-------|
+| coder/planner (CodingPlanner) | 4 |
+| coder/planner (PlanVerifier) | 4 |
+| coder/planner (architecture/provenance) | 1 |
+| **Subtotal** | **9** |
+
+> T126 DONE (Coding Planner + PlanVerifier). Deterministic-first (rule trước LLM, llm_call_count=0), fail-closed verify (T078), provenance (T001 Rule 5).
+
 ## Grand total
 
-| **Total** | **1186** |
+| **Total** | **1195** |
 
 ## Per-module test counts (TASK-219)
 

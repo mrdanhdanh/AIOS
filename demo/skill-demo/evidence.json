@@ -1,0 +1,62 @@
+{
+  "skill_id": "ui-ux-pro-max",
+  "skill_status": "enabled",
+  "execution_id": "exec-af17f5f9fd2e",
+  "sandbox_id": "sandbox-08d77cde",
+  "query": "SaaS analytics dashboard modern minimal",
+  "design_system": {
+    "category": "SaaS (General)",
+    "style": {
+      "id": "glassmorphism",
+      "name": "Glassmorphism",
+      "type": "General",
+      "effects": "Backdrop blur (10-20px), subtle border (1px solid rgba white 0.2), light reflection, Z-depth",
+      "keywords": "Frosted glass, transparent, blurred background, layered, vibrant background, light source, depth, multi-layer",
+      "best_for": "Modern SaaS, financial dashboards, high-end corporate, lifestyle apps, modal overlays, navigation",
+      "performance": "cost:low|drivers:none",
+      "accessibility": "risk:conditional|requires:contrast-text-4.5,keyboard,visible-focus,reduced-motion",
+      "light_mode": "supported",
+      "dark_mode": "supported"
+    },
+    "colors": {
+      "primary": "#2563EB",
+      "on_primary": "#FFFFFF",
+      "secondary": "#3B82F6",
+      "on_secondary": "#000000",
+      "accent": "#EA580C",
+      "on_accent": "#000000",
+      "background": "#F8FAFC",
+      "foreground": "#1E293B",
+      "card": "#FFFFFF",
+      "card_foreground": "#1E293B",
+      "muted": "#E9EFF8",
+      "muted_foreground": "#475569",
+      "border": "#E2E8F0",
+      "destructive": "#DC2626",
+      "on_destructive": "#FFFFFF",
+      "ring": "#2563EB",
+      "notes": "Trust blue + orange CTA contrast [Accent adjusted from #F97316]",
+      "cta": "#EA580C",
+      "text": "#1E293B",
+      "on_cta": "#000000"
+    },
+    "typography": {
+      "heading": "Plus Jakarta Sans",
+      "body": "Plus Jakarta Sans",
+      "mood": "friendly, modern, saas, clean, approachable, professional",
+      "best_for": "SaaS products, web apps, dashboards, B2B, productivity tools",
+      "google_fonts_url": "https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap",
+      "css_import": "@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap');"
+    },
+    "pattern": {
+      "name": "Hero + Features + CTA",
+      "sections": "Hero with headline/image > Value prop > Key features (3-5) > CTA section > Footer",
+      "cta_placement": "Hero (sticky) + Bottom",
+      "color_strategy": "Hero: Brand primary or vibrant. Features: Card bg #FAFAFA. CTA: Contrasting accent color",
+      "conversion": "Deep CTA placement. For CTA label text, verify at least 4.5:1 against the button fill; use 7:1 only when the product explicitly targets AAA normal-text contrast. Keep focus and component boundaries independently visible. Disable hero parallax under reduced motion and render its static final state."
+    },
+    "key_effects": "Backdrop blur (10-20px), subtle border (1px solid rgba white 0.2), light reflection, Z-depth",
+    "anti_patterns": "Excessive animation + Dark mode by default"
+  },
+  "html": "demo\\skill-demo\\index.html"
+}

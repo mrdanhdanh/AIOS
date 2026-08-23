@@ -16,10 +16,24 @@ from aios.coder.contract import (
     CodingTaskState,
     TransitionRecord,
 )
+from aios.coder.planner import (
+    CodingPlan,
+    CodingPlanner,
+    CodingStep,
+    PlanStatus,
+    PlanVerifier,
+    PlanVerifyError,
+)
 
 __all__ = [
     "CoderAgentContract",
     "CoderAgentStateMachine",
     "CodingTaskState",
     "TransitionRecord",
+    "CodingPlan",
+    "CodingPlanner",
+    "CodingStep",
+    "PlanStatus",
+    "PlanVerifier",
+    "PlanVerifyError",
 ]
