@@ -587,4 +587,15 @@ Append-only event log. Each entry: `ISO-UTC | task | event | detail`.
 2026-08-23T03:00:00Z | TASK-163 | DONE | Evidence Collector+Integrity (aios/verification/evidence_collector.py); 7 tests; Unified Gate PASS.
 2026-08-23T03:00:00Z | TASK-164 | DONE | Trust Evaluator+CodingCertificate+Verification Harness (aios/verification/trust_certificate.py); 7 tests; Unified Gate PASS; M22 CLOSED.
 2026-08-23T03:00:00Z | M22 | MILESTONE | Verification Harness (T155-T164) HOAN THANH; 70 tests moi (T155-T164), full suite 2878 passed, khong regression. M22 COMPLETE. ALL TASKS 155-164 DONE.
+2026-08-23T04:00:00Z | TASK-165 | DONE | Adversarial Evaluation Harness (aios/adversarial/adversarial_evaluation.py); 7 tests; Unified Gate PASS.
+2026-08-23T04:00:00Z | TASK-166 | DONE | Evidence Attackers (aios/adversarial/evidence_attackers.py); 7 tests; Unified Gate PASS.
+2026-08-23T04:00:00Z | TASK-167 | DONE | Test Weakness Attackers (aios/adversarial/test_weakness_attackers.py); 7 tests; Unified Gate PASS.
+2026-08-23T04:00:00Z | TASK-168 | DONE | Requirement/Scope Attackers (aios/adversarial/requirement_scope_attackers.py); 7 tests; Unified Gate PASS.
+2026-08-23T04:00:00Z | TASK-169 | DONE | Certificate Attackers (aios/adversarial/certificate_attackers.py); 7 tests; Unified Gate PASS.
+2026-08-23T04:00:00Z | TASK-170 | DONE | Prompt Injection Tester+Untrusted Artifact Isolation (aios/adversarial/prompt_injection.py); 7 tests; Unified Gate PASS.
+2026-08-23T04:00:00Z | TASK-171 | DONE | Execution Integrity Attackers (aios/adversarial/execution_integrity_attackers.py); 7 tests; Unified Gate PASS.
+2026-08-23T04:00:00Z | TASK-172 | DONE | Environment/Dependency Attackers (aios/adversarial/environment_dependency_attackers.py); 7 tests; Unified Gate PASS.
+2026-08-23T04:00:00Z | TASK-173 | DONE | Boundary Attackers (aios/adversarial/boundary_attackers.py); 7 tests; Unified Gate PASS.
+2026-08-23T04:00:00Z | TASK-174 | DONE | Collusion Detector+Resilience Score+Attack Corpus Regression (aios/adversarial/collusion_detector.py); 7 tests; Unified Gate PASS; M23 CLOSED.
+2026-08-23T04:00:00Z | M23 | MILESTONE | Adversarial Evaluation Harness (T165-T174) HOAN THANH; 70 tests moi (T165-T174), full suite 2948 passed, khong regression. M23 COMPLETE. ALL TASKS 165-174 DONE.
 ```

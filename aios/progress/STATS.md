@@ -3,12 +3,12 @@
 | Metric | Value |
 |--------|-------|
 | Total tasks (master spec) | 219 |
-| Tasks DONE | 165 |
+| Tasks DONE | 175 |
 | Tasks READY | 0 |
-| Tasks PLANNED | 55 |
+| Tasks PLANNED | 45 |
 | Tasks BLOCKED | 0 |
 | Governance modules | 7 (+ unified gate) |
-| Automated gate tests | 2878 passed (2026-08-23) |
+| Automated gate tests | 2948 passed (2026-08-23) |
 | Architecture rules (ARCH-A..H + ARCH-001..004) | 17 |
 | Lifecycle states | 12 |
 
@@ -607,9 +607,81 @@ extended: `governance/architecture`, `runtime`, `security`, `devkit`+`cli`,
 
 > T164 DONE (Trust Evaluator + CodingCertificate + Verification Harness). **M22 COMPLETE** (T155-T164, 70 new tests).
 
+## Per-module test counts (TASK-165, M23)
+
+| Module | Tests |
+|--------|-------|
+| adversarial/adversarial_evaluation (AdversarialEvaluationHarness) | 7 |
+| **Subtotal** | **7** |
+
+## Per-module test counts (TASK-166, M23)
+
+| Module | Tests |
+|--------|-------|
+| adversarial/evidence_attackers (EvidenceAttacker) | 7 |
+| **Subtotal** | **7** |
+
+## Per-module test counts (TASK-167, M23)
+
+| Module | Tests |
+|--------|-------|
+| adversarial/test_weakness_attackers (TestWeaknessAttacker) | 7 |
+| **Subtotal** | **7** |
+
+## Per-module test counts (TASK-168, M23)
+
+| Module | Tests |
+|--------|-------|
+| adversarial/requirement_scope_attackers (RequirementScopeAttacker) | 7 |
+| **Subtotal** | **7** |
+
+## Per-module test counts (TASK-169, M23)
+
+| Module | Tests |
+|--------|-------|
+| adversarial/certificate_attackers (CertificateAttacker) | 7 |
+| **Subtotal** | **7** |
+
+## Per-module test counts (TASK-170, M23)
+
+| Module | Tests |
+|--------|-------|
+| adversarial/prompt_injection (PromptInjectionTester/UntrustedArtifactIsolation) | 7 |
+| **Subtotal** | **7** |
+
+## Per-module test counts (TASK-171, M23)
+
+| Module | Tests |
+|--------|-------|
+| adversarial/execution_integrity_attackers (ExecutionIntegrityAttacker) | 7 |
+| **Subtotal** | **7** |
+
+## Per-module test counts (TASK-172, M23)
+
+| Module | Tests |
+|--------|-------|
+| adversarial/environment_dependency_attackers (EnvironmentDependencyAttacker) | 7 |
+| **Subtotal** | **7** |
+
+## Per-module test counts (TASK-173, M23)
+
+| Module | Tests |
+|--------|-------|
+| adversarial/boundary_attackers (BoundaryAttacker) | 7 |
+| **Subtotal** | **7** |
+
+## Per-module test counts (TASK-174, M23)
+
+| Module | Tests |
+|--------|-------|
+| adversarial/collusion_detector (CollusionDetector) | 7 |
+| **Subtotal** | **7** |
+
+> T174 DONE (Collusion Detector + Resilience Score + Attack Corpus Regression). **M23 COMPLETE** (T165-T174, 70 new tests).
+
 ## Grand total
 
-| **Total** | **1473** |
+| **Total** | **1543** |
 
 ## Per-module test counts (TASK-219)
 

@@ -183,16 +183,16 @@ Ordered task index and status. Status values: `PLANNED | SPECIFIED | ... | DONE 
 | TASK-163 | M22 | Evidence Collector + Evidence Integrity | TASK-155,TASK-141,TASK-078,TASK-001 | DONE |
 | TASK-164 | M22 | Trust Evaluator + CodingCertificate + Verification Harness | TASK-155,TASK-156,TASK-157,TASK-158,TASK-159,TASK-160,TASK-161,TASK-162,TASK-163,TASK-049,TASK-046,TASK-142 | DONE |
 
-| TASK-165 | M23 | Adversarial Evaluation Harness | TASK-164,TASK-029,TASK-031,TASK-001 | PLANNED |
-| TASK-166 | M23 | Evidence Attackers | TASK-165,TASK-163,TASK-078 | PLANNED |
-| TASK-167 | M23 | Test Weakness Attackers | TASK-165,TASK-156,TASK-142 | PLANNED |
-| TASK-168 | M23 | Requirement / Scope Attackers | TASK-165,TASK-155 | PLANNED |
-| TASK-169 | M23 | Certificate Attackers | TASK-165,TASK-164,TASK-049,TASK-046 | PLANNED |
-| TASK-170 | M23 | Prompt Injection Tester + Untrusted Artifact Isolation | TASK-165,TASK-040,TASK-113,TASK-136 | PLANNED |
-| TASK-171 | M23 | Execution Integrity Attackers | TASK-165,TASK-135,TASK-078,TASK-030,TASK-079 | PLANNED |
-| TASK-172 | M23 | Environment / Dependency Attackers | TASK-165,TASK-136,TASK-137,TASK-040 | PLANNED |
-| TASK-173 | M23 | Boundary Attackers | TASK-165,TASK-153,TASK-067,TASK-068 | PLANNED |
-| TASK-174 | M23 | Collusion Detector + Resilience Score + Attack Corpus Regression | TASK-165,TASK-166,TASK-167,TASK-168,TASK-169,TASK-170,TASK-171,TASK-172,TASK-173,TASK-033 | PLANNED |
+| TASK-165 | M23 | Adversarial Evaluation Harness | TASK-164,TASK-029,TASK-031,TASK-001 | DONE |
+| TASK-166 | M23 | Evidence Attackers | TASK-165,TASK-163,TASK-078 | DONE |
+| TASK-167 | M23 | Test Weakness Attackers | TASK-165,TASK-156,TASK-142 | DONE |
+| TASK-168 | M23 | Requirement / Scope Attackers | TASK-165,TASK-155 | DONE |
+| TASK-169 | M23 | Certificate Attackers | TASK-165,TASK-164,TASK-049,TASK-046 | DONE |
+| TASK-170 | M23 | Prompt Injection Tester + Untrusted Artifact Isolation | TASK-165,TASK-040,TASK-113,TASK-136 | DONE |
+| TASK-171 | M23 | Execution Integrity Attackers | TASK-165,TASK-135,TASK-078,TASK-030,TASK-079 | DONE |
+| TASK-172 | M23 | Environment / Dependency Attackers | TASK-165,TASK-136,TASK-137,TASK-040 | DONE |
+| TASK-173 | M23 | Boundary Attackers | TASK-165,TASK-153,TASK-067,TASK-068 | DONE |
+| TASK-174 | M23 | Collusion Detector + Resilience Score + Attack Corpus Regression | TASK-165,TASK-166,TASK-167,TASK-168,TASK-169,TASK-170,TASK-171,TASK-172,TASK-173,TASK-033 | DONE |
 
 | TASK-175 | M24 | Quality Gate + Gate States | TASK-164,TASK-151,TASK-001 | PLANNED |
 | TASK-176 | M24 | Risk Model + Classification | TASK-175,TASK-164 | PLANNED |

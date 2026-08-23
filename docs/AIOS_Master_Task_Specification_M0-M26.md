@@ -3326,7 +3326,7 @@ Triển khai trust evaluator + codingcertificate + verification harness như m�
 
 ## TASK-165 — Adversarial Evaluation Harness
 
-> **Trạng thái thực tế (2026-08-23):** PLANNED — chưa triển khai.
+> **Trạng thái thực tế (2026-08-23):** DONE — `aios/adversarial/adversarial_evaluation.py` (AdversarialEvaluationHarness); **7 automated tests**; fail-closed PASS (Unified Gate AND 7 rules).
 
 **Mục tiêu**  
 Triển khai adversarial evaluation harness như một năng lực có contract, evidence và harness riêng.
@@ -3345,7 +3345,7 @@ Triển khai adversarial evaluation harness như một năng lực có contract,
 
 ## TASK-166 — Evidence Attackers
 
-> **Trạng thái thực tế (2026-08-23):** PLANNED — chưa triển khai.
+> **Trạng thái thực tế (2026-08-23):** DONE — `aios/adversarial/evidence_attackers.py` (EvidenceAttacker); **7 automated tests**; fail-closed PASS (Unified Gate AND 7 rules).
 
 **Mục tiêu**  
 Triển khai evidence attackers như một năng lực có contract, evidence và harness riêng.
@@ -3364,7 +3364,7 @@ Triển khai evidence attackers như một năng lực có contract, evidence v�
 
 ## TASK-167 — Test Weakness Attackers
 
-> **Trạng thái thực tế (2026-08-23):** PLANNED — chưa triển khai.
+> **Trạng thái thực tế (2026-08-23):** DONE — `aios/adversarial/test_weakness_attackers.py` (TestWeaknessAttacker); **7 automated tests**; fail-closed PASS (Unified Gate AND 7 rules).
 
 **Mục tiêu**  
 Triển khai test weakness attackers như một năng lực có contract, evidence và harness riêng.
@@ -3383,7 +3383,7 @@ Triển khai test weakness attackers như một năng lực có contract, eviden
 
 ## TASK-168 — Requirement / Scope Attackers
 
-> **Trạng thái thực tế (2026-08-23):** PLANNED — chưa triển khai.
+> **Trạng thái thực tế (2026-08-23):** DONE — `aios/adversarial/requirement_scope_attackers.py` (RequirementScopeAttacker); **7 automated tests**; fail-closed PASS (Unified Gate AND 7 rules).
 
 **Mục tiêu**  
 Triển khai requirement / scope attackers như một năng lực có contract, evidence và harness riêng.
@@ -3402,7 +3402,7 @@ Triển khai requirement / scope attackers như một năng lực có contract, 
 
 ## TASK-169 — Certificate Attackers
 
-> **Trạng thái thực tế (2026-08-23):** PLANNED — chưa triển khai.
+> **Trạng thái thực tế (2026-08-23):** DONE — `aios/adversarial/certificate_attackers.py` (CertificateAttacker); **7 automated tests**; fail-closed PASS (Unified Gate AND 7 rules).
 
 **Mục tiêu**  
 Triển khai certificate attackers như một năng lực có contract, evidence và harness riêng.
@@ -3421,7 +3421,7 @@ Triển khai certificate attackers như một năng lực có contract, evidence
 
 ## TASK-170 — Prompt Injection Tester + Untrusted Artifact Isolation
 
-> **Trạng thái thực tế (2026-08-23):** PLANNED — chưa triển khai.
+> **Trạng thái thực tế (2026-08-23):** DONE — `aios/adversarial/prompt_injection.py` (PromptInjectionTester/UntrustedArtifactIsolation); **7 automated tests**; fail-closed PASS (Unified Gate AND 7 rules).
 
 **Mục tiêu**  
 Triển khai prompt injection tester + untrusted artifact isolation như một năng lực có contract, evidence và harness riêng.
@@ -3440,7 +3440,7 @@ Triển khai prompt injection tester + untrusted artifact isolation như một n
 
 ## TASK-171 — Execution Integrity Attackers
 
-> **Trạng thái thực tế (2026-08-23):** PLANNED — chưa triển khai.
+> **Trạng thái thực tế (2026-08-23):** DONE — `aios/adversarial/execution_integrity_attackers.py` (ExecutionIntegrityAttacker); **7 automated tests**; fail-closed PASS (Unified Gate AND 7 rules).
 
 **Mục tiêu**  
 Triển khai execution integrity attackers như một năng lực có contract, evidence và harness riêng.
@@ -3459,7 +3459,7 @@ Triển khai execution integrity attackers như một năng lực có contract, 
 
 ## TASK-172 — Environment / Dependency Attackers
 
-> **Trạng thái thực tế (2026-08-23):** PLANNED — chưa triển khai.
+> **Trạng thái thực tế (2026-08-23):** DONE — `aios/adversarial/environment_dependency_attackers.py` (EnvironmentDependencyAttacker); **7 automated tests**; fail-closed PASS (Unified Gate AND 7 rules).
 
 **Mục tiêu**  
 Triển khai environment / dependency attackers như một năng lực có contract, evidence và harness riêng.
@@ -3478,7 +3478,7 @@ Triển khai environment / dependency attackers như một năng lực có contr
 
 ## TASK-173 — Boundary Attackers
 
-> **Trạng thái thực tế (2026-08-23):** PLANNED — chưa triển khai.
+> **Trạng thái thực tế (2026-08-23):** DONE — `aios/adversarial/boundary_attackers.py` (BoundaryAttacker); **7 automated tests**; fail-closed PASS (Unified Gate AND 7 rules).
 
 **Mục tiêu**  
 Triển khai boundary attackers như một năng lực có contract, evidence và harness riêng.
@@ -3497,7 +3497,7 @@ Triển khai boundary attackers như một năng lực có contract, evidence v�
 
 ## TASK-174 — Collusion Detector + Resilience Score + Attack Corpus Regression
 
-> **Trạng thái thực tế (2026-08-23):** PLANNED — chưa triển khai.
+> **Trạng thái thực tế (2026-08-23):** DONE — `aios/adversarial/collusion_detector.py` (CollusionDetector); **7 automated tests**; fail-closed PASS (Unified Gate AND 7 rules).
 
 **Mục tiêu**  
 Triển khai collusion detector + resilience score + attack corpus regression như một năng lực có contract, evidence và harness riêng.
