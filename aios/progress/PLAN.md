@@ -130,14 +130,14 @@ Ordered task index and status. Status values: `PLANNED | SPECIFIED | ... | DONE 
 | TASK-115 | M17 | Usage / Cost / Audit / Evidence | TASK-114 | DONE |
 | TASK-116 | M17 | Provider Conformance + Certification | TASK-115 | DONE |
 
-| TASK-117 | M18 | Repository Scanner | TASK-116 | PLANNED |
-| TASK-118 | M18 | Source / Symbol Index | TASK-117 | PLANNED |
-| TASK-119 | M18 | Dependency Graph | TASK-118 | PLANNED |
-| TASK-120 | M18 | Semantic + Hybrid Index | TASK-119 | PLANNED |
-| TASK-121 | M18 | Context Retriever | TASK-120 | PLANNED |
-| TASK-122 | M18 | Context Builder + Budget | TASK-121 | PLANNED |
-| TASK-123 | M18 | Context Verification + Evidence | TASK-122 | PLANNED |
-| TASK-124 | M18 | Context Harness + Conformance | TASK-123 | PLANNED |
+| TASK-117 | M18 | Repository Scanner | TASK-116 | DONE |
+| TASK-118 | M18 | Source / Symbol Index | TASK-117 | DONE |
+| TASK-119 | M18 | Dependency Graph | TASK-118 | DONE |
+| TASK-120 | M18 | Semantic + Hybrid Index | TASK-119 | DONE |
+| TASK-121 | M18 | Context Retriever | TASK-120 | DONE |
+| TASK-122 | M18 | Context Builder + Budget | TASK-121 | DONE |
+| TASK-123 | M18 | Context Verification + Evidence | TASK-122 | DONE |
+| TASK-124 | M18 | Context Harness + Conformance | TASK-123 | DONE |
 
 | TASK-125 | M19 | Coder Agent Contract + State Machine | TASK-124 | PLANNED |
 | TASK-126 | M19 | Coding Planner + PlanVerifier | TASK-125 | PLANNED |

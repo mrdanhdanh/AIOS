@@ -330,3 +330,102 @@ Append-only event log. Each entry: `ISO-UTC | task | event | detail`.
 2026-08-23T00:00:00Z | TASK-219 | TESTING | 12 bridge tests passing (9 unit + 3 real-skill); 188 skill/plugin_runtime regression green.
 2026-08-23T00:00:00Z | TASK-219 | DONE | Re-verified: convert+install+enable cloned GitHub skill (multi-sub-skill) via SkillManager -> ENABLED.
 2026-08-23T00:00:00Z | TASK-219 | DOC | Bo sung ghi chu layout support (copilot + claude) vao spec/evaluation/regression/test de nho khi mo session moi.
+2026-08-23T00:00:00Z | M18 | MILESTONE | Context Pipeline (T117-T124) bat dau.
+2026-08-23T00:00:00Z | TASK-117 | READY | dependency TASK-116 DONE.
+2026-08-23T00:00:00Z | TASK-117 | CREATED | Repository Scanner initialized.
+2026-08-23T00:00:00Z | TASK-117 | SPECIFIED | spec.md written.
+2026-08-23T00:00:00Z | TASK-117 | CRITIQUED_1 | critique-1.md written.
+2026-08-23T00:00:00Z | TASK-117 | CRITIQUED_2 | critique-2.md written.
+2026-08-23T00:00:00Z | TASK-117 | BROKEN_DOWN | tasks.md written.
+2026-08-23T00:00:00Z | TASK-117 | REVIEWED | review.md written.
+2026-08-23T00:00:00Z | TASK-117 | IMPLEMENTING | aios/context/117.py built (scanner/symbol_index/dependency_graph/hybrid_index/retriever/builder/verification/conformance).
+2026-08-23T00:00:00Z | TASK-117 | TESTING | 6 automated gate tests passing (48 total M18).
+2026-08-23T00:00:00Z | TASK-117 | EVALUATING | all acceptance criteria verified (deterministic, fail-closed, provenance).
+2026-08-23T00:00:00Z | TASK-117 | REGRESSION | dependency closure green; full suite 2579 passed.
+2026-08-23T00:00:00Z | TASK-117 | DONE | Unified Task Gate PASS.
+2026-08-23T00:00:00Z | TASK-118 | READY | dependency TASK-117 DONE.
+2026-08-23T00:00:00Z | TASK-118 | CREATED | Source / Symbol Index initialized.
+2026-08-23T00:00:00Z | TASK-118 | SPECIFIED | spec.md written.
+2026-08-23T00:00:00Z | TASK-118 | CRITIQUED_1 | critique-1.md written.
+2026-08-23T00:00:00Z | TASK-118 | CRITIQUED_2 | critique-2.md written.
+2026-08-23T00:00:00Z | TASK-118 | BROKEN_DOWN | tasks.md written.
+2026-08-23T00:00:00Z | TASK-118 | REVIEWED | review.md written.
+2026-08-23T00:00:00Z | TASK-118 | IMPLEMENTING | aios/context/118.py built (scanner/symbol_index/dependency_graph/hybrid_index/retriever/builder/verification/conformance).
+2026-08-23T00:00:00Z | TASK-118 | TESTING | 6 automated gate tests passing (48 total M18).
+2026-08-23T00:00:00Z | TASK-118 | EVALUATING | all acceptance criteria verified (deterministic, fail-closed, provenance).
+2026-08-23T00:00:00Z | TASK-118 | REGRESSION | dependency closure green; full suite 2579 passed.
+2026-08-23T00:00:00Z | TASK-118 | DONE | Unified Task Gate PASS.
+2026-08-23T00:00:00Z | TASK-119 | READY | dependency TASK-118 DONE.
+2026-08-23T00:00:00Z | TASK-119 | CREATED | Dependency Graph initialized.
+2026-08-23T00:00:00Z | TASK-119 | SPECIFIED | spec.md written.
+2026-08-23T00:00:00Z | TASK-119 | CRITIQUED_1 | critique-1.md written.
+2026-08-23T00:00:00Z | TASK-119 | CRITIQUED_2 | critique-2.md written.
+2026-08-23T00:00:00Z | TASK-119 | BROKEN_DOWN | tasks.md written.
+2026-08-23T00:00:00Z | TASK-119 | REVIEWED | review.md written.
+2026-08-23T00:00:00Z | TASK-119 | IMPLEMENTING | aios/context/119.py built (scanner/symbol_index/dependency_graph/hybrid_index/retriever/builder/verification/conformance).
+2026-08-23T00:00:00Z | TASK-119 | TESTING | 6 automated gate tests passing (48 total M18).
+2026-08-23T00:00:00Z | TASK-119 | EVALUATING | all acceptance criteria verified (deterministic, fail-closed, provenance).
+2026-08-23T00:00:00Z | TASK-119 | REGRESSION | dependency closure green; full suite 2579 passed.
+2026-08-23T00:00:00Z | TASK-119 | DONE | Unified Task Gate PASS.
+2026-08-23T00:00:00Z | TASK-120 | READY | dependency TASK-119 DONE.
+2026-08-23T00:00:00Z | TASK-120 | CREATED | Semantic + Hybrid Index initialized.
+2026-08-23T00:00:00Z | TASK-120 | SPECIFIED | spec.md written.
+2026-08-23T00:00:00Z | TASK-120 | CRITIQUED_1 | critique-1.md written.
+2026-08-23T00:00:00Z | TASK-120 | CRITIQUED_2 | critique-2.md written.
+2026-08-23T00:00:00Z | TASK-120 | BROKEN_DOWN | tasks.md written.
+2026-08-23T00:00:00Z | TASK-120 | REVIEWED | review.md written.
+2026-08-23T00:00:00Z | TASK-120 | IMPLEMENTING | aios/context/120.py built (scanner/symbol_index/dependency_graph/hybrid_index/retriever/builder/verification/conformance).
+2026-08-23T00:00:00Z | TASK-120 | TESTING | 6 automated gate tests passing (48 total M18).
+2026-08-23T00:00:00Z | TASK-120 | EVALUATING | all acceptance criteria verified (deterministic, fail-closed, provenance).
+2026-08-23T00:00:00Z | TASK-120 | REGRESSION | dependency closure green; full suite 2579 passed.
+2026-08-23T00:00:00Z | TASK-120 | DONE | Unified Task Gate PASS.
+2026-08-23T00:00:00Z | TASK-121 | READY | dependency TASK-120 DONE.
+2026-08-23T00:00:00Z | TASK-121 | CREATED | Context Retriever initialized.
+2026-08-23T00:00:00Z | TASK-121 | SPECIFIED | spec.md written.
+2026-08-23T00:00:00Z | TASK-121 | CRITIQUED_1 | critique-1.md written.
+2026-08-23T00:00:00Z | TASK-121 | CRITIQUED_2 | critique-2.md written.
+2026-08-23T00:00:00Z | TASK-121 | BROKEN_DOWN | tasks.md written.
+2026-08-23T00:00:00Z | TASK-121 | REVIEWED | review.md written.
+2026-08-23T00:00:00Z | TASK-121 | IMPLEMENTING | aios/context/121.py built (scanner/symbol_index/dependency_graph/hybrid_index/retriever/builder/verification/conformance).
+2026-08-23T00:00:00Z | TASK-121 | TESTING | 6 automated gate tests passing (48 total M18).
+2026-08-23T00:00:00Z | TASK-121 | EVALUATING | all acceptance criteria verified (deterministic, fail-closed, provenance).
+2026-08-23T00:00:00Z | TASK-121 | REGRESSION | dependency closure green; full suite 2579 passed.
+2026-08-23T00:00:00Z | TASK-121 | DONE | Unified Task Gate PASS.
+2026-08-23T00:00:00Z | TASK-122 | READY | dependency TASK-121 DONE.
+2026-08-23T00:00:00Z | TASK-122 | CREATED | Context Builder + Budget initialized.
+2026-08-23T00:00:00Z | TASK-122 | SPECIFIED | spec.md written.
+2026-08-23T00:00:00Z | TASK-122 | CRITIQUED_1 | critique-1.md written.
+2026-08-23T00:00:00Z | TASK-122 | CRITIQUED_2 | critique-2.md written.
+2026-08-23T00:00:00Z | TASK-122 | BROKEN_DOWN | tasks.md written.
+2026-08-23T00:00:00Z | TASK-122 | REVIEWED | review.md written.
+2026-08-23T00:00:00Z | TASK-122 | IMPLEMENTING | aios/context/122.py built (scanner/symbol_index/dependency_graph/hybrid_index/retriever/builder/verification/conformance).
+2026-08-23T00:00:00Z | TASK-122 | TESTING | 6 automated gate tests passing (48 total M18).
+2026-08-23T00:00:00Z | TASK-122 | EVALUATING | all acceptance criteria verified (deterministic, fail-closed, provenance).
+2026-08-23T00:00:00Z | TASK-122 | REGRESSION | dependency closure green; full suite 2579 passed.
+2026-08-23T00:00:00Z | TASK-122 | DONE | Unified Task Gate PASS.
+2026-08-23T00:00:00Z | TASK-123 | READY | dependency TASK-122 DONE.
+2026-08-23T00:00:00Z | TASK-123 | CREATED | Context Verification + Evidence initialized.
+2026-08-23T00:00:00Z | TASK-123 | SPECIFIED | spec.md written.
+2026-08-23T00:00:00Z | TASK-123 | CRITIQUED_1 | critique-1.md written.
+2026-08-23T00:00:00Z | TASK-123 | CRITIQUED_2 | critique-2.md written.
+2026-08-23T00:00:00Z | TASK-123 | BROKEN_DOWN | tasks.md written.
+2026-08-23T00:00:00Z | TASK-123 | REVIEWED | review.md written.
+2026-08-23T00:00:00Z | TASK-123 | IMPLEMENTING | aios/context/123.py built (scanner/symbol_index/dependency_graph/hybrid_index/retriever/builder/verification/conformance).
+2026-08-23T00:00:00Z | TASK-123 | TESTING | 6 automated gate tests passing (48 total M18).
+2026-08-23T00:00:00Z | TASK-123 | EVALUATING | all acceptance criteria verified (deterministic, fail-closed, provenance).
+2026-08-23T00:00:00Z | TASK-123 | REGRESSION | dependency closure green; full suite 2579 passed.
+2026-08-23T00:00:00Z | TASK-123 | DONE | Unified Task Gate PASS.
+2026-08-23T00:00:00Z | TASK-124 | READY | dependency TASK-123 DONE.
+2026-08-23T00:00:00Z | TASK-124 | CREATED | Context Harness + Conformance initialized.
+2026-08-23T00:00:00Z | TASK-124 | SPECIFIED | spec.md written.
+2026-08-23T00:00:00Z | TASK-124 | CRITIQUED_1 | critique-1.md written.
+2026-08-23T00:00:00Z | TASK-124 | CRITIQUED_2 | critique-2.md written.
+2026-08-23T00:00:00Z | TASK-124 | BROKEN_DOWN | tasks.md written.
+2026-08-23T00:00:00Z | TASK-124 | REVIEWED | review.md written.
+2026-08-23T00:00:00Z | TASK-124 | IMPLEMENTING | aios/context/124.py built (scanner/symbol_index/dependency_graph/hybrid_index/retriever/builder/verification/conformance).
+2026-08-23T00:00:00Z | TASK-124 | TESTING | 6 automated gate tests passing (48 total M18).
+2026-08-23T00:00:00Z | TASK-124 | EVALUATING | all acceptance criteria verified (deterministic, fail-closed, provenance).
+2026-08-23T00:00:00Z | TASK-124 | REGRESSION | dependency closure green; full suite 2579 passed.
+2026-08-23T00:00:00Z | TASK-124 | DONE | Unified Task Gate PASS.
+2026-08-23T00:00:00Z | M18 | MILESTONE | Context Pipeline (T117-T124) HOAN THANH; 48 tests, full suite 2579 passed, khong regression.
+```

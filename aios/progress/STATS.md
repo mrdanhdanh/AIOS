@@ -3,11 +3,11 @@
 | Metric | Value |
 |--------|-------|
 | Total tasks (master spec) | 183 |
-| Tasks DONE | 117 |
+| Tasks DONE | 125 |
 | Tasks READY | 0 |
-| Tasks PLANNED | 65 |
+| Tasks PLANNED | 57 |
 | Governance modules | 7 (+ unified gate) |
-| Automated gate tests | 2537 |
+| Automated gate tests | 2579 |
 | Architecture rules (ARCH-A..H + ARCH-001..004) | 17 |
 | Lifecycle states | 12 |
 
@@ -258,6 +258,25 @@ extended: `governance/architecture`, `runtime`, `security`, `devkit`+`cli`,
 > integrating T001 (Evidence), T025 (Health), T035 (Identity/RBAC), T040 (Credential),
 > T049 (Certification), T078 (Integrity), T039 (Quota). T109-T116 all DONE (Model Runtime).
 > Vendor-neutral, deterministic-first, fail-closed; no LLM in resolver/orchestration.
+
+## Per-module test counts (TASK-117..124, M18)
+
+| Module | Tests |
+|--------|-------|
+| context/scanner (T117) | 6 |
+| context/symbol_index (T118) | 6 |
+| context/dependency_graph (T119) | 6 |
+| context/hybrid_index (T120) | 6 |
+| context/retriever (T121) | 6 |
+| context/builder (T122) | 6 |
+| context/verification (T123) | 6 |
+| context/conformance (T124) | 6 |
+| **Subtotal** | **48** |
+
+> M18 added **48** net-new automated tests (full suite → 2579). New package:
+> `aios/context` (scanner/symbol_index/dependency_graph/hybrid_index/retriever/builder/verification/conformance)
+> integrating T001 (Evidence), T078 (Integrity), T040/T113 (Security), T024 (Context Optimizer).
+> T117-T124 all DONE (Context Pipeline). Deterministic-first, fail-closed, no LLM in any stage.
 
 ## Grand total
 
