@@ -24,6 +24,14 @@ from aios.coder.planner import (
     PlanVerifier,
     PlanVerifyError,
 )
+from aios.coder.generation import (
+    CapabilityDispatcher,
+    CodeGenerationRuntime,
+    GeneratedArtifact,
+    GenerationError,
+    GenerationRun,
+    GenerationStatus,
+)
 
 __all__ = [
     "CoderAgentContract",
@@ -36,4 +44,10 @@ __all__ = [
     "PlanStatus",
     "PlanVerifier",
     "PlanVerifyError",
+    "CapabilityDispatcher",
+    "CodeGenerationRuntime",
+    "GeneratedArtifact",
+    "GenerationError",
+    "GenerationRun",
+    "GenerationStatus",
 ]

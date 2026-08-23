@@ -7,7 +7,7 @@
 | Tasks READY | 0 |
 | Tasks PLANNED | 57 |
 | Governance modules | 7 (+ unified gate) |
-| Automated gate tests | 2601 |
+| Automated gate tests | 2608 |
 | Architecture rules (ARCH-A..H + ARCH-001..004) | 17 |
 | Lifecycle states | 12 |
 
@@ -302,9 +302,20 @@ extended: `governance/architecture`, `runtime`, `security`, `devkit`+`cli`,
 
 > T126 DONE (Coding Planner + PlanVerifier). Deterministic-first (rule trước LLM, llm_call_count=0), fail-closed verify (T078), provenance (T001 Rule 5).
 
+## Per-module test counts (TASK-127, M19)
+
+| Module | Tests |
+|--------|-------|
+| coder/generation (CodeGenerationRuntime) | 4 |
+| coder/generation (fail-closed/deterministic) | 2 |
+| coder/generation (architecture/capability) | 1 |
+| **Subtotal** | **7** |
+
+> T127 DONE (Code Generation Runtime). Capability dispatch (ARCH-004), artifact hash (T078), provenance (T001 Rule 5), deterministic + fail-closed.
+
 ## Grand total
 
-| **Total** | **1195** |
+| **Total** | **1202** |
 
 ## Per-module test counts (TASK-219)
 
