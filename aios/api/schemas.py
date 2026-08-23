@@ -77,6 +77,32 @@ class SystemInfoResponse(BaseModel):
     kernel_stats: Dict[str, Any] = Field(default_factory=dict)
 
 
+# ── Coordinator (TASK-221) ───────────────────────────────────────────
+
+class CoordinatorStep(BaseModel):
+    name: str
+    status: str
+    detail: str
+
+
+class CoordinatorRunRequest(BaseModel):
+    task_id: str = Field(min_length=1)
+    objective: str = Field(min_length=1)
+    scope: str = ""
+    deliverables: List[str] = Field(default_factory=list)
+    acceptance: List[str] = Field(default_factory=list)
+    dependencies: List[str] = Field(default_factory=list)
+
+
+class CoordinatorRunResponse(BaseModel):
+    task_id: str
+    approved: bool
+    closed: bool
+    artifacts: List[str] = Field(default_factory=list)
+    steps: List[CoordinatorStep] = Field(default_factory=list)
+    version: str = Field(default=API_VERSION)
+
+
 # ── Execution ────────────────────────────────────────────────────────
 
 class ExecutionCreateRequest(BaseModel):

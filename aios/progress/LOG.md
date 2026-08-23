@@ -14,6 +14,17 @@ Append-only event log. Each entry: `ISO-UTC | task | event | detail`.
 2026-08-24T00:00:00Z | TASK-220 | EVALUATING | all 8 AC PASS (pure/fail-closed/deterministic/chat-agent/regression).
 2026-08-24T00:00:00Z | TASK-220 | REGRESSION | full suite 3141 passed, 3 skipped; closure green.
 2026-08-24T00:00:00Z | TASK-220 | DONE | Unified Task Gate PASS (local CI). 3141 tests green.
+2026-08-24T00:00:00Z | TASK-221 | CREATED | Coordinator Chat API Endpoint initialized.
+2026-08-24T00:00:00Z | TASK-221 | SPECIFIED | spec.md written.
+2026-08-24T00:00:00Z | TASK-221 | CRITIQUED_1 | critique-1.md written (REVISE).
+2026-08-24T00:00:00Z | TASK-221 | CRITIQUED_2 | critique-2.md written (APPROVE).
+2026-08-24T00:00:00Z | TASK-221 | BROKEN_DOWN | tasks.md written.
+2026-08-24T00:00:00Z | TASK-221 | REVIEWED | review.md written (APPROVED).
+2026-08-24T00:00:00Z | TASK-221 | IMPLEMENTING | aios/api/routers/coordinator.py + schemas + app include.
+2026-08-24T00:00:00Z | TASK-221 | TESTING | aios/api/tests/test_coordinator_router.py 4 passed; architecture gate clean.
+2026-08-24T00:00:00Z | TASK-221 | EVALUATING | all 6 AC PASS.
+2026-08-24T00:00:00Z | TASK-221 | REGRESSION | full suite 3145 passed; closure green.
+2026-08-24T00:00:00Z | TASK-221 | DONE | Unified Task Gate PASS (local CI). 3145 tests green.
 
 2026-08-19T00:00:00Z | TASK-001 | CREATED | Task Governance System initialized.
 2026-08-19T00:00:00Z | TASK-001 | SPECIFIED | spec.md written.
