@@ -15,8 +15,12 @@ fail-closed (any missing mandatory artifact rejects the run before closing).
 
 from __future__ import annotations
 
+import re
 from dataclasses import dataclass, field
 from typing import Dict, List, Protocol
+
+# Marker that activates the runtime-utilization gate (anti-TASK-222 loophole).
+from aios.governance.runtime_utilization.checker import MARKER as _DEMONSTRATES_RE
 
 
 class SpecWriterLike(Protocol):
@@ -79,13 +83,18 @@ class CoordinatorAgent:
         critic: CriticLike,
         reviewer: ReviewerLike,
         orchestrator: OrchestratorLike,
+        runtime_utilization_check=None,
     ) -> None:
         self._spec_writer = spec_writer
         self._critic = critic
         self._reviewer = reviewer
         self._orchestrator = orchestrator
+        # Injected (capability-injection, ARCH-004). Defaults to the real
+        # runtime-utilization gate so a "Demonstrates-AIOS" task cannot be
+        # closed unless AIOS is genuinely exercised (closes the TASK-222 loophole).
+        self._runtime_utilization_check = runtime_utilization_check
 
-    def coordinate(self, task_id: str, spec_input) -> CoordinationResult:
+    def coordinate(self, task_id: str, spec_input, task_dir: str | None = None) -> CoordinationResult:
         """Run the full coordination pipeline for ``task_id``.
 
         Fail-closed: if the review rejects the artifact set, the task is NOT
@@ -132,6 +141,25 @@ class CoordinatorAgent:
         result.steps.append(
             CoordinationStep("review", "OK", "; ".join(getattr(review, "notes", [])))
         )
+
+        # 4.5) Runtime-utilization enforcement (anti-loophole, fail-closed).
+        # A task whose spec declares "Demonstrates-AIOS: true" MUST actually
+        # exercise AIOS; otherwise it is rejected before closing — this is the
+        # concrete fix for the TASK-222 "wrapped but unused" failure mode.
+        demonstrates = bool(_DEMONSTRATES_RE.search(spec_text))
+        if demonstrates:
+            task_dir = task_dir or f"aios/progress/tasks/{task_id}"
+            ru = self._runtime_utilization_check(task_dir) if self._runtime_utilization_check else None
+            if ru is None or not getattr(ru, "passed", False):
+                detail = getattr(ru, "detail", "runtime_utilization check unavailable")
+                result.steps.append(
+                    CoordinationStep("runtime_utilization", "FAILED", detail)
+                )
+                result.closed = False
+                return result
+            result.steps.append(
+                CoordinationStep("runtime_utilization", "OK", getattr(ru, "detail", ""))
+            )
 
         # 5) Orchestrate / close (only when gate + lifecycle allow)
         closed = bool(self._orchestrator.close_if_gate_passes(task_id))

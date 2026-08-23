@@ -44,6 +44,27 @@ AND Evidence AND Test/Evaluate AND Regression
 
 > **Quy tắc 8 — Auto-COMMIT (scheduled TASK):** mọi TASK đã lên lịch trong `docs/AIOS_Master_Task_Specification_M0-M26.md` khi đạt `DONE` phải `COMMIT` source **ngay trong cùng phiên** — không để working tree bẩn sang task sau. Cập nhật `PLAN.md`/`LOG.md`/`STATS.md` trước khi commit; message chuẩn `TASK-xxx: <title> — DONE`.
 
+## 3b. `Demonstrates-AIOS` marker (anti-loophole gate)
+
+A task whose `spec.md` contains the front-matter line
+
+```
+Demonstrates-AIOS: true
+```
+
+activates the **`runtime_utilization`** gate (fail-closed). When active, the
+task's `implementation/` MUST contain real AIOS usage (`from aios...` /
+`DeterministicControlPath` / `CapabilityRegistry` / `ArchitectureGuard` /
+`VerificationResult` / `EvidencePackage` / any `aios.<layer>`) **and** a valid
+`build_evidence.json` produced by an `aios.*` tool (carrying `producer` +
+`content_hash`).
+
+This closes the TASK-222 loophole, where a static deliverable was wrapped in
+governance artifacts but never actually ran through AIOS. Tasks without the
+marker are unaffected (the check is skipped). The `CoordinatorAgent` also
+enforces this at coordination time: a `Demonstrates-AIOS` task cannot be closed
+unless the gate passes.
+
 ## 4. Progress index
 
 - `PLAN.md` — ordered task list with status.

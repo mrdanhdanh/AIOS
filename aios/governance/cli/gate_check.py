@@ -31,6 +31,7 @@ from aios.ci.checker import run_ci_check
 from aios.governance.architecture import ArchitectureGuard
 from aios.governance.gates import GateComponent, UnifiedTaskGate
 from aios.governance.lifecycle import LIFECYCLE_ORDER, STATE_ARTIFACTS
+from aios.governance.runtime_utilization import check as _runtime_utilization_check
 
 PROGRESS_ROOT = os.path.join("aios", "progress", "tasks")
 
@@ -115,6 +116,9 @@ def main(argv: List[str] | None = None) -> int:
     gate = UnifiedTaskGate()
     gate.register("lifecycle", lambda c: _check_lifecycle_artifacts(task_dir))
     gate.register("architecture", lambda c: _check_architecture(task_dir))
+    # Runtime-utilization gate: a task that claims to demonstrate AIOS MUST
+    # actually exercise it (closes the TASK-222 loophole). Fail-closed.
+    gate.register("runtime_utilization", lambda c: _runtime_utilization_check(task_dir))
     # The remaining five gates are owned by the governance package test suite;
     # here we assert the two that are directly observable from a task folder.
     gate.register("registry", lambda c: GateComponent("registry", True, "id unique (enforced at parse)"))

@@ -36,6 +36,18 @@ Append-only event log. Each entry: `ISO-UTC | task | event | detail`.
 2026-08-24T00:00:00Z | TASK-222 | EVALUATING | all 6 AC PASS.
 2026-08-24T00:00:00Z | TASK-222 | REGRESSION | full suite 3150 passed; closure green.
 2026-08-24T00:00:00Z | TASK-222 | DONE | Unified Task Gate PASS (local CI). 3150 tests green.
+2026-08-24T00:00:00Z | TASK-222 | ENHANCE | Applied ui-ux-pro-max skill: design-system 3-layer tokens, Japanese palette, dark mode, a11y; +theme toggle; 7 pytest pass; gate PASS (3152/3155).
+2026-08-24T00:00:00Z | TASK-223 | CREATED | N5 Site built THROUGH AIOS + runtime_utilization gate (closes TASK-222 loophole).
+2026-08-24T00:00:00Z | TASK-223 | SPECIFIED | spec.md written with `Demonstrates-AIOS: true` marker.
+2026-08-24T00:00:00Z | TASK-223 | CRITIQUED_1 | critique-1.md written (ACCEPT WITH CONDITIONS: wire gate, guard DOM, evidence).
+2026-08-24T00:00:00Z | TASK-223 | CRITIQUED_2 | critique-2.md written (ACCEPT).
+2026-08-24T00:00:00Z | TASK-223 | BROKEN_DOWN | tasks.md written (8-step breakdown).
+2026-08-24T00:00:00Z | TASK-223 | REVIEWED | review.md written (APPROVED).
+2026-08-24T00:00:00Z | TASK-223 | IMPLEMENTING | aios/tool/website/n5_builder.py (AIOS tool) + aios/governance/runtime_utilization/ + implementation/ (generated site + Node harness + pytest).
+2026-08-24T00:00:00Z | TASK-223 | TESTING | test_t223_aios_website.py 2 passed; node harness_n5.js HARNESS PASSED.
+2026-08-24T00:00:00Z | TASK-223 | EVALUATING | all 5 AC PASS; runtime_utilization gate PASS (AIOS exercised).
+2026-08-24T00:00:00Z | TASK-223 | REGRESSION | full suite 3154 passed; closure green.
+2026-08-24T00:00:00Z | TASK-223 | DONE | Unified Task Gate PASS (incl. runtime_utilization). 3154 tests green.
 
 2026-08-19T00:00:00Z | TASK-001 | CREATED | Task Governance System initialized.
 2026-08-19T00:00:00Z | TASK-001 | SPECIFIED | spec.md written.

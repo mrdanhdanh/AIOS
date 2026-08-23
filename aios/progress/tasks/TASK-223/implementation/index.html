@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="vi" data-theme="light">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Học tiếng Nhật N5</title>
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+<header class="app-header">
+  <h1>Học tiếng Nhật N5</h1>
+  <button id="themeToggle" aria-label="Chuyển giao diện sáng/tối" data-theme="light">🌓 Giao diện</button>
+</header>
+<nav class="tabs" role="tablist" aria-label="Chủ đề học">
+  <button class="tab" role="tab" aria-selected="true" data-tab="kana">Chữ cái</button>
+  <button class="tab" role="tab" aria-selected="false" data-tab="vocab">Từ vựng</button>
+  <button class="tab" role="tab" aria-selected="false" data-tab="grammar">Ngữ pháp</button>
+  <button class="tab" role="tab" aria-selected="false" data-tab="quiz">Trắc nghiệm</button>
+</nav>
+<main>
+  <section id="kana" class="panel" role="tabpanel"></section>
+  <section id="vocab" class="panel" role="tabpanel" hidden>
+    <div class="controls">
+      <input id="vocabSearch" type="search" placeholder="Tìm từ..." aria-label="Tìm từ vựng" />
+      <select id="vocabTopic" aria-label="Chọn chủ đề"></select>
+    </div>
+    <table id="vocabTable"><thead><tr><th>日本語</th><th>Romaji</th><th>Tiếng Việt</th><th>Chủ đề</th></tr></thead><tbody></tbody></table>
+  </section>
+  <section id="grammar" class="panel" role="tabpanel" hidden></section>
+  <section id="quiz" class="panel" role="tabpanel" hidden>
+    <button id="startQuiz">Bắt đầu làm bài</button>
+    <div id="quizBody"></div>
+    <div id="quizResult" aria-live="polite"></div>
+  </section>
+</main>
+<footer class="app-footer">Được tạo bởi AIOS · N5 Learning Site</footer>
+<script src="js/data.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>

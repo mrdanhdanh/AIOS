@@ -250,6 +250,7 @@ M26 `DONE` (3138 tests, M26 full: T197-T218 implemented in `aios/coding_edition/
 | TASK-220 | M27 | AIOS Coordinator Agent (control-plane + chat agent) | TASK-001,TASK-008,TASK-125 | DONE |
 | TASK-221 | M27 | Coordinator Chat API Endpoint | TASK-220,TASK-017 | DONE |
 | TASK-222 | M27 | Japanese N5 Learning Website (system test) | — | DONE |
+| TASK-223 | M27 | N5 Site built THROUGH AIOS + runtime_utilization gate | TASK-222 | DONE |
 
 M27 opens a lightweight control-plane layer: `CoordinatorAgent` (pure, I/O-free,
 capability-injected) drives the agent-role pipeline (spec → critique×2 →
@@ -265,6 +266,18 @@ end-to-end through spec → critique×2 → breakdown → review → implement �
 evaluate → regression → Unified Gate. All 8 lifecycle artifacts produced under
 `aios/progress/tasks/TASK-222/`; `implementation/` holds the site + a pytest
 smoke test. Unified Gate PASS (incl. full CI); 3150 tests green (2026-08-24).
+
+**TASK-223 closes the TASK-222 loophole.** TASK-222 explicitly stated *"No AIOS
+runtime dependency"* yet still reached DONE — the old `gate_check.py` only
+verified artifact presence + architecture + CI, so a static deliverable could be
+wrapped in governance paperwork without AIOS ever running. TASK-223 adds the
+**`runtime_utilization` gate** (fail-closed): any task whose `spec.md` declares
+`Demonstrates-AIOS: true` MUST actually exercise AIOS (real `aios.*` usage in
+`implementation/` + a valid `build_evidence.json` produced by an `aios.*` tool)
+or the gate FAILS. TASK-223 itself builds the N5 site *through* the AIOS tool
+`aios.tool.website.n5_builder` and verifies it with a real Node behavior harness.
+`CoordinatorAgent` also enforces this at coordination time. Unified Gate PASS
+(incl. `runtime_utilization`); 3154 tests green (2026-08-24).
 
 ## Known implementation gaps (audit 2026-08-22) — CLOSED 2026-08-22
 

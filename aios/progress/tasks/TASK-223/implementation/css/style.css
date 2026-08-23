@@ -1,0 +1,39 @@
+:root {
+  --bg: #f7f7fb; --surface: #ffffff; --text: #1a1a2e; --muted: #6b6b80;
+  --accent: #c0392b; --accent-2: #2c7be5; --border: #e3e3ee; --radius: 12px;
+}
+[data-theme="dark"] {
+  --bg: #15151f; --surface: #1f1f2e; --text: #f2f2f7; --muted: #a0a0b8;
+  --accent: #e74c3c; --accent-2: #4aa3ff; --border: #2e2e40;
+}
+* { box-sizing: border-box; }
+body { margin: 0; font-family: "Hiragino Sans", "Noto Sans JP", system-ui, sans-serif;
+  background: var(--bg); color: var(--text); line-height: 1.6; }
+.app-header { display: flex; justify-content: space-between; align-items: center;
+  padding: 1rem 1.5rem; background: var(--surface); border-bottom: 1px solid var(--border); }
+.app-header h1 { font-size: 1.25rem; margin: 0; }
+#themeToggle { background: var(--accent-2); color: #fff; border: 0; border-radius: var(--radius);
+  padding: .5rem 1rem; cursor: pointer; }
+.tabs { display: flex; gap: .5rem; padding: .75rem 1.5rem; flex-wrap: wrap; }
+.tab { background: var(--surface); color: var(--text); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: .5rem 1rem; cursor: pointer; }
+.tab[aria-selected="true"] { background: var(--accent); color: #fff; border-color: var(--accent); }
+.panel { padding: 1rem 1.5rem; }
+.controls { display: flex; gap: .5rem; margin-bottom: 1rem; flex-wrap: wrap; }
+.controls input, .controls select { padding: .5rem; border: 1px solid var(--border);
+  border-radius: 8px; background: var(--surface); color: var(--text); }
+table { width: 100%; border-collapse: collapse; }
+th, td { text-align: left; padding: .5rem; border-bottom: 1px solid var(--border); }
+.kana-group { margin-bottom: 1.25rem; }
+.kana-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(64px, 1fr)); gap: .5rem; }
+.kana-cell { background: var(--surface); border: 1px solid var(--border); border-radius: 8px;
+  padding: .5rem; text-align: center; }
+.kana-cell .k { font-size: 1.5rem; } .kana-cell .r { color: var(--muted); font-size: .8rem; }
+.quiz-q { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+  padding: 1rem; margin-bottom: 1rem; }
+.quiz-q .opts { display: flex; flex-direction: column; gap: .4rem; margin-top: .5rem; }
+.quiz-q button { text-align: left; padding: .5rem; border: 1px solid var(--border);
+  border-radius: 8px; background: var(--surface); color: var(--text); cursor: pointer; }
+.quiz-q button.correct { background: #2ecc71; color: #fff; }
+.quiz-q button.wrong { background: #e74c3c; color: #fff; }
+.app-footer { text-align: center; color: var(--muted); padding: 1rem; font-size: .85rem; }
