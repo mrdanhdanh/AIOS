@@ -7,7 +7,7 @@
 | Tasks READY | 0 |
 | Tasks PLANNED | 57 |
 | Governance modules | 7 (+ unified gate) |
-| Automated gate tests | 2632 |
+| Automated gate tests | 2641 |
 | Architecture rules (ARCH-A..H + ARCH-001..004) | 17 |
 | Lifecycle states | 12 |
 
@@ -346,9 +346,20 @@ extended: `governance/architecture`, `runtime`, `security`, `devkit`+`cli`,
 
 > T130 DONE (Coding Artifact + CodingEvidence). Standardized 3-kind artifact (T078 hash), provenance chain (T001 Rule 5), fail-closed integrity gate, immutable id (T001 Rule 1), deterministic. **M19 COMPLETE** (T125-T130, 52 new tests).
 
+## Per-module test counts (TASK-131, M19)
+
+| Module | Tests |
+|--------|-------|
+| coder/conformance (CoderConformanceHarness) | 6 |
+| coder/conformance (fail-closed/UNKNOWN) | 2 |
+| coder/conformance (architecture/provenance) | 1 |
+| **Subtotal** | **9** |
+
+> T131 DONE (Coder Conformance Harness + Security). Fail-closed invariants (T078), UNKNOWN never promoted, security boundary (T113), provenance (T001 Rule 5).
+
 ## Grand total
 
-| **Total** | **1226** |
+| **Total** | **1235** |
 
 ## Per-module test counts (TASK-219)
 

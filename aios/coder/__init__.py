@@ -54,6 +54,13 @@ from aios.coder.artifact import (
     CodingArtifactRegistry,
     EvidenceLink,
 )
+from aios.coder.conformance import (
+    CoderConformanceHarness,
+    ConformanceError,
+    ConformanceResult,
+    ConformanceStatus,
+    SecurityStatus,
+)
 
 __all__ = [
     "CoderAgentContract",
@@ -88,4 +95,9 @@ __all__ = [
     "CodingArtifact",
     "CodingArtifactRegistry",
     "EvidenceLink",
+    "CoderConformanceHarness",
+    "ConformanceError",
+    "ConformanceResult",
+    "ConformanceStatus",
+    "SecurityStatus",
 ]

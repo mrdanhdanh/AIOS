@@ -502,6 +502,18 @@ Append-only event log. Each entry: `ISO-UTC | task | event | detail`.
 2026-08-23T00:00:00Z | TASK-130 | REGRESSION | full suite 2632 passed; architecture gate PASS; no prior-milestone regression.
 2026-08-23T00:00:00Z | TASK-130 | DONE | Unified Task Gate PASS; 8 new tests; artifact+evidence established.
 2026-08-23T00:00:00Z | M19 | MILESTONE | Coder Pipeline (T125-T130) HOAN THANH; 52 tests moi, full suite 2632 passed, khong regression. M19 COMPLETE.
+2026-08-23T00:00:00Z | TASK-131 | READY | dependency TASK-130 DONE.
+2026-08-23T00:00:00Z | TASK-131 | CREATED | Coder Conformance Harness + Security initialized.
+2026-08-23T00:00:00Z | TASK-131 | SPECIFIED | spec.md written.
+2026-08-23T00:00:00Z | TASK-131 | CRITIQUED_1 | critique-1.md written.
+2026-08-23T00:00:00Z | TASK-131 | CRITIQUED_2 | critique-2.md written.
+2026-08-23T00:00:00Z | TASK-131 | BROKEN_DOWN | tasks.md written.
+2026-08-23T00:00:00Z | TASK-131 | REVIEWED | review.md written.
+2026-08-23T00:00:00Z | TASK-131 | IMPLEMENTING | aios/coder/conformance.py (CoderConformanceHarness, ConformanceResult, ConformanceStatus, SecurityStatus).
+2026-08-23T00:00:00Z | TASK-131 | TESTING | 9 automated tests passing in aios/coder/tests/test_conformance.py.
+2026-08-23T00:00:00Z | TASK-131 | EVALUATING | all AC verified (fail-closed, UNKNOWN not promoted, provenance, security).
+2026-08-23T00:00:00Z | TASK-131 | REGRESSION | full suite 2641 passed; architecture gate PASS; no prior-milestone regression.
+2026-08-23T00:00:00Z | TASK-131 | DONE | Unified Task Gate PASS; 9 new tests; conformance harness+security established.
 2026-08-23T00:00:00Z | TASK-219 | PERSIST | Installed real skill: skills/ui-ux-pro-max/ (7 sub-skill from nextlevelbuilder/ui-ux-pro-max-skill, claude layout) via tools/install_github_skill.py; all ENABLED.
 2026-08-23T00:00:00Z | TASK-219 | TESTING | 13 bridge tests passing (9 unit + 3 real-skill + 1 persisted); 313 skill/plugin/bridge/architecture regression green.
 2026-08-23T00:00:00Z | TASK-219 | DONE | Skill plugin thuc te da co: skills/ui-ux-pro-max/ (banner-design, brand, design, design-system, slides, ui-styling, ui-ux-pro-max).
