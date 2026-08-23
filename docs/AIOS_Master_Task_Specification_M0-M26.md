@@ -2,7 +2,7 @@
 
 ## Runtime-First · Plugin-First · Offline-First · Harness-Verified · Coding-Plane
 
-> **Trạng thái tài liệu (2026-08-23):** ROADMAP + RECORD THỰC TẾ. Tính đến nay **135/219 task DONE** (TASK-001 → TASK-134 + TASK-219), **84 task PLANNED** (TASK-135 → TASK-218), full suite **2659 tests xanh**, 0 BLOCKED. Mỗi task dưới đây mang dòng `> **Trạng thái thực tế (2026-08-23):**` ghi nhận module đã build, số test (DONE) hoặc trạng thái PLANNED (chưa triển khai).
+> **Trạng thái tài liệu (2026-08-24):** ROADMAP + RECORD THỰC TẾ. Tính đến nay **221/221 task DONE** (TASK-001 → TASK-218 + TASK-219 + TASK-220 + TASK-221), **0 task PLANNED**, full suite **3145 tests xanh**, 0 BLOCKED. Roadmap M0–M26 + M27 (control-plane extension) CLOSED. Mỗi task dưới đây mang dòng `> **Trạng thái thực tế:**` ghi nhận module đã build, số test (DONE).
 >
 > **Nguồn:** nội dung master plan được cung cấp trong file `Plan-AI-Operating-System-—-Runtime-First,-Plugin-First,-Offline-First,-Milestone.txt`.
 >
@@ -1736,6 +1736,65 @@ Xây **bridge/adapter** chuyển đổi một GitHub Copilot skill (thư mục c
 **Dependency / Gate**
 - TASK-083 (SkillDistiller, M11) → TASK-219 (M11) → TASK-084 (M12).
 - T015 (skill), T044 (plugin runtime), T063 (architecture guard), T046 (ecosystem registry), T049 (certification).
+
+---
+
+## TASK-220 — AIOS Coordinator Agent (Control-Plane + Chat Agent)
+
+> **Trạng thái thực tế (2026-08-24):** DONE — `aios/agents/coordinator.py` (`CoordinatorAgent`, `CoordinationResult`, `CoordinationStep`) + export trong `aios/agents/__init__.py` + `aios/agents/tests/test_coordinator.py` (**3 tests**) + `.github/agents/aios-coordinator.agent.md` (custom VS Code chat agent). Unified Gate PASS; full suite 3141 tests (sau T220).
+
+**Mục tiêu**  
+Xây **CoordinatorAgent** — agent tầng `agents` (pure, I/O-free, capability-injected) điều phối các agent vai trò khác (`SpecWriter`, `Critic`, `Reviewer`, `Orchestrator`) qua pipeline governance: `spec → critique×2 → breakdown(tasks) → review → orchestrate/close`. Đồng thời đóng gói một **custom chat agent** (`.agent.md`) để người dùng chọn từ dropdown chat VS Code và agent tự biết bước tiếp theo.
+
+**Phạm vi**
+- `aios/agents/coordinator.py`: `CoordinatorAgent` nhận 4 sub-agent qua constructor (Protocol injection); `coordinate(task_id, spec_input)` chạy pipeline; `CoordinationResult`/`CoordinationStep` dataclass + `to_dict()`; fail-closed (review reject → không close).
+- `aios/agents/__init__.py`: export `CoordinatorAgent`, `CoordinationResult`, `CoordinationStep`.
+- `aios/agents/tests/test_coordinator.py`: 3 tests (happy path close, fail-closed reject, deterministic).
+- `.github/agents/aios-coordinator.agent.md`: `user-invocable: true`, mô tả pipeline + next-step loop.
+
+**Deliverables**
+- `aios/agents/coordinator.py` + `__init__` export + test + chat agent + task artifacts.
+
+**Acceptance Criteria**
+- `CoordinatorAgent` nhận 4 sub-agent qua injection; không import `subprocess`/`os`/provider/filesystem (ARCH-001..004).
+- Pipeline sinh đủ artifact keys: `spec.md`, `critique-1.md`, `critique-2.md`, `tasks.md`.
+- Review reject → `approved=False` và `closed=False` (fail-closed).
+- Cùng input → cùng `result.to_dict()` (deterministic).
+- `pytest aios/agents/tests/test_coordinator.py -q` → 3 passed; architecture gate `agents` clean.
+- `.github/agents/aios-coordinator.agent.md` có `description` + `tools` + `user-invocable: true`.
+
+**Dependency / Gate**
+- TASK-001 (lifecycle + gates), TASK-008 (workflow CLI), TASK-125 (coder contract pattern tham khảo).
+- Milestone M27 (post-M26 control-plane extension).
+
+---
+
+## TASK-221 — Coordinator Chat API Endpoint
+
+> **Trạng thái thực tế (2026-08-24):** DONE — `aios/api/routers/coordinator.py` (`POST /coordinator/run`, `GET /coordinator/{task_id}`) + `aios/api/schemas.py` (`CoordinatorRunRequest`, `CoordinatorRunResponse`, `CoordinatorStep`) + include trong `aios/api/app.py` + `aios/api/tests/test_coordinator_router.py` (**4 tests**). Unified Gate PASS; full suite 3145 tests (sau T221).
+
+**Mục tiêu**  
+Thêm endpoint REST cho phép client (chat UI / script) gửi `{task_id, objective, scope, deliverables, acceptance, dependencies}` và nhận kết quả điều phối từ `CoordinatorAgent` (TASK-220). Endpoint nằm tầng `api`, gọi xuống `agents` (downward-only, ARCH-004).
+
+**Phạm vi**
+- `aios/api/routers/coordinator.py`: 2 endpoints, in-memory store, gọi `CoordinatorAgent.coordinate()` thực tế.
+- Gọi `CoordinatorAgent` với `_FakeOrchestrator` (prototype) để phản ánh kết quả coordination.
+- `aios/api/schemas.py`: Pydantic v2 request/response, version `API_VERSION`.
+- `aios/api/app.py`: include router (prefix `API_PREFIX`).
+
+**Deliverables**
+- Router + schema + app include + test + task artifacts.
+
+**Acceptance Criteria**
+- `POST /api/v1/coordinator/run` nhận `CoordinatorRunRequest` → trả `CoordinatorRunResponse` (task_id, approved, closed, artifacts, steps).
+- Gọi `CoordinatorAgent.coordinate()` thực tế (không mock cứng).
+- `GET /api/v1/coordinator/{task_id}` trả result đã lưu hoặc 404.
+- Architecture gate: `api` → `agents` downward OK (ARCH-004).
+- `pytest aios/api/tests/test_coordinator_router.py -q` → passed; full suite regression green.
+
+**Dependency / Gate**
+- TASK-220 (CoordinatorAgent), TASK-017 (API boundary), TASK-001 (lifecycle/gates).
+- Milestone M27.
 
 ---
 
