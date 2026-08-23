@@ -1,0 +1,145 @@
+:root {
+  --bg: #f7f5f0;
+  --card: #ffffff;
+  --ink: #2b2b2b;
+  --muted: #7a7a7a;
+  --accent: #d64545;
+  --accent-soft: #fbe9e9;
+  --line: #e6e1d8;
+  --radius: 14px;
+  --shadow: 0 4px 18px rgba(0,0,0,.06);
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: "Hiragino Sans", "Noto Sans JP", "Segoe UI", system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+  line-height: 1.6;
+}
+
+/* Header */
+.site-header {
+  background: linear-gradient(135deg, #d64545, #b83232);
+  color: #fff;
+  padding: 22px 24px 0;
+  box-shadow: var(--shadow);
+}
+.brand { display: flex; align-items: center; gap: 14px; }
+.logo {
+  font-size: 38px; font-weight: 700;
+  background: #fff; color: var(--accent);
+  width: 60px; height: 60px; border-radius: 16px;
+  display: grid; place-items: center;
+  box-shadow: 0 4px 12px rgba(0,0,0,.15);
+}
+.site-header h1 { margin: 0; font-size: 24px; }
+.subtitle { margin: 2px 0 0; opacity: .9; font-size: 13px; }
+
+/* Tabs */
+.tabs { display: flex; gap: 6px; margin-top: 18px; flex-wrap: wrap; }
+.tab {
+  background: transparent; border: none; color: #fff;
+  padding: 10px 18px; font-size: 15px; cursor: pointer;
+  border-bottom: 3px solid transparent; opacity: .8;
+  transition: .2s;
+}
+.tab:hover { opacity: 1; }
+.tab.active { opacity: 1; border-bottom-color: #fff; font-weight: 600; }
+
+/* Layout */
+main { max-width: 960px; margin: 0 auto; padding: 28px 20px 60px; }
+.panel { display: none; animation: fade .25s ease; }
+.panel.active { display: block; }
+@keyframes fade { from { opacity: 0; transform: translateY(6px);} to { opacity:1; transform:none;} }
+
+/* Kana */
+.kana-switch { display: flex; gap: 10px; margin-bottom: 18px; }
+.kbtn {
+  border: 1px solid var(--line); background: var(--card);
+  padding: 8px 18px; border-radius: 999px; cursor: pointer; font-size: 14px;
+}
+.kbtn.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+
+.kana-group { margin-bottom: 26px; }
+.kana-group h3 {
+  font-size: 15px; color: var(--muted); margin: 0 0 12px;
+  border-left: 4px solid var(--accent); padding-left: 10px;
+}
+.kana-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(86px, 1fr)); gap: 10px;
+}
+.kana-cell {
+  background: var(--card); border: 1px solid var(--line); border-radius: var(--radius);
+  padding: 12px 6px; text-align: center; box-shadow: var(--shadow);
+  transition: transform .15s;
+}
+.kana-cell:hover { transform: translateY(-3px); }
+.kana-char { font-size: 30px; font-weight: 600; }
+.kana-romaji { font-size: 13px; color: var(--muted); margin-top: 2px; }
+
+/* Toolbar */
+.toolbar { display: flex; gap: 12px; margin-bottom: 14px; flex-wrap: wrap; }
+.toolbar input, .toolbar select {
+  padding: 10px 14px; border: 1px solid var(--line); border-radius: 10px;
+  font-size: 14px; background: var(--card); flex: 1; min-width: 200px;
+}
+.count { color: var(--muted); font-size: 13px; margin-bottom: 10px; }
+
+/* Vocab table */
+.vocab-table { width: 100%; border-collapse: collapse; background: var(--card);
+  border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow); }
+.vocab-table th, .vocab-table td {
+  padding: 11px 14px; text-align: left; border-bottom: 1px solid var(--line); font-size: 14px;
+}
+.vocab-table th { background: var(--accent-soft); color: var(--accent); font-weight: 600; }
+.vocab-table tr:hover { background: #faf7f2; }
+.vocab-jp { font-size: 17px; font-weight: 600; }
+.tag {
+  display: inline-block; background: #eee; color: #555; font-size: 12px;
+  padding: 2px 8px; border-radius: 999px;
+}
+
+/* Grammar */
+.grammar-card {
+  background: var(--card); border: 1px solid var(--line); border-radius: var(--radius);
+  padding: 18px 20px; margin-bottom: 14px; box-shadow: var(--shadow);
+}
+.grammar-card .pat { font-size: 20px; font-weight: 700; color: var(--accent); }
+.grammar-card .mean { color: var(--muted); margin: 4px 0 10px; }
+.grammar-card .ex-jp { font-size: 16px; }
+.grammar-card .ex-vn { color: var(--muted); font-size: 14px; }
+
+/* Quiz */
+.quiz-box {
+  background: var(--card); border: 1px solid var(--line); border-radius: var(--radius);
+  padding: 26px; box-shadow: var(--shadow); max-width: 640px; margin: 0 auto;
+}
+.quiz-meta { display: flex; justify-content: space-between; color: var(--muted); font-size: 14px; margin-bottom: 16px; }
+.quiz-question { font-size: 22px; font-weight: 600; margin-bottom: 18px; text-align: center; }
+.quiz-options { display: grid; gap: 10px; }
+.quiz-opt {
+  border: 1px solid var(--line); background: #fff; padding: 12px 16px;
+  border-radius: 10px; cursor: pointer; font-size: 15px; text-align: left; transition: .15s;
+}
+.quiz-opt:hover { border-color: var(--accent); }
+.quiz-opt.correct { background: #e6f6ec; border-color: #3aa76d; color: #1f7a47; }
+.quiz-opt.wrong { background: #fdeaea; border-color: #d64545; color: #b83232; }
+.quiz-feedback { margin: 14px 0; font-size: 14px; min-height: 20px; text-align: center; }
+.quiz-actions { display: flex; gap: 10px; justify-content: center; margin-top: 8px; }
+.btn {
+  background: var(--accent); color: #fff; border: none; padding: 10px 22px;
+  border-radius: 10px; cursor: pointer; font-size: 14px;
+}
+.btn:disabled { opacity: .5; cursor: not-allowed; }
+.btn.ghost { background: transparent; color: var(--accent); border: 1px solid var(--accent); }
+
+/* Footer */
+.site-footer { text-align: center; color: var(--muted); font-size: 13px; padding: 24px; }
+
+@media (max-width: 560px) {
+  .site-header h1 { font-size: 20px; }
+  .kana-char { font-size: 26px; }
+}

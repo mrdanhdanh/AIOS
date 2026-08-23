@@ -25,6 +25,17 @@ Append-only event log. Each entry: `ISO-UTC | task | event | detail`.
 2026-08-24T00:00:00Z | TASK-221 | EVALUATING | all 6 AC PASS.
 2026-08-24T00:00:00Z | TASK-221 | REGRESSION | full suite 3145 passed; closure green.
 2026-08-24T00:00:00Z | TASK-221 | DONE | Unified Task Gate PASS (local CI). 3145 tests green.
+2026-08-24T00:00:00Z | TASK-222 | CREATED | Japanese N5 Learning Website (system test of governance pipeline) initialized.
+2026-08-24T00:00:00Z | TASK-222 | SPECIFIED | spec.md written (Objective/Scope/Deliverables/AC/Dependencies).
+2026-08-24T00:00:00Z | TASK-222 | CRITIQUED_1 | critique-1.md written (APPROVE WITH MINOR NOTES).
+2026-08-24T00:00:00Z | TASK-222 | CRITIQUED_2 | critique-2.md written (APPROVE).
+2026-08-24T00:00:00Z | TASK-222 | BROKEN_DOWN | tasks.md written (7-step breakdown).
+2026-08-24T00:00:00Z | TASK-222 | REVIEWED | review.md written (APPROVED TO IMPLEMENT).
+2026-08-24T00:00:00Z | TASK-222 | IMPLEMENTING | implementation/ (index.html, css/style.css, js/data.js, js/app.js, test_website.py).
+2026-08-24T00:00:00Z | TASK-222 | TESTING | test_website.py 5 passed; node --check clean.
+2026-08-24T00:00:00Z | TASK-222 | EVALUATING | all 6 AC PASS.
+2026-08-24T00:00:00Z | TASK-222 | REGRESSION | full suite 3150 passed; closure green.
+2026-08-24T00:00:00Z | TASK-222 | DONE | Unified Task Gate PASS (local CI). 3150 tests green.
 
 2026-08-19T00:00:00Z | TASK-001 | CREATED | Task Governance System initialized.
 2026-08-19T00:00:00Z | TASK-001 | SPECIFIED | spec.md written.

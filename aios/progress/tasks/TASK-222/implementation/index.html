@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>日本語 N5 — Học tiếng Nhật sơ cấp</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="brand">
+      <span class="logo">日</span>
+      <div>
+        <h1>Học tiếng Nhật N5</h1>
+        <p class="subtitle">Hiragana · Katakana · Từ vựng · Ngữ pháp · Trắc nghiệm</p>
+      </div>
+    </div>
+    <nav class="tabs" id="tabs">
+      <button class="tab active" data-tab="kana">Chữ cái</button>
+      <button class="tab" data-tab="vocab">Từ vựng</button>
+      <button class="tab" data-tab="grammar">Ngữ pháp</button>
+      <button class="tab" data-tab="quiz">Trắc nghiệm</button>
+    </nav>
+  </header>
+
+  <main>
+    <!-- KANA -->
+    <section id="kana" class="panel active">
+      <div class="kana-switch">
+        <button class="kbtn active" data-kana="hiragana">Hiragana</button>
+        <button class="kbtn" data-kana="katakana">Katakana</button>
+      </div>
+      <div id="kanaContainer"></div>
+    </section>
+
+    <!-- VOCAB -->
+    <section id="vocab" class="panel">
+      <div class="toolbar">
+        <input type="text" id="vocabSearch" placeholder="Tìm kiếm (kanji, romaji, nghĩa...)" />
+        <select id="vocabFilter">
+          <option value="">Tất cả chủ đề</option>
+        </select>
+      </div>
+      <div id="vocabCount" class="count"></div>
+      <table class="vocab-table">
+        <thead>
+          <tr><th>Từ vựng</th><th>Romaji</th><th>Nghĩa</th><th>Chủ đề</th></tr>
+        </thead>
+        <tbody id="vocabBody"></tbody>
+      </table>
+    </section>
+
+    <!-- GRAMMAR -->
+    <section id="grammar" class="panel">
+      <div id="grammarList"></div>
+    </section>
+
+    <!-- QUIZ -->
+    <section id="quiz" class="panel">
+      <div class="quiz-box">
+        <div class="quiz-meta">
+          <span id="quizProgress">Câu 0/0</span>
+          <span id="quizScore">Điểm: 0</span>
+        </div>
+        <div id="quizQuestion" class="quiz-question"></div>
+        <div id="quizOptions" class="quiz-options"></div>
+        <div id="quizFeedback" class="quiz-feedback"></div>
+        <div class="quiz-actions">
+          <button id="quizNext" class="btn" disabled>Câu tiếp theo</button>
+          <button id="quizRestart" class="btn ghost">Làm lại</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>Website học N5 — dữ liệu tham khảo JLPT N5. Luyện tập mỗi ngày để nhớ lâu hơn!</p>
+  </footer>
+
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

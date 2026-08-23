@@ -249,6 +249,7 @@ M26 `DONE` (3138 tests, M26 full: T197-T218 implemented in `aios/coding_edition/
 
 | TASK-220 | M27 | AIOS Coordinator Agent (control-plane + chat agent) | TASK-001,TASK-008,TASK-125 | DONE |
 | TASK-221 | M27 | Coordinator Chat API Endpoint | TASK-220,TASK-017 | DONE |
+| TASK-222 | M27 | Japanese N5 Learning Website (system test) | — | DONE |
 
 M27 opens a lightweight control-plane layer: `CoordinatorAgent` (pure, I/O-free,
 capability-injected) drives the agent-role pipeline (spec → critique×2 →
@@ -257,6 +258,13 @@ breakdown → review → orchestrate/close) and a custom VS Code chat agent
 picker and auto-follow the governance next-step loop. TASK-221 adds a REST
 endpoint (`POST /api/v1/coordinator/run`, `GET /{task_id}`) bridging the chat
 UI to `CoordinatorAgent`. Unified Gate PASS; 3145 tests green (2026-08-24).
+
+TASK-222 is a **system test** of the governance pipeline itself: a standalone
+static N5 Japanese learning website (Hiragana/Katakana/Vocab/Grammar/Quiz) driven
+end-to-end through spec → critique×2 → breakdown → review → implement → test →
+evaluate → regression → Unified Gate. All 8 lifecycle artifacts produced under
+`aios/progress/tasks/TASK-222/`; `implementation/` holds the site + a pytest
+smoke test. Unified Gate PASS (incl. full CI); 3150 tests green (2026-08-24).
 
 ## Known implementation gaps (audit 2026-08-22) — CLOSED 2026-08-22
 
