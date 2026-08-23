@@ -477,6 +477,18 @@ Append-only event log. Each entry: `ISO-UTC | task | event | detail`.
 2026-08-23T00:00:00Z | TASK-128 | EVALUATING | all AC verified (backup/rollback, fail-closed, provenance, deterministic).
 2026-08-23T00:00:00Z | TASK-128 | REGRESSION | full suite 2616 passed; architecture gate PASS; no prior-milestone regression.
 2026-08-23T00:00:00Z | TASK-128 | DONE | Unified Task Gate PASS; 8 new tests; patch engine established.
+2026-08-23T00:00:00Z | TASK-129 | READY | dependency TASK-128 DONE.
+2026-08-23T00:00:00Z | TASK-129 | CREATED | Code Review Agent initialized.
+2026-08-23T00:00:00Z | TASK-129 | SPECIFIED | spec.md written.
+2026-08-23T00:00:00Z | TASK-129 | CRITIQUED_1 | critique-1.md written.
+2026-08-23T00:00:00Z | TASK-129 | CRITIQUED_2 | critique-2.md written.
+2026-08-23T00:00:00Z | TASK-129 | BROKEN_DOWN | tasks.md written.
+2026-08-23T00:00:00Z | TASK-129 | REVIEWED | review.md written.
+2026-08-23T00:00:00Z | TASK-129 | IMPLEMENTING | aios/coder/review.py (CodeReviewAgent, ReviewReport, Finding, Severity, Verdict).
+2026-08-23T00:00:00Z | TASK-129 | TESTING | 8 automated tests passing in aios/coder/tests/test_review.py.
+2026-08-23T00:00:00Z | TASK-129 | EVALUATING | all AC verified (I/O-free, fail-closed, provenance, deterministic, no God Object).
+2026-08-23T00:00:00Z | TASK-129 | REGRESSION | full suite 2624 passed; architecture gate PASS; no prior-milestone regression.
+2026-08-23T00:00:00Z | TASK-129 | DONE | Unified Task Gate PASS; 8 new tests; review agent established.
 2026-08-23T00:00:00Z | TASK-219 | PERSIST | Installed real skill: skills/ui-ux-pro-max/ (7 sub-skill from nextlevelbuilder/ui-ux-pro-max-skill, claude layout) via tools/install_github_skill.py; all ENABLED.
 2026-08-23T00:00:00Z | TASK-219 | TESTING | 13 bridge tests passing (9 unit + 3 real-skill + 1 persisted); 313 skill/plugin/bridge/architecture regression green.
 2026-08-23T00:00:00Z | TASK-219 | DONE | Skill plugin thuc te da co: skills/ui-ux-pro-max/ (banner-design, brand, design, design-system, slides, ui-styling, ui-ux-pro-max).

@@ -38,6 +38,14 @@ from aios.coder.patch import (
     PatchRun,
     PatchStatus,
 )
+from aios.coder.review import (
+    CodeReviewAgent,
+    Finding,
+    ReviewError,
+    ReviewReport,
+    Severity,
+    Verdict,
+)
 
 __all__ = [
     "CoderAgentContract",
@@ -60,4 +68,10 @@ __all__ = [
     "PatchError",
     "PatchRun",
     "PatchStatus",
+    "CodeReviewAgent",
+    "Finding",
+    "ReviewError",
+    "ReviewReport",
+    "Severity",
+    "Verdict",
 ]
