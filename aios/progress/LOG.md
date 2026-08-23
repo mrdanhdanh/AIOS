@@ -514,6 +514,18 @@ Append-only event log. Each entry: `ISO-UTC | task | event | detail`.
 2026-08-23T00:00:00Z | TASK-131 | EVALUATING | all AC verified (fail-closed, UNKNOWN not promoted, provenance, security).
 2026-08-23T00:00:00Z | TASK-131 | REGRESSION | full suite 2641 passed; architecture gate PASS; no prior-milestone regression.
 2026-08-23T00:00:00Z | TASK-131 | DONE | Unified Task Gate PASS; 9 new tests; conformance harness+security established.
+2026-08-23T00:00:00Z | TASK-132 | READY | dependency TASK-131 DONE.
+2026-08-23T00:00:00Z | TASK-132 | CREATED | Autonomy Level + Permission Integration initialized.
+2026-08-23T00:00:00Z | TASK-132 | SPECIFIED | spec.md written.
+2026-08-23T00:00:00Z | TASK-132 | CRITIQUED_1 | critique-1.md written.
+2026-08-23T00:00:00Z | TASK-132 | CRITIQUED_2 | critique-2.md written.
+2026-08-23T00:00:00Z | TASK-132 | BROKEN_DOWN | tasks.md written.
+2026-08-23T00:00:00Z | TASK-132 | REVIEWED | review.md written.
+2026-08-23T00:00:00Z | TASK-132 | IMPLEMENTING | aios/coder/autonomy.py (AutonomyLevel, AutonomyPermissionBroker, PermissionDecision).
+2026-08-23T00:00:00Z | TASK-132 | TESTING | 9 automated tests passing in aios/coder/tests/test_autonomy.py.
+2026-08-23T00:00:00Z | TASK-132 | EVALUATING | all AC verified (level->permission, fail-closed, provenance).
+2026-08-23T00:00:00Z | TASK-132 | REGRESSION | full suite 2650 passed; architecture gate PASS; no prior-milestone regression.
+2026-08-23T00:00:00Z | TASK-132 | DONE | Unified Task Gate PASS; 9 new tests; autonomy+permission established.
 2026-08-23T00:00:00Z | TASK-219 | PERSIST | Installed real skill: skills/ui-ux-pro-max/ (7 sub-skill from nextlevelbuilder/ui-ux-pro-max-skill, claude layout) via tools/install_github_skill.py; all ENABLED.
 2026-08-23T00:00:00Z | TASK-219 | TESTING | 13 bridge tests passing (9 unit + 3 real-skill + 1 persisted); 313 skill/plugin/bridge/architecture regression green.
 2026-08-23T00:00:00Z | TASK-219 | DONE | Skill plugin thuc te da co: skills/ui-ux-pro-max/ (banner-design, brand, design, design-system, slides, ui-styling, ui-ux-pro-max).

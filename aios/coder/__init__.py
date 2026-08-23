@@ -61,6 +61,12 @@ from aios.coder.conformance import (
     ConformanceStatus,
     SecurityStatus,
 )
+from aios.coder.autonomy import (
+    AutonomyLevel,
+    AutonomyPermissionBroker,
+    PermissionDecision,
+    PermissionError_ as CoderPermissionError,
+)
 
 __all__ = [
     "CoderAgentContract",
@@ -100,4 +106,8 @@ __all__ = [
     "ConformanceResult",
     "ConformanceStatus",
     "SecurityStatus",
+    "AutonomyLevel",
+    "AutonomyPermissionBroker",
+    "PermissionDecision",
+    "CoderPermissionError",
 ]

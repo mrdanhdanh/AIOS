@@ -7,7 +7,7 @@
 | Tasks READY | 0 |
 | Tasks PLANNED | 57 |
 | Governance modules | 7 (+ unified gate) |
-| Automated gate tests | 2641 |
+| Automated gate tests | 2650 |
 | Architecture rules (ARCH-A..H + ARCH-001..004) | 17 |
 | Lifecycle states | 12 |
 
@@ -357,9 +357,20 @@ extended: `governance/architecture`, `runtime`, `security`, `devkit`+`cli`,
 
 > T131 DONE (Coder Conformance Harness + Security). Fail-closed invariants (T078), UNKNOWN never promoted, security boundary (T113), provenance (T001 Rule 5).
 
+## Per-module test counts (TASK-132, M19)
+
+| Module | Tests |
+|--------|-------|
+| coder/autonomy (AutonomyPermissionBroker) | 6 |
+| coder/autonomy (fail-closed/policy) | 2 |
+| coder/autonomy (architecture/provenance) | 1 |
+| **Subtotal** | **9** |
+
+> T132 DONE (Autonomy Level + Permission Integration). 3-level mapping, fail-closed permission (T113), provenance (T001 Rule 5).
+
 ## Grand total
 
-| **Total** | **1235** |
+| **Total** | **1244** |
 
 ## Per-module test counts (TASK-219)
 
