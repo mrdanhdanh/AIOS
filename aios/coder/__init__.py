@@ -32,6 +32,12 @@ from aios.coder.generation import (
     GenerationRun,
     GenerationStatus,
 )
+from aios.coder.patch import (
+    PatchEngine,
+    PatchError,
+    PatchRun,
+    PatchStatus,
+)
 
 __all__ = [
     "CoderAgentContract",
@@ -50,4 +56,8 @@ __all__ = [
     "GenerationError",
     "GenerationRun",
     "GenerationStatus",
+    "PatchEngine",
+    "PatchError",
+    "PatchRun",
+    "PatchStatus",
 ]

@@ -465,6 +465,18 @@ Append-only event log. Each entry: `ISO-UTC | task | event | detail`.
 2026-08-23T00:00:00Z | TASK-127 | EVALUATING | all AC verified (capability dispatch, fail-closed, provenance, deterministic).
 2026-08-23T00:00:00Z | TASK-127 | REGRESSION | full suite 2608 passed; architecture gate PASS; no prior-milestone regression.
 2026-08-23T00:00:00Z | TASK-127 | DONE | Unified Task Gate PASS; 7 new tests; generation runtime established.
+2026-08-23T00:00:00Z | TASK-128 | READY | dependency TASK-127 DONE.
+2026-08-23T00:00:00Z | TASK-128 | CREATED | Patch Engine initialized.
+2026-08-23T00:00:00Z | TASK-128 | SPECIFIED | spec.md written.
+2026-08-23T00:00:00Z | TASK-128 | CRITIQUED_1 | critique-1.md written.
+2026-08-23T00:00:00Z | TASK-128 | CRITIQUED_2 | critique-2.md written.
+2026-08-23T00:00:00Z | TASK-128 | BROKEN_DOWN | tasks.md written.
+2026-08-23T00:00:00Z | TASK-128 | REVIEWED | review.md written.
+2026-08-23T00:00:00Z | TASK-128 | IMPLEMENTING | aios/coder/patch.py (PatchEngine, PatchRun, PatchStatus, PatchError).
+2026-08-23T00:00:00Z | TASK-128 | TESTING | 8 automated tests passing in aios/coder/tests/test_patch.py.
+2026-08-23T00:00:00Z | TASK-128 | EVALUATING | all AC verified (backup/rollback, fail-closed, provenance, deterministic).
+2026-08-23T00:00:00Z | TASK-128 | REGRESSION | full suite 2616 passed; architecture gate PASS; no prior-milestone regression.
+2026-08-23T00:00:00Z | TASK-128 | DONE | Unified Task Gate PASS; 8 new tests; patch engine established.
 2026-08-23T00:00:00Z | TASK-219 | PERSIST | Installed real skill: skills/ui-ux-pro-max/ (7 sub-skill from nextlevelbuilder/ui-ux-pro-max-skill, claude layout) via tools/install_github_skill.py; all ENABLED.
 2026-08-23T00:00:00Z | TASK-219 | TESTING | 13 bridge tests passing (9 unit + 3 real-skill + 1 persisted); 313 skill/plugin/bridge/architecture regression green.
 2026-08-23T00:00:00Z | TASK-219 | DONE | Skill plugin thuc te da co: skills/ui-ux-pro-max/ (banner-design, brand, design, design-system, slides, ui-styling, ui-ux-pro-max).

@@ -7,7 +7,7 @@
 | Tasks READY | 0 |
 | Tasks PLANNED | 57 |
 | Governance modules | 7 (+ unified gate) |
-| Automated gate tests | 2608 |
+| Automated gate tests | 2616 |
 | Architecture rules (ARCH-A..H + ARCH-001..004) | 17 |
 | Lifecycle states | 12 |
 
@@ -313,9 +313,20 @@ extended: `governance/architecture`, `runtime`, `security`, `devkit`+`cli`,
 
 > T127 DONE (Code Generation Runtime). Capability dispatch (ARCH-004), artifact hash (T078), provenance (T001 Rule 5), deterministic + fail-closed.
 
+## Per-module test counts (TASK-128, M19)
+
+| Module | Tests |
+|--------|-------|
+| coder/patch (diff/apply) | 4 |
+| coder/patch (fail-closed/rollback) | 3 |
+| coder/patch (architecture/provenance) | 1 |
+| **Subtotal** | **8** |
+
+> T128 DONE (Patch Engine). Backup-before-apply (T020), rollback-to-certified (T020/T066), fail-closed, deterministic diff, provenance (T001 Rule 5).
+
 ## Grand total
 
-| **Total** | **1202** |
+| **Total** | **1210** |
 
 ## Per-module test counts (TASK-219)
 
