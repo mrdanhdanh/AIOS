@@ -3,12 +3,12 @@
 | Metric | Value |
 |--------|-------|
 | Total tasks (master spec) | 219 |
-| Tasks DONE | 145 |
+| Tasks DONE | 155 |
 | Tasks READY | 0 |
-| Tasks PLANNED | 75 |
+| Tasks PLANNED | 65 |
 | Tasks BLOCKED | 0 |
 | Governance modules | 7 (+ unified gate) |
-| Automated gate tests | 2738 passed (2026-08-23) |
+| Automated gate tests | 2808 passed (2026-08-23) |
 | Architecture rules (ARCH-A..H + ARCH-001..004) | 17 |
 | Lifecycle states | 12 |
 
@@ -463,9 +463,81 @@ extended: `governance/architecture`, `runtime`, `security`, `devkit`+`cli`,
 
 > T144 DONE (Execution Evidence + Conformance). **M20 COMPLETE** (T135-T144, 71 new tests).
 
+## Per-module test counts (TASK-145, M21)
+
+| Module | Tests |
+|--------|-------|
+| coding_loop/state_machine (CodingLoopStateMachine) | 7 |
+| **Subtotal** | **7** |
+
+## Per-module test counts (TASK-146, M21)
+
+| Module | Tests |
+|--------|-------|
+| coding_loop/observation (ExecutionObservation) | 7 |
+| **Subtotal** | **7** |
+
+## Per-module test counts (TASK-147, M21)
+
+| Module | Tests |
+|--------|-------|
+| coding_loop/classification (FailureClassifier) | 7 |
+| **Subtotal** | **7** |
+
+## Per-module test counts (TASK-148, M21)
+
+| Module | Tests |
+|--------|-------|
+| coding_loop/diagnostic (DiagnosticAgent) | 7 |
+| **Subtotal** | **7** |
+
+## Per-module test counts (TASK-149, M21)
+
+| Module | Tests |
+|--------|-------|
+| coding_loop/repair (RepairPlanner) | 7 |
+| **Subtotal** | **7** |
+
+## Per-module test counts (TASK-150, M21)
+
+| Module | Tests |
+|--------|-------|
+| coding_loop/progress_detection (ProgressRegressionDetector) | 7 |
+| **Subtotal** | **7** |
+
+## Per-module test counts (TASK-151, M21)
+
+| Module | Tests |
+|--------|-------|
+| coding_loop/verification_gate (VerificationGate) | 7 |
+| **Subtotal** | **7** |
+
+## Per-module test counts (TASK-152, M21)
+
+| Module | Tests |
+|--------|-------|
+| coding_loop/patch_chain (ContextRefreshPatchChain) | 7 |
+| **Subtotal** | **7** |
+
+## Per-module test counts (TASK-153, M21)
+
+| Module | Tests |
+|--------|-------|
+| coding_loop/safety (AutonomousSafetyController) | 7 |
+| **Subtotal** | **7** |
+
+## Per-module test counts (TASK-154, M21)
+
+| Module | Tests |
+|--------|-------|
+| coding_loop/harness (AutonomousCodingHarness) | 7 |
+| **Subtotal** | **7** |
+
+> T154 DONE (Autonomous Coding Harness). **M21 COMPLETE** (T145-T154, 70 new tests).
+
 ## Grand total
 
-| **Total** | **1333** |
+| **Total** | **1403** |
 
 ## Per-module test counts (TASK-219)
 

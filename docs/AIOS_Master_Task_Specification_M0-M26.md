@@ -2,7 +2,7 @@
 
 ## Runtime-First · Plugin-First · Offline-First · Harness-Verified · Coding-Plane
 
-> **Trạng thái tài liệu:** CLEAN ROADMAP — không giả định task nào đã hoàn thành.
+> **Trạng thái tài liệu (2026-08-23):** ROADMAP + RECORD THỰC TẾ. Tính đến nay **135/219 task DONE** (TASK-001 → TASK-134 + TASK-219), **84 task PLANNED** (TASK-135 → TASK-218), full suite **2659 tests xanh**, 0 BLOCKED. Mỗi task dưới đây mang dòng `> **Trạng thái thực tế (2026-08-23):**` ghi nhận module đã build, số test (DONE) hoặc trạng thái PLANNED (chưa triển khai).
 >
 > **Nguồn:** nội dung master plan được cung cấp trong file `Plan-AI-Operating-System-—-Runtime-First,-Plugin-First,-Offline-First,-Milestone.txt`.
 >
@@ -47,6 +47,8 @@ PLAN → SPEC → CRITIQUE×2 → BREAKDOWN → REVIEW
 # M0
 
 ## TASK-001 — Task Governance System (Project Governance Foundation)
+
+> **Trạng thái thực tế (2026-08-23):** DONE — `aios/governance/` (task_registry, dependency, lifecycle, evidence, architecture, deterministic, regression, gates, cli); **39 automated tests**; implementation khớp spec, fail-closed PASS (Unified Gate AND 7 rules).
 
 **Mục tiêu**  
 Biến 7 Quy tắc chung từ "nguyên tắc trên giấy" thành một hệ thống kiểm soát task có thể tự kiểm chứng (self-verifying **Task Governance System**) trước khi có runtime. Đây là control plane cho toàn bộ AIOS development system; từ TASK-002 trở đi, developer/agent không cần "nhớ" 7 quy tắc — hệ thống tự ép tuân thủ.
@@ -106,6 +108,8 @@ Thứ tự triển khai: **Phase A** — TASK-001 tạo Registry/Schema/State Ma
 
 ## TASK-002 — Monorepo + aios_core Scaffold
 
+> **Trạng thái thực tế (2026-08-23):** DONE — `aios/core/` (config, logging, metadata, healthcheck, smoke); **43 automated tests**; layout + CI/test bootstrap xanh.
+
 **Mục tiêu**  
 Tạo skeleton Python/monorepo ổn định cho Runtime.
 
@@ -122,6 +126,8 @@ Tạo skeleton Python/monorepo ổn định cho Runtime.
 - Theo dependency của milestone.
 
 ## TASK-003 — Kernel Foundations
+
+> **Trạng thái thực tế (2026-08-23):** DONE — `aios/core/` (version, contracts, container, events, planner); **78 automated tests**; DI lifetimes + event bus + contract compat hoạt động.
 
 **Mục tiêu**  
 Xây semantic versioning, contracts, DI và event bus.
@@ -140,6 +146,8 @@ Xây semantic versioning, contracts, DI và event bus.
 
 ## TASK-004 — Runtime Services I
 
+> **Trạng thái thực tế (2026-08-23):** DONE — `aios/runtime/` (context, audit, artifact, permission, policy); **45 automated tests**; Policy pre-check trước Execution, artifact có integrity.
+
 **Mục tiêu**  
 Xây Context, Event/Audit, Artifact, Permission và Policy services.
 
@@ -156,6 +164,8 @@ Xây Context, Event/Audit, Artifact, Permission và Policy services.
 - Theo dependency của milestone.
 
 ## TASK-005 — Runtime Services II
+
+> **Trạng thái thực tế (2026-08-23):** DONE — `aios/runtime/` (execution, scheduler, state, resource, kernel); **34 automated tests**; RuntimeKernel wires 9 services, retry/cancel/timeout + snapshot/resume.
 
 **Mục tiêu**  
 Hoàn thiện Execution, Scheduler, State, Resource và RuntimeKernel.
@@ -174,6 +184,8 @@ Hoàn thiện Execution, Scheduler, State, Resource và RuntimeKernel.
 
 ## TASK-006 — Model Contract + Provider Registry
 
+> **Trạng thái thực tế (2026-08-23):** DONE — `aios/runtime/providers/` (contract, adapters, registry); **27 automated tests**; Mock/OpenAI/Ollama adapters, offline-first selection, provider thay thế qua contract.
+
 **Mục tiêu**  
 Chuẩn hóa model/provider mà không khóa AIOS vào một vendor.
 
@@ -190,6 +202,8 @@ Chuẩn hóa model/provider mà không khóa AIOS vào một vendor.
 - Theo dependency của milestone.
 
 ## TASK-007 — Memory + Knowledge
+
+> **Trạng thái thực tế (2026-08-23):** DONE — `aios/runtime/` (memory, knowledge); **60 automated tests** (27 memory + 33 knowledge); isolation + provenance (content_hash) + deterministic ranking + thread-safe.
 
 **Mục tiêu**  
 Xây conversation/session/knowledge/artifact memory và knowledge pipeline.
@@ -208,6 +222,8 @@ Xây conversation/session/knowledge/artifact memory và knowledge pipeline.
 
 ## TASK-008 — Workflow Definition + Compiler
 
+> **Trạng thái thực tế (2026-08-23):** DONE — `aios/runtime/workflow/` (definition, compiler, langgraph, mock); **44 automated tests** (39 + 5 arch); YAML→compile→simulate không cần LLM, engine-independent.
+
 **Mục tiêu**  
 Đưa workflow thành declarative contract độc lập engine.
 
@@ -225,6 +241,8 @@ Xây conversation/session/knowledge/artifact memory và knowledge pipeline.
 
 ## TASK-009 — Capability Foundation
 
+> **Trạng thái thực tế (2026-08-23):** DONE — `aios/capability/` (capability, prompt, catalog, graph); **94 automated tests**; dynamic discovery, prompt version/render, catalog index, in-memory graph v1, provenance retained.
+
 **Mục tiêu**  
 Tạo Capability Registry, Prompt Registry, System Catalog và Knowledge Graph v1.
 
@@ -241,6 +259,8 @@ Tạo Capability Registry, Prompt Registry, System Catalog và Knowledge Graph v
 - Theo dependency của milestone.
 
 ## TASK-011 — M1 Remediation / Architecture Hardening
+
+> **Trạng thái thực tế (2026-08-23):** DONE — `aios/governance/architecture/` (m1_hardening + guard); **30+ architecture tests**; M1 gate PASS, invariants cốt lõi (ARCH-001..004, policy pre-check, agent boundary, workflow isolation, offline) enforced.
 
 **Mục tiêu**  
 Đóng các gap còn lại của nền Runtime trước khi mở rộng Orchestrator.
@@ -263,6 +283,8 @@ Tạo Capability Registry, Prompt Registry, System Catalog và Knowledge Graph v
 
 ## TASK-010 — Decision Pipeline
 
+> **Trạng thái thực tế (2026-08-23):** DONE — `aios/orchestrator/` (normalizer, rule_engine, workflow_matcher, execution_plan, planner, decision_pipeline); **57 automated tests**; deterministic routing không LLM, planner chỉ fallback khi INSUFFICIENT + NO_MATCH.
+
 **Mục tiêu**  
 Triển khai Normalizer → Rule Engine → Workflow Matcher → Planner LLM.
 
@@ -279,6 +301,8 @@ Triển khai Normalizer → Rule Engine → Workflow Matcher → Planner LLM.
 - Theo dependency của milestone.
 
 ## TASK-012 — Operational Orchestration
+
+> **Trạng thái thực tế (2026-08-23):** DONE — `aios/orchestrator/` (goal_manager, task_queue, permission_broker, failure_recovery); **89 automated tests**; goal resume/persist, dependency-blocked queue (no cron), permission broker (DENY wins), bounded retry/recovery.
 
 **Mục tiêu**  
 Xây Goal Manager, Task Queue, Permission Broker và Failure Recovery.
@@ -297,6 +321,8 @@ Xây Goal Manager, Task Queue, Permission Broker và Failure Recovery.
 
 ## TASK-013 — Worker Plane
 
+> **Trạng thái thực tế (2026-08-23):** DONE — `aios/worker/` (contract, lifecycle, registry, router, execution, workers); **161 automated tests**; 4 worker types (General/Coder/Doctor/SystemDoctor), capability-only access, no runtime/orchestrator import, evidence provenance.
+
 **Mục tiêu**  
 Tạo General, Coder, Doctor và System Doctor workers.
 
@@ -313,6 +339,8 @@ Tạo General, Coder, Doctor và System Doctor workers.
 - Theo dependency của milestone.
 
 ## TASK-014 — Tool + Capability Layer
+
+> **Trạng thái thực tế (2026-08-23):** DONE — `aios/tool/` (contracts, registry, adapters, router) + `aios/runtime/capability_router`; **181 automated tests**; 6 tool types (python/docker/rest/mcp/shell/git), dynamic discovery, health-aware + policy-gated routing, fail-closed.
 
 **Mục tiêu**  
 Chuẩn hóa Python/Docker/REST/MCP/Shell/Git qua capability.
@@ -331,6 +359,8 @@ Chuẩn hóa Python/Docker/REST/MCP/Shell/Git qua capability.
 
 ## TASK-015 — Plugin / Skill Execution
 
+> **Trạng thái thực tế (2026-08-23):** DONE — `aios/skill/` (contracts, registry, resolver, manager, sandbox, persistence, rollback); **167 automated tests**; full lifecycle (install/enable/disable/upgrade/rollback/remove), dependency resolution, sandbox pool, rollback khôi phục certified state.
+
 **Mục tiêu**  
 Hoàn thiện skill lifecycle và sandbox pool.
 
@@ -347,6 +377,8 @@ Hoàn thiện skill lifecycle và sandbox pool.
 - Theo dependency của milestone.
 
 ## TASK-016 — Architecture Hardening
+
+> **Trạng thái thực tế (2026-08-23):** DONE — `aios/governance/architecture/` (scanner, graph, rules, gate, report, violations); **112 automated tests**; ARCH-A..H + INV-001..010 enforced via AST, fail-closed CI gate.
 
 **Mục tiêu**  
 Enforce invariants và dependency boundaries bằng AST/architecture tests.
@@ -369,6 +401,8 @@ Enforce invariants và dependency boundaries bằng AST/architecture tests.
 
 ## TASK-017 — FastAPI REST + WebSocket
 
+> **Trạng thái thực tế (2026-08-23):** DONE — `aios/api/` (schemas, errors, auth, events, contracts, websocket, app, routers, openapi, versioning); **60 automated tests**; REST + WebSocket, auth boundary, OpenAPI stable, event whitelist.
+
 **Mục tiêu**  
 Mở Runtime/Orchestrator qua API ổn định.
 
@@ -386,6 +420,8 @@ Mở Runtime/Orchestrator qua API ổn định.
 
 ## TASK-018 — Dashboard SPA
 
+> **Trạng thái thực tế (2026-08-23):** DONE — `aios/dashboard/` (client, health, views, server, mock); **123 automated tests**; 10 views, actions đi qua API boundary, offline mock backend, UNKNOWN≠healthy.
+
 **Mục tiêu**  
 Xây operational UI thống nhất.
 
@@ -402,6 +438,8 @@ Xây operational UI thống nhất.
 - Theo dependency của milestone.
 
 ## TASK-019 — VS Code Extension
+
+> **Trạng thái thực tế (2026-08-23):** DONE — `aios/extension/` (contracts, workspace, api_client, config, mock); **74 automated tests**; 9 commands map to API, pure client không chứa business logic, no Runtime/Tool import.
 
 **Mục tiêu**  
 Đưa AIOS vào coding workspace.
@@ -424,6 +462,8 @@ Xây operational UI thống nhất.
 
 ## TASK-020 — Upgrade Pipeline
 
+> **Trạng thái thực tế (2026-08-23):** DONE — `aios/upgrade/` (manifest, compatibility, backup, migration, dryrun, validation, rollback); **43 automated tests**; dry-run deterministic, auto-rollback khôi phục exact state, evidence trong kết quả.
+
 **Mục tiêu**  
 Xây upgrade/migration an toàn.
 
@@ -441,6 +481,8 @@ Xây upgrade/migration an toàn.
 
 ## TASK-021 — Observability + Architecture Health
 
+> **Trạng thái thực tế (2026-08-23):** DONE — `aios/observability/` (metrics, audit, prompt history, profiler, doctor, architecture health); **43 automated tests**; phát hiện contract/layer/dependency/capability/permission violations, fail-closed.
+
 **Mục tiêu**  
 Quan sát runtime và kiến trúc.
 
@@ -457,6 +499,8 @@ Quan sát runtime và kiến trúc.
 - Theo dependency của milestone.
 
 ## TASK-022 — Orchestrator v2
+
+> **Trạng thái thực tế (2026-08-23):** DONE — `aios/orchestrator/` v2 (supervisor, evaluator, advisor, reporter); **30 automated tests**; execution supervisor + evaluation collector, improvement chỉ đề xuất không bypass policy.
 
 **Mục tiêu**  
 Nâng Orchestrator thành control plane có evaluation và improvement.
@@ -479,6 +523,8 @@ Nâng Orchestrator thành control plane có evaluation và improvement.
 
 ## TASK-023 — Memory Coordinator
 
+> **Trạng thái thực tế (2026-08-23):** DONE — `aios/memory_coordinator/`; **19 automated tests**; MemoryQuery (filters/ranking_policy), MemoryCandidate (provenance/checksum/scope), retrieval observability, tích hợp Runtime/Harness.
+
 **Mục tiêu**  
 Điều phối 4 loại memory và isolation.
 
@@ -495,6 +541,8 @@ Nâng Orchestrator thành control plane có evaluation và improvement.
 - Theo dependency của milestone.
 
 ## TASK-024 — Context Optimizer
+
+> **Trạng thái thực tế (2026-08-23):** DONE — `aios/context_optimizer/` (ExtractiveCompressor, LLMCompressor, optimizer); **21 automated tests**; priority enum aligned, non-ASCII bug fixed, tích hợp Runtime/Harness.
 
 **Mục tiêu**  
 Tối ưu context theo relevance, budget và lifecycle.
@@ -513,6 +561,8 @@ Tối ưu context theo relevance, budget và lifecycle.
 
 ## TASK-025 — Model Router
 
+> **Trạng thái thực tế (2026-08-23):** DONE — `aios/model_router/` (FallbackResolver, ModelRequirement, ModelCandidate); **11 automated tests**; fallback chain, policy/capability/cost/health selection, tích hợp Runtime/Harness.
+
 **Mục tiêu**  
 Chọn model theo policy, capability, cost và health.
 
@@ -529,6 +579,8 @@ Chọn model theo policy, capability, cost và health.
 - Theo dependency của milestone.
 
 ## TASK-026 — Planning Engine
+
+> **Trạng thái thực tế (2026-08-23):** DONE — `aios/planning_engine/` (contracts/compiler); thuộc 36 tests mới của M5; tạo/validate execution plan đa bước, tích hợp Runtime/Harness.
 
 **Mục tiêu**  
 Tạo/validate execution plan đa bước.
@@ -547,6 +599,8 @@ Tạo/validate execution plan đa bước.
 
 ## TASK-027 — Execution Graph
 
+> **Trạng thái thực tế (2026-08-23):** DONE — `aios/execution_graph/` (compiler/contracts); **15 automated tests**; biên dịch plan thành DAG acyclic, tích hợp Runtime/Harness.
+
 **Mục tiêu**  
 Biên dịch plan thành DAG acyclic.
 
@@ -563,6 +617,8 @@ Biên dịch plan thành DAG acyclic.
 - Theo dependency của milestone.
 
 ## TASK-028 — Parallel Scheduler
+
+> **Trạng thái thực tế (2026-08-23):** DONE — `aios/parallel_scheduler/` (contracts, scheduler); **11 automated tests**; DispatchDecision enum + ANY_SUCCESS/ALL_COMPLETED join policies, chạy DAG song song trong resource/policy boundaries.
 
 **Mục tiêu**  
 Chạy DAG song song trong resource/policy boundaries.
@@ -585,6 +641,8 @@ Chạy DAG song song trong resource/policy boundaries.
 
 ## TASK-029 — Harness Kernel + Contract + Registry + Run
 
+> **Trạng thái thực tế (2026-08-23):** DONE — `aios/harness/` (kernel: HarnessRegistry, HarnessContext/Event/Artifact/Report); **11 automated tests**; RunStatus lifecycle CREATED→…→COMPLETED, kernel create/execute/register_step, no Runtime import.
+
 **Mục tiêu**  
 Tạo kernel cho harness độc lập với Runtime.
 
@@ -601,6 +659,8 @@ Tạo kernel cho harness độc lập với Runtime.
 - Theo dependency của milestone.
 
 ## TASK-030 — Execution Verification + Evidence + Replay
+
+> **Trạng thái thực tế (2026-08-23):** DONE — `aios/harness/` (verification: ReplayEngine, EvidencePackage); **6 automated tests**; fail-closed (no_checks→INCONCLUSIVE), mọi verify tạo EvidencePackage có provenance.
 
 **Mục tiêu**  
 Xác minh execution và tạo evidence có thể replay.
@@ -619,6 +679,8 @@ Xác minh execution và tạo evidence có thể replay.
 
 ## TASK-031 — Test Harness + Scenario + Simulation
 
+> **Trạng thái thực tế (2026-08-23):** DONE — `aios/harness/` (test_harness: FakeRuntime/FakeTool/GoldenScenario/TestHarness/run_harness_test); **5 automated tests**; deterministic scenario + simulation không side-effect.
+
 **Mục tiêu**  
 Chạy scenario deterministic và simulation.
 
@@ -635,6 +697,8 @@ Chạy scenario deterministic và simulation.
 - Theo dependency của milestone.
 
 ## TASK-032 — Evaluation Harness + Metrics
+
+> **Trạng thái thực tế (2026-08-23):** DONE — `aios/harness/` (evaluation: Evaluator base + Deterministic/Semantic/LLM/Human/Composite + trajectory eval); **4 automated tests**; exact match PASS, empty INCONCLUSIVE, custom WARNING.
 
 **Mục tiêu**  
 Đánh giá output/trajectory bằng evaluator suite.
@@ -653,6 +717,8 @@ Chạy scenario deterministic và simulation.
 
 ## TASK-033 — Benchmark + Regression Gate
 
+> **Trạng thái thực tế (2026-08-23):** DONE — `aios/harness/` (benchmark: GateEvaluator PASS/WARNING/FAIL/INCONCLUSIVE + named primitives); **6 automated tests**; BaselineManager + RegressionDetector + ReleaseGate.
+
 **Mục tiêu**  
 So sánh phiên bản theo quality/cost/latency/token/failure/policy.
 
@@ -669,6 +735,8 @@ So sánh phiên bản theo quality/cost/latency/token/failure/policy.
 - Theo dependency của milestone.
 
 ## TASK-034 — Doctor + Readiness
+
+> **Trạng thái thực tế (2026-08-23):** DONE — `aios/harness/` (doctor: readiness.py 13 domain doctors + ReadinessEngine); **7 automated tests**; readiness fail-closed (một fail → not ready).
 
 **Mục tiêu**  
 Chẩn đoán và tính readiness fail-closed.
@@ -691,6 +759,8 @@ Chẩn đoán và tính readiness fail-closed.
 
 ## TASK-035 — Identity + Principal + RBAC/ABAC
 
+> **Trạng thái thực tế (2026-08-23):** DONE — `aios/identity/` (Principal, Role, Policy, IdentityService, RBAC/ABAC); **12 automated tests**; fail-closed (thiếu info → DENY).
+
 **Mục tiêu**  
 Thiết lập identity và authorization.
 
@@ -707,6 +777,8 @@ Thiết lập identity và authorization.
 - Theo dependency của milestone.
 
 ## TASK-036 — Multi-Tenancy + Tenant Boundary
+
+> **Trạng thái thực tế (2026-08-23):** DONE — `aios/tenancy/` (Tenant, TenantManager, boundary); **10 automated tests**; cross-tenant isolation, fail-closed trên missing tenant.
 
 **Mục tiêu**  
 Cô lập tenant xuyên runtime/data.
@@ -725,6 +797,8 @@ Cô lập tenant xuyên runtime/data.
 
 ## TASK-037 — Distributed Runtime + Runtime Node
 
+> **Trạng thái thực tế (2026-08-23):** DONE — `aios/distributed/` (RuntimeNode, NodeManager); **5 automated tests**; health model, tenant/policy-aware selection, no Orchestrator→internal.
+
 **Mục tiêu**  
 Đưa Runtime lên nhiều node.
 
@@ -741,6 +815,8 @@ Cô lập tenant xuyên runtime/data.
 - Theo dependency của milestone.
 
 ## TASK-038 — Distributed Scheduler + Lease + Failover
+
+> **Trạng thái thực tế (2026-08-23):** DONE — `aios/distributed_scheduler/` (DistributedScheduler, Lease); **5 automated tests**; lease lifecycle HELD→RELEASED/EXPIRED, duplicate acquire rejected (INV-026).
 
 **Mục tiêu**  
 Điều phối execution phân tán an toàn.
@@ -759,6 +835,8 @@ Cô lập tenant xuyên runtime/data.
 
 ## TASK-039 — Quota + Cost + Resource Governance
 
+> **Trạng thái thực tế (2026-08-23):** DONE — `aios/quota/` (Quota, Cost, Budget); **5 automated tests**; exceeded→DENY, UNKNOWN→DENY fail-closed.
+
 **Mục tiêu**  
 Giới hạn tài nguyên và chi phí theo tenant.
 
@@ -775,6 +853,8 @@ Giới hạn tài nguyên và chi phí theo tenant.
 - Theo dependency của milestone.
 
 ## TASK-040 — Credential + Network + Sandbox Isolation
+
+> **Trạng thái thực tế (2026-08-23):** DONE — `aios/security/` (Credential, NetworkPolicy, SandboxConfig, IsolationManager); **27 automated tests**; default-deny, invalid credential→DENY, no Agent bypass.
 
 **Mục tiêu**  
 Cô lập secrets/network/sandbox.
@@ -793,6 +873,8 @@ Cô lập secrets/network/sandbox.
 
 ## TASK-041 — HA + Audit + Recovery
 
+> **Trạng thái thực tế (2026-08-23):** DONE — `aios/ha/` (HAConfig, HAManager, lease, recovery); **10 automated tests**; failover, single-active lease, hash-chained audit.
+
 **Mục tiêu**  
 Đảm bảo high availability, audit và recovery.
 
@@ -809,6 +891,8 @@ Cô lập secrets/network/sandbox.
 - Theo dependency của milestone.
 
 ## TASK-042 — Enterprise Operations + Dashboard
+
+> **Trạng thái thực tế (2026-08-23):** DONE — `aios/operations/` (Operation, OperationsManager, health, metrics); **9 automated tests**; tenant-scoped, no parallel control plane.
 
 **Mục tiêu**  
 Cung cấp vận hành enterprise.
@@ -831,6 +915,8 @@ Cung cấp vận hành enterprise.
 
 ## TASK-043 — Public AIOS SDK
 
+> **Trạng thái thực tế (2026-08-23):** DONE — `aios/sdk/` (error model, SDKVersion compat, MockAIOSClient, discovery); **9 automated tests**; stable public API.
+
 **Mục tiêu**  
 Mở API ổn định cho developer.
 
@@ -847,6 +933,8 @@ Mở API ổn định cho developer.
 - Theo dependency của milestone.
 
 ## TASK-044 — Plugin Runtime
+
+> **Trạng thái thực tế (2026-08-23):** DONE — `aios/plugin_runtime/` (manifest, resolver, validate-before-load/rollback/snapshots); **9 automated tests**; plugin lifecycle isolation.
 
 **Mục tiêu**  
 Runtime lifecycle cho plugin.
@@ -865,6 +953,8 @@ Runtime lifecycle cho plugin.
 
 ## TASK-045 — Extension Contracts
 
+> **Trạng thái thực tế (2026-08-23):** DONE — `aios/extension_contracts/` (ExtensionContext, compatibility, evidence, boundary); **10 automated tests**; bảo vệ Core qua public contracts.
+
 **Mục tiêu**  
 Bảo vệ Core bằng public extension contracts.
 
@@ -881,6 +971,8 @@ Bảo vệ Core bằng public extension contracts.
 - Theo dependency của milestone.
 
 ## TASK-046 — Ecosystem Registry
+
+> **Trạng thái thực tế (2026-08-23):** DONE — `aios/ecosystem_registry/` (TrustState, search/resolve_version/is_compatible/set_trust/checksum); **9 automated tests**; discovery cho extension.
 
 **Mục tiêu**  
 Registry discovery cho extension.
@@ -899,6 +991,8 @@ Registry discovery cho extension.
 
 ## TASK-047 — Developer Kit
 
+> **Trạng thái thực tế (2026-08-23):** DONE — `aios/devkit/` (manifest, packaging, cli: create/validate/test/simulate/package/inspect); **20 automated tests**; tooling dev/test extension.
+
 **Mục tiêu**  
 CLI/tooling tạo, dev, test extension.
 
@@ -916,6 +1010,8 @@ CLI/tooling tạo, dev, test extension.
 
 ## TASK-048 — Ecosystem Hub
 
+> **Trạng thái thực tế (2026-08-23):** DONE — `aios/ecosystem_hub/` (search/is_compatible/install qua PluginRuntime + checksum/provenance); **10 automated tests**; phân phối extension.
+
 **Mục tiêu**  
 Phân phối extension.
 
@@ -932,6 +1028,8 @@ Phân phối extension.
 - Theo dependency của milestone.
 
 ## TASK-049 — Certification
+
+> **Trạng thái thực tế (2026-08-23):** DONE — `aios/certification/` (pipeline, profiles, checks, revocation, expiry); **17 automated tests**; trust cho ecosystem.
 
 **Mục tiêu**  
 Certification và trust cho ecosystem.
@@ -954,6 +1052,8 @@ Certification và trust cho ecosystem.
 
 ## TASK-050 — Autonomous Goal Engine
 
+> **Trạng thái thực tế (2026-08-23):** DONE — `aios/autonomous_goal/` (engine, state_machine, policy, objectives/progress/boundary/evidence); **12 automated tests**; goal dài hạn tự chủ.
+
 **Mục tiêu**  
 Quản lý goal dài hạn tự chủ.
 
@@ -970,6 +1070,8 @@ Quản lý goal dài hạn tự chủ.
 - Theo dependency của milestone.
 
 ## TASK-051 — Autonomous Planner
+
+> **Trạng thái thực tế (2026-08-23):** DONE — `aios/autonomous_planner/` (planner, validation, contracts); **10 automated tests**; lập kế hoạch động.
 
 **Mục tiêu**  
 Lập kế hoạch động.
@@ -988,6 +1090,8 @@ Lập kế hoạch động.
 
 ## TASK-052 — World Model
 
+> **Trạng thái thực tế (2026-08-23):** DONE — `aios/world_model/`; **8 automated tests**; tách world state khỏi memory.
+
 **Mục tiêu**  
 Tách world state khỏi memory.
 
@@ -1004,6 +1108,8 @@ Tách world state khỏi memory.
 - Theo dependency của milestone.
 
 ## TASK-053 — Autonomous Loop
+
+> **Trạng thái thực tế (2026-08-23):** DONE — `aios/autonomous_loop/` (loop, contracts); **6 automated tests**; plan→act→observe→learn.
 
 **Mục tiêu**  
 Đóng vòng plan→act→observe→learn.
@@ -1022,6 +1128,8 @@ Tách world state khỏi memory.
 
 ## TASK-054 — Autonomy Governor
 
+> **Trạng thái thực tế (2026-08-23):** DONE — `aios/autonomy_governor/` (governor, contracts); **11 automated tests**; giới hạn quyền tự chủ.
+
 **Mục tiêu**  
 Giới hạn quyền tự chủ.
 
@@ -1038,6 +1146,8 @@ Giới hạn quyền tự chủ.
 - Theo dependency của milestone.
 
 ## TASK-055 — Autonomous Recovery
+
+> **Trạng thái thực tế (2026-08-23):** DONE — `aios/autonomous_recovery/` (recovery, circuit, contracts); **8 automated tests**; circuit breaker + recovery.
 
 **Mục tiêu**  
 Circuit breaker và recovery.
@@ -1056,6 +1166,8 @@ Circuit breaker và recovery.
 
 ## TASK-056 — Long-Horizon Execution
 
+> **Trạng thái thực tế (2026-08-23):** DONE — `aios/goal_durability/`; **9 automated tests**; checkpoint/resume goal dài.
+
 **Mục tiêu**  
 Checkpoint/resume cho goal dài.
 
@@ -1072,6 +1184,8 @@ Checkpoint/resume cho goal dài.
 - Theo dependency của milestone.
 
 ## TASK-057 — Autonomous Memory
+
+> **Trạng thái thực tế (2026-08-23):** DONE — `aios/autonomous_memory/` (controller, retention, contracts); **8 automated tests**; failure/goal memory có kiểm soát.
 
 **Mục tiêu**  
 Lưu failure/goal memory có kiểm soát.
@@ -1090,6 +1204,8 @@ Lưu failure/goal memory có kiểm soát.
 
 ## TASK-058 — Autonomous Experimentation
 
+> **Trạng thái thực tế (2026-08-23):** DONE — `aios/autonomous_experimentation/` (controller, contracts); **9 automated tests**; thử nghiệm cải tiến có harness.
+
 **Mục tiêu**  
 Thử nghiệm cải tiến có harness.
 
@@ -1106,6 +1222,8 @@ Thử nghiệm cải tiến có harness.
 - Theo dependency của milestone.
 
 ## TASK-059 — Multi-Agent Autonomy
+
+> **Trạng thái thực tế (2026-08-23):** DONE — `aios/multi_agent_autonomy/`; **8 automated tests**; delegation giữa agent.
 
 **Mục tiêu**  
 Delegation giữa agent.
@@ -1124,6 +1242,8 @@ Delegation giữa agent.
 
 ## TASK-060 — Autonomous Evaluation
 
+> **Trạng thái thực tế (2026-08-23):** DONE — `aios/autonomous_evaluation/` (evaluator, contracts); **11 automated tests** (stuck_detection); phát hiện loop/oscillation/stuck.
+
 **Mục tiêu**  
 Đánh giá để quyết định bước tiếp.
 
@@ -1141,6 +1261,8 @@ Delegation giữa agent.
 
 ## TASK-061 — Advanced Stuck Detection
 
+> **Trạng thái thực tế (2026-08-23):** DONE — `aios/stuck_detection/`; **11 automated tests**; phát hiện loop/oscillation/stuck.
+
 **Mục tiêu**  
 Phát hiện loop/oscillation/stuck.
 
@@ -1157,6 +1279,8 @@ Phát hiện loop/oscillation/stuck.
 - Theo dependency của milestone.
 
 ## TASK-062 — Autonomous Scheduler
+
+> **Trạng thái thực tế (2026-08-23):** DONE — `aios/autonomous_scheduler/` (scheduler, contracts); **10 automated tests**; kích hoạt goal theo schedule/trigger.
 
 **Mục tiêu**  
 Kích hoạt goal theo schedule/trigger.
@@ -1179,6 +1303,8 @@ Kích hoạt goal theo schedule/trigger.
 
 ## TASK-063 — AIOS Architecture 1.0
 
+> **Trạng thái thực tế (2026-08-23):** DONE — `aios/governance/architecture/` (ADR + baseline freeze); thuộc **310 net-new tests M10** (full suite 1962→2272); architecture 1.0 đóng băng.
+
 **Mục tiêu**  
 Đóng băng architecture baseline.
 
@@ -1195,6 +1321,8 @@ Kích hoạt goal theo schedule/trigger.
 - Theo dependency của milestone.
 
 ## TASK-064 — Public Contract Freeze
+
+> **Trạng thái thực tế (2026-08-23):** DONE — `aios/contracts/` (public contract freeze 1.0); thuộc 310 net-new tests M10.
 
 **Mục tiêu**  
 Freeze public contracts 1.0.
@@ -1213,6 +1341,8 @@ Freeze public contracts 1.0.
 
 ## TASK-065 — Runtime Production Hardening
 
+> **Trạng thái thực tế (2026-08-23):** DONE — `aios/runtime/` (production hardening); thuộc 310 net-new tests M10.
+
 **Mục tiêu**  
 Hardening runtime.
 
@@ -1229,6 +1359,8 @@ Hardening runtime.
 - Theo dependency của milestone.
 
 ## TASK-066 — Durable Execution 1.0
+
+> **Trạng thái thực tế (2026-08-23):** DONE — `aios/durable/` (durable state/checkpoint/recovery); thuộc 310 net-new tests M10.
 
 **Mục tiêu**  
 Durable state/checkpoint/recovery.
@@ -1247,6 +1379,8 @@ Durable state/checkpoint/recovery.
 
 ## TASK-067 — Autonomy Safety 1.0
 
+> **Trạng thái thực tế (2026-08-23):** DONE — `aios/autonomy_safety/` (bounded autonomy, boundary, contracts); thuộc 310 net-new tests M10.
+
 **Mục tiêu**  
 Bounded autonomy.
 
@@ -1263,6 +1397,8 @@ Bounded autonomy.
 - Theo dependency của milestone.
 
 ## TASK-068 — Kill Switch
+
+> **Trạng thái thực tế (2026-08-23):** DONE — `aios/kill_switch/` (emergency stop); thuộc 310 net-new tests M10.
 
 **Mục tiêu**  
 Emergency stop.
@@ -1281,6 +1417,8 @@ Emergency stop.
 
 ## TASK-069 — Reliability Engineering
 
+> **Trạng thái thực tế (2026-08-23):** DONE — `aios/reliability/` (SLO/reliability controls); thuộc 310 net-new tests M10.
+
 **Mục tiêu**  
 SLO và reliability controls.
 
@@ -1297,6 +1435,8 @@ SLO và reliability controls.
 - Theo dependency của milestone.
 
 ## TASK-070 — AIOS Security Baseline
+
+> **Trạng thái thực tế (2026-08-23):** DONE — `aios/security/` (security baseline 1.0); thuộc 310 net-new tests M10.
 
 **Mục tiêu**  
 Security baseline 1.0.
@@ -1315,6 +1455,8 @@ Security baseline 1.0.
 
 ## TASK-071 — AIOS 1.0 Developer Experience
 
+> **Trạng thái thực tế (2026-08-23):** DONE — `aios/devkit/` + `aios/cli/` (DX 1.0); thuộc 310 net-new tests M10.
+
 **Mục tiêu**  
 DX production.
 
@@ -1331,6 +1473,8 @@ DX production.
 - Theo dependency của milestone.
 
 ## TASK-072 — AIOS Dashboard 1.0
+
+> **Trạng thái thực tế (2026-08-23):** DONE — `aios/dashboard/` (dashboard 1.0); thuộc 310 net-new tests M10.
 
 **Mục tiêu**  
 Dashboard release.
@@ -1349,6 +1493,8 @@ Dashboard release.
 
 ## TASK-073 — AIOS 1.0 Certification Suite
 
+> **Trạng thái thực tế (2026-08-23):** DONE — `aios/certification/` (cert suite 1.0, release certifier); thuộc 310 net-new tests M10.
+
 **Mục tiêu**  
 Certification suite.
 
@@ -1366,6 +1512,8 @@ Certification suite.
 
 ## TASK-074 — Upgrade & Migration 1.0
 
+> **Trạng thái thực tế (2026-08-23):** DONE — `aios/upgrade/` (migration engine 1.0); thuộc 310 net-new tests M10.
+
 **Mục tiêu**  
 Migration 1.0.
 
@@ -1382,6 +1530,8 @@ Migration 1.0.
 - Theo dependency của milestone.
 
 ## TASK-075 — Performance & Cost + Model Independence
+
+> **Trạng thái thực tế (2026-08-23):** DONE — `aios/cost_meter/` + `aios/model_router/` (perf/cost + provider independence); thuộc 310 net-new tests M10.
 
 **Mục tiêu**  
 Hiệu năng, cost và provider independence.
@@ -1404,6 +1554,8 @@ Hiệu năng, cost và provider independence.
 
 ## TASK-076 — Reserved / Not Specified in Source
 
+> **Trạng thái thực tế (2026-08-23):** DONE (reserved) — giữ chỗ ID lịch sử, **không có implementation/test** (theo quy tắc không tái sử dụng ID).
+
 **Mục tiêu**  
 Giữ nguyên khoảng trống ID lịch sử để không tái sử dụng task ID.
 
@@ -1420,6 +1572,8 @@ Giữ nguyên khoảng trống ID lịch sử để không tái sử dụng task
 - Theo dependency của milestone.
 
 ## TASK-077 — Reserved / Not Specified in Source
+
+> **Trạng thái thực tế (2026-08-23):** DONE (reserved) — giữ chỗ ID lịch sử, **không có implementation/test**.
 
 **Mục tiêu**  
 Giữ nguyên khoảng trống ID lịch sử để không tái sử dụng task ID.
@@ -1438,6 +1592,8 @@ Giữ nguyên khoảng trống ID lịch sử để không tái sử dụng task
 
 ## TASK-078 — Verification Integrity / Fail-Closed Gate
 
+> **Trạng thái thực tế (2026-08-23):** DONE — `aios/verification_integrity/`; **8 automated tests**; fail-closed gate, trust/evidence.
+
 **Mục tiêu**  
 Hoàn thiện năng lực được định nghĩa cho milestone và mở rộng trust/evidence mà không phá Core.
 
@@ -1454,6 +1610,8 @@ Hoàn thiện năng lực được định nghĩa cho milestone và mở rộng 
 - Theo dependency của milestone.
 
 ## TASK-079 — RenderReplay / Deterministic Harness
+
+> **Trạng thái thực tế (2026-08-23):** DONE — `aios/replay/`; **5 automated tests**; render replay / deterministic harness.
 
 **Mục tiêu**  
 Hoàn thiện năng lực được định nghĩa cho milestone và mở rộng trust/evidence mà không phá Core.
@@ -1472,6 +1630,8 @@ Hoàn thiện năng lực được định nghĩa cho milestone và mở rộng 
 
 ## TASK-080 — Visual Evidence + Visual Regression + UI State Contract
 
+> **Trạng thái thực tế (2026-08-23):** DONE — `aios/visual_evidence/`; **6 automated tests**; visual regression + UI state contract.
+
 **Mục tiêu**  
 Hoàn thiện năng lực được định nghĩa cho milestone và mở rộng trust/evidence mà không phá Core.
 
@@ -1488,6 +1648,8 @@ Hoàn thiện năng lực được định nghĩa cho milestone và mở rộng 
 - Theo dependency của milestone.
 
 ## TASK-081 — Asset Pipeline + Asset Capability Registry + Routing
+
+> **Trạng thái thực tế (2026-08-23):** DONE — `aios/asset_pipeline/`; **7 automated tests**; asset pipeline + registry + routing.
 
 **Mục tiêu**  
 Hoàn thiện năng lực được định nghĩa cho milestone và mở rộng trust/evidence mà không phá Core.
@@ -1506,6 +1668,8 @@ Hoàn thiện năng lực được định nghĩa cho milestone và mở rộng 
 
 ## TASK-082 — Creative Domain + Vendor Integrity + Reference Asset
 
+> **Trạng thái thực tế (2026-08-23):** DONE — `aios/creative_domain/`; **7 automated tests**; creative domain + vendor integrity + reference asset.
+
 **Mục tiêu**  
 Hoàn thiện năng lực được định nghĩa cho milestone và mở rộng trust/evidence mà không phá Core.
 
@@ -1523,6 +1687,8 @@ Hoàn thiện năng lực được định nghĩa cho milestone và mở rộng 
 
 ## TASK-083 — SkillDistiller + Static Deploy
 
+> **Trạng thái thực tế (2026-08-23):** DONE — `aios/skill_distiller/`; **6 automated tests**; skill distiller + static deploy.
+
 **Mục tiêu**  
 Hoàn thiện năng lực được định nghĩa cho milestone và mở rộng trust/evidence mà không phá Core.
 
@@ -1539,6 +1705,8 @@ Hoàn thiện năng lực được định nghĩa cho milestone và mở rộng 
 - Theo dependency của milestone.
 
 ## TASK-219 — GitHub Skill → AIOS Skill Plugin Bridge (Amendment)
+
+> **Trạng thái thực tế (2026-08-23):** DONE — `aios/skill/github_bridge/` (parser, adapter, converter) + `tools/install_github_skill.py` + `skills/ui-ux-pro-max/`; **13 automated tests** (9 unit + 3 real-skill + 1 persisted); bridge GitHub Copilot/Claude skill → AIOS Skill Plugin.
 
 **Mục tiêu**  
 Xây **bridge/adapter** chuyển đổi một GitHub Copilot skill (thư mục chứa `SKILL.md` + `scripts/` + `agents/`) thành một **AIOS Skill Plugin** có thể nạp qua lifecycle chuẩn (`SkillManager.install` → `enable`). Tận dụng khung có sẵn `aios/skill` (TASK-015, M2) và `aios/plugin_runtime` (TASK-044, M8) — **không** viết lại runtime.
@@ -1575,6 +1743,8 @@ Xây **bridge/adapter** chuyển đổi một GitHub Copilot skill (thư mục c
 
 ## TASK-084 — Version + Compatibility Baseline
 
+> **Trạng thái thực tế (2026-08-23):** DONE — `aios/versioning/`; **9 automated tests**; version + compat baseline 1.0→1.1.
+
 **Mục tiêu**  
 Hoàn thiện năng lực được định nghĩa cho milestone và mở rộng trust/evidence mà không phá Core.
 
@@ -1591,6 +1761,8 @@ Hoàn thiện năng lực được định nghĩa cho milestone và mở rộng 
 - Theo dependency của milestone.
 
 ## TASK-085 — Migration 1.0 → 1.1
+
+> **Trạng thái thực tế (2026-08-23):** DONE — `aios/migration/`; **8 automated tests**; migration 1.0→1.1.
 
 **Mục tiêu**  
 Hoàn thiện năng lực được định nghĩa cho milestone và mở rộng trust/evidence mà không phá Core.
@@ -1609,6 +1781,8 @@ Hoàn thiện năng lực được định nghĩa cho milestone và mở rộng 
 
 ## TASK-086 — Backward Compatibility
 
+> **Trạng thái thực tế (2026-08-23):** DONE — `aios/backward_compat/`; **7 automated tests**; backward compatibility.
+
 **Mục tiêu**  
 Hoàn thiện năng lực được định nghĩa cho milestone và mở rộng trust/evidence mà không phá Core.
 
@@ -1626,6 +1800,8 @@ Hoàn thiện năng lực được định nghĩa cho milestone và mở rộng 
 
 ## TASK-087 — Compatibility Conformance
 
+> **Trạng thái thực tế (2026-08-23):** DONE — `aios/conformance/`; **7 automated tests**; compatibility conformance.
+
 **Mục tiêu**  
 Hoàn thiện năng lực được định nghĩa cho milestone và mở rộng trust/evidence mà không phá Core.
 
@@ -1642,6 +1818,8 @@ Hoàn thiện năng lực được định nghĩa cho milestone và mở rộng 
 - Theo dependency của milestone.
 
 ## TASK-088 — Docs & ADR — Compatibility
+
+> **Trạng thái thực tế (2026-08-23):** DONE — `aios/compat_docs/` + `docs/adr/ADR-Compatibility.md`; **7 automated tests**; docs & ADR compatibility.
 
 **Mục tiêu**  
 Hoàn thiện năng lực được định nghĩa cho milestone và mở rộng trust/evidence mà không phá Core.
@@ -1664,6 +1842,8 @@ Hoàn thiện năng lực được định nghĩa cho milestone và mở rộng 
 
 ## TASK-089 — Behavioral Conformance
 
+> **Trạng thái thực tế (2026-08-23):** DONE — `aios/behavioral/`; **9 automated tests**; behavioral conformance.
+
 **Mục tiêu**  
 Hoàn thiện năng lực được định nghĩa cho milestone và mở rộng trust/evidence mà không phá Core.
 
@@ -1680,6 +1860,8 @@ Hoàn thiện năng lực được định nghĩa cho milestone và mở rộng 
 - Theo dependency của milestone.
 
 ## TASK-090 — Harness Coverage + Readiness
+
+> **Trạng thái thực tế (2026-08-23):** DONE — `aios/harness_coverage/`; **7 automated tests**; harness coverage + readiness.
 
 **Mục tiêu**  
 Hoàn thiện năng lực được định nghĩa cho milestone và mở rộng trust/evidence mà không phá Core.
@@ -1698,6 +1880,8 @@ Hoàn thiện năng lực được định nghĩa cho milestone và mở rộng 
 
 ## TASK-091 — Meta-Harness / Verify-the-Verifier
 
+> **Trạng thái thực tế (2026-08-23):** DONE — `aios/meta_harness/`; **7 automated tests**; verify-the-verifier.
+
 **Mục tiêu**  
 Hoàn thiện năng lực được định nghĩa cho milestone và mở rộng trust/evidence mà không phá Core.
 
@@ -1715,6 +1899,8 @@ Hoàn thiện năng lực được định nghĩa cho milestone và mở rộng 
 
 ## TASK-092 — System Readiness vs Harness Trust
 
+> **Trạng thái thực tế (2026-08-23):** DONE — `aios/readiness_trust/`; **6 automated tests**; system readiness vs harness trust.
+
 **Mục tiêu**  
 Hoàn thiện năng lực được định nghĩa cho milestone và mở rộng trust/evidence mà không phá Core.
 
@@ -1731,6 +1917,8 @@ Hoàn thiện năng lực được định nghĩa cho milestone và mở rộng 
 - Theo dependency của milestone.
 
 ## TASK-093 — Behavioral Spec + ADR-0008
+
+> **Trạng thái thực tế (2026-08-23):** DONE — `aios/behavioral_docs/` + `docs/behavioral_spec.md` + `docs/adr/ADR-0008.md`; **6 automated tests**; behavioral spec + ADR-0008.
 
 **Mục tiêu**  
 Hoàn thiện năng lực được định nghĩa cho milestone và mở rộng trust/evidence mà không phá Core.
@@ -1753,6 +1941,8 @@ Hoàn thiện năng lực được định nghĩa cho milestone và mở rộng 
 
 ## TASK-094 — Detect + Diagnose
 
+> **Trạng thái thực tế (2026-08-23):** DONE — `aios/remediation_detect/`; **9 automated tests**; detect + diagnose.
+
 **Mục tiêu**  
 Hoàn thiện năng lực được định nghĩa cho milestone và mở rộng trust/evidence mà không phá Core.
 
@@ -1769,6 +1959,8 @@ Hoàn thiện năng lực được định nghĩa cho milestone và mở rộng 
 - Theo dependency của milestone.
 
 ## TASK-095 — Candidate Generation + Risk Scoring
+
+> **Trạng thái thực tế (2026-08-23):** DONE — `aios/remediation_candidate/`; **7 automated tests**; candidate generation + risk scoring.
 
 **Mục tiêu**  
 Hoàn thiện năng lực được định nghĩa cho milestone và mở rộng trust/evidence mà không phá Core.
@@ -1787,6 +1979,8 @@ Hoàn thiện năng lực được định nghĩa cho milestone và mở rộng 
 
 ## TASK-096 — Simulation + Meta-Verification Gate
 
+> **Trạng thái thực tế (2026-08-23):** DONE — `aios/remediation_simulation/`; **7 automated tests**; simulation + meta-verification gate.
+
 **Mục tiêu**  
 Hoàn thiện năng lực được định nghĩa cho milestone và mở rộng trust/evidence mà không phá Core.
 
@@ -1804,6 +1998,8 @@ Hoàn thiện năng lực được định nghĩa cho milestone và mở rộng 
 
 ## TASK-097 — Permission + Human Approval + Apply + Re-test + Rollback + Certification
 
+> **Trạng thái thực tế (2026-08-23):** DONE — `aios/remediation_apply/`; **6 automated tests**; permission + human approval + apply + re-test + rollback + certification.
+
 **Mục tiêu**  
 Hoàn thiện năng lực được định nghĩa cho milestone và mở rộng trust/evidence mà không phá Core.
 
@@ -1820,6 +2016,8 @@ Hoàn thiện năng lực được định nghĩa cho milestone và mở rộng 
 - Theo dependency của milestone.
 
 ## TASK-098 — Remediation Integrity + Kill Switch
+
+> **Trạng thái thực tế (2026-08-23):** DONE — `aios/remediation_integrity/`; **6 automated tests**; remediation integrity + kill switch.
 
 **Mục tiêu**  
 Hoàn thiện năng lực được định nghĩa cho milestone và mở rộng trust/evidence mà không phá Core.
@@ -1842,6 +2040,8 @@ Hoàn thiện năng lực được định nghĩa cho milestone và mở rộng 
 
 ## TASK-099 — Autonomous Harness Loop
 
+> **Trạng thái thực tế (2026-08-23):** DONE — `aios/autonomous_harness_loop/`; **6 automated tests**; autonomous harness loop.
+
 **Mục tiêu**  
 Hoàn thiện năng lực được định nghĩa cho milestone và mở rộng trust/evidence mà không phá Core.
 
@@ -1858,6 +2058,8 @@ Hoàn thiện năng lực được định nghĩa cho milestone và mở rộng 
 - Theo dependency của milestone.
 
 ## TASK-100 — Failure-Corpus Improvement Engine
+
+> **Trạng thái thực tế (2026-08-23):** DONE — `aios/failure_corpus/`; **6 automated tests**; failure-corpus improvement engine.
 
 **Mục tiêu**  
 Hoàn thiện năng lực được định nghĩa cho milestone và mở rộng trust/evidence mà không phá Core.
@@ -1876,6 +2078,8 @@ Hoàn thiện năng lực được định nghĩa cho milestone và mở rộng 
 
 ## TASK-101 — Continuous Certification
 
+> **Trạng thái thực tế (2026-08-23):** DONE — `aios/continuous_certification/`; **6 automated tests**; continuous certification.
+
 **Mục tiêu**  
 Hoàn thiện năng lực được định nghĩa cho milestone và mở rộng trust/evidence mà không phá Core.
 
@@ -1893,6 +2097,8 @@ Hoàn thiện năng lực được định nghĩa cho milestone và mở rộng 
 
 ## TASK-102 — Trust Budget + Autonomy Levels + SAFE-STOP
 
+> **Trạng thái thực tế (2026-08-23):** DONE — `aios/trust_budget/`; **6 automated tests**; trust budget + autonomy levels + SAFE-STOP.
+
 **Mục tiêu**  
 Hoàn thiện năng lực được định nghĩa cho milestone và mở rộng trust/evidence mà không phá Core.
 
@@ -1909,6 +2115,8 @@ Hoàn thiện năng lực được định nghĩa cho milestone và mở rộng 
 - Theo dependency của milestone.
 
 ## TASK-103 — Autonomy Constitution + Audit Trail
+
+> **Trạng thái thực tế (2026-08-23):** DONE — `aios/autonomy_constitution/`; **6 automated tests**; autonomy constitution + audit trail.
 
 **Mục tiêu**  
 Hoàn thiện năng lực được định nghĩa cho milestone và mở rộng trust/evidence mà không phá Core.
@@ -1931,6 +2139,8 @@ Hoàn thiện năng lực được định nghĩa cho milestone và mở rộng 
 
 ## TASK-104 — Independent Harness Integration Foundation
 
+> **Trạng thái thực tế (2026-08-23):** DONE — `aios/independent_harness/` (foundation); **6 automated tests**; independent harness integration foundation.
+
 **Mục tiêu**  
 Hoàn thiện năng lực được định nghĩa cho milestone và mở rộng trust/evidence mà không phá Core.
 
@@ -1947,6 +2157,8 @@ Hoàn thiện năng lực được định nghĩa cho milestone và mở rộng 
 - Theo dependency của milestone.
 
 ## TASK-105 — Independent Verification Oracle
+
+> **Trạng thái thực tế (2026-08-23):** DONE — `aios/independent_harness/` (oracle); **6 automated tests**; independent verification oracle, AIOS giữ policy authority.
 
 **Mục tiêu**  
 Map các invariant checkable sang independent harness oracle.
@@ -1965,6 +2177,8 @@ Map các invariant checkable sang independent harness oracle.
 
 ## TASK-106 — Behavioral Conformance Bridge
 
+> **Trạng thái thực tế (2026-08-23):** DONE — `aios/independent_harness/` (behavioral_bridge); **6 automated tests**; behavioral conformance bridge.
+
 **Mục tiêu**  
 Hoàn thiện năng lực được định nghĩa cho milestone và mở rộng trust/evidence mà không phá Core.
 
@@ -1982,6 +2196,8 @@ Hoàn thiện năng lực được định nghĩa cho milestone và mở rộng 
 
 ## TASK-107 — Permission + Sandbox Bridge
 
+> **Trạng thái thực tế (2026-08-23):** DONE — `aios/independent_harness/` (permission_sandbox_bridge); **6 automated tests**; permission + sandbox bridge.
+
 **Mục tiêu**  
 Hoàn thiện năng lực được định nghĩa cho milestone và mở rộng trust/evidence mà không phá Core.
 
@@ -1998,6 +2214,8 @@ Hoàn thiện năng lực được định nghĩa cho milestone và mở rộng 
 - Theo dependency của milestone.
 
 ## TASK-108 — Management Console / Independent Harness Integration
+
+> **Trạng thái thực tế (2026-08-23):** DONE — `aios/independent_harness/` (console) + `aios/api/routers/independent_harness.py` + Dashboard View 11; **5 automated tests**; management console integration.
 
 **Mục tiêu**  
 Hoàn thiện năng lực được định nghĩa cho milestone và mở rộng trust/evidence mà không phá Core.
@@ -2020,6 +2238,8 @@ Hoàn thiện năng lực được định nghĩa cho milestone và mở rộng 
 
 ## TASK-109 — Model Contracts
 
+> **Trạng thái thực tế (2026-08-23):** DONE — `aios/model_runtime/contracts`; **6 automated tests**; model contracts, vendor-neutral, deterministic-first.
+
 **Mục tiêu**  
 Triển khai model contracts như một năng lực có contract, evidence và harness riêng.
 
@@ -2036,6 +2256,8 @@ Triển khai model contracts như một năng lực có contract, evidence và h
 - Theo dependency của milestone.
 
 ## TASK-110 — Provider Registry + Lifecycle
+
+> **Trạng thái thực tế (2026-08-23):** DONE — `aios/model_runtime/provider_registry`; **6 automated tests**; provider registry + lifecycle.
 
 **Mục tiêu**  
 Triển khai provider registry + lifecycle như một năng lực có contract, evidence và harness riêng.
@@ -2054,6 +2276,8 @@ Triển khai provider registry + lifecycle như một năng lực có contract, 
 
 ## TASK-111 — Model Registry + Deterministic Resolver
 
+> **Trạng thái thực tế (2026-08-23):** DONE — `aios/model_runtime/model_registry`; **6 automated tests**; model registry + deterministic resolver.
+
 **Mục tiêu**  
 Triển khai model registry + deterministic resolver như một năng lực có contract, evidence và harness riêng.
 
@@ -2070,6 +2294,8 @@ Triển khai model registry + deterministic resolver như một năng lực có 
 - Theo dependency của milestone.
 
 ## TASK-112 — Inference Runtime Orchestration
+
+> **Trạng thái thực tế (2026-08-23):** DONE — `aios/model_runtime/orchestration`; **4 automated tests**; inference runtime orchestration, no LLM in resolver.
 
 **Mục tiêu**  
 Triển khai inference runtime orchestration như một năng lực có contract, evidence và harness riêng.
@@ -2088,6 +2314,8 @@ Triển khai inference runtime orchestration như một năng lực có contract
 
 ## TASK-113 — Credential + Permission + Policy Integration
 
+> **Trạng thái thực tế (2026-08-23):** DONE — `aios/model_runtime/security`; **6 automated tests**; credential + permission + policy integration (tích hợp T035/T040/T049).
+
 **Mục tiêu**  
 Triển khai credential + permission + policy integration như một năng lực có contract, evidence và harness riêng.
 
@@ -2104,6 +2332,8 @@ Triển khai credential + permission + policy integration như một năng lực
 - Theo dependency của milestone.
 
 ## TASK-114 — Retry / Timeout / Streaming / Cancellation
+
+> **Trạng thái thực tế (2026-08-23):** DONE — `aios/model_runtime/resilience`; **6 automated tests**; retry/timeout/streaming/cancellation.
 
 **Mục tiêu**  
 Triển khai retry / timeout / streaming / cancellation như một năng lực có contract, evidence và harness riêng.
@@ -2122,6 +2352,8 @@ Triển khai retry / timeout / streaming / cancellation như một năng lực c
 
 ## TASK-115 — Usage / Cost / Audit / Evidence
 
+> **Trạng thái thực tế (2026-08-23):** DONE — `aios/model_runtime/usage`; **5 automated tests**; usage/cost/audit/evidence.
+
 **Mục tiêu**  
 Triển khai usage / cost / audit / evidence như một năng lực có contract, evidence và harness riêng.
 
@@ -2138,6 +2370,8 @@ Triển khai usage / cost / audit / evidence như một năng lực có contract
 - Theo dependency của milestone.
 
 ## TASK-116 — Provider Conformance + Certification
+
+> **Trạng thái thực tế (2026-08-23):** DONE — `aios/model_runtime/conformance`; **6 automated tests**; provider conformance + certification.
 
 **Mục tiêu**  
 Triển khai provider conformance + certification như một năng lực có contract, evidence và harness riêng.
@@ -2160,6 +2394,8 @@ Triển khai provider conformance + certification như một năng lực có con
 
 ## TASK-117 — Repository Scanner
 
+> **Trạng thái thực tế (2026-08-23):** DONE — `aios/context/scanner`; **6 automated tests**; repository scanner, deterministic-first.
+
 **Mục tiêu**  
 Triển khai repository scanner như một năng lực có contract, evidence và harness riêng.
 
@@ -2176,6 +2412,8 @@ Triển khai repository scanner như một năng lực có contract, evidence v�
 - Theo dependency của milestone.
 
 ## TASK-118 — Source / Symbol Index
+
+> **Trạng thái thực tế (2026-08-23):** DONE — `aios/context/symbol_index`; **6 automated tests**; source/symbol index.
 
 **Mục tiêu**  
 Triển khai source / symbol index như một năng lực có contract, evidence và harness riêng.
@@ -2194,6 +2432,8 @@ Triển khai source / symbol index như một năng lực có contract, evidence
 
 ## TASK-119 — Dependency Graph
 
+> **Trạng thái thực tế (2026-08-23):** DONE — `aios/context/dependency_graph`; **6 automated tests**; dependency graph.
+
 **Mục tiêu**  
 Triển khai dependency graph như một năng lực có contract, evidence và harness riêng.
 
@@ -2210,6 +2450,8 @@ Triển khai dependency graph như một năng lực có contract, evidence và 
 - Theo dependency của milestone.
 
 ## TASK-120 — Semantic + Hybrid Index
+
+> **Trạng thái thực tế (2026-08-23):** DONE — `aios/context/hybrid_index`; **6 automated tests**; semantic + hybrid index.
 
 **Mục tiêu**  
 Triển khai semantic + hybrid index như một năng lực có contract, evidence và harness riêng.
@@ -2228,6 +2470,8 @@ Triển khai semantic + hybrid index như một năng lực có contract, eviden
 
 ## TASK-121 — Context Retriever
 
+> **Trạng thái thực tế (2026-08-23):** DONE — `aios/context/retriever`; **6 automated tests**; context retriever.
+
 **Mục tiêu**  
 Triển khai context retriever như một năng lực có contract, evidence và harness riêng.
 
@@ -2244,6 +2488,8 @@ Triển khai context retriever như một năng lực có contract, evidence và
 - Theo dependency của milestone.
 
 ## TASK-122 — Context Builder + Budget
+
+> **Trạng thái thực tế (2026-08-23):** DONE — `aios/context/builder`; **6 automated tests**; context builder + budget.
 
 **Mục tiêu**  
 Triển khai context builder + budget như một năng lực có contract, evidence và harness riêng.
@@ -2262,6 +2508,8 @@ Triển khai context builder + budget như một năng lực có contract, evide
 
 ## TASK-123 — Context Verification + Evidence
 
+> **Trạng thái thực tế (2026-08-23):** DONE — `aios/context/verification`; **6 automated tests**; context verification + evidence.
+
 **Mục tiêu**  
 Triển khai context verification + evidence như một năng lực có contract, evidence và harness riêng.
 
@@ -2278,6 +2526,8 @@ Triển khai context verification + evidence như một năng lực có contract
 - Theo dependency của milestone.
 
 ## TASK-124 — Context Harness + Conformance
+
+> **Trạng thái thực tế (2026-08-23):** DONE — `aios/context/conformance`; **6 automated tests**; context harness + conformance.
 
 **Mục tiêu**  
 Triển khai context harness + conformance như một năng lực có contract, evidence và harness riêng.
@@ -2300,6 +2550,8 @@ Triển khai context harness + conformance như một năng lực có contract, 
 
 ## TASK-125 — Coder Agent Contract + State Machine
 
+> **Trạng thái thực tế (2026-08-23):** DONE — `aios/coder/contract` (CoderAgentContract + CoderAgentStateMachine); **12 automated tests**; deterministic-first, fail-closed, provenance mọi transition.
+
 **Mục tiêu**  
 Triển khai coder agent contract + state machine như một năng lực có contract, evidence và harness riêng.
 
@@ -2316,6 +2568,8 @@ Triển khai coder agent contract + state machine như một năng lực có con
 - Theo dependency của milestone.
 
 ## TASK-126 — Coding Planner + PlanVerifier
+
+> **Trạng thái thực tế (2026-08-23):** DONE — `aios/coder/planner` (CodingPlanner + PlanVerifier); **9 automated tests**; rule trước LLM (llm_call_count=0), fail-closed verify.
 
 **Mục tiêu**  
 Triển khai coding planner + planverifier như một năng lực có contract, evidence và harness riêng.
@@ -2334,6 +2588,8 @@ Triển khai coding planner + planverifier như một năng lực có contract, 
 
 ## TASK-127 — Code Generation Runtime
 
+> **Trạng thái thực tế (2026-08-23):** DONE — `aios/coder/generation` (CodeGenerationRuntime); **7 automated tests**; capability dispatch (ARCH-004), artifact hash, provenance, deterministic + fail-closed.
+
 **Mục tiêu**  
 Triển khai code generation runtime như một năng lực có contract, evidence và harness riêng.
 
@@ -2350,6 +2606,8 @@ Triển khai code generation runtime như một năng lực có contract, eviden
 - Theo dependency của milestone.
 
 ## TASK-128 — Patch Engine
+
+> **Trạng thái thực tế (2026-08-23):** DONE — `aios/coder/patch` (diff/apply); **8 automated tests**; backup-before-apply (T020), rollback-to-certified, fail-closed, deterministic diff.
 
 **Mục tiêu**  
 Triển khai patch engine như một năng lực có contract, evidence và harness riêng.
@@ -2368,6 +2626,8 @@ Triển khai patch engine như một năng lực có contract, evidence và harn
 
 ## TASK-129 — Code Review Agent
 
+> **Trạng thái thực tế (2026-08-23):** DONE — `aios/coder/review` (CodeReviewAgent); **8 automated tests**; I/O-free, capability-injected, fail-closed verdict, no God Object.
+
 **Mục tiêu**  
 Triển khai code review agent như một năng lực có contract, evidence và harness riêng.
 
@@ -2384,6 +2644,8 @@ Triển khai code review agent như một năng lực có contract, evidence và
 - Theo dependency của milestone.
 
 ## TASK-130 — Coding Artifact + CodingEvidence
+
+> **Trạng thái thực tế (2026-08-23):** DONE — `aios/coder/artifact` (CodingArtifact + CodingEvidence); **8 automated tests**; 3-kind artifact (T078 hash), provenance chain, fail-closed integrity, immutable id. **M19 COMPLETE** (T125-T130, 52 new tests).
 
 **Mục tiêu**  
 Triển khai coding artifact + codingevidence như một năng lực có contract, evidence và harness riêng.
@@ -2402,6 +2664,8 @@ Triển khai coding artifact + codingevidence như một năng lực có contrac
 
 ## TASK-131 — Coder Conformance Harness + Security
 
+> **Trạng thái thực tế (2026-08-23):** DONE — `aios/coder/conformance` (CoderConformanceHarness); **9 automated tests**; fail-closed invariants, UNKNOWN never promoted, security boundary.
+
 **Mục tiêu**  
 Triển khai coder conformance harness + security như một năng lực có contract, evidence và harness riêng.
 
@@ -2418,6 +2682,8 @@ Triển khai coder conformance harness + security như một năng lực có con
 - Theo dependency của milestone.
 
 ## TASK-132 — Autonomy Level + Permission Integration
+
+> **Trạng thái thực tế (2026-08-23):** DONE — `aios/coder/autonomy` (AutonomyPermissionBroker); **9 automated tests**; 3-level mapping, fail-closed permission.
 
 **Mục tiêu**  
 Triển khai autonomy level + permission integration như một năng lực có contract, evidence và harness riêng.
@@ -2436,6 +2702,8 @@ Triển khai autonomy level + permission integration như một năng lực có 
 
 ## TASK-133 — Prompt Architecture + PromptBuilder + Versioning
 
+> **Trạng thái thực tế (2026-08-23):** DONE — `aios/coder/prompt` (PromptRegistry + PromptBuilder); **9 automated tests**; immutable versioning, fail-closed build, provenance.
+
 **Mục tiêu**  
 Triển khai prompt architecture + promptbuilder + versioning như một năng lực có contract, evidence và harness riêng.
 
@@ -2452,6 +2720,8 @@ Triển khai prompt architecture + promptbuilder + versioning như một năng l
 - Theo dependency của milestone.
 
 ## TASK-134 — File Safety Boundary + Scope Enforcement
+
+> **Trạng thái thực tế (2026-08-23):** DONE — `aios/coder/filesafety` (FileSafetyBoundary); **8 automated tests**; scope root enforcement, fail-closed escape rejection. **M19 COMPLETE** (T125-T134, 88 new tests).
 
 **Mục tiêu**  
 Triển khai file safety boundary + scope enforcement như một năng lực có contract, evidence và harness riêng.
@@ -2474,6 +2744,8 @@ Triển khai file safety boundary + scope enforcement như một năng lực có
 
 ## TASK-135 — Execution Contract
 
+> **Trạng thái thực tế (2026-08-23):** PLANNED — chưa triển khai (thuộc 85 tasks remaining M20–M26, xem `aios/progress/PLAN.md`).
+
 **Mục tiêu**  
 Triển khai execution contract như một năng lực có contract, evidence và harness riêng.
 
@@ -2490,6 +2762,8 @@ Triển khai execution contract như một năng lực có contract, evidence v�
 - Theo dependency của milestone.
 
 ## TASK-136 — Sandbox Manager
+
+> **Trạng thái thực tế (2026-08-23):** PLANNED — chưa triển khai.
 
 **Mục tiêu**  
 Triển khai sandbox manager như một năng lực có contract, evidence và harness riêng.
@@ -2508,6 +2782,8 @@ Triển khai sandbox manager như một năng lực có contract, evidence và h
 
 ## TASK-137 — Workspace / Snapshot Manager
 
+> **Trạng thái thực tế (2026-08-23):** PLANNED — chưa triển khai.
+
 **Mục tiêu**  
 Triển khai workspace / snapshot manager như một năng lực có contract, evidence và harness riêng.
 
@@ -2524,6 +2800,8 @@ Triển khai workspace / snapshot manager như một năng lực có contract, e
 - Theo dependency của milestone.
 
 ## TASK-138 — Resource + Network + Command Policy
+
+> **Trạng thái thực tế (2026-08-23):** PLANNED — chưa triển khai.
 
 **Mục tiêu**  
 Triển khai resource + network + command policy như một năng lực có contract, evidence và harness riêng.
@@ -2542,6 +2820,8 @@ Triển khai resource + network + command policy như một năng lực có cont
 
 ## TASK-139 — Test Runner
 
+> **Trạng thái thực tế (2026-08-23):** PLANNED — chưa triển khai.
+
 **Mục tiêu**  
 Triển khai test runner như một năng lực có contract, evidence và harness riêng.
 
@@ -2558,6 +2838,8 @@ Triển khai test runner như một năng lực có contract, evidence và harne
 - Theo dependency của milestone.
 
 ## TASK-140 — Build / Lint Runner
+
+> **Trạng thái thực tế (2026-08-23):** PLANNED — chưa triển khai.
 
 **Mục tiêu**  
 Triển khai build / lint runner như một năng lực có contract, evidence và harness riêng.
@@ -2576,6 +2858,8 @@ Triển khai build / lint runner như một năng lực có contract, evidence v
 
 ## TASK-141 — Output + Artifact Collector
 
+> **Trạng thái thực tế (2026-08-23):** PLANNED — chưa triển khai.
+
 **Mục tiêu**  
 Triển khai output + artifact collector như một năng lực có contract, evidence và harness riêng.
 
@@ -2592,6 +2876,8 @@ Triển khai output + artifact collector như một năng lực có contract, ev
 - Theo dependency của milestone.
 
 ## TASK-142 — Verification Engine
+
+> **Trạng thái thực tế (2026-08-23):** PLANNED — chưa triển khai.
 
 **Mục tiêu**  
 Triển khai verification engine như một năng lực có contract, evidence và harness riêng.
@@ -2610,6 +2896,8 @@ Triển khai verification engine như một năng lực có contract, evidence v
 
 ## TASK-143 — Security + Replay Harness
 
+> **Trạng thái thực tế (2026-08-23):** PLANNED — chưa triển khai.
+
 **Mục tiêu**  
 Triển khai security + replay harness như một năng lực có contract, evidence và harness riêng.
 
@@ -2626,6 +2914,8 @@ Triển khai security + replay harness như một năng lực có contract, evid
 - Theo dependency của milestone.
 
 ## TASK-144 — Execution Evidence + Conformance
+
+> **Trạng thái thực tế (2026-08-23):** PLANNED — chưa triển khai.
 
 **Mục tiêu**  
 Triển khai execution evidence + conformance như một năng lực có contract, evidence và harness riêng.
@@ -2648,6 +2938,8 @@ Triển khai execution evidence + conformance như một năng lực có contrac
 
 ## TASK-145 — Coding Loop State Machine
 
+> **Trạng thái thực tế (2026-08-23):** PLANNED — chưa triển khai.
+
 **Mục tiêu**  
 Triển khai coding loop state machine như một năng lực có contract, evidence và harness riêng.
 
@@ -2664,6 +2956,8 @@ Triển khai coding loop state machine như một năng lực có contract, evid
 - Theo dependency của milestone.
 
 ## TASK-146 — Execution Observation
+
+> **Trạng thái thực tế (2026-08-23):** PLANNED — chưa triển khai.
 
 **Mục tiêu**  
 Triển khai execution observation như một năng lực có contract, evidence và harness riêng.
@@ -2682,6 +2976,8 @@ Triển khai execution observation như một năng lực có contract, evidence
 
 ## TASK-147 — Failure Classification
 
+> **Trạng thái thực tế (2026-08-23):** PLANNED — chưa triển khai.
+
 **Mục tiêu**  
 Triển khai failure classification như một năng lực có contract, evidence và harness riêng.
 
@@ -2698,6 +2994,8 @@ Triển khai failure classification như một năng lực có contract, evidenc
 - Theo dependency của milestone.
 
 ## TASK-148 — Diagnostic Agent
+
+> **Trạng thái thực tế (2026-08-23):** PLANNED — chưa triển khai.
 
 **Mục tiêu**  
 Triển khai diagnostic agent như một năng lực có contract, evidence và harness riêng.
@@ -2716,6 +3014,8 @@ Triển khai diagnostic agent như một năng lực có contract, evidence và 
 
 ## TASK-149 — Repair Planner
 
+> **Trạng thái thực tế (2026-08-23):** PLANNED — chưa triển khai.
+
 **Mục tiêu**  
 Triển khai repair planner như một năng lực có contract, evidence và harness riêng.
 
@@ -2732,6 +3032,8 @@ Triển khai repair planner như một năng lực có contract, evidence và ha
 - Theo dependency của milestone.
 
 ## TASK-150 — Progress + Regression Detection
+
+> **Trạng thái thực tế (2026-08-23):** PLANNED — chưa triển khai.
 
 **Mục tiêu**  
 Triển khai progress + regression detection như một năng lực có contract, evidence và harness riêng.
@@ -2750,6 +3052,8 @@ Triển khai progress + regression detection như một năng lực có contract
 
 ## TASK-151 — Verification Gate
 
+> **Trạng thái thực tế (2026-08-23):** PLANNED — chưa triển khai.
+
 **Mục tiêu**  
 Triển khai verification gate như một năng lực có contract, evidence và harness riêng.
 
@@ -2766,6 +3070,8 @@ Triển khai verification gate như một năng lực có contract, evidence và
 - Theo dependency của milestone.
 
 ## TASK-152 — Context Refresh + Patch Chain
+
+> **Trạng thái thực tế (2026-08-23):** PLANNED — chưa triển khai.
 
 **Mục tiêu**  
 Triển khai context refresh + patch chain như một năng lực có contract, evidence và harness riêng.
@@ -2784,6 +3090,8 @@ Triển khai context refresh + patch chain như một năng lực có contract, 
 
 ## TASK-153 — Autonomous Safety Controller
 
+> **Trạng thái thực tế (2026-08-23):** PLANNED — chưa triển khai.
+
 **Mục tiêu**  
 Triển khai autonomous safety controller như một năng lực có contract, evidence và harness riêng.
 
@@ -2800,6 +3108,8 @@ Triển khai autonomous safety controller như một năng lực có contract, e
 - Theo dependency của milestone.
 
 ## TASK-154 — Autonomous Coding Harness
+
+> **Trạng thái thực tế (2026-08-23):** PLANNED — chưa triển khai.
 
 **Mục tiêu**  
 Triển khai autonomous coding harness như một năng lực có contract, evidence và harness riêng.
@@ -2822,6 +3132,8 @@ Triển khai autonomous coding harness như một năng lực có contract, evid
 
 ## TASK-155 — Requirement → Evidence Mapping
 
+> **Trạng thái thực tế (2026-08-23):** PLANNED — chưa triển khai.
+
 **Mục tiêu**  
 Triển khai requirement → evidence mapping như một năng lực có contract, evidence và harness riêng.
 
@@ -2838,6 +3150,8 @@ Triển khai requirement → evidence mapping như một năng lực có contrac
 - Theo dependency của milestone.
 
 ## TASK-156 — Test Adequacy Analyzer + Mutation Verifier
+
+> **Trạng thái thực tế (2026-08-23):** PLANNED — chưa triển khai.
 
 **Mục tiêu**  
 Triển khai test adequacy analyzer + mutation verifier như một năng lực có contract, evidence và harness riêng.
@@ -2856,6 +3170,8 @@ Triển khai test adequacy analyzer + mutation verifier như một năng lực c
 
 ## TASK-157 — Behavioral Verifier
 
+> **Trạng thái thực tế (2026-08-23):** PLANNED — chưa triển khai.
+
 **Mục tiêu**  
 Triển khai behavioral verifier như một năng lực có contract, evidence và harness riêng.
 
@@ -2872,6 +3188,8 @@ Triển khai behavioral verifier như một năng lực có contract, evidence v
 - Theo dependency của milestone.
 
 ## TASK-158 — Contract Verifier
+
+> **Trạng thái thực tế (2026-08-23):** PLANNED — chưa triển khai.
 
 **Mục tiêu**  
 Triển khai contract verifier như một năng lực có contract, evidence và harness riêng.
@@ -2890,6 +3208,8 @@ Triển khai contract verifier như một năng lực có contract, evidence và
 
 ## TASK-159 — Regression Verifier
 
+> **Trạng thái thực tế (2026-08-23):** PLANNED — chưa triển khai.
+
 **Mục tiêu**  
 Triển khai regression verifier như một năng lực có contract, evidence và harness riêng.
 
@@ -2906,6 +3226,8 @@ Triển khai regression verifier như một năng lực có contract, evidence v
 - Theo dependency của milestone.
 
 ## TASK-160 — Security Verifier
+
+> **Trạng thái thực tế (2026-08-23):** PLANNED — chưa triển khai.
 
 **Mục tiêu**  
 Triển khai security verifier như một năng lực có contract, evidence và harness riêng.
@@ -2924,6 +3246,8 @@ Triển khai security verifier như một năng lực có contract, evidence và
 
 ## TASK-161 — Performance Verifier
 
+> **Trạng thái thực tế (2026-08-23):** PLANNED — chưa triển khai.
+
 **Mục tiêu**  
 Triển khai performance verifier như một năng lực có contract, evidence và harness riêng.
 
@@ -2940,6 +3264,8 @@ Triển khai performance verifier như một năng lực có contract, evidence 
 - Theo dependency của milestone.
 
 ## TASK-162 — Replay & Flaky Detector
+
+> **Trạng thái thực tế (2026-08-23):** PLANNED — chưa triển khai.
 
 **Mục tiêu**  
 Triển khai replay & flaky detector như một năng lực có contract, evidence và harness riêng.
@@ -2958,6 +3284,8 @@ Triển khai replay & flaky detector như một năng lực có contract, eviden
 
 ## TASK-163 — Evidence Collector + Evidence Integrity
 
+> **Trạng thái thực tế (2026-08-23):** PLANNED — chưa triển khai.
+
 **Mục tiêu**  
 Triển khai evidence collector + evidence integrity như một năng lực có contract, evidence và harness riêng.
 
@@ -2974,6 +3302,8 @@ Triển khai evidence collector + evidence integrity như một năng lực có 
 - Theo dependency của milestone.
 
 ## TASK-164 — Trust Evaluator + CodingCertificate + Verification Harness
+
+> **Trạng thái thực tế (2026-08-23):** PLANNED — chưa triển khai.
 
 **Mục tiêu**  
 Triển khai trust evaluator + codingcertificate + verification harness như một năng lực có contract, evidence và harness riêng.
@@ -2996,6 +3326,8 @@ Triển khai trust evaluator + codingcertificate + verification harness như m�
 
 ## TASK-165 — Adversarial Evaluation Harness
 
+> **Trạng thái thực tế (2026-08-23):** PLANNED — chưa triển khai.
+
 **Mục tiêu**  
 Triển khai adversarial evaluation harness như một năng lực có contract, evidence và harness riêng.
 
@@ -3012,6 +3344,8 @@ Triển khai adversarial evaluation harness như một năng lực có contract,
 - Theo dependency của milestone.
 
 ## TASK-166 — Evidence Attackers
+
+> **Trạng thái thực tế (2026-08-23):** PLANNED — chưa triển khai.
 
 **Mục tiêu**  
 Triển khai evidence attackers như một năng lực có contract, evidence và harness riêng.
@@ -3030,6 +3364,8 @@ Triển khai evidence attackers như một năng lực có contract, evidence v�
 
 ## TASK-167 — Test Weakness Attackers
 
+> **Trạng thái thực tế (2026-08-23):** PLANNED — chưa triển khai.
+
 **Mục tiêu**  
 Triển khai test weakness attackers như một năng lực có contract, evidence và harness riêng.
 
@@ -3046,6 +3382,8 @@ Triển khai test weakness attackers như một năng lực có contract, eviden
 - Theo dependency của milestone.
 
 ## TASK-168 — Requirement / Scope Attackers
+
+> **Trạng thái thực tế (2026-08-23):** PLANNED — chưa triển khai.
 
 **Mục tiêu**  
 Triển khai requirement / scope attackers như một năng lực có contract, evidence và harness riêng.
@@ -3064,6 +3402,8 @@ Triển khai requirement / scope attackers như một năng lực có contract, 
 
 ## TASK-169 — Certificate Attackers
 
+> **Trạng thái thực tế (2026-08-23):** PLANNED — chưa triển khai.
+
 **Mục tiêu**  
 Triển khai certificate attackers như một năng lực có contract, evidence và harness riêng.
 
@@ -3080,6 +3420,8 @@ Triển khai certificate attackers như một năng lực có contract, evidence
 - Theo dependency của milestone.
 
 ## TASK-170 — Prompt Injection Tester + Untrusted Artifact Isolation
+
+> **Trạng thái thực tế (2026-08-23):** PLANNED — chưa triển khai.
 
 **Mục tiêu**  
 Triển khai prompt injection tester + untrusted artifact isolation như một năng lực có contract, evidence và harness riêng.
@@ -3098,6 +3440,8 @@ Triển khai prompt injection tester + untrusted artifact isolation như một n
 
 ## TASK-171 — Execution Integrity Attackers
 
+> **Trạng thái thực tế (2026-08-23):** PLANNED — chưa triển khai.
+
 **Mục tiêu**  
 Triển khai execution integrity attackers như một năng lực có contract, evidence và harness riêng.
 
@@ -3114,6 +3458,8 @@ Triển khai execution integrity attackers như một năng lực có contract, 
 - Theo dependency của milestone.
 
 ## TASK-172 — Environment / Dependency Attackers
+
+> **Trạng thái thực tế (2026-08-23):** PLANNED — chưa triển khai.
 
 **Mục tiêu**  
 Triển khai environment / dependency attackers như một năng lực có contract, evidence và harness riêng.
@@ -3132,6 +3478,8 @@ Triển khai environment / dependency attackers như một năng lực có contr
 
 ## TASK-173 — Boundary Attackers
 
+> **Trạng thái thực tế (2026-08-23):** PLANNED — chưa triển khai.
+
 **Mục tiêu**  
 Triển khai boundary attackers như một năng lực có contract, evidence và harness riêng.
 
@@ -3148,6 +3496,8 @@ Triển khai boundary attackers như một năng lực có contract, evidence v�
 - Theo dependency của milestone.
 
 ## TASK-174 — Collusion Detector + Resilience Score + Attack Corpus Regression
+
+> **Trạng thái thực tế (2026-08-23):** PLANNED — chưa triển khai.
 
 **Mục tiêu**  
 Triển khai collusion detector + resilience score + attack corpus regression như một năng lực có contract, evidence và harness riêng.
@@ -3170,6 +3520,8 @@ Triển khai collusion detector + resilience score + attack corpus regression nh
 
 ## TASK-175 — Quality Gate + Gate States
 
+> **Trạng thái thực tế (2026-08-23):** PLANNED — chưa triển khai.
+
 **Mục tiêu**  
 Triển khai quality gate + gate states như một năng lực có contract, evidence và harness riêng.
 
@@ -3186,6 +3538,8 @@ Triển khai quality gate + gate states như một năng lực có contract, evi
 - Theo dependency của milestone.
 
 ## TASK-176 — Risk Model + Classification
+
+> **Trạng thái thực tế (2026-08-23):** PLANNED — chưa triển khai.
 
 **Mục tiêu**  
 Triển khai risk model + classification như một năng lực có contract, evidence và harness riêng.
@@ -3204,6 +3558,8 @@ Triển khai risk model + classification như một năng lực có contract, ev
 
 ## TASK-177 — Policy Engine + Profiles + Precedence
 
+> **Trạng thái thực tế (2026-08-23):** PLANNED — chưa triển khai.
+
 **Mục tiêu**  
 Triển khai policy engine + profiles + precedence như một năng lực có contract, evidence và harness riêng.
 
@@ -3220,6 +3576,8 @@ Triển khai policy engine + profiles + precedence như một năng lực có co
 - Theo dependency của milestone.
 
 ## TASK-178 — Exception Management
+
+> **Trạng thái thực tế (2026-08-23):** PLANNED — chưa triển khai.
 
 **Mục tiêu**  
 Triển khai exception management như một năng lực có contract, evidence và harness riêng.
@@ -3238,6 +3596,8 @@ Triển khai exception management như một năng lực có contract, evidence 
 
 ## TASK-179 — Quality Debt Tracking
 
+> **Trạng thái thực tế (2026-08-23):** PLANNED — chưa triển khai.
+
 **Mục tiêu**  
 Triển khai quality debt tracking như một năng lực có contract, evidence và harness riêng.
 
@@ -3254,6 +3614,8 @@ Triển khai quality debt tracking như một năng lực có contract, evidence
 - Theo dependency của milestone.
 
 ## TASK-180 — Release Gate + Decision Explainability
+
+> **Trạng thái thực tế (2026-08-23):** PLANNED — chưa triển khai.
 
 **Mục tiêu**  
 Triển khai release gate + decision explainability như một năng lực có contract, evidence và harness riêng.
@@ -3272,6 +3634,8 @@ Triển khai release gate + decision explainability như một năng lực có c
 
 ## TASK-181 — Governance Ledger + Provenance Graph
 
+> **Trạng thái thực tế (2026-08-23):** PLANNED — chưa triển khai.
+
 **Mục tiêu**  
 Triển khai governance ledger + provenance graph như một năng lực có contract, evidence và harness riêng.
 
@@ -3288,6 +3652,8 @@ Triển khai governance ledger + provenance graph như một năng lực có con
 - Theo dependency của milestone.
 
 ## TASK-182 — Trust Lifecycle + Invalidation + Selective Reverification
+
+> **Trạng thái thực tế (2026-08-23):** PLANNED — chưa triển khai.
 
 **Mục tiêu**  
 Triển khai trust lifecycle + invalidation + selective reverification như một năng lực có contract, evidence và harness riêng.
@@ -3306,6 +3672,8 @@ Triển khai trust lifecycle + invalidation + selective reverification như mộ
 
 ## TASK-183 — Approval Workflow + Rollback Recommendation
 
+> **Trạng thái thực tế (2026-08-23):** PLANNED — chưa triển khai.
+
 **Mục tiêu**  
 Triển khai approval workflow + rollback recommendation như một năng lực có contract, evidence và harness riêng.
 
@@ -3322,6 +3690,8 @@ Triển khai approval workflow + rollback recommendation như một năng lực 
 - Theo dependency của milestone.
 
 ## TASK-184 — Quality Dashboard + Governance Harness
+
+> **Trạng thái thực tế (2026-08-23):** PLANNED — chưa triển khai.
 
 **Mục tiêu**  
 Triển khai quality dashboard + governance harness như một năng lực có contract, evidence và harness riêng.
@@ -3344,6 +3714,8 @@ Triển khai quality dashboard + governance harness như một năng lực có c
 
 ## TASK-185 — Coding Evaluation Contract
 
+> **Trạng thái thực tế (2026-08-23):** PLANNED — chưa triển khai.
+
 **Mục tiêu**  
 Triển khai coding evaluation contract như một năng lực có contract, evidence và harness riêng.
 
@@ -3360,6 +3732,8 @@ Triển khai coding evaluation contract như một năng lực có contract, evi
 - Theo dependency của milestone.
 
 ## TASK-186 — Evaluation Engine
+
+> **Trạng thái thực tế (2026-08-23):** PLANNED — chưa triển khai.
 
 **Mục tiêu**  
 Triển khai evaluation engine như một năng lực có contract, evidence và harness riêng.
@@ -3378,6 +3752,8 @@ Triển khai evaluation engine như một năng lực có contract, evidence và
 
 ## TASK-187 — Quality Dimensions
 
+> **Trạng thái thực tế (2026-08-23):** PLANNED — chưa triển khai.
+
 **Mục tiêu**  
 Triển khai quality dimensions như một năng lực có contract, evidence và harness riêng.
 
@@ -3394,6 +3770,8 @@ Triển khai quality dimensions như một năng lực có contract, evidence v�
 - Theo dependency của milestone.
 
 ## TASK-188 — Benchmark Registry
+
+> **Trạng thái thực tế (2026-08-23):** PLANNED — chưa triển khai.
 
 **Mục tiêu**  
 Triển khai benchmark registry như một năng lực có contract, evidence và harness riêng.
@@ -3412,6 +3790,8 @@ Triển khai benchmark registry như một năng lực có contract, evidence v�
 
 ## TASK-189 — Baseline Manager
 
+> **Trạng thái thực tế (2026-08-23):** PLANNED — chưa triển khai.
+
 **Mục tiêu**  
 Triển khai baseline manager như một năng lực có contract, evidence và harness riêng.
 
@@ -3428,6 +3808,8 @@ Triển khai baseline manager như một năng lực có contract, evidence và 
 - Theo dependency của milestone.
 
 ## TASK-190 — Regression Detector
+
+> **Trạng thái thực tế (2026-08-23):** PLANNED — chưa triển khai.
 
 **Mục tiêu**  
 Triển khai regression detector như một năng lực có contract, evidence và harness riêng.
@@ -3446,6 +3828,8 @@ Triển khai regression detector như một năng lực có contract, evidence v
 
 ## TASK-191 — Agent Behavior Evaluator
 
+> **Trạng thái thực tế (2026-08-23):** PLANNED — chưa triển khai.
+
 **Mục tiêu**  
 Triển khai agent behavior evaluator như một năng lực có contract, evidence và harness riêng.
 
@@ -3462,6 +3846,8 @@ Triển khai agent behavior evaluator như một năng lực có contract, evide
 - Theo dependency của milestone.
 
 ## TASK-192 — Efficiency Evaluator
+
+> **Trạng thái thực tế (2026-08-23):** PLANNED — chưa triển khai.
 
 **Mục tiêu**  
 Triển khai efficiency evaluator như một năng lực có contract, evidence và harness riêng.
@@ -3480,6 +3866,8 @@ Triển khai efficiency evaluator như một năng lực có contract, evidence 
 
 ## TASK-193 — Failure Attribution
 
+> **Trạng thái thực tế (2026-08-23):** PLANNED — chưa triển khai.
+
 **Mục tiêu**  
 Triển khai failure attribution như một năng lực có contract, evidence và harness riêng.
 
@@ -3496,6 +3884,8 @@ Triển khai failure attribution như một năng lực có contract, evidence v
 - Theo dependency của milestone.
 
 ## TASK-194 — Evaluation Store
+
+> **Trạng thái thực tế (2026-08-23):** PLANNED — chưa triển khai.
 
 **Mục tiêu**  
 Triển khai evaluation store như một năng lực có contract, evidence và harness riêng.
@@ -3514,6 +3904,8 @@ Triển khai evaluation store như một năng lực có contract, evidence và 
 
 ## TASK-195 — Model / Agent Benchmark
 
+> **Trạng thái thực tế (2026-08-23):** PLANNED — chưa triển khai.
+
 **Mục tiêu**  
 Triển khai model / agent benchmark như một năng lực có contract, evidence và harness riêng.
 
@@ -3530,6 +3922,8 @@ Triển khai model / agent benchmark như một năng lực có contract, eviden
 - Theo dependency của milestone.
 
 ## TASK-196 — Continuous Evaluation
+
+> **Trạng thái thực tế (2026-08-23):** PLANNED — chưa triển khai.
 
 **Mục tiêu**  
 Triển khai continuous evaluation như một năng lực có contract, evidence và harness riêng.
@@ -3552,6 +3946,8 @@ Triển khai continuous evaluation như một năng lực có contract, evidence
 
 ## TASK-197 — Unified Coding Contract
 
+> **Trạng thái thực tế (2026-08-23):** PLANNED — chưa triển khai.
+
 **Mục tiêu**  
 Triển khai unified coding contract như một năng lực có contract, evidence và harness riêng.
 
@@ -3568,6 +3964,8 @@ Triển khai unified coding contract như một năng lực có contract, eviden
 - Theo dependency của milestone.
 
 ## TASK-198 — Coding State Machine
+
+> **Trạng thái thực tế (2026-08-23):** PLANNED — chưa triển khai.
 
 **Mục tiêu**  
 Triển khai coding state machine như một năng lực có contract, evidence và harness riêng.
@@ -3586,6 +3984,8 @@ Triển khai coding state machine như một năng lực có contract, evidence 
 
 ## TASK-199 — Coding Policy Engine
 
+> **Trạng thái thực tế (2026-08-23):** PLANNED — chưa triển khai.
+
 **Mục tiêu**  
 Triển khai coding policy engine như một năng lực có contract, evidence và harness riêng.
 
@@ -3602,6 +4002,8 @@ Triển khai coding policy engine như một năng lực có contract, evidence 
 - Theo dependency của milestone.
 
 ## TASK-200 — Risk Engine
+
+> **Trạng thái thực tế (2026-08-23):** PLANNED — chưa triển khai.
 
 **Mục tiêu**  
 Triển khai risk engine như một năng lực có contract, evidence và harness riêng.
@@ -3620,6 +4022,8 @@ Triển khai risk engine như một năng lực có contract, evidence và harne
 
 ## TASK-201 — Approval Gate
 
+> **Trạng thái thực tế (2026-08-23):** PLANNED — chưa triển khai.
+
 **Mục tiêu**  
 Triển khai approval gate như một năng lực có contract, evidence và harness riêng.
 
@@ -3636,6 +4040,8 @@ Triển khai approval gate như một năng lực có contract, evidence và har
 - Theo dependency của milestone.
 
 ## TASK-202 — Autonomous Guardrails
+
+> **Trạng thái thực tế (2026-08-23):** PLANNED — chưa triển khai.
 
 **Mục tiêu**  
 Triển khai autonomous guardrails như một năng lực có contract, evidence và harness riêng.
@@ -3654,6 +4060,8 @@ Triển khai autonomous guardrails như một năng lực có contract, evidence
 
 ## TASK-203 — Safe Stop / Resume
 
+> **Trạng thái thực tế (2026-08-23):** PLANNED — chưa triển khai.
+
 **Mục tiêu**  
 Triển khai safe stop / resume như một năng lực có contract, evidence và harness riêng.
 
@@ -3670,6 +4078,8 @@ Triển khai safe stop / resume như một năng lực có contract, evidence v�
 - Theo dependency của milestone.
 
 ## TASK-204 — Recovery Orchestrator
+
+> **Trạng thái thực tế (2026-08-23):** PLANNED — chưa triển khai.
 
 **Mục tiêu**  
 Triển khai recovery orchestrator như một năng lực có contract, evidence và harness riêng.
@@ -3688,6 +4098,8 @@ Triển khai recovery orchestrator như một năng lực có contract, evidence
 
 ## TASK-205 — Artifact Lineage
 
+> **Trạng thái thực tế (2026-08-23):** PLANNED — chưa triển khai.
+
 **Mục tiêu**  
 Triển khai artifact lineage như một năng lực có contract, evidence và harness riêng.
 
@@ -3704,6 +4116,8 @@ Triển khai artifact lineage như một năng lực có contract, evidence và 
 - Theo dependency của milestone.
 
 ## TASK-206 — Coding Session
+
+> **Trạng thái thực tế (2026-08-23):** PLANNED — chưa triển khai.
 
 **Mục tiêu**  
 Triển khai coding session như một năng lực có contract, evidence và harness riêng.
@@ -3722,6 +4136,8 @@ Triển khai coding session như một năng lực có contract, evidence và ha
 
 ## TASK-207 — Session Fork
 
+> **Trạng thái thực tế (2026-08-23):** PLANNED — chưa triển khai.
+
 **Mục tiêu**  
 Triển khai session fork như một năng lực có contract, evidence và harness riêng.
 
@@ -3738,6 +4154,8 @@ Triển khai session fork như một năng lực có contract, evidence và harn
 - Theo dependency của milestone.
 
 ## TASK-208 — Multi-Agent Coding
+
+> **Trạng thái thực tế (2026-08-23):** PLANNED — chưa triển khai.
 
 **Mục tiêu**  
 Triển khai multi-agent coding như một năng lực có contract, evidence và harness riêng.
@@ -3756,6 +4174,8 @@ Triển khai multi-agent coding như một năng lực có contract, evidence v�
 
 ## TASK-209 — Parallel Coding
 
+> **Trạng thái thực tế (2026-08-23):** PLANNED — chưa triển khai.
+
 **Mục tiêu**  
 Triển khai parallel coding như một năng lực có contract, evidence và harness riêng.
 
@@ -3772,6 +4192,8 @@ Triển khai parallel coding như một năng lực có contract, evidence và h
 - Theo dependency của milestone.
 
 ## TASK-210 — Change Impact Analysis
+
+> **Trạng thái thực tế (2026-08-23):** PLANNED — chưa triển khai.
 
 **Mục tiêu**  
 Triển khai change impact analysis như một năng lực có contract, evidence và harness riêng.
@@ -3790,6 +4212,8 @@ Triển khai change impact analysis như một năng lực có contract, evidenc
 
 ## TASK-211 — Repository Knowledge Graph Integration
 
+> **Trạng thái thực tế (2026-08-23):** PLANNED — chưa triển khai.
+
 **Mục tiêu**  
 Triển khai repository knowledge graph integration như một năng lực có contract, evidence và harness riêng.
 
@@ -3806,6 +4230,8 @@ Triển khai repository knowledge graph integration như một năng lực có c
 - Theo dependency của milestone.
 
 ## TASK-212 — Coding Doctor
+
+> **Trạng thái thực tế (2026-08-23):** PLANNED — chưa triển khai.
 
 **Mục tiêu**  
 Triển khai coding doctor như một năng lực có contract, evidence và harness riêng.
@@ -3824,6 +4250,8 @@ Triển khai coding doctor như một năng lực có contract, evidence và har
 
 ## TASK-213 — Coding Health Score
 
+> **Trạng thái thực tế (2026-08-23):** PLANNED — chưa triển khai.
+
 **Mục tiêu**  
 Triển khai coding health score như một năng lực có contract, evidence và harness riêng.
 
@@ -3840,6 +4268,8 @@ Triển khai coding health score như một năng lực có contract, evidence v
 - Theo dependency của milestone.
 
 ## TASK-214 — Release Gate
+
+> **Trạng thái thực tế (2026-08-23):** PLANNED — chưa triển khai.
 
 **Mục tiêu**  
 Triển khai release gate như một năng lực có contract, evidence và harness riêng.
@@ -3858,6 +4288,8 @@ Triển khai release gate như một năng lực có contract, evidence và harn
 
 ## TASK-215 — Coding Certification
 
+> **Trạng thái thực tế (2026-08-23):** PLANNED — chưa triển khai.
+
 **Mục tiêu**  
 Triển khai coding certification như một năng lực có contract, evidence và harness riêng.
 
@@ -3874,6 +4306,8 @@ Triển khai coding certification như một năng lực có contract, evidence 
 - Theo dependency của milestone.
 
 ## TASK-216 — Benchmark Gate
+
+> **Trạng thái thực tế (2026-08-23):** PLANNED — chưa triển khai.
 
 **Mục tiêu**  
 Triển khai benchmark gate như một năng lực có contract, evidence và harness riêng.
@@ -3892,6 +4326,8 @@ Triển khai benchmark gate như một năng lực có contract, evidence và ha
 
 ## TASK-217 — AIOS 2.0 Coding Integration
 
+> **Trạng thái thực tế (2026-08-23):** PLANNED — chưa triển khai.
+
 **Mục tiêu**  
 Triển khai aios 2.0 coding integration như một năng lực có contract, evidence và harness riêng.
 
@@ -3908,6 +4344,8 @@ Triển khai aios 2.0 coding integration như một năng lực có contract, ev
 - Theo dependency của milestone.
 
 ## TASK-218 — Full M0–M26 Regression
+
+> **Trạng thái thực tế (2026-08-23):** PLANNED — chưa triển khai (task cuối đóng toàn bộ roadmap).
 
 **Mục tiêu**  
 Triển khai full m0–m26 regression như một năng lực có contract, evidence và harness riêng.

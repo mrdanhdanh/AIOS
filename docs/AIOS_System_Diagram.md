@@ -11,8 +11,8 @@
 ## 1. Phân tầng kiến trúc (Enforced Layering — ARCH-001..004)
 
 Quy tắc import **chỉ đi xuống**, cấm vượt tầng. Guard tại
-`aios/governance/architecture/guard.py`. **Trạng thái hiện tại (2026-08-22):**
-**TASK-001 → TASK-075 đã DONE** (M0–M10 hoàn tất, 2272 tests xanh).
+`aios/governance/architecture/guard.py`. **Trạng thái hiện tại (2026-08-23):**
+**TASK-001 → TASK-132 đã DONE** (M0–M19 đang tiến hành; 134 tasks DONE, bao gồm TASK-219), cộng TASK-133–T134 PLANNED. Test count xem §8.
 
 `Agent → Orchestrator → Runtime → Capability → Tool`
 
@@ -86,7 +86,16 @@ qua contract, không phá vỡ phân tầng:
 | Intelligence | `planning_engine/`, `execution_graph/`, `parallel_scheduler/` |
 | Durable | `durable/` |
 | Contracts (shared) | `contracts/` |
-| Harness / Verify | `harness/`, `ci/` |
+| Harness / Verify | `harness/`, `ci/`, `meta_harness/`, `harness_coverage/`, `independent_harness/`, `autonomous_harness_loop/`, `readiness_trust/`, `trust_budget/` |
+| Model Runtime | `model_runtime/` |
+| Coding Plane | `coder/` |
+| Remediation | `remediation_detect/`, `remediation_candidate/`, `remediation_simulation/`, `remediation_apply/`, `remediation_integrity/` |
+| Verification / Evidence | `verification_integrity/`, `visual_evidence/`, `replay/`, `failure_corpus/` |
+| Compatibility | `backward_compat/`, `migration/`, `versioning/`, `conformance/` |
+| Behavioral / Conformance | `behavioral/` |
+| Context | `context/` |
+| Autonomy extras | `autonomy_constitution/` |
+| Misc / Assets | `plugins/`, `skill_distiller/`, `asset_pipeline/`, `creative_domain/`, `compat_docs/`, `behavioral_docs/` |
 | Upgrade / Observability | `upgrade/`, `observability/` |
 | Progress (tracking) | `progress/` |
 
@@ -283,7 +292,7 @@ sequenceDiagram
 
 ---
 
-## 7. Cấu trúc Monorepo (thực tế — 2026-08-22)
+## 7. Cấu trúc Monorepo (thực tế — 2026-08-23)
 
 ```
 aios/
@@ -337,6 +346,36 @@ aios/
   ecosystem_registry/  (T046)  ecosystem_hub/ (T048)  devkit/ (T047)
   certification/       certifier, contracts (T049)
   harness/             (T029+)  ci/ checker, cli
+  meta_harness/        (T091)  verify-the-verifier
+  harness_coverage/    (T090)  readiness / coverage
+  independent_harness/  (T104)  integration foundation
+  autonomous_harness_loop/ (T099) harness loop
+  readiness_trust/     (T092)  system readiness vs harness trust
+  trust_budget/        (T102)  autonomy levels + SAFE-STOP
+  model_runtime/       (T112)  inference runtime orchestration
+  coder/               (T125-T127) coder agent + coding planner + generation runtime
+  remediation_detect/  (T094)  detect + diagnose
+  remediation_candidate/ (T095) candidate + risk scoring
+  remediation_simulation/ (T096) simulation + meta-verify
+  remediation_apply/   (T097)  permission + apply + rollback
+  remediation_integrity/ (T098) integrity + kill switch
+  verification_integrity/ (T078) fail-closed gate
+  visual_evidence/     (T080)  visual regression + UI state contract
+  replay/              (T079)  render replay / deterministic harness
+  failure_corpus/      (T100)  failure-corpus improvement engine
+  backward_compat/     (T086)  backward compatibility
+  migration/           (T085)  migration 1.0->1.1
+  versioning/          (T084)  version + compat baseline
+  conformance/         (T087)  compatibility conformance
+  behavioral/          (T089)  behavioral conformance
+  context/             context retrieval / builder (T121-T124)
+  autonomy_constitution/ (T103) constitution + audit trail
+  plugins/             plugin packages
+  skill_distiller/     (T083)  skill distiller + static deploy
+  asset_pipeline/      (T081)  asset pipeline + registry
+  creative_domain/     (T082)  creative domain + vendor integrity
+  compat_docs/         compatibility docs
+  behavioral_docs/     behavioral docs
   upgrade/             (T020)  observability/ (T021)
   progress/            PLAN.md LOG.md STATS.md tasks/<TASK-xxx>/ _TEMPLATE/
 configs/               default.yaml development.yaml test.yaml
@@ -345,9 +384,9 @@ docs/                  PLAN.md AGENTS.md AIOS_Master_Task_Specification_M0-M26.m
 
 ---
 
-## 8. Trạng thái Task (từ `aios/progress/PLAN.md` — 2026-08-22)
+## 8. Trạng thái Task (từ `aios/progress/PLAN.md` — 2026-08-23)
 
-**M0–M10 đã hoàn tất (TASK-001 → TASK-075 đều DONE, 2272 tests xanh).**
+**M0–M19 đã hoàn tất (TASK-001 → TASK-134 đều DONE, 135 tasks), cộng TASK-219.**
 
 | Milestone | Chủ đề | Task range | Status |
 |-----------|--------|-----------|--------|
@@ -362,10 +401,19 @@ docs/                  PLAN.md AGENTS.md AIOS_Master_Task_Specification_M0-M26.m
 | M8 | SDK, Plugin, Ecosystem, DevKit, Certification | TASK-043 → 049 | DONE |
 | M9 | Autonomous Goal Engine | TASK-050 | DONE |
 | M10 | AIOS 1.0 Baseline (Arch/Contract/Durable/Safety/KillSwitch/Reliability/Security/DevX/Dashboard/Cert/Upgrade/Perf) | TASK-063 → 075 | DONE |
+| M11 | Verification Integrity + Creative (Visual/Asset/Skill) | TASK-076 → 083, 219 | DONE |
+| M12 | Compatibility 1.1 (Version/Migration/Backward/Conformance/Docs) | TASK-084 → 088 | DONE |
+| M13 | Behavioral Conformance + Meta-Harness | TASK-089 → 093 | DONE |
+| M14 | Diagnose / Simulate / Autonomous Harness | TASK-094 → 098 | DONE |
+| M15 | Autonomous Harness Loop | TASK-099 → 103 | DONE |
+| M16 | Independent Harness + Verification Oracle | TASK-104 → 108 | DONE |
+| M17 | Model Contracts + Provider Lifecycle | TASK-109 → 116 | DONE |
+| M18 | Repo Intelligence (Scanner/Symbol/Dep/Index/Context) | TASK-117 → 124 | DONE |
+| M19 | Coder Agent (Contract/Planner/Generation runtime) | TASK-125 → 132 (133+ PLANNED) | IN PROGRESS |
 
-> **Fail-closed (audit 2026-08-22) — CLOSED:** các gap M5–M9 (T021, T023–T050, …) đã được implement trong session 2026-08-22, mỗi package đạt AC đầy đủ trong `docs/detailtask/`. Full suite: **2272 passed**. Xem `aios/progress/PLAN.md`.
+> **Fail-closed (audit 2026-08-22) — CLOSED:** các gap M5–M9 (T021, T023–T050, …) đã được implement trong session 2026-08-22, mỗi package đạt AC đầy đủ trong `docs/detailtask/`. Full suite: **2608 passed** (2026-08-23). Xem `aios/progress/PLAN.md`.
 
-> Tiếp theo: **M11 → M26** (xem §10–§12).
+> Tiếp theo: **M20 → M26** (M11–M19 đã DONE, xem §10–§12).
 
 ---
 
@@ -396,7 +444,7 @@ flowchart LR
     M11 --> M12[M12 Compatibility 1.1]
     M12 --> M13[M13 Behavioral Conformance<br/>+ Meta-Harness]
     M13 --> M14[M14 Diagnose / Simulate<br/>+ Autonomous Harness]
-    M14 --> M15[M15 Autonomous Loop<br/>Planner/World/Gov/Recovery]
+    M14 --> M15[M15 Autonomous Harness Loop<br/>+ Failure-Corpus]
     M15 --> M16[M16 Independent Harness<br/>+ Verification Oracle]
     M16 --> M17[M17 Model Contracts<br/>+ Provider Lifecycle]
     M17 --> M18[M18 Repo Scanner<br/>+ Symbol Index]
@@ -414,29 +462,30 @@ flowchart LR
     style M26 fill:#f59e0b,color:#fff
 ```
 
-> **M10 đã DONE** (TASK-063 → TASK-075, 2272 tests xanh). Roadmap tiếp theo: M11 → M26 (Coding Plane).
+> **M10 → M19 đã DONE** (TASK-063 → TASK-134; M19 hoàn tất T125-T134). Roadmap tiếp theo: M20 → M26 (Coding Plane, 84 tasks PLANNED).
 
 **Bản đồ milestone → chủ đề:**
 
-| Milestone | Chủ đề chính | Task tiêu biểu |
-|-----------|--------------|----------------|
-| M10 | AIOS 1.0 Baseline | T063 Architecture 1.0, T064 Contract Freeze, T065 Runtime Hardening, T066 Durable Execution, T067 Autonomy Safety, T068 Kill Switch, T069 Reliability, T070 Security Baseline, T071 DevX, T072 Dashboard 1.0, T073 Cert Suite, T074 Upgrade/Migration 1.0, T075 Perf/Cost |
-| M11 | Verification Integrity + Creative | T078 Fail-Closed Gate, T079 RenderReplay, T080 Visual Evidence, T081 Asset Pipeline, T082 Creative Domain, T083 SkillDistiller |
-| M12 | Compatibility 1.1 | T084 Version+Compat Baseline, T085 Migration 1.0→1.1, T086 Backward Compat, T087 Conformance, T088 Docs/ADR |
-| M13 | Behavioral Conformance + Meta-Harness | T089 Behavioral Conformance, T090 Harness Coverage, T091 Meta-Harness, T092 System Readiness, T093 Behavioral Spec |
-| M14 | Diagnose / Simulate / Autonomous Harness | T094 Detect+Diagnose, T095 Candidate+Risk, T096 Simulation+Meta-Verify, T097 Permission+Human Approval, T098 Remediation+Kill Switch, T099 Autonomous Harness Loop, T100 Failure-Corpus |
-| M15 | Autonomous Loop | T051 Planner, T052 World Model, T053 Loop, T054 Governor, T055 Recovery, T056 Long-Horizon, T057 Memory, T058 Experimentation, T059 Multi-Agent, T060 Evaluation, T061 Stuck Detection, T062 Scheduler |
-| M16 | Independent Harness + Oracle | T104 Integration Foundation, T105 Verification Oracle |
-| M17 | Model Contracts + Provider Lifecycle | T109 Model Contracts, T110 Provider Registry+Lifecycle |
-| M18 | Repo Intelligence | T117 Repository Scanner, T118 Source/Symbol Index |
-| M19 | Coder Agent | T125 Coder Agent Contract+SM, T126 Coding Planner+PlanVerifier |
-| M20 | Execution + Sandbox | T135 Execution Contract, T136 Sandbox Manager |
-| M21 | Coding Loop | T145 Coding Loop SM, T146 Execution Observation |
-| M22 | Evidence Adequacy | T155 Req→Evidence Mapping, T156 Test Adequacy+Mutation Verifier |
-| M23 | Adversarial | T165 Adversarial Eval Harness, T166 Evidence Attackers |
-| M24 | Quality + Risk | T175 Quality Gate+States, T176 Risk Model+Classification |
-| M25 | Coding Evaluation | T185 Coding Eval Contract, T186 Evaluation Engine |
-| M26 | Unified Coding Plane | T197 Unified Coding Contract, T198 Coding SM, T199 Coding Policy Engine |
+| Milestone | Chủ đề chính | Task tiêu biểu | Status |
+|-----------|--------------|----------------|--------|
+| M9 | Autonomous Goal Engine (Planner/World/Loop/Gov/Recovery/Memory/Exp/Multi-Agent/Eval/Stuck/Scheduler) | T050 → 062 | DONE |
+| M10 | AIOS 1.0 Baseline | T063 → 075 | DONE |
+| M11 | Verification Integrity + Creative | T076 → 083, T219 | DONE |
+| M12 | Compatibility 1.1 | T084 → 088 | DONE |
+| M13 | Behavioral Conformance + Meta-Harness | T089 → 093 | DONE |
+| M14 | Diagnose / Simulate / Autonomous Harness | T094 → 098 | DONE |
+| M15 | Autonomous Harness Loop | T099 → 103 | DONE |
+| M16 | Independent Harness + Oracle | T104 → 108 | DONE |
+| M17 | Model Contracts + Provider Lifecycle | T109 → 116 | DONE |
+| M18 | Repo Intelligence | T117 → 124 | DONE |
+| M19 | Coder Agent | T125 → 134 | DONE |
+| M20 | Execution + Sandbox | T135 → 136 | PLANNED |
+| M21 | Coding Loop | T145 → 146 | PLANNED |
+| M22 | Evidence Adequacy | T155 → 156 | PLANNED |
+| M23 | Adversarial | T165 → 166 | PLANNED |
+| M24 | Quality + Risk | T175 → 176 | PLANNED |
+| M25 | Coding Evaluation | T185 → 186 | PLANNED |
+| M26 | Unified Coding Plane | T197 → 199 | PLANNED |
 
 ---
 
@@ -551,6 +600,6 @@ Các gap M5–M9 dưới đây đã được **implement** trong session 2026-08
 
 > Nguyên tắc **fail-closed**: UNKNOWN không được nâng thành PASS; spec luôn là
 > canonical target. Các gap này đã được lấp trong M10 (hardening, durable,
-> safety, security, reliability) — full suite **2272 passed**.
+> safety, security, reliability) — full suite **2608 passed** (2026-08-23).
 
 *Tài liệu được sinh tự động từ source tree AIOS — cập nhật khi có milestone mới.*

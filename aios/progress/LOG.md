@@ -565,4 +565,15 @@ Append-only event log. Each entry: `ISO-UTC | task | event | detail`.
 2026-08-23T01:00:00Z | TASK-143 | DONE | Security+Replay Harness (aios/execution/replay.py); 6 tests; Unified Gate PASS.
 2026-08-23T01:00:00Z | TASK-144 | DONE | Execution Evidence+Conformance (aios/execution/evidence.py); 7 tests; Unified Gate PASS; M20 CLOSED.
 2026-08-23T01:00:00Z | M20 | MILESTONE | Execution Subsystem (T135-T144) HOAN THANH; 71 tests moi (T135-T144), full suite 2738 passed, khong regression. M20 COMPLETE. ALL TASKS 135-144 DONE.
+2026-08-23T02:00:00Z | TASK-145 | DONE | Coding Loop State Machine (aios/coding_loop/state_machine.py); 7 tests; Unified Gate PASS.
+2026-08-23T02:00:00Z | TASK-146 | DONE | Execution Observation (aios/coding_loop/observation.py); 7 tests; Unified Gate PASS.
+2026-08-23T02:00:00Z | TASK-147 | DONE | Failure Classification (aios/coding_loop/classification.py); 7 tests; Unified Gate PASS.
+2026-08-23T02:00:00Z | TASK-148 | DONE | Diagnostic Agent (aios/coding_loop/diagnostic.py); 7 tests; Unified Gate PASS.
+2026-08-23T02:00:00Z | TASK-149 | DONE | Repair Planner (aios/coding_loop/repair.py); 7 tests; Unified Gate PASS.
+2026-08-23T02:00:00Z | TASK-150 | DONE | Progress+Regression Detection (aios/coding_loop/progress_detection.py); 7 tests; Unified Gate PASS.
+2026-08-23T02:00:00Z | TASK-151 | DONE | Verification Gate (aios/coding_loop/verification_gate.py); 7 tests; Unified Gate PASS.
+2026-08-23T02:00:00Z | TASK-152 | DONE | Context Refresh+Patch Chain (aios/coding_loop/patch_chain.py); 7 tests; Unified Gate PASS.
+2026-08-23T02:00:00Z | TASK-153 | DONE | Autonomous Safety Controller (aios/coding_loop/safety.py); 7 tests; Unified Gate PASS.
+2026-08-23T02:00:00Z | TASK-154 | DONE | Autonomous Coding Harness (aios/coding_loop/harness.py); 7 tests; Unified Gate PASS; M21 CLOSED.
+2026-08-23T02:00:00Z | M21 | MILESTONE | Autonomous Coding Loop (T145-T154) HOAN THANH; 70 tests moi (T145-T154), full suite 2808 passed, khong regression. M21 COMPLETE. ALL TASKS 145-154 DONE.
 ```

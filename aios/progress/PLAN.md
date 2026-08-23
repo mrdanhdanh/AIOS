@@ -161,16 +161,16 @@ Ordered task index and status. Status values: `PLANNED | SPECIFIED | ... | DONE 
 | TASK-143 | M20 | Security + Replay Harness | TASK-142 | DONE |
 | TASK-144 | M20 | Execution Evidence + Conformance | TASK-143 | DONE |
 
-| TASK-145 | M21 | Coding Loop State Machine | TASK-144,TASK-053,TASK-050 | PLANNED |
-| TASK-146 | M21 | Execution Observation | TASK-145,TASK-135,TASK-141 | PLANNED |
-| TASK-147 | M21 | Failure Classification | TASK-146,TASK-135 | PLANNED |
-| TASK-148 | M21 | Diagnostic Agent | TASK-147,TASK-146 | PLANNED |
-| TASK-149 | M21 | Repair Planner | TASK-148,TASK-026,TASK-055 | PLANNED |
-| TASK-150 | M21 | Progress + Regression Detection | TASK-149,TASK-033,TASK-055 | PLANNED |
-| TASK-151 | M21 | Verification Gate | TASK-150,TASK-142,TASK-078 | PLANNED |
-| TASK-152 | M21 | Context Refresh + Patch Chain | TASK-151,TASK-024,TASK-137 | PLANNED |
-| TASK-153 | M21 | Autonomous Safety Controller | TASK-152,TASK-067,TASK-068 | PLANNED |
-| TASK-154 | M21 | Autonomous Coding Harness | TASK-145,TASK-146,TASK-147,TASK-148,TASK-149,TASK-150,TASK-151,TASK-152,TASK-153,TASK-029,TASK-031,TASK-032 | PLANNED |
+| TASK-145 | M21 | Coding Loop State Machine | TASK-144,TASK-053,TASK-050 | DONE |
+| TASK-146 | M21 | Execution Observation | TASK-145,TASK-135,TASK-141 | DONE |
+| TASK-147 | M21 | Failure Classification | TASK-146,TASK-135 | DONE |
+| TASK-148 | M21 | Diagnostic Agent | TASK-147,TASK-146 | DONE |
+| TASK-149 | M21 | Repair Planner | TASK-148,TASK-026,TASK-055 | DONE |
+| TASK-150 | M21 | Progress + Regression Detection | TASK-149,TASK-033,TASK-055 | DONE |
+| TASK-151 | M21 | Verification Gate | TASK-150,TASK-142,TASK-078 | DONE |
+| TASK-152 | M21 | Context Refresh + Patch Chain | TASK-151,TASK-024,TASK-137 | DONE |
+| TASK-153 | M21 | Autonomous Safety Controller | TASK-152,TASK-067,TASK-068 | DONE |
+| TASK-154 | M21 | Autonomous Coding Harness | TASK-145,TASK-146,TASK-147,TASK-148,TASK-149,TASK-150,TASK-151,TASK-152,TASK-153,TASK-029,TASK-031,TASK-032 | DONE |
 
 | TASK-155 | M22 | Requirement → Evidence Mapping | TASK-144,TASK-142,TASK-001 | PLANNED |
 | TASK-156 | M22 | Test Adequacy Analyzer + Mutation Verifier | TASK-155,TASK-031,TASK-142 | PLANNED |
