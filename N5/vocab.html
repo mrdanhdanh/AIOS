@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Từ vựng — Nhật N5</title>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<header class="top">
+  <h1>日本語 N5 — Học tiếng Nhật sơ cấp</h1>
+  <p>Website tĩnh, học offline · Hiragana · Katakana · Từ vựng · Ngữ pháp · Kanji · Trắc nghiệm</p>
+</header>
+<button class="menu-toggle" aria-label="Menu" onclick="document.querySelector('nav.main').classList.toggle('open')">☰ Menu</button>
+<nav class="main"><a href="index.html">Trang chủ</a><a href="hiragana.html">Hiragana</a><a href="katakana.html">Katakana</a><a href="vocab.html" class="active">Từ vựng</a><a href="grammar.html">Ngữ pháp</a><a href="kanji.html">Kanji</a><a href="quiz.html">Trắc nghiệm</a></nav>
+<main>
+
+<section><h2>Từ vựng N5</h2>
+<div class="filter">
+  <input id="v-search" placeholder="Tìm theo Nhật / romaji / nghĩa...">
+  <select id="v-cat"><option value="">-- Tất cả chủ đề --</option></select>
+</div>
+<div id="vocab-list" class="grid cols-2"></div>
+</section>
+
+</main>
+<footer>Được tạo bởi AIOS Planner · Nội dung mang tính tham khảo luyện thi JLPT N5.</footer>
+<script src="assets/data.js"></script>
+<script src="assets/app.js"></script>
+</body>
+</html>
