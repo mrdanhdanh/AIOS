@@ -250,6 +250,7 @@ M26 `DONE` (3138 tests, M26 full: T197-T218 implemented in `aios/coding_edition/
 | TASK-220 | M27 | AIOS Coordinator Agent (control-plane + chat agent) | TASK-001,TASK-008,TASK-125 | DONE |
 | TASK-221 | M27 | Coordinator Chat API Endpoint | TASK-220,TASK-017 | DONE |
 | TASK-222 | M27 | Real Executor + CLI `execute` (practical usage) | TASK-221,TASK-008,TASK-005 | DONE |
+| TASK-223 | M27 | AIOS Planner Agent + Skill (request → plan.yaml) | TASK-222,TASK-008 | DONE |
 
 M27 opens a lightweight control-plane layer: `CoordinatorAgent` (pure, I/O-free,
 capability-injected) drives the agent-role pipeline (spec → critique×2 →
@@ -260,9 +261,11 @@ endpoint (`POST /api/v1/coordinator/run`, `GET /{task_id}`) bridging the chat
 UI to `CoordinatorAgent`. TASK-222 adds real execution: `aios/runtime/process.py`
 (`RealToolHandler`) runs real OS commands (shell/git/file) gated by
 Policy/Permission, wired into `RuntimeKernel` (opt-in `real_execution.enabled`),
-exposed via `aiagent execute <plan>` (YAML/JSON/Markdown). No LLM / external API
-required — suitable for weak/offline machines. Unified Gate PASS; 3156 tests
-green (2026-08-24).
+exposed via `aiagent execute <plan>` (YAML/JSON/Markdown). TASK-223 closes the
+front-door loop: `.github/agents/aios-planner.agent.md` + `.github/skills/aios-plan/SKILL.md`
+turn a natural-language request into a runnable `plan.yaml` (WorkflowDefinition with
+real `command`s) that `aiagent execute` runs. No LLM / external API required —
+suitable for weak/offline machines. Unified Gate PASS; 3161 tests green (2026-08-24).
 
 ## Known implementation gaps (audit 2026-08-22) — CLOSED 2026-08-22
 

@@ -31,7 +31,7 @@ def _write_yaml_plan(path: Path) -> None:
 
 
 def test_execute_disabled_returns_2(tmp_path, monkeypatch):
-    monkeypatch.delenv("AIOS_REAL_EXECUTION_ENABLED", raising=False)
+    monkeypatch.setenv("AIOS_REAL_EXECUTION_ENABLED", "0")
     plan = tmp_path / "sample.yaml"
     _write_yaml_plan(plan)
     assert _cmd_execute(_args(str(plan), simulate=False)) == 2

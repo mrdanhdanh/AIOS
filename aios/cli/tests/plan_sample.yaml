@@ -1,0 +1,11 @@
+workflow:
+  name: sample-plan
+  version: 0.1.0
+  permissions: [process.execute]
+  nodes:
+    - id: step-1
+      type: task
+      command: echo "hello from AIOS plan"
+    - id: step-2
+      type: task
+      command: echo "second step"
