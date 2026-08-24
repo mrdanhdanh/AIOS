@@ -27,9 +27,11 @@ def _run_pipeline(task_id: str) -> dict:
         # Minimal spec input; real jobs supply a richer spec from docs/detailtask.
         spec = SpecInput(
             task_id=task_id,
-            title=task_id,
             objective="Run AIOS governance pipeline for this task.",
+            scope="governance pipeline dry run",
             deliverables=[],
+            acceptance=[],
+            dependencies=[],
         )
         coord = CoordinatorAgent(
             spec_writer=SpecWriter(),

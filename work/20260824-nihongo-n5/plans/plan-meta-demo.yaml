@@ -1,0 +1,16 @@
+workflow:
+  name: META-DEMO — full AIOS job flow (pipeline + gates + durable log)
+  version: 0.1.0
+  permissions: [process.execute]
+  nodes:
+    - id: run-task-pipeline
+      type: task
+      # Drive the FULL governance pipeline + 7 gates for TASK-222 via the new
+      # `aiagent task` command. This is the single entry point every AIOS job
+      # must use so no part of AIOS is bypassed. Writes a durable log.
+      command: python d:\AIOS\work\20260824-nihongo-n5\scripts\run_task.py TASK-222 --job-dir d:\AIOS\work\20260824-nihongo-n5\logs
+    - id: verify-log-written
+      type: task
+      # Prove the durable log exists (EvidenceStore is in-memory only, so the
+      # file on disk is the real proof AIOS processed the job).
+      command: python -c "import os, glob; fs=glob.glob(r'd:\AIOS\work\20260824-nihongo-n5\logs\task-TASK-222-*.json'); print('LOG FILES:', fs); assert fs, 'no log written'; print('OK durable log present')"
