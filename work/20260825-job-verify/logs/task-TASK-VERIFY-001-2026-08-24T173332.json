@@ -1,0 +1,46 @@
+{
+  "tool": "aiagent task",
+  "timestamp": "2026-08-24T17:33:32.749505+00:00",
+  "task": "TASK-VERIFY-001",
+  "pipeline": {
+    "status": "OK",
+    "steps": [
+      {
+        "name": "spec",
+        "status": "OK",
+        "detail": "196 chars rendered"
+      },
+      {
+        "name": "critique-1",
+        "status": "OK",
+        "detail": "APPROVE"
+      },
+      {
+        "name": "critique-2",
+        "status": "OK",
+        "detail": "APPROVE"
+      },
+      {
+        "name": "breakdown",
+        "status": "OK",
+        "detail": "63 chars"
+      },
+      {
+        "name": "review",
+        "status": "OK",
+        "detail": "All pre-implementation artifacts present."
+      },
+      {
+        "name": "orchestrate",
+        "status": "OK",
+        "detail": "task closed"
+      }
+    ],
+    "approved": true,
+    "closed": true
+  },
+  "gates": {
+    "returncode": 0,
+    "summary": "  [PASS] ci: [pass] core-tests=135/135 passed; full-suite=3165/3168 passed"
+  }
+}
