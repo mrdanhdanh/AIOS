@@ -55,6 +55,15 @@ class KernelError(Exception):
     """Raised on kernel wiring errors."""
 
 
+def _read_real_exec_env() -> Optional[dict]:
+    """Read the opt-in real-execution flag from the environment (TASK-222)."""
+    import os
+
+    if os.environ.get("AIOS_REAL_EXECUTION_ENABLED", "").lower() in {"1", "true", "yes"}:
+        return {"enabled": True, "subject": "runtime", "allowed_cwd": None}
+    return None
+
+
 class RuntimeKernel:
     """Composition root that wires all runtime services into a Container."""
 
@@ -62,11 +71,14 @@ class RuntimeKernel:
         self,
         container: Optional[Container] = None,
         config: Optional[Config] = None,
+        real_execution: Optional[dict] = None,
     ) -> None:
         # Fail-closed: refuse to start with an invalid configuration (T065).
         if config is not None:
             require_valid_config(config)
         self.container = container or Container()
+        # TASK-222: opt-in real execution. Explicit dict wins; else env override.
+        self._real_exec = real_execution or _read_real_exec_env()
         self._wire()
 
     def _wire(self) -> None:
@@ -149,6 +161,31 @@ class RuntimeKernel:
             ),
             lifetime=Lifetime.SINGLETON,
         )
+        # TASK-222: real execution support (opt-in, disabled by default).
+        re_cfg = self._real_exec
+        if re_cfg and re_cfg.get("enabled"):
+            from .process import RealToolHandler, SCOPE_MAP
+            from .permission import Permission
+
+            _broker = c.resolve(PermissionBroker)
+            _subject = re_cfg.get("subject", "runtime")
+            _scopes = re_cfg.get(
+                "scopes", ["process.execute", "tool:invoke", "filesystem.write"]
+            )
+            for _s in _scopes:
+                _enum = SCOPE_MAP.get(_s)
+                if _enum is None:
+                    continue
+                _broker.grant(_subject, Permission(_enum, re_cfg.get("resource", "*")))
+            c.register(
+                RealToolHandler,
+                factory=lambda: RealToolHandler(
+                    broker=c.resolve(PermissionBroker),
+                    subject=_subject,
+                    allowed_cwd=re_cfg.get("allowed_cwd"),
+                ),
+                lifetime=Lifetime.SINGLETON,
+            )
 
     # ------------------------------------------------------------------ #
     @property
@@ -236,6 +273,40 @@ class RuntimeKernel:
         from .capability_router import CapabilityRouter
 
         return self.container.resolve(CapabilityRouter)
+
+    @property
+    def real_tool_handler(self) -> Any:
+        """Resolve the real execution handler (only registered when enabled)."""
+        from .process import RealToolHandler
+
+        return self.container.resolve(RealToolHandler)
+
+    def execute_plan(
+        self,
+        plan: Any,
+        *,
+        subject: str = "runtime",
+        timeout: float = 30.0,
+        max_attempts: int = 1,
+        cancel_event: Any = None,
+    ) -> Any:
+        """Execute *plan* via the real tool handler (TASK-222).
+
+        Raises :class:`KernelError` if real execution is not enabled.
+        """
+        if not (self._real_exec and self._real_exec.get("enabled")):
+            raise KernelError(
+                "real execution is disabled; set real_execution.enabled=true "
+                "in configs/default.yaml or AIOS_REAL_EXECUTION_ENABLED=1"
+            )
+        handler = self.real_tool_handler
+        return self.executor.execute(
+            plan,
+            handler,
+            timeout=timeout,
+            max_attempts=max_attempts,
+            cancel_event=cancel_event,
+        )
 
     # ------------------------------------------------------------------ #
     def health(self) -> dict:

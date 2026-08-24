@@ -73,6 +73,7 @@ class WorkflowNode:
     type: str = "task"
     capability: Optional[str] = None
     description: str = ""
+    command: Optional[str] = None  # TASK-222: real command to run (optional)
 
     def validate(self) -> None:
         if not isinstance(self.id, str) or not self.id.strip():
@@ -88,6 +89,8 @@ class WorkflowNode:
             d["capability"] = self.capability
         if self.description:
             d["description"] = self.description
+        if self.command is not None:
+            d["command"] = self.command
         return d
 
     @classmethod
@@ -100,10 +103,11 @@ class WorkflowNode:
         ntype = data.get("type", "task")
         cap = data.get("capability")
         desc = data.get("description", "")
+        cmd = data.get("command")
         for forbidden in ("engine", "langgraph_node", "langgraph", "engine_config"):
             if forbidden in data:
                 raise WorkflowError(f"node contains forbidden engine-specific key {forbidden!r}")
-        obj = cls(id=str(nid), type=str(ntype), capability=cap, description=str(desc) if desc else "")
+        obj = cls(id=str(nid), type=str(ntype), capability=cap, description=str(desc) if desc else "", command=str(cmd) if cmd else None)
         obj.validate()
         return obj
 
@@ -279,3 +283,85 @@ class WorkflowDefinition:
         with open(path, "r", encoding="utf-8") as fh:
             text = fh.read()
         return cls.from_yaml(text)
+
+    @classmethod
+    def from_markdown(cls, text: str) -> "WorkflowDefinition":
+        """Parse a simple Markdown plan into a workflow (TASK-222).
+
+        Each line of the form ``- [ ] <command>`` (or ``- [x]``) becomes a node
+        whose ``command`` is the text after the checkbox. A leading ``# Title``
+        line (if present) becomes the workflow name.
+        """
+        name = "markdown-plan"
+        version = "0.1.0"
+        nodes: List["WorkflowNode"] = []
+        idx = 0
+        for raw in text.splitlines():
+            line = raw.strip()
+            if line.startswith("# ") and name == "markdown-plan":
+                name = line[2:].strip() or name
+                continue
+            if line.startswith("```"):
+                continue  # skip fenced code blocks
+            if line.startswith("- [ ]") or line.startswith("- [x]"):
+                body = line[line.index("]") + 1:].strip()
+                if not body:
+                    continue
+                idx += 1
+                nodes.append(
+                    WorkflowNode(id=f"step-{idx}", type="task", description=body, command=body)
+                )
+        if not nodes:
+            raise WorkflowError("markdown plan contains no '- [ ]' steps")
+        return cls(name=name, version=version, nodes=nodes, permissions=["process.execute"])
+
+    # ------------------------------------------------------------------ #
+    # TASK-222: convert a declarative workflow into a runtime ExecutionPlan
+    # ------------------------------------------------------------------ #
+    def to_execution_plan(self, *, allowed_cwd: Optional[str] = None) -> "ExecutionPlan":
+        """Build a runtime :class:`~aios.core.planner.ExecutionPlan` for real execution.
+
+        Each node becomes a :class:`~aios.core.planner.Step` carrying the
+        ``scope`` / ``resource`` metadata required by the executor's policy
+        pre-check, plus the real ``command`` to run.
+        """
+        from aios.core.planner import ExecutionPlan, Step
+        from aios.runtime.permission import PermissionScope
+
+        scope = self._derive_scope()
+        plan = ExecutionPlan(plan_id=f"wf-{self.name}-{self.version}")
+        plan.metadata["version"] = self.version
+        plan.metadata["workflow_name"] = self.name
+        for node in self.nodes:
+            command = node.command or node.description or node.id
+            tool_type = "git" if str(command).strip().lower().startswith("git ") else "shell"
+            step = Step(
+                step_id=node.id,
+                action=str(command),
+                metadata={
+                    "scope": scope,
+                    "resource": node.id,
+                    "tool_type": tool_type,
+                    "command": str(command),
+                    "cwd": allowed_cwd,
+                    "timeout": self.timeout,
+                },
+            )
+            plan.add_step(step)
+        return plan
+
+    def _derive_scope(self) -> "PermissionScope":
+        """Map workflow-level permissions to a single step scope (fail-closed EXECUTE)."""
+        from aios.runtime.permission import PermissionScope
+
+        perms = set(self.permissions)
+        if "process.execute" in perms or "tool:invoke" in perms:
+            return PermissionScope.EXECUTE
+        if "capability:invoke" in perms:
+            return PermissionScope.CAPABILITY_INVOKE
+        if "filesystem.write" in perms:
+            return PermissionScope.WRITE
+        if "filesystem.read" in perms:
+            return PermissionScope.READ
+        # Default: real command execution requires EXECUTE permission.
+        return PermissionScope.EXECUTE

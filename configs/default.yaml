@@ -6,3 +6,16 @@ config_dir: .aios
 healthcheck_timeout: 5.0
 metadata_cache_ttl: 300
 dry_run: false
+
+# TASK-222 — Real execution (opt-in, SAFE DEFAULT OFF).
+# When enabled, AIOS can run real OS commands (shell/git/file) via the runtime
+# executor, gated by Policy/Permission. No LLM / external API required.
+# Override with AIOS_REAL_EXECUTION_ENABLED=1.
+real_execution:
+  enabled: false
+  subject: "runtime"
+  allowed_cwd: null          # null = repo root; confine executed commands to this dir
+  scopes:
+    - "process.execute"
+    - "tool:invoke"
+    - "filesystem.write"

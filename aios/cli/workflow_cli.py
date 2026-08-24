@@ -27,6 +27,59 @@ def _cmd_validate(args: argparse.Namespace) -> int:
     return 0
 
 
+def _cmd_execute(args: argparse.Namespace) -> int:
+    """Execute a plan file via the AIOS runtime (TASK-222).
+
+    Real execution is opt-in (real_execution.enabled in configs/default.yaml or
+    AIOS_REAL_EXECUTION_ENABLED=1). With --simulate, only validate/print the plan
+    (0 LLM calls, 0 real execution).
+    """
+    path = args.file
+    simulate = args.simulate
+    timeout = args.timeout
+    try:
+        if path.endswith(".md"):
+            from pathlib import Path as _P
+            wf = WorkflowDefinition.from_markdown(_P(path).read_text(encoding="utf-8"))
+        else:
+            wf = WorkflowDefinition.from_file(path)
+    except (WorkflowError, OSError) as exc:
+        print(f"INVALID: {exc}", file=sys.stderr)
+        return 1
+
+    if simulate:
+        print(f"[SIMULATE] {wf.name} v{wf.version} ({len(wf.nodes)} nodes, 0 LLM calls)")
+        for n in wf.nodes:
+            print(f"  - {n.command or n.description or n.id}")
+        return 0
+
+    from aios.runtime.process import load_real_execution_config
+    from aios.runtime.kernel import RuntimeKernel
+    from aios.governance.evidence.store import EvidenceStore, record_execution_evidence
+
+    re_cfg = load_real_execution_config()
+    if not re_cfg.get("enabled"):
+        print(
+            "ERROR: real_execution disabled. Set real_execution.enabled: true in "
+            "configs/default.yaml or AIOS_REAL_EXECUTION_ENABLED=1",
+            file=sys.stderr,
+        )
+        return 2
+
+    kernel = RuntimeKernel(real_execution=re_cfg)
+    plan = wf.to_execution_plan(allowed_cwd=re_cfg.get("allowed_cwd"))
+    report = kernel.execute_plan(plan, timeout=timeout)
+    store = EvidenceStore()
+    record_execution_evidence(store, wf.name, wf.version, plan, report, path)
+
+    status = "PASS" if report.is_success else "FAIL"
+    print(f"[{status}] {wf.name} v{wf.version} (execution_id={report.execution_id})")
+    for sid, sr in report.results.items():
+        out = str(sr.output).strip() if sr.output else (sr.error or "")
+        print(f"  {sid}: {sr.status}" + (f" :: {out[:120]}" if out else ""))
+    return 0 if report.is_success else 1
+
+
 def _cmd_run(args: argparse.Namespace) -> int:
     path = args.workflow
     if not args.simulate:
@@ -65,6 +118,11 @@ def build_parser() -> argparse.ArgumentParser:
     p_run.add_argument("--simulate", action="store_true", help="Simulate without real tools/LLM")
     p_run.add_argument("--json", action="store_true", help="Output JSON")
     p_run.set_defaults(func=_cmd_run)
+    p_ex = sub.add_parser("execute", help="Execute a plan via AIOS runtime (real tools, opt-in)")
+    p_ex.add_argument("file", help="Path to plan file (.yaml/.yml/.json/.md)")
+    p_ex.add_argument("--simulate", action="store_true", help="Validate only, no real execution")
+    p_ex.add_argument("--timeout", type=float, default=30.0, help="Per-step timeout in seconds")
+    p_ex.set_defaults(func=_cmd_execute)
     p_wf = sub.add_parser("workflow", help="Workflow subcommands")
     wf_sub = p_wf.add_subparsers(dest="wf_command", required=True)
     p_val = wf_sub.add_parser("validate", help="Validate a workflow YAML file")

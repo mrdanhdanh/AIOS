@@ -185,3 +185,51 @@ class EvidenceStore:
 
     def list_all(self) -> List[Evidence]:
         return list(self._evidence.values())
+
+
+def record_execution_evidence(
+    store: "EvidenceStore",
+    workflow_name: str,
+    workflow_version: str,
+    plan: Any,
+    report: Any,
+    source_file: str,
+) -> List[str]:
+    """Record a complete provenance chain for a real execution (TASK-222).
+
+    Registers Requirement -> TaskRecord -> Artifact -> Run -> Evidence (one per
+    step) so :meth:`EvidenceStore.get_provenance_chain` returns ``complete``.
+    Returns the list of evidence IDs created.
+    """
+    requirement_id = "req-execute"
+    task_id = "TASK-EXEC-CLI"
+    store.add_requirement(Requirement(requirement_id, f"execute {workflow_name}"))
+    store.add_task_record(TaskRecord(task_id, requirement_id))
+    artifact_id = f"artifact-{workflow_name}-{workflow_version}"
+    store.add_artifact(Artifact(artifact_id, task_id, requirement_id, kind="execution"))
+    run_id = f"run-{report.execution_id}"
+    store.add_run(Run(run_id, artifact_id, task_id, command=f"aiagent execute {source_file}"))
+
+    evidence_ids: List[str] = []
+    for step_id, sr in report.results.items():
+        content = str(sr.output) if sr.output is not None else (sr.error or "")
+        ev = Evidence(
+            evidence_id=f"ev-{report.execution_id}-{step_id}",
+            task_id=task_id,
+            run_id=run_id,
+            producer="RealToolHandler",
+            type="step_output",
+            source=step_id,
+            content_hash=compute_hash(content),
+        )
+        store.add_evidence(
+            evidence_id=ev.evidence_id,
+            task_id=ev.task_id,
+            run_id=ev.run_id,
+            producer=ev.producer,
+            type=ev.type,
+            source=ev.source,
+            content_hash=ev.content_hash,
+        )
+        evidence_ids.append(ev.evidence_id)
+    return evidence_ids

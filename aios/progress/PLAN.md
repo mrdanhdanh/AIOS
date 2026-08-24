@@ -249,6 +249,7 @@ M26 `DONE` (3138 tests, M26 full: T197-T218 implemented in `aios/coding_edition/
 
 | TASK-220 | M27 | AIOS Coordinator Agent (control-plane + chat agent) | TASK-001,TASK-008,TASK-125 | DONE |
 | TASK-221 | M27 | Coordinator Chat API Endpoint | TASK-220,TASK-017 | DONE |
+| TASK-222 | M27 | Real Executor + CLI `execute` (practical usage) | TASK-221,TASK-008,TASK-005 | DONE |
 
 M27 opens a lightweight control-plane layer: `CoordinatorAgent` (pure, I/O-free,
 capability-injected) drives the agent-role pipeline (spec → critique×2 →
@@ -256,7 +257,12 @@ breakdown → review → orchestrate/close) and a custom VS Code chat agent
 (`.github/agents/aios-coordinator.agent.md`) lets users pick it from the chat
 picker and auto-follow the governance next-step loop. TASK-221 adds a REST
 endpoint (`POST /api/v1/coordinator/run`, `GET /{task_id}`) bridging the chat
-UI to `CoordinatorAgent`. Unified Gate PASS; 3145 tests green (2026-08-24).
+UI to `CoordinatorAgent`. TASK-222 adds real execution: `aios/runtime/process.py`
+(`RealToolHandler`) runs real OS commands (shell/git/file) gated by
+Policy/Permission, wired into `RuntimeKernel` (opt-in `real_execution.enabled`),
+exposed via `aiagent execute <plan>` (YAML/JSON/Markdown). No LLM / external API
+required — suitable for weak/offline machines. Unified Gate PASS; 3156 tests
+green (2026-08-24).
 
 ## Known implementation gaps (audit 2026-08-22) — CLOSED 2026-08-22
 

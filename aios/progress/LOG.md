@@ -25,6 +25,17 @@ Append-only event log. Each entry: `ISO-UTC | task | event | detail`.
 2026-08-24T00:00:00Z | TASK-221 | EVALUATING | all 6 AC PASS.
 2026-08-24T00:00:00Z | TASK-221 | REGRESSION | full suite 3145 passed; closure green.
 2026-08-24T00:00:00Z | TASK-221 | DONE | Unified Task Gate PASS (local CI). 3145 tests green.
+2026-08-24T00:00:00Z | TASK-222 | CREATED | Real Executor + CLI execute (practical usage) initialized.
+2026-08-24T00:00:00Z | TASK-222 | SPECIFIED | spec.md written (Objective/Scope/AC/Risks).
+2026-08-24T00:00:00Z | TASK-222 | CRITIQUED_1 | critique-1.md written (sandbox/timeout/cross-platform).
+2026-08-24T00:00:00Z | TASK-222 | CRITIQUED_2 | critique-2.md written (APPROVE).
+2026-08-24T00:00:00Z | TASK-222 | BROKEN_DOWN | tasks.md written (12-step breakdown).
+2026-08-24T00:00:00Z | TASK-222 | REVIEWED | review.md written (APPROVED).
+2026-08-24T00:00:00Z | TASK-222 | IMPLEMENTING | aios/runtime/process.py + WorkflowDefinition.to_execution_plan/from_markdown + kernel.execute_plan + cli execute.
+2026-08-24T00:00:00Z | TASK-222 | TESTING | aios/runtime/tests/test_process.py + aios/cli/tests/test_execute.py green; architecture gate 0 violations.
+2026-08-24T00:00:00Z | TASK-222 | EVALUATING | all 7 AC PASS (real run / deny / safe-default / timeout-kill / provenance / arch / simulate).
+2026-08-24T00:00:00Z | TASK-222 | REGRESSION | full suite 3156 passed, 3 skipped; closure green.
+2026-08-24T00:00:00Z | TASK-222 | DONE | Unified Task Gate PASS (local CI). 3156 tests green.
 
 2026-08-19T00:00:00Z | TASK-001 | CREATED | Task Governance System initialized.
 2026-08-19T00:00:00Z | TASK-001 | SPECIFIED | spec.md written.
