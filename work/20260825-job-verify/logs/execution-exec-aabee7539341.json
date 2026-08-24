@@ -1,0 +1,16 @@
+{
+  "tool": "aiagent execute",
+  "timestamp": "2026-08-24T17:28:26.551145+00:00",
+  "plan_name": "Verify standard AIOS job flow on a fresh task folder",
+  "plan_version": "0.1.0",
+  "execution_id": "exec-aabee7539341",
+  "overall_status": "FAIL",
+  "steps": [
+    {
+      "step_id": "scaffold-task",
+      "status": "FAILED",
+      "output": "command exited 1: 'python d:\\\\AIOS\\\\work\\\\20260825-job-verify\\\\scripts\\\\make_task_folder.py'\nTraceback (most recent call last):\n  File \"d:\\AIOS\\work\\20260825-job-verify\\scripts\\make_task_folder.py\", line 26, in <module>\n    main()\n    ~~~~^^\n  File \"d:\\AIOS\\work\\20260825-job-verify\\scripts\\make_task_folder.py\", line 18, in main\n    shutil.copytree(TEMPLATE, TARGET)\n    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\nguye\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\shutil.py\", line 591, in copytree\n    with os.scandir(src) as itr:\n         ~~~~~~~~~~^^^^^\nFileNotFoundError: [WinError 3] The system cannot find the path specified: 'd:\\\\AIOS\\\\work\\\\aios\\\\progress\\\\tasks\\\\_TEMPLATE'\n"
+    }
+  ],
+  "governance_gates": null
+}

@@ -1,0 +1,18 @@
+workflow:
+  name: Verify standard AIOS job flow on a fresh task folder
+  version: 0.1.0
+  permissions: [process.execute]
+  nodes:
+    - id: scaffold-task
+      type: task
+      # Create a fresh governed task folder from the standard _TEMPLATE so the
+      # job layout (plans/ scripts/ logs/) is exercised end-to-end.
+      command: python d:\AIOS\work\20260825-job-verify\scripts\make_task_folder.py
+    - id: run-task-pipeline
+      type: task
+      # Drive the FULL pipeline + 7 gates for the new task via aiagent task.
+      command: python d:\AIOS\work\20260825-job-verify\scripts\run_task.py TASK-VERIFY-001 --job-dir d:\AIOS\work\20260825-job-verify\logs
+    - id: verify-log
+      type: task
+      # Prove the durable log was written (EvidenceStore is in-memory only).
+      command: python -c "import os, glob; fs=glob.glob(r'd:\AIOS\work\20260825-job-verify\logs\task-TASK-VERIFY-001-*.json'); print('LOG FILES:', fs); assert fs, 'no log written'; print('OK durable log present')"
