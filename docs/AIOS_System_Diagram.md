@@ -55,9 +55,9 @@ flowchart LR
 ## 1. Phân tầng kiến trúc (Enforced Layering — ARCH-001..004)
 
 Quy tắc import **chỉ đi xuống**, cấm vượt tầng. Guard tại
-`aios/governance/architecture/guard.py`. **Trạng thái hiện tại (2026-08-24):**
-**M0–M26 đã DONE** — toàn bộ `TASK-001 → TASK-218` + `TASK-219` đều `DONE`
-(3138 tests, roadmap M0–M26 CLOSED). Xem §8.
+`aios/governance/architecture/guard.py`. **Trạng thái hiện tại (2026-08-25):**
+**M0–M26 + TASK-220→224 đã DONE** — toàn bộ `TASK-001 → TASK-218` + `TASK-219` đều `DONE`
+(3138 tests, roadmap M0–M26 + T220–224 CLOSED). Xem §8.
 
 `Agent → Orchestrator → Runtime → Capability → Tool`
 
@@ -89,6 +89,7 @@ flowchart TB
         A1["Spec-Writer · Critic · Reviewer"]
         A2["Orchestrator Agent v2"]
         A3["Autonomous Goal Engine"]
+        A4["Coordinator Agent (T220/221)<br/>spec→critique×2→review→close"]
     end
     subgraph L4["Layer 4 — ORCHESTRATOR"]
         O1["Orchestrator v2"]
@@ -102,7 +103,7 @@ flowchart TB
         R2["Policy + Permission"]
         R3["Scheduler · State · Resource"]
         R4["Memory · Knowledge · Context · Audit"]
-        R5["Executor"]
+        R5["Executor + RealToolHandler<br/>(T222 real OS exec, opt-in)"]
         R6["Model Router · Providers"]
     end
     subgraph L2["Layer 2 — CAPABILITY"]
@@ -119,6 +120,7 @@ flowchart TB
 
     %% ===================== downward-only wiring =====================
     A2 --> O1 --> R1 --> C1 --> T1
+    A4 --> A2
     A3 -.->|objectives| O3
     O2 -.->|Policy Check| R2
     R5 -.->|Resource + Scheduler + State| R3
@@ -155,7 +157,8 @@ qua contract, không phá vỡ phân tầng:
 | Contracts (shared) | `contracts/` |
 | Harness / Verify | `harness/`, `ci/`, `meta_harness/`, `harness_coverage/`, `independent_harness/`, `autonomous_harness_loop/`, `readiness_trust/`, `trust_budget/` |
 | Model Runtime | `model_runtime/` |
-| Coding Plane | `coder/` |
+| Coding Plane | `coder/`, `coding_edition/` (AIOS 2.0 — T197–218) |
+| Practical Loop | `agents/coordinator.py` (T220/221) · `runtime/process.py` (T222) · `.github/skills/aios-plan/` (T223/224) |
 | Remediation | `remediation_detect/`, `remediation_candidate/`, `remediation_simulation/`, `remediation_apply/`, `remediation_integrity/` |
 | Verification / Evidence | `verification_integrity/`, `visual_evidence/`, `replay/`, `failure_corpus/` |
 | Compatibility | `backward_compat/`, `migration/`, `versioning/`, `conformance/` |
@@ -359,7 +362,7 @@ sequenceDiagram
 
 ---
 
-## 7. Cấu trúc Monorepo (thực tế — 2026-08-24)
+## 7. Cấu trúc Monorepo (thực tế — 2026-08-25)
 
 ```
 aios/
@@ -368,7 +371,7 @@ aios/
   governance/          task_registry/ dependency/ architecture/
                        deterministic/ evidence/ lifecycle/ regression/
                        gates/ cli/
-  runtime/             kernel, context, audit, artifact, permission,
+  runtime/             kernel, context, audit, artifact, permission, process (T222 real exec),
                        policy, execution, scheduler, state, resource,
                        memory, knowledge, providers/, workflow/
   orchestrator/        decision_pipeline, planner, normalizer, rule_engine,
@@ -378,7 +381,7 @@ aios/
   skill/               manager, registry, resolver, sandbox
   tool/                adapters, registry, contracts
   worker/              contract, execution, lifecycle, registry, router, workers
-  agents/              orchestrator, spec_writer, critic, reviewer
+  agents/              orchestrator, spec_writer, critic, reviewer, coordinator (T220/221)
   api/                 app, auth, contracts, deps, errors, events,
                        schemas, websocket, routers/
   cli/                 workflow_cli.py (entry: aiagent)
@@ -421,6 +424,7 @@ aios/
   trust_budget/        (T102)  autonomy levels + SAFE-STOP
   model_runtime/       (T112)  inference runtime orchestration
   coder/               (T125-T127) coder agent + coding planner + generation runtime
+  coding_edition/      (T197-T218) AIOS 2.0 Unified Coding Plane (contract/state/policy/risk/regression)
   remediation_detect/  (T094)  detect + diagnose
   remediation_candidate/ (T095) candidate + risk scoring
   remediation_simulation/ (T096) simulation + meta-verify
@@ -445,15 +449,17 @@ aios/
   behavioral_docs/     behavioral docs
   upgrade/             (T020)  observability/ (T021)
   progress/            PLAN.md LOG.md STATS.md tasks/<TASK-xxx>/ _TEMPLATE/
+  # Practical AIOS Loop (T220-T224): agents/coordinator.py, runtime/process.py,
+  #   .github/skills/aios-plan/ (Planner Agent), work/YYYYMMDD-slug/ plan convention
 configs/               default.yaml development.yaml test.yaml
 docs/                  PLAN.md AGENTS.md AIOS_Master_Task_Specification_M0-M26.md detailtask/
 ```
 
 ---
 
-## 8. Trạng thái Task (từ `aios/progress/PLAN.md` — 2026-08-24)
+## 8. Trạng thái Task (từ `aios/progress/PLAN.md` — 2026-08-25)
 
-**M0–M26 đã hoàn tất (TASK-001 → TASK-218 + TASK-219 đều DONE, 3138 tests). Roadmap M0–M26 CLOSED.**
+**M0–M26 + TASK-220→224 đã hoàn tất (TASK-001 → TASK-219 + TASK-220 → TASK-224 đều DONE, 3138 tests). Roadmap M0–M26 + T220–224 CLOSED.**
 
 | Milestone | Chủ đề | Task range | Status |
 |-----------|--------|-----------|--------|
@@ -484,10 +490,14 @@ docs/                  PLAN.md AGENTS.md AIOS_Master_Task_Specification_M0-M26.m
 | M24 | Quality Gate + Risk + Governance Ledger | TASK-175 → 184 | DONE |
 | M25 | Coding Evaluation Engine + Benchmarks | TASK-185 → 196 | DONE |
 | M26 | Unified Coding Plane (Final Milestone) | TASK-197 → 218 | DONE |
+| — | Coordinator Agent (control-plane + chat endpoint) | TASK-220, TASK-221 | DONE |
+| — | AIOS Real Executor + `aiagent execute` CLI | TASK-222 | DONE |
+| — | AIOS Planner Agent + Skill (request→plan.yaml) | TASK-223 | DONE |
+| — | Planner confirm flow + `work/` directory convention | TASK-224 | DONE |
 
-> **Fail-closed (audit 2026-08-22) — CLOSED:** các gap M5–M9 (T021, T023–T050, …) đã được implement trong session 2026-08-22, mỗi package đạt AC đầy đủ trong `docs/detailtask/`. Full suite: **3138 passed** (2026-08-24). Xem `aios/progress/PLAN.md`.
+> **Fail-closed (audit 2026-08-22) — CLOSED:** các gap M5–M9 (T021, T023–T050, …) đã được implement trong session 2026-08-22, mỗi package đạt AC đầy đủ trong `docs/detailtask/`. Full suite: **3138 passed** (2026-08-25). Xem `aios/progress/PLAN.md`.
 
-> **Roadmap M0–M26 CLOSED (2026-08-24):** toàn bộ 218 tasks + TASK-219 `DONE`. Không còn milestone PLANNED.
+> **Roadmap M0–M26 + T220–224 CLOSED (2026-08-25):** toàn bộ 218 tasks + TASK-219 + TASK-220 → TASK-224 `DONE`. Không còn milestone PLANNED.
 
 ---
 
@@ -500,6 +510,8 @@ python aios/governance/cli/gate_check.py --task TASK-001
 python aios/governance/cli/parse_spec.py          # registry + dependency validation
 aiagent validate  |  aiagent simulate            # workflow CLI (aios/cli/workflow_cli.py)
 ```
+
+> **Thực thi thật (T220–T224):** `aiagent execute <plan.yaml> --work-dir <dir> --yes` (Real Executor, opt-in `AIOS_REAL_EXECUTION_ENABLED`); `aiagent task <TASK-id>` chạy full pipeline + 7 governance gates.
 
 ---
 
@@ -530,8 +542,10 @@ flowchart LR
     M23 --> M24[M24 Quality Gate<br/>+ Risk Model]
     M24 --> M25[M25 Coding Eval<br/>+ Evaluation Engine]
     M25 --> M26[M26 Unified Coding Contract<br/>+ Coding SM + Policy]
+    M26 --> PX[Practical AIOS Loop<br/>Planner→plan.yaml→confirm→Real Exec<br/>T220-T224 DONE]
 
     style M9 fill:#10b981,color:#fff
+    style PX fill:#0ea5e9,color:#fff
     style M10 fill:#10b981,color:#fff
     style M20 fill:#10b981,color:#fff
     style M21 fill:#10b981,color:#fff
@@ -542,7 +556,7 @@ flowchart LR
     style M26 fill:#10b981,color:#fff
 ```
 
-> **M0 → M26 đã DONE** (TASK-001 → TASK-218 + TASK-219; 3138 tests). Roadmap M0–M26 CLOSED (2026-08-24) — không còn milestone PLANNED.
+> **M0 → M26 + T220–224 đã DONE** (TASK-001 → TASK-219 + TASK-220 → TASK-224; 3138 tests). Roadmap M0–M26 + T220–224 CLOSED (2026-08-25) — không còn milestone PLANNED.
 
 **Bản đồ milestone → chủ đề:**
 
@@ -566,6 +580,7 @@ flowchart LR
 | M24 | Quality + Risk | T175 → 184 | DONE |
 | M25 | Coding Evaluation | T185 → 196 | DONE |
 | M26 | Unified Coding Plane | T197 → 218 | DONE |
+| T220–224 | Practical AIOS Loop (Coordinator / Real Executor / Planner) | T220 → 224 | DONE |
 
 ---
 
@@ -609,8 +624,17 @@ flowchart TB
         SDK[Public SDK] REG[Ecosystem Registry] HUB[Ecosystem Hub] CERT[Certification]
     end
 
+    subgraph PRAC["Practical AIOS Loop (T220–T224)"]
+        CO[Coordinator Agent<br/>spec→critique×2→review→close]
+        PLN[Planner Agent<br/>request→plan.yaml]
+        REX[Real Executor<br/>aiagent execute (opt-in)]
+    end
+
     UX --> API --> ORC
     ORC --> RT --> CAP
+    PLN -.->|plan.yaml| REX
+    CO -.->|coordinate| ORC
+    REX -.->|real OS exec| RT
     AG --> PL --> LOOP --> GOV2
     GOV2 -.->|bounded autonomy| ORC
     CA --> CP --> CL --> CE
@@ -624,6 +648,9 @@ flowchart TB
     style HAR fill:#0ea5e9,color:#fff
     style GOV2 fill:#ef4444,color:#fff
     style RT fill:#10b981,color:#fff
+    style CO fill:#f59e0b,color:#fff
+    style PLN fill:#0ea5e9,color:#fff
+    style REX fill:#10b981,color:#fff
 ```
 
 ---
@@ -680,6 +707,6 @@ Các gap M5–M9 dưới đây đã được **implement** trong session 2026-08
 
 > Nguyên tắc **fail-closed**: UNKNOWN không được nâng thành PASS; spec luôn là
 > canonical target. Các gap này đã được lấp trong M10 (hardening, durable,
-> safety, security, reliability) — full suite hiện tại **3138 passed** (2026-08-24, M0–M26 CLOSED).
+> safety, security, reliability) — full suite hiện tại **3138 passed** (2026-08-25, M0–M26 + T220–224 CLOSED).
 
-*Tài liệu được sinh tự động từ source tree AIOS — cập nhật khi có milestone mới.*
+*Tài liệu được sinh tự động từ source tree AIOS — cập nhật 2026-08-25 (thêm TASK-220→224, coding_edition/, Coordinator Agent, Real Executor, Planner Loop).*
