@@ -37,6 +37,40 @@ Rules:
 - Markdown fallback: a `- [ ] <command>` list is also accepted by `aiagent execute plan.md`
   (TASK-222 `from_markdown`).
 
+## Shell compatibility (CRITICAL — learned from real failures)
+`aiagent execute` runs each `command` via `subprocess` with a **non-Pure-PowerShell
+shell** (cmd/sh-like), NOT PowerShell. PowerShell-only syntax FAILS inside plan
+`command:` fields even though the surrounding terminal is PowerShell. This was the
+root cause of repeated `FAILED` runs (e.g. `mkdir -Force`, `Get-Content`, `Out-Null`,
+`;` separators all broke).
+
+FORBIDDEN inside plan `command:` fields:
+- PowerShell cmdlets: `Get-Content`, `Set-Content`, `Out-Null`, `Select-Object`,
+  `ForEach-Object`, `Where-Object`, `Move-Item`, `Remove-Item`.
+- PowerShell operators/flags: `-Force`, `-replace`, `-Path`, `|` piped to PS cmdlets.
+- `mkdir a, b` (comma = PowerShell array → creates wrong/garbage folder names).
+- Relying on `;` as a reliable cross-shell command separator.
+
+PREFERRED patterns (shell-agnostic, run reliably via subprocess):
+- **One real command per node** (already required). Do NOT chain with `;`.
+- File text edits → use `python -c "..."` or a small `scripts/edit.py` (read/replace/write
+  with `pathlib`/`re`). This is the most reliable cross-shell approach.
+- Create dirs → let `git mv` auto-create parents, or
+  `python -c "import os; os.makedirs('scripts', exist_ok=True)"`.
+- Git ops → `git add`, `git mv`, `git commit -m "..."`, `git push` work fine (git is git).
+- Prefer repo-relative paths; both `/` and `\` are accepted by Python/git.
+
+## Verifying a plan actually ran through AIOS
+`EvidenceStore` is **in-memory only** (no disk persistence). Durable proof a plan was
+processed by AIOS is:
+1. Terminal output line: `[PASS|FAIL] <name> v<ver> (execution_id=exec-XXXX)`.
+2. Per-step lines: `  <step_id>: COMPLETED|FAILED :: <output>`.
+3. Actual file changes on disk matching the plan.
+If `aiagent execute` returns FAIL with a shell error, the plan did NOT run through AIOS —
+diagnose (usually shell incompatibility), rewrite shell-agnostic, or do it manually and
+state transparently that AIOS did not process it. Do NOT loop "try again" blindly
+(matches the global auto-stop rule after repeated failures).
+
 ## Directory convention (WORK DIR)
 Save the plan under `work/YYYYMMDD-short-slug/` at the repo root, e.g.
 `work/20260824-webno1/`. **Group files by function into subfolders** so the task

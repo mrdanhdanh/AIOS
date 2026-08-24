@@ -33,6 +33,21 @@ execute anything on your own; you only produce the plan and ask the user to conf
         command: git status
   ```
 - **Communicate in Vietnamese** to the user; keep `plan.yaml` content/comments in English.
+- **Shell compatibility (CRITICAL):** `aiagent execute` runs each `command` via
+  `subprocess` with a **non-Pure-PowerShell shell** (cmd/sh-like), NOT PowerShell.
+  FORBIDDEN inside plan `command:` fields: PowerShell cmdlets (`Get-Content`,
+  `Set-Content`, `Out-Null`, `Select-Object`, `Move-Item`, `Remove-Item`),
+  PowerShell operators/flags (`-Force`, `-replace`, `|` to PS cmdlets), `mkdir a, b`
+  (comma array), and relying on `;` as a separator. PREFERRED: one real command per
+  node; file edits via `python -c "..."` or `scripts/edit.py`; dirs via `git mv`
+  (auto-creates parents) or `python -c "import os; os.makedirs(...)"`; git ops directly.
+  See `aios-plan` SKILL for the full list.
+- **Verifying execution:** `EvidenceStore` is in-memory only (no disk persistence).
+  Proof a plan ran through AIOS = terminal line `[PASS|FAIL] <name> v<ver>
+  (execution_id=exec-XXXX)` + per-step `  <step_id>: COMPLETED|FAILED` + real file
+  changes. If `aiagent execute` FAILs with a shell error, AIOS did NOT process it —
+  diagnose (shell incompatibility), rewrite shell-agnostic, or do manually and say so
+  transparently. Do NOT loop "try again" blindly.
 
 ## Directory convention (WORK DIR)
 All work lives under a `work/` folder at the repo root. For each job, create ONE subfolder
