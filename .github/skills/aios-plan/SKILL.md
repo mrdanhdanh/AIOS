@@ -1,6 +1,6 @@
 ---
 name: aios-plan
-description: "AIOS Plan Generator — Use when the user wants to turn a natural-language task into a runnable AIOS plan.yaml (WorkflowDefinition with real shell/git commands) that can be executed via `aiagent execute plan.yaml` (TASK-222). Pairs with the AIOS Planner agent."
+description: "AIOS Plan Generator — Use when the user wants to turn a natural-language task into a runnable AIOS plan.yaml (WorkflowDefinition with real shell/git commands) saved under work/YYYYMMDD-slug/, then confirm before executing via `aiagent execute` (TASK-222/224). Pairs with the AIOS Planner agent."
 ---
 
 # /aios-plan — Generate a runnable AIOS plan
@@ -37,16 +37,31 @@ Rules:
 - Markdown fallback: a `- [ ] <command>` list is also accepted by `aiagent execute plan.md`
   (TASK-222 `from_markdown`).
 
-## After generating
-1. Write the file (e.g. `d:\AIOS\plan.yaml`).
-2. Tell the user to enable real execution, then run:
-   ```bash
-   # configs/default.yaml: real_execution.enabled: true   (or)
-   $env:AIOS_REAL_EXECUTION_ENABLED=1
-   aiagent execute d:\AIOS\plan.yaml
-   ```
-3. To dry-run (validate only, 0 execution): `aiagent execute d:\AIOS\plan.yaml --simulate`.
+## Directory convention (WORK DIR)
+Save the plan under `work/YYYYMMDD-short-slug/plan.yaml` at the repo root, e.g.
+`work/20260824-webno1/plan.yaml`. All generated source files also go in that folder.
+
+```
+d:\AIOS\work\20260824-webno1\
+  plan.yaml
+  <generated source>
+```
+
+## Confirm before executing
+After writing the plan, ASK the user: "Bạn có muốn thực hiện plan này không? (yes/no)".
+Only when they reply yes, run (real execution must be enabled):
+
+```bash
+$env:AIOS_REAL_EXECUTION_ENABLED=1
+aiagent execute d:\AIOS\work\20260824-webno1\plan.yaml --work-dir d:\AIOS\work\20260824-webno1 --yes
+```
+
+- `--work-dir <dir>` tells AIOS to create/use that folder and confine execution to it
+  (sandbox `allowed_cwd`), so generated files stay inside the job folder.
+- `--yes` skips any interactive prompt (used when the user already approved).
+- To dry-run (validate only, 0 execution): `aiagent execute <dir>/plan.yaml --simulate`.
 
 ## Pairing
 - Agent version: `.github/agents/aios-planner.agent.md` (chat picker).
-- Execution engine: TASK-222 (`aios/runtime/process.py` + `aiagent execute`).
+- Execution engine: TASK-222 (`aios/runtime/process.py` + `aiagent execute`) + TASK-224
+  (work-dir + confirm flow).

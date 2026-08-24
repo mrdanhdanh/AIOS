@@ -28,15 +28,43 @@ def _cmd_validate(args: argparse.Namespace) -> int:
 
 
 def _cmd_execute(args: argparse.Namespace) -> int:
-    """Execute a plan file via the AIOS runtime (TASK-222).
+    """Execute a plan file via the AIOS runtime (TASK-222 / TASK-224).
 
     Real execution is opt-in (real_execution.enabled in configs/default.yaml or
     AIOS_REAL_EXECUTION_ENABLED=1). With --simulate, only validate/print the plan
     (0 LLM calls, 0 real execution).
+
+    TASK-224: --work-dir <dir> creates/uses a job folder and confines execution to it
+    (sandbox allowed_cwd); --yes skips the interactive confirmation prompt (used when the
+    user already approved, e.g. via the AIOS Planner agent).
     """
     path = args.file
     simulate = args.simulate
     timeout = args.timeout
+    work_dir = getattr(args, "work_dir", None)
+    yes = getattr(args, "yes", False)
+
+    # TASK-224: resolve work dir — if a directory is given, place plan inside it.
+    if work_dir:
+        from pathlib import Path as _WD
+
+        wd = _WD(work_dir)
+        wd.mkdir(parents=True, exist_ok=True)
+        p = _WD(path)
+        if p.is_dir():
+            path = str(wd / "plan.yaml")
+        else:
+            # Copy the plan into the work dir if it lives elsewhere.
+            import shutil
+
+            dest = wd / "plan.yaml"
+            if p.resolve() != dest.resolve():
+                shutil.copy2(p, dest)
+            path = str(dest)
+        allowed_cwd = str(wd.resolve())
+    else:
+        allowed_cwd = None
+
     try:
         if path.endswith(".md"):
             from pathlib import Path as _P
@@ -53,6 +81,18 @@ def _cmd_execute(args: argparse.Namespace) -> int:
             print(f"  - {n.command or n.description or n.id}")
         return 0
 
+    # TASK-224: interactive confirmation unless --yes (agent/script pre-approved).
+    if not yes:
+        try:
+            reply = input(
+                f"Execute plan '{path}' in work-dir '{allowed_cwd or 'repo root'}'? [y/N] "
+            ).strip().lower()
+        except (EOFError, KeyboardInterrupt):
+            reply = "n"
+        if reply not in ("y", "yes", "có", "co"):
+            print("Aborted by user.")
+            return 3
+
     from aios.runtime.process import load_real_execution_config
     from aios.runtime.kernel import RuntimeKernel
     from aios.governance.evidence.store import EvidenceStore, record_execution_evidence
@@ -66,8 +106,13 @@ def _cmd_execute(args: argparse.Namespace) -> int:
         )
         return 2
 
+    # TASK-224: confine execution to the work dir when provided.
+    if allowed_cwd:
+        re_cfg = dict(re_cfg)
+        re_cfg["allowed_cwd"] = allowed_cwd
+
     kernel = RuntimeKernel(real_execution=re_cfg)
-    plan = wf.to_execution_plan(allowed_cwd=re_cfg.get("allowed_cwd"))
+    plan = wf.to_execution_plan(allowed_cwd=allowed_cwd)
     report = kernel.execute_plan(plan, timeout=timeout)
     store = EvidenceStore()
     record_execution_evidence(store, wf.name, wf.version, plan, report, path)
@@ -119,9 +164,14 @@ def build_parser() -> argparse.ArgumentParser:
     p_run.add_argument("--json", action="store_true", help="Output JSON")
     p_run.set_defaults(func=_cmd_run)
     p_ex = sub.add_parser("execute", help="Execute a plan via AIOS runtime (real tools, opt-in)")
-    p_ex.add_argument("file", help="Path to plan file (.yaml/.yml/.json/.md)")
+    p_ex.add_argument("file", help="Path to plan file (.yaml/.yml/.json/.md) or a directory")
     p_ex.add_argument("--simulate", action="store_true", help="Validate only, no real execution")
     p_ex.add_argument("--timeout", type=float, default=30.0, help="Per-step timeout in seconds")
+    p_ex.add_argument(
+        "--work-dir", default=None,
+        help="Job folder (e.g. work/20260824-webno1); created if missing, execution confined to it",
+    )
+    p_ex.add_argument("--yes", action="store_true", help="Skip interactive confirmation (pre-approved)")
     p_ex.set_defaults(func=_cmd_execute)
     p_wf = sub.add_parser("workflow", help="Workflow subcommands")
     wf_sub = p_wf.add_subparsers(dest="wf_command", required=True)

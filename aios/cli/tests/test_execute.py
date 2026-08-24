@@ -9,8 +9,8 @@ import pytest
 from aios.cli.workflow_cli import _cmd_execute
 
 
-def _args(file: str, simulate: bool = False, timeout: float = 30.0):
-    return type("A", (), {"file": file, "simulate": simulate, "timeout": timeout})()
+def _args(file: str, simulate: bool = False, timeout: float = 30.0, yes: bool = True):
+    return type("A", (), {"file": file, "simulate": simulate, "timeout": timeout, "yes": yes})()
 
 
 def _write_yaml_plan(path: Path) -> None:

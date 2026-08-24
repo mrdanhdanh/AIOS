@@ -74,6 +74,7 @@ class WorkflowNode:
     capability: Optional[str] = None
     description: str = ""
     command: Optional[str] = None  # TASK-222: real command to run (optional)
+    cwd: Optional[str] = None  # TASK-224: optional per-node working directory
 
     def validate(self) -> None:
         if not isinstance(self.id, str) or not self.id.strip():
@@ -91,6 +92,8 @@ class WorkflowNode:
             d["description"] = self.description
         if self.command is not None:
             d["command"] = self.command
+        if self.cwd is not None:
+            d["cwd"] = self.cwd
         return d
 
     @classmethod
@@ -104,10 +107,16 @@ class WorkflowNode:
         cap = data.get("capability")
         desc = data.get("description", "")
         cmd = data.get("command")
+        node_cwd = data.get("cwd")
         for forbidden in ("engine", "langgraph_node", "langgraph", "engine_config"):
             if forbidden in data:
                 raise WorkflowError(f"node contains forbidden engine-specific key {forbidden!r}")
-        obj = cls(id=str(nid), type=str(ntype), capability=cap, description=str(desc) if desc else "", command=str(cmd) if cmd else None)
+        obj = cls(
+            id=str(nid), type=str(ntype), capability=cap,
+            description=str(desc) if desc else "",
+            command=str(cmd) if cmd else None,
+            cwd=str(node_cwd) if node_cwd else None,
+        )
         obj.validate()
         return obj
 
@@ -335,6 +344,9 @@ class WorkflowDefinition:
         for node in self.nodes:
             command = node.command or node.description or node.id
             tool_type = "git" if str(command).strip().lower().startswith("git ") else "shell"
+            # A node may override its cwd; otherwise fall back to the work dir.
+            node_cwd = getattr(node, "cwd", None)
+            step_cwd = node_cwd or allowed_cwd
             step = Step(
                 step_id=node.id,
                 action=str(command),
@@ -343,7 +355,7 @@ class WorkflowDefinition:
                     "resource": node.id,
                     "tool_type": tool_type,
                     "command": str(command),
-                    "cwd": allowed_cwd,
+                    "cwd": step_cwd,
                     "timeout": self.timeout,
                 },
             )
