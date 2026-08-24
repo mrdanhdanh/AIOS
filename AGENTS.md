@@ -140,3 +140,37 @@ Use `aios.core.container` (singleton/scoped/transient, thread-safe), `aios.core.
 * **Logging:** JSON via `aios.core.logging`; config via `AIOS_*` env overrides.
 * **Docs:** detailed specs in [`docs/AIOS_Master_Task_Specification_M0-M26.md`](docs/AIOS_Master_Task_Specification_M0-M26.md) and [`docs/detailtask/`](docs/detailtask/) — link, don't duplicate.
 * For architecture violations, run `python -m pytest aios/governance/architecture -q` and inspect `Violation(rule, module, detail, line)`.
+
+## 11. Standard AIOS job workflow (MANDATORY)
+
+A plain `aiagent execute` plan only runs shell `command:` steps — it does **NOT** run
+the governance pipeline (`spec → critique×2 → breakdown → review → orchestrate`) nor the
+7 gates by default. To guarantee every part of AIOS is exercised in a job, drive the
+task through the dedicated command (see [`README.md`](README.md) for the full reference):
+
+```bash
+# Full pipeline + 7 governance gates for a TASK, with a durable log.
+aiagent task TASK-xxx --job-dir work/<job>/logs
+# equivalent:
+python work/<job>/scripts/run_task.py TASK-xxx --job-dir work/<job>/logs
+```
+
+* **Every job touching a TASK-xxx MUST include a node calling `aiagent task`** — the
+  pipeline + gates are never skipped. `aiagent execute` alone is insufficient for governed work.
+* **Durable log (proof of execution):** `EvidenceStore` is in-memory only, so the file on
+  disk is the real proof. Every `aiagent execute` writes `work/<job>/logs/execution-<exec_id>.json`
+  (+ `.log`); `aiagent task` also writes `logs/task-TASK-xxx-<timestamp>.json`. Open it to
+  confirm an `execution_id` + per-step `COMPLETED`/`FAILED` lines exist.
+* **Job folder layout (MANDATORY):** group by function — `plans/` (all `plan*.yaml`),
+  `scripts/` (all generated source), `logs/` (auto-written), `site/`/output folders.
+  Never leave loose `.py`/`.yaml` in the task root.
+* **Plan authoring rules (shell-agnostic):** `aiagent execute` runs from `--work-dir` via a
+  non-Pure-PowerShell shell. FORBIDDEN in `command:`: PowerShell cmdlets (`Get-Content`,
+  `Set-Content`, `Out-Null`, `Move-Item`), flags (`-Force`, `-replace`), `mkdir a, b`, `;`
+  separators. REQUIRED: **absolute paths** (repo-relative paths will not resolve), one real
+  command per node, file edits via `python -c "..."`. Keep `git commit`/`push` **out of the
+  plan** (the AIOS shell mishandles `git -C d:\...`); do them manually after the plan's work
+  nodes complete.
+* **Reference template:** `work/20260824-nihongo-n5/plans/plan-meta-demo.yaml` runs the full
+  pipeline + gates for `TASK-222` and verifies the durable log — use it as the starting point
+  for any new governed job.
