@@ -4,7 +4,7 @@ on:
   push:
     branches: [main]
     paths:
-      - 'work/20260824-nihongo-n5/site/**'
+      - 'Alpha/**'
       - '.github/workflows/deploy-pages.yml'
   workflow_dispatch:
 
@@ -26,7 +26,7 @@ jobs:
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: work/20260824-nihongo-n5/site
+          path: Alpha
   deploy:
     needs: build
     runs-on: ubuntu-latest
