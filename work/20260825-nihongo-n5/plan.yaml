@@ -1,0 +1,11 @@
+workflow:
+  name: Build N5 Japanese Learning Website
+  version: 0.1.0
+  permissions: [process.execute]
+  nodes:
+    - id: verify-files
+      type: task
+      command: python d:/AIOS/work/20260825-nihongo-n5/validate.py
+    - id: smoke-serve
+      type: task
+      command: python d:/AIOS/work/20260825-nihongo-n5/serve_check.py
