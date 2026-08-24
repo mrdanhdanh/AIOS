@@ -1,0 +1,19 @@
+{
+  "artifact": "nihongo-n5-website",
+  "generated_by": "AIOS Practical Planner Loop (T220-224)",
+  "files": [
+    "index.html",
+    "css/style.css",
+    "js/data.js",
+    "js/app.js",
+    "README.md"
+  ],
+  "sizes": {
+    "index.html": 3897,
+    "css/style.css": 5392,
+    "js/data.js": 16425,
+    "js/app.js": 5706,
+    "README.md": 1225
+  },
+  "timestamp": "2026-08-24T18:42:58.459133+00:00"
+}

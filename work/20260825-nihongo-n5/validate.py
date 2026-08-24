@@ -30,7 +30,7 @@ def main():
     html = open(os.path.join(ROOT, "index.html"), encoding="utf-8").read()
     for ref in ["css/style.css", "js/data.js", "js/app.js"]:
         check(ref in html, f"index.html links {ref}")
-    for sid in ["home", "hiragana", "katakana", "greetings", "numbers", "vocab", "grammar", "quiz"]:
+    for sid in ["home", "hiragana", "katakana", "greetings", "numbers", "vocab", "grammar", "flashcard", "quiz"]:
         check(f'id="{sid}-view"' in html, f"section present: {sid}-view")
 
     # 3. data.js defines the content structures
@@ -40,10 +40,13 @@ def main():
     # count hiragana basic entries (46 expected)
     check(data.count('roma: "') > 100, "content entries present (>100 romaji)")
 
-    # 4. app.js wires navigation + quiz
+    # 4. app.js wires navigation + quiz + flashcard + speech
     app = open(os.path.join(ROOT, "js/app.js"), encoding="utf-8").read()
     check("showView" in app, "showView navigation in app.js")
     check("nextQuestion" in app, "quiz engine in app.js")
+    check("renderFlashcard" in app, "flashcard view in app.js")
+    check("speakJa" in app, "speech synthesis (offline TTS) in app.js")
+    check("SpeechSynthesisUtterance" in app, "Web Speech API used in app.js")
 
     print("\nALL CHECKS PASSED — N5 website build is valid.")
 

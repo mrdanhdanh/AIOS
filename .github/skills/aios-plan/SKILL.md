@@ -16,6 +16,30 @@ Convert a plain-language request into a `plan.yaml` that AIOS can execute for re
 Emit a YAML file matching `aios/runtime/workflow/definition.py` `WorkflowDefinition`.
 Each node is ONE real command (run via `subprocess` by TASK-222):
 
+### MANDATORY: 9-flow structure (learned 2026-08-25)
+When the request is a real AIOS job (not a trivial demo), the plan MUST contain
+nodes that activate & confirm the 9 verified flows from `docs/AIOS_System_Diagram.md §14`
+(A–I). Do NOT emit a bare 2-node "verify + serve" plan — that was a repeated mistake.
+Minimum required: Flow A (`aiagent task <self-authored TASK>`) + Flow B
+(`aiagent execute <sub-plan>`) + the remaining flows C–I. Use a self-authored TASK
+folder under `aios/progress/tasks/TASK-xxx/` (never reuse `TASK-VERIFY-001`).
+
+Reference entry-points (shell-agnostic, offline):
+- A: `aiagent task TASK-225 --job-dir <work>/logs`
+- B: `aiagent execute <work>/plan-sub.yaml --work-dir <work> --yes --timeout 120`
+- C: `python -m pytest D:\AIOS\aios\governance\architecture -q`
+- D: `aiagent ci check --scope core`
+- E: `python D:\AIOS\aios\governance\cli\parse_spec.py --spec D:\AIOS\docs\AIOS_Master_Task_Specification_M0-M26.md`
+- F: `python -m pytest D:\AIOS\aios\harness -q`
+- G: `python -c "from aios.orchestrator.decision_pipeline import DecisionPipeline; p=DecisionPipeline(); p.execute('status'); print('LLM_CALLS:', p.llm_call_count)"`
+- H: `python -c "from aios.coding_edition import CodingEdition; ce=CodingEdition(); print('LOADED', type(ce).__name__)"`
+- I: `aiagent execute <work>/plan-sub.yaml --work-dir <work> --yes` (proves Planner Loop)
+
+NOTE: `aiagent task` uses `work/20260824-nihongo-n5/scripts/run_task.py` which employs a
+`_NullOrchestrator` — `orchestrate` reports SKIPPED by design (fail-closed dry run). The
+real proof of Flow A is `gates: PASS`. Patch `run_task.py` to add `run_id` + `purpose` to
+each log so files are self-describing (not identical-looking).
+
 ```yaml
 workflow:
   name: <human or kebab name>

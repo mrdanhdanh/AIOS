@@ -11,11 +11,17 @@ import json
 import os
 import subprocess
 import sys
+import uuid
 from datetime import datetime, timezone
 from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(REPO_ROOT))
+
+# Human-readable purpose so each log file is self-describing (not identical-looking).
+PURPOSES = {
+    "TASK-225": "Flow A — Coordinator Agent + 7 Governance Gates for the self-authored N5-website task (TASK-225).",
+}
 
 
 def _run_pipeline(task_id: str) -> dict:
@@ -82,24 +88,38 @@ def main(argv=None) -> int:
 
     log_dir = args.job_dir or os.path.join("aios", "progress", "tasks", args.task, "logs")
     os.makedirs(log_dir, exist_ok=True)
-    exec_id = f"task-{args.task}-{ts[:19].replace(':', '')}"
+    run_id = f"run-{uuid.uuid4().hex[:12]}"
+    exec_id = f"task-{args.task}-{ts[:19].replace(':', '')}-{run_id}"
+    purpose = PURPOSES.get(args.task, f"Flow A — governance pipeline + 7 gates for {args.task}.")
+    # Summarize pipeline steps so the log is self-describing at a glance.
+    step_summary = [
+        {"step": s.get("name"), "status": s.get("status"), "detail": s.get("detail")}
+        for s in pipeline.get("steps", [])
+    ]
+    gstatus = "PASS" if gates["returncode"] == 0 else "FAIL"
     record = {
         "tool": "aiagent task",
+        "run_id": run_id,
         "timestamp": ts,
+        "purpose": purpose,
         "task": args.task,
         "pipeline": pipeline,
-        "gates": {"returncode": gates["returncode"],
-                  "summary": gates["stdout"].strip().splitlines()[-1] if gates["stdout"].strip() else ""},
+        "pipeline_summary": step_summary,
+        "gates": {
+            "status": gstatus,
+            "returncode": gates["returncode"],
+            "summary": gates["stdout"].strip().splitlines()[-1] if gates["stdout"].strip() else "",
+        },
     }
     json_path = os.path.join(log_dir, f"{exec_id}.json")
     with open(json_path, "w", encoding="utf-8") as fh:
         json.dump(record, fh, indent=2, ensure_ascii=False)
 
-    print(f"[aiagent task] {args.task}")
+    print(f"[aiagent task] {args.task}  (run_id={run_id})")
+    print(f"  purpose  : {purpose}")
     print(f"  pipeline : {pipeline.get('status')}")
     for s in pipeline.get("steps", []):
         print(f"    - {s.get('name')}: {s.get('status')}")
-    gstatus = "PASS" if gates["returncode"] == 0 else "FAIL"
     print(f"  gates    : {gstatus}")
     print(f"  [log] written: {json_path}")
     return 0 if gates["returncode"] == 0 else 1

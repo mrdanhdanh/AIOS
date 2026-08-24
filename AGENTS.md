@@ -168,6 +168,17 @@ python work/<job>/scripts/run_task.py TASK-xxx --job-dir work/<job>/logs
   confirm an `execution_id` + per-step `COMPLETED`/`FAILED` lines exist.
 * **Job folder layout (MANDATORY):** group by function — `plans/` (all `plan*.yaml`),
   `scripts/` (all generated source), `logs/` (auto-written), `site/`/output folders.
+* **AIOS Planner plan MUST have 9 flow nodes A–I (learned 2026-08-25):** when the
+  AIOS Planner agent produces a plan for a real job, it MUST contain nodes that
+  activate & confirm the 9 verified flows from `docs/AIOS_System_Diagram.md §14`
+  (A: Coordinator+7 Gates · B: Real Executor · C: Architecture Guard · D: Local CI ·
+  E: Registry/Dependency · F: Harness · G: Decision Pipeline · H: Coding Plane ·
+  I: Practical Planner Loop). A bare 2-node "verify + serve" plan is INSUFFICIENT
+  and was a repeated mistake. Use a **self-authored** TASK folder
+  (`aios/progress/tasks/TASK-xxx/`) — never reuse `TASK-VERIFY-001`. Flow A calls
+  `aiagent task TASK-xxx`; Flow B/I call a lightweight `plan-sub.yaml` (NOT the heavy
+  plan itself, to avoid recursion/timeout). Patch `run_task.py` to add `run_id` +
+  `purpose` to each log so files are self-describing, not identical-looking.
   Never leave loose `.py`/`.yaml` in the task root.
 * **Plan authoring rules (shell-agnostic):** `aiagent execute` runs from `--work-dir` via a
   non-Pure-PowerShell shell. FORBIDDEN in `command:`: PowerShell cmdlets (`Get-Content`,
