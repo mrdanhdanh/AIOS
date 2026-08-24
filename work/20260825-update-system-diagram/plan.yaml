@@ -1,0 +1,8 @@
+workflow:
+  name: update-aios-system-diagram-20260825
+  version: 0.1.0
+  permissions: [process.execute]
+  nodes:
+    - id: update-diagram
+      type: task
+      command: python d:\AIOS\work\20260825-update-system-diagram\update_diagram.py

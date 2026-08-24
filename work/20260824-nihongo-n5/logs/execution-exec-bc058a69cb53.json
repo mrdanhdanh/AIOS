@@ -1,0 +1,21 @@
+{
+  "tool": "aiagent execute",
+  "timestamp": "2026-08-24T17:03:19.210127+00:00",
+  "plan_name": "Demo --govern flag runs 7 governance gates",
+  "plan_version": "0.1.0",
+  "execution_id": "exec-bc058a69cb53",
+  "overall_status": "PASS",
+  "steps": [
+    {
+      "step_id": "noop",
+      "status": "COMPLETED",
+      "output": "govern demo step ok"
+    }
+  ],
+  "governance_gates": {
+    "task": "TASK-222",
+    "returncode": 0,
+    "stdout": "Unified Gate: PASS\n  [PASS] lifecycle: all mandatory artifacts present\n  [PASS] architecture: no violations\n  [PASS] registry: id unique (enforced at parse)\n  [PASS] dependency: closure green\n  [PASS] evidence: provenance recorded\n  [PASS] test_evaluate: deterministic-first\n  [PASS] regression: closure green\n  [PASS] ci: [pass] core-tests=135/135 passed; full-suite=3165/3168 passed\n",
+    "stderr": ""
+  }
+}

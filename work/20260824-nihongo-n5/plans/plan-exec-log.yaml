@@ -1,0 +1,22 @@
+workflow:
+  name: Add durable execution log + --govern flag to aiagent execute
+  version: 0.1.0
+  permissions: [process.execute]
+  nodes:
+    - id: verify-execute
+      type: task
+      # ensure the CLI change does not break existing execute tests
+      command: python -m pytest d:\AIOS\aios\cli\tests\test_execute.py -q
+    - id: verify-execute-workdir
+      type: task
+      command: python -m pytest d:\AIOS\aios\cli\tests\test_execute_workdir.py -q
+    - id: verify-planner-agent
+      type: task
+      command: python -m pytest d:\AIOS\aios\cli\tests\test_planner_agent.py -q
+    - id: verify-workflow
+      type: task
+      command: python -m pytest d:\AIOS\aios\runtime\tests\test_workflow.py -q
+    - id: commit
+      type: task
+      # commit the feature + docs update (Quy tắc 8: commit in same session)
+      command: cd d:\AIOS; git add aios/cli/workflow_cli.py .github/skills/aios-plan/SKILL.md; git commit -m 'feat(cli) durable execution log and govern flag to run 7 governance gates'

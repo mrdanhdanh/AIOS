@@ -2,7 +2,7 @@
 
 ## Runtime-First · Plugin-First · Offline-First · Harness-Verified · Coding-Plane
 
-> **Trạng thái tài liệu (2026-08-24):** ROADMAP + RECORD THỰC TẾ. Tính đến nay **221/221 task DONE** (TASK-001 → TASK-218 + TASK-219 + TASK-220 + TASK-221), **0 task PLANNED**, full suite **3145 tests xanh**, 0 BLOCKED. Roadmap M0–M26 + M27 (control-plane extension) CLOSED. Mỗi task dưới đây mang dòng `> **Trạng thái thực tế:**` ghi nhận module đã build, số test (DONE).
+> **Trạng thái tài liệu (2026-08-25):** ROADMAP + RECORD THỰC TẾ. Tính đến nay **224/224 task DONE** (TASK-001 → TASK-218 + TASK-219 + TASK-220 + TASK-221 + TASK-222 + TASK-223 + TASK-224), **0 task PLANNED**, full suite **3161+ tests xanh**, 0 BLOCKED. Roadmap M0–M26 + M27 (control-plane extension) CLOSED. Mỗi task dưới đây mang dòng `> **Trạng thái thực tế:**` ghi nhận module đã build, số test (DONE).
 >
 > **Nguồn:** nội dung master plan được cung cấp trong file `Plan-AI-Operating-System-—-Runtime-First,-Plugin-First,-Offline-First,-Milestone.txt`.
 >
@@ -1795,6 +1795,107 @@ Thêm endpoint REST cho phép client (chat UI / script) gửi `{task_id, objecti
 **Dependency / Gate**
 - TASK-220 (CoordinatorAgent), TASK-017 (API boundary), TASK-001 (lifecycle/gates).
 - Milestone M27.
+
+---
+
+## TASK-222 — AIOS Real Executor + CLI `execute` (practical usage)
+
+> **Trạng thái thực tế (2026-08-24):** DONE — `aios/runtime/process.py` (`RealToolHandler`) + `aios/runtime/workflow/definition.py` (`to_execution_plan`/`from_markdown`) + `aios/runtime/kernel.py` (`execute_plan`) + `aios/cli/workflow_cli.py` (`execute` subcommand) + `configs/default.yaml` (`real_execution.enabled`) + `aios/runtime/tests/test_process.py` (8) + `aios/cli/tests/test_execute.py` (3); **11 automated tests**; full suite 3156 passed, 3 skipped; Unified Gate PASS.
+
+**Mục tiêu**  
+Biến AIOS từ "hệ thống tự quản lý" thành "môi trường thực thi task thật" mà **không cần model/LLM và không cần API ngoài** (máy yếu). Copilot/OpenCode đóng vai "não" lập plan; AIOS làm "đôi tay + hàng rào an toàn": thực thi plan qua **real tool executor** (shell/file/git) được **Policy/Permission** kiểm soát, ghi **evidence** chuẩn provenance chain.
+
+**Phạm vi**
+- Real execution trong `aios/runtime/` (shell, git, file write) có Policy/Permission pre-check (fail-closed).
+- Subcommand `execute` MỚI trong `aios/cli/workflow_cli.py` (không động `run` cũ — DX stability T071).
+- Converter `WorkflowDefinition.to_execution_plan()` gán `scope`/`resource` để policy pre-check fire; `from_markdown()` parse plan Markdown (`- [ ]` lines).
+- Hỗ trợ plan YAML/JSON và Markdown; flag `--simulate` chỉ validate, 0 LLM call, không exec.
+- Evidence provenance chain đầy đủ (Evidence→Run→Artifact→Task→Requirement).
+- Config `real_execution.enabled: false` mặc định (safe default, opt-in).
+
+**Deliverables**
+- `aios/runtime/process.py` (`RealToolHandler` + denylist + timeout-kill cross-platform) + test.
+- `aios/runtime/workflow/definition.py` (`to_execution_plan`/`from_markdown`) + `aios/runtime/kernel.py` (`execute_plan`).
+- `aios/cli/workflow_cli.py` (`execute` subcommand) + `configs/default.yaml` (`real_execution.enabled`).
+- Task artifacts + evidence + ADR/docs.
+
+**Acceptance Criteria**
+- `aiagent execute sample.yaml` chạy plan có 1 node shell `echo` + 1 node `git status`, tạo file output.
+- Step thiếu permission (broker không grant) → DENY fail-closed, không exec.
+- `real_execution.enabled: false` → mọi exec bị chặn (safe default).
+- Timeout giữa step → subprocess bị kill (Windows `CTRL_BREAK_EVENT` / POSIX `killpg`).
+- Evidence provenance chain complete (5 registries) sau run.
+- `python -m pytest aios/governance/architecture -q` → 0 violations.
+- `aiagent execute sample.md --simulate` → chỉ validate, 0 LLM call, không exec.
+
+**Dependency / Gate**
+- TASK-221 (Coordinator API), TASK-008 (workflow CLI), TASK-005 (runtime kernel), TASK-001 (lifecycle/gates).
+- Milestone M27 (post-M26 control-plane extension).
+
+---
+
+## TASK-223 — AIOS Planner Agent + Skill (request → plan.yaml)
+
+> **Trạng thái thực tế (2026-08-24):** DONE — `.github/agents/aios-planner.agent.md` + `.github/skills/aios-plan/SKILL.md` + sample plans + `aios/cli/tests/test_planner_agent.py` (**5 automated tests**); full suite 3161 passed; Unified Gate PASS.
+
+**Mục tiêu**  
+Đóng vòng lặp thực tế: người dùng ra lệnh (bằng tiếng Việt) → một **agent/skill** tiếp nhận, phân tích, và sinh ra file `plan.yaml` chuẩn `WorkflowDefinition` (có `command` ở mỗi node) → user chạy `aiagent execute plan.yaml` (TASK-222) để AIOS tự thực thi. Không cần LLM trong AIOS, không API ngoài — "não" là Copilot/OpenCode, AIOS làm "đôi tay".
+
+**Phạm vi**
+- Agent `.github/agents/aios-planner.agent.md` — chuyên trách nhận yêu cầu, sinh `plan.yaml` (I/O-free, chỉ text).
+- Skill `.github/skills/aios-plan/SKILL.md` — slash command `/aios-plan <yêu cầu>` hướng dẫn format plan + gọi `aiagent execute`.
+- Template plan mẫu + test xác thực agent sinh plan hợp lệ (validate qua `WorkflowDefinition.from_file`).
+
+**Deliverables**
+- `.github/agents/aios-planner.agent.md` (custom VS Code chat agent, `user-invocable: true`).
+- `.github/skills/aios-plan/SKILL.md` (slash command + plan schema + shell-agnostic rules).
+- Sample plans + `aios/cli/tests/test_planner_agent.py` (5 tests).
+- Task artifacts + evidence + ADR/docs.
+
+**Acceptance Criteria**
+- Agent sinh `plan.yaml` có `workflow.name/version/nodes[].command/permissions`.
+- `aiagent validate plan.yaml` (TASK-008) PASS với plan do agent sinh.
+- Plan có thể chạy qua `aiagent execute plan.yaml` (TASK-222).
+- Skill `/aios-plan` hướng dẫn đúng format + link TASK-222.
+- Test tự động: agent prompt sinh plan → `WorkflowDefinition.from_file` không raise.
+- Architecture gate 0 violations (agent/skill không import runtime internals).
+
+**Dependency / Gate**
+- TASK-222 (real executor + CLI execute), TASK-008 (workflow CLI), TASK-001 (lifecycle/gates).
+- Milestone M27 (post-M26 control-plane extension).
+
+---
+
+## TASK-224 — Planner confirm flow + `work/` directory convention
+
+> **Trạng thái thực tế (2026-08-24):** DONE — `aios/cli/workflow_cli.py` (`--work-dir` + `--yes`) + `.github/agents/aios-planner.agent.md` + `.github/skills/aios-plan/SKILL.md` (updated) + `aios/cli/tests/test_execute_workdir.py` (**4 automated tests**); full suite 3161+ passed; Unified Gate PASS.
+
+**Mục tiêu**  
+Cải tiến luồng thực tế AIOS theo phản hồi user:
+1. **Confirm trước khi thực thi**: sau khi sinh `plan.yaml`, agent/skill HỎI user có muốn chạy không. Chỉ khi user đồng ý mới gọi terminal chạy `aiagent execute`.
+2. **Quy ước vị trí file**: tại repo root tạo folder `work/`. Mỗi việc = 1 subfolder `YYYYMMDD-tenngan` (vd `20260824-webno1`). `plan.yaml` + mọi source sinh ra đều nằm trong folder đó.
+
+**Phạm vi**
+- Cập nhật `.github/agents/aios-planner.agent.md` + `.github/skills/aios-plan/SKILL.md`: hỏi confirm + quy ước `work/YYYYMMDD-tenngan/`.
+- `aios/cli/workflow_cli.py` `_cmd_execute`: thêm `--work-dir <dir>` (tạo folder nếu chưa có, đặt plan vào đó, chạy với `allowed_cwd` = folder đó) + `--yes` (bỏ qua confirm khi gọi từ script/agent). Khi không có `--yes` và chạy interactive → in prompt xác nhận.
+- Test: work-dir tạo đúng folder, plan nằm trong, execute chạy được, `--yes` bỏ qua prompt.
+
+**Deliverables**
+- `aios/cli/workflow_cli.py` (`--work-dir` + `--yes`) + `aios/cli/tests/test_execute_workdir.py` (4 tests).
+- Updated `.github/agents/aios-planner.agent.md` + `.github/skills/aios-plan/SKILL.md`.
+- Task artifacts + evidence + ADR/docs.
+
+**Acceptance Criteria**
+- Agent sinh plan vào `work/YYYYMMDD-tenngan/plan.yaml`.
+- Agent HỎI user "thực hiện không?" trước khi chạy.
+- `aiagent execute plan.yaml --work-dir work/20260824-x` tạo folder, chạy, source trong đó.
+- `--yes` bỏ qua confirm (script/agent tự gọi).
+- Architecture gate 0 violations.
+- Full suite không regress.
+
+**Dependency / Gate**
+- TASK-223 (planner agent + skill), TASK-222 (real executor + CLI execute), TASK-001 (lifecycle/gates).
+- Milestone M27 (post-M26 control-plane extension).
 
 ---
 

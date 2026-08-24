@@ -1,0 +1,14 @@
+{
+  "tool": "aiagent task",
+  "timestamp": "2026-08-24T17:10:00.482934+00:00",
+  "task": "TASK-222",
+  "pipeline": {
+    "status": "ERROR",
+    "error": "SpecInput.__init__() got an unexpected keyword argument 'title'",
+    "traceback": "Traceback (most recent call last):\n  File \"D:\\AIOS\\work\\20260824-nihongo-n5\\scripts\\run_task.py\", line 28, in _run_pipeline\n    spec = SpecInput(\n        task_id=task_id,\n    ...<2 lines>...\n        deliverables=[],\n    )\nTypeError: SpecInput.__init__() got an unexpected keyword argument 'title'\n"
+  },
+  "gates": {
+    "returncode": 0,
+    "summary": "  [PASS] ci: [pass] core-tests=135/135 passed; full-suite=3165/3168 passed"
+  }
+}

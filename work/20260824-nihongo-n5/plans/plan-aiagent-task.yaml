@@ -1,0 +1,37 @@
+workflow:
+  name: Add aiagent task command to run full AIOS pipeline + gates
+  version: 0.1.0
+  permissions: [process.execute]
+  nodes:
+    - id: write-run-task
+      type: task
+      # create scripts/run_task.py: drives CoordinatorAgent pipeline + 7 gates + durable log
+      command: python d:\AIOS\work\20260824-nihongo-n5\scripts\make_run_task.py
+    - id: register-cli
+      type: task
+      # register `aiagent task <TASK-xxx>` subcommand in workflow_cli.py
+      command: python d:\AIOS\work\20260824-nihongo-n5\scripts\patch_cli.py
+    - id: verify-import
+      type: task
+      # ensure CLI still imports and the new `task` subcommand is registered
+      command: python -c "from aios.cli.workflow_cli import build_parser; p=build_parser(); assert any(a.prog.endswith('task') for a in p._subparsers._group_actions[0].choices.values()); print('cli ok')"
+    - id: verify-task-dry
+      type: task
+      # run the new command against an existing task to prove pipeline + gates run
+      command: python d:\AIOS\work\20260824-nihongo-n5\scripts\run_task.py TASK-222 --job-dir d:\AIOS\work\20260824-nihongo-n5\logs
+    - id: commit-cli
+      type: task
+      # stage the CLI change
+      command: git -C d:\AIOS add aios/cli/workflow_cli.py
+    - id: commit-scripts
+      type: task
+      # stage the generated scripts
+      command: git -C d:\AIOS add work/20260824-nihongo-n5/scripts/make_run_task.py work/20260824-nihongo-n5/scripts/patch_cli.py work/20260824-nihongo-n5/scripts/run_task.py
+    - id: commit-docs
+      type: task
+      # stage the updated skill + coordinator agent
+      command: git -C d:\AIOS add .github/skills/aios-plan/SKILL.md .github/agents/aios-coordinator.agent.md
+    - id: commit-final
+      type: task
+      # commit feature + docs (Quy tắc 8)
+      command: git -C d:\AIOS commit -m 'feat(cli) add aiagent task command running full pipeline and 7 gates'

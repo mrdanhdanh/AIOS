@@ -1,0 +1,16 @@
+{
+  "tool": "aiagent execute",
+  "timestamp": "2026-08-24T17:00:34.569950+00:00",
+  "plan_name": "Add durable execution log + --govern flag to aiagent execute",
+  "plan_version": "0.1.0",
+  "execution_id": "exec-7dbf057d43f3",
+  "overall_status": "FAIL",
+  "steps": [
+    {
+      "step_id": "verify-tests",
+      "status": "FAILED",
+      "output": "command exited 4: 'python -m pytest aios/cli/tests/test_execute.py aios/cli/tests/test_execute_workdir.py aios/cli/tests/test_planner_agent.py aios/runtime/tests/test_workflow.py -q'\nERROR: file or directory not found: aios/cli/tests/test_execute.py\n\n"
+    }
+  ],
+  "governance_gates": null
+}

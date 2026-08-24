@@ -1,0 +1,9 @@
+workflow:
+  name: Demo --govern flag runs 7 governance gates
+  version: 0.1.0
+  permissions: [process.execute]
+  nodes:
+    - id: noop
+      type: task
+      # trivial step so the plan has a real execution to log
+      command: python -c "print('govern demo step ok')"

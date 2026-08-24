@@ -1,0 +1,13 @@
+{
+  "tool": "aiagent task",
+  "timestamp": "2026-08-24T17:11:19.487236+00:00",
+  "task": "TASK-222",
+  "pipeline": {
+    "status": "ERROR",
+    "error": "SpecInput.__init__() got an unexpected keyword argument 'title'"
+  },
+  "gates": {
+    "returncode": 0,
+    "summary": "  [PASS] ci: [pass] core-tests=135/135 passed; full-suite=3165/3168 passed"
+  }
+}
