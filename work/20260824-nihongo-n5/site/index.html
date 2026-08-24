@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Trang chủ — Nhật N5</title>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<header class="top">
+  <h1>日本語 N5 — Học tiếng Nhật sơ cấp</h1>
+  <p>Website tĩnh, học offline · Hiragana · Katakana · Từ vựng · Ngữ pháp · Kanji · Trắc nghiệm</p>
+</header>
+<button class="menu-toggle" aria-label="Menu" onclick="document.querySelector('nav.main').classList.toggle('open')">☰ Menu</button>
+<nav class="main"><a href="index.html" class="active">Trang chủ</a><a href="hiragana.html">Hiragana</a><a href="katakana.html">Katakana</a><a href="vocab.html">Từ vựng</a><a href="grammar.html">Ngữ pháp</a><a href="kanji.html">Kanji</a><a href="quiz.html">Trắc nghiệm</a></nav>
+<main>
+
+<section>
+  <h2>Chào mừng đến với khóa học tiếng Nhật N5</h2>
+  <div class="grid cols-3">
+    <div class="card"><h3>あ Hiragana</h3><p>Bảng chữ mềm cơ bản và biến âm.</p><a class="btn" href="hiragana.html">Học ngay</a></div>
+    <div class="card"><h3>ア Katakana</h3><p>Bảng chữ cứng dùng cho từ mượn.</p><a class="btn" href="katakana.html">Học ngay</a></div>
+    <div class="card"><h3>単語 Từ vựng</h3><p>Hơn 130 từ vựng N5 thông dụng.</p><a class="btn" href="vocab.html">Học ngay</a></div>
+    <div class="card"><h3>文法 Ngữ pháp</h3><p>27 điểm ngữ pháp trọng tâm.</p><a class="btn" href="grammar.html">Học ngay</a></div>
+    <div class="card"><h3>漢字 Kanji</h3><p>102 chữ Hán thường gặp trong N5.</p><a class="btn" href="kanji.html">Học ngay</a></div>
+    <div class="card"><h3>クイズ Trắc nghiệm</h3><p>Kiểm tra nhanh từ vựng đã học.</p><a class="btn" href="quiz.html">Làm bài</a></div>
+  </div>
+</section>
+<section>
+  <h2>Mẹo học N5 hiệu quả</h2>
+  <ul class="clean">
+    <li>Học Hiragana &amp; Katakana thuộc lòng trước (khoảng 1–2 tuần).</li>
+    <li>Ôn từ vựng theo chủ đề, kết hợp flashcard mỗi ngày.</li>
+    <li>Nắm chắc các trợ từ は・を・に・で・と・も・の.</li>
+    <li>Luyện đọc hiểu ngắn và làm đề thử JLPT mẫu.</li>
+  </ul>
+</section>
+
+</main>
+<footer>Được tạo bởi AIOS Planner · Nội dung mang tính tham khảo luyện thi JLPT N5.</footer>
+<script src="assets/data.js"></script>
+<script src="assets/app.js"></script>
+</body>
+</html>

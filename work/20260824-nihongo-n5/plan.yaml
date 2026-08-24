@@ -1,0 +1,28 @@
+workflow:
+  name: Nihongo N5 Learning Website (full skills)
+  version: 0.1.0
+  permissions: [process.execute]
+  nodes:
+    - id: scaffold
+      type: task
+      # project-setup-info-local: create complete project structure (shell-agnostic)
+      command: >-
+        python -c "import os; os.makedirs('site/assets', exist_ok=True);
+        os.makedirs('.github/instructions', exist_ok=True); print('scaffold ok')"
+    - id: generate-site
+      type: task
+      # aios-plan + project-setup-info-local: deterministic site generator
+      command: python generate_site.py
+    - id: governance-check
+      type: task
+      # aios-governance: validation gate (completeness, evidence, offline, diverse quiz)
+      command: python governance_check.py
+    - id: validate
+      type: task
+      # final integrity check of all produced artifacts
+      command: >-
+        python -c "import os;
+        base='site';
+        fs=['index.html','hiragana.html','katakana.html','vocab.html','grammar.html','kanji.html','quiz.html','assets/style.css','assets/data.js','assets/app.js'];
+        miss=[f for f in fs if not os.path.exists(os.path.join(base,f))];
+        print('MISSING:', miss) if miss else print('ALL FILES OK')"
