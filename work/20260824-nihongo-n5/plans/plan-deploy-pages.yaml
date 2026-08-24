@@ -6,12 +6,12 @@ workflow:
     - id: generate-workflow
       type: task
       # aios-plan: write the GitHub Pages deployment workflow from the local template
-      command: python d:\AIOS\work\20260824-nihongo-n5\make_workflow.py
+      command: python d:\AIOS\work\20260824-nihongo-n5\scripts\make_workflow.py
     - id: commit-and-push
       type: task
       # commit the workflow and push to main so GitHub Actions can deploy
       command: >-
         cd d:\AIOS
-        ; git add .github/workflows/deploy-pages.yml work/20260824-nihongo-n5/make_workflow.py
+        ; git add .github/workflows/deploy-pages.yml work/20260824-nihongo-n5/scripts/make_workflow.py
         ; git commit -m "TASK-deploy: add GitHub Pages workflow for Nihongo N5 site"
         ; git push origin main

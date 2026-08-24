@@ -1,0 +1,38 @@
+workflow:
+  name: Reorganize Nihongo N5 task folder by function
+  version: 0.1.0
+  permissions: [process.execute]
+  nodes:
+    - id: move-scripts
+      type: task
+      # move all python sources into scripts/ (folders already exist)
+      command: >-
+        git mv generate_site.py scripts/generate_site.py
+        ; git mv governance_check.py scripts/governance_check.py
+        ; git mv make_workflow.py scripts/make_workflow.py
+        ; git mv serve.py scripts/serve.py
+    - id: move-plans
+      type: task
+      # move plan yaml files into plans/
+      command: >-
+        git mv plan.yaml plans/plan.yaml
+        ; git mv plan-deploy-pages.yaml plans/plan-deploy-pages.yaml
+    - id: fix-refs
+      type: task
+      # update internal path references to match the new layout
+      command: >-
+        (Get-Content scripts/make_workflow.py) -replace 'dirname\(os\.path\.dirname\(os\.path\.dirname\(os\.path\.abspath','dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath' | Set-Content scripts/make_workflow.py
+        ; (Get-Content plans/plan.yaml) -replace 'python scripts/generate_site.py','python scripts/generate_site.py' -replace 'python scripts/governance_check.py','python scripts/governance_check.py' | Set-Content plans/plan.yaml
+        ; (Get-Content plans/plan-deploy-pages.yaml) -replace '20260824-nihongo-n5\\make_workflow.py','20260824-nihongo-n5\scripts\make_workflow.py' -replace '20260824-nihongo-n5/make_workflow.py','20260824-nihongo-n5/scripts/make_workflow.py' | Set-Content plans/plan-deploy-pages.yaml
+        ; (Get-Content README.md) -replace 'python scripts/generate_site.py','python scripts/generate_site.py' -replace 'python serve.py','python scripts/serve.py' -replace 'python scripts/governance_check.py','python scripts/governance_check.py' | Set-Content README.md
+    - id: move-self
+      type: task
+      # keep this reorganize plan inside plans/ too
+      command: git mv plan-reorganize.yaml plans/plan-reorganize.yaml
+    - id: commit
+      type: task
+      # commit the reorganized layout + the updated planner skill (new convention)
+      command: >-
+        git add -A
+        ; git add .github/skills/aios-plan/SKILL.md
+        ; git commit -m "TASK-reorg: group task files into scripts/ and plans/ folders; enforce convention in aios-plan skill"

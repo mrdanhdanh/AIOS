@@ -38,14 +38,30 @@ Rules:
   (TASK-222 `from_markdown`).
 
 ## Directory convention (WORK DIR)
-Save the plan under `work/YYYYMMDD-short-slug/plan.yaml` at the repo root, e.g.
-`work/20260824-webno1/plan.yaml`. All generated source files also go in that folder.
+Save the plan under `work/YYYYMMDD-short-slug/` at the repo root, e.g.
+`work/20260824-webno1/`. **Group files by function into subfolders** so the task
+folder never fills up with loose `.py`/`.yaml` files when a job is re-run many times:
 
 ```
 d:\AIOS\work\20260824-webno1\
-  plan.yaml
-  <generated source>
+  plans\            # ALL plan/workflow yaml files (plan.yaml, plan-*.yaml)
+    plan.yaml
+  scripts\          # ALL generated source files (.py, .ps1, .js, ...)
+    generate.py
+    serve.py
+  site\             # static output / build artifacts (if any)
+  <other-output>\   # any other functional output folder
+  README.md         # optional, with commands updated to scripts/ paths
 ```
+
+Rules:
+- Every `plan*.yaml` MUST live in `plans/` (never loose in the task root).
+- Every generated source file (`.py`, `.ps1`, `.js`, …) MUST live in `scripts/`.
+- Keep output artifacts (e.g. `site/`) in their own functional folder.
+- When writing a plan, reference scripts with their `scripts/` path
+  (e.g. `python scripts/generate.py`), and update `README.md` accordingly.
+- This layout is MANDATORY for every new job — do not leave loose files in the
+  task root.
 
 ## Confirm before executing
 After writing the plan, ASK the user: "Bạn có muốn thực hiện plan này không? (yes/no)".
@@ -53,7 +69,7 @@ Only when they reply yes, run (real execution must be enabled):
 
 ```bash
 $env:AIOS_REAL_EXECUTION_ENABLED=1
-aiagent execute d:\AIOS\work\20260824-webno1\plan.yaml --work-dir d:\AIOS\work\20260824-webno1 --yes
+aiagent execute d:\AIOS\work\20260824-webno1\plans\plan.yaml --work-dir d:\AIOS\work\20260824-webno1 --yes
 ```
 
 - `--work-dir <dir>` tells AIOS to create/use that folder and confine execution to it

@@ -46,7 +46,7 @@ jobs:
         uses: actions/deploy-pages@v4
 """
 
-OUT = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))),
+OUT = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))),
                    ".github", "workflows", "deploy-pages.yml")
 
 

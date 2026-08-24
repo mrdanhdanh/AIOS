@@ -14,9 +14,9 @@ hoặc chạy dev server.
 
 ## Lệnh
 ```powershell
-python generate_site.py      # sinh lại site/
-python serve.py             # dev server http://localhost:8000
-python governance_check.py  # chạy governance gate
+python scripts/generate_site.py      # sinh lại site/
+python scripts/serve.py             # dev server http://localhost:8000
+python scripts/governance_check.py  # chạy governance gate
 ```
 
 ## Nội dung
