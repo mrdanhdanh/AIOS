@@ -53,12 +53,21 @@ FORBIDDEN inside plan `command:` fields:
 
 PREFERRED patterns (shell-agnostic, run reliably via subprocess):
 - **One real command per node** (already required). Do NOT chain with `;`.
+- **ALWAYS use absolute paths** in `command:` (e.g. `d:\AIOS\aios\cli\tests\test_x.py`).
+  `aiagent execute` runs from the `--work-dir` folder, so repo-relative paths like
+  `aios/cli/...` or `scripts/...` will NOT resolve and the step FAILS with
+  "file or directory not found". Absolute paths are the only reliable choice.
 - File text edits → use `python -c "..."` or a small `scripts/edit.py` (read/replace/write
   with `pathlib`/`re`). This is the most reliable cross-shell approach.
 - Create dirs → let `git mv` auto-create parents, or
   `python -c "import os; os.makedirs('scripts', exist_ok=True)"`.
-- Git ops → `git add`, `git mv`, `git commit -m "..."`, `git push` work fine (git is git).
-- Prefer repo-relative paths; both `/` and `\` are accepted by Python/git.
+- Git ops → prefer running from the repo root. `git -C d:\AIOS <subcmd>` often FAILS
+  inside the AIOS shell (backslash path + quoting issues, exit 129/1). Instead either:
+  (a) run `git` from a terminal directly (outside the plan), or
+  (b) put the repo root on PATH / use `cd d:/AIOS && git ...` only if the shell supports
+  `&&` — but since `;`/`&&` are unreliable, the safest is to do git commit/push manually
+  after the plan's real work nodes COMPLETE. Keep git steps out of the plan when possible.
+- Both `/` and `\` are accepted by Python/git, but avoid backslash in shell-quoted args.
 
 ## Verifying a plan actually ran through AIOS
 `EvidenceStore` is **in-memory only** (no disk persistence). Durable proof a plan was
