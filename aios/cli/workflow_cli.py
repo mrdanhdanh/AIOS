@@ -256,6 +256,22 @@ def _cmd_run(args: argparse.Namespace) -> int:
     return 0 if result.success else 1
 
 
+def _cmd_task(args: argparse.Namespace) -> int:
+    """Run the full AIOS governance pipeline + 7 gates for a TASK-xxx."""
+    from pathlib import Path as _P
+    sys.path.insert(0, str(REPO_ROOT))
+    run_task = _P(REPO_ROOT) / "work" / "20260824-nihongo-n5" / "scripts" / "run_task.py"
+    if not run_task.exists():
+        # Fallback: look for the script next to this CLI file's repo.
+        run_task = _P(REPO_ROOT) / "scripts" / "run_task.py"
+    import subprocess as _sp
+    cmd = [sys.executable, str(run_task), args.task_id]
+    if getattr(args, "job_dir", None):
+        cmd += ["--job-dir", args.job_dir]
+    rc = _sp.call(cmd, cwd=str(REPO_ROOT))
+    return rc
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(prog="aiagent", description="AIOS Workflow CLI (TASK-008)")
     sub = parser.add_subparsers(dest="command", required=True)
@@ -282,6 +298,12 @@ def build_parser() -> argparse.ArgumentParser:
         help="TASK-xxx id used by --govern to run the 7 governance gates on that task",
     )
     p_ex.set_defaults(func=_cmd_execute)
+    p_task = sub.add_parser("task", help="Run full AIOS pipeline + 7 gates for a TASK-xxx")
+    p_task.add_argument("task_id", help="Task id, e.g. TASK-001")
+    p_task.add_argument("--job-dir", default=None, help="Job folder for logs")
+    p_task.set_defaults(func=_cmd_task)
+
+
     p_wf = sub.add_parser("workflow", help="Workflow subcommands")
     wf_sub = p_wf.add_subparsers(dest="wf_command", required=True)
     p_val = wf_sub.add_parser("validate", help="Validate a workflow YAML file")

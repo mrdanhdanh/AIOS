@@ -18,6 +18,14 @@ and the 7 governance gates.
 - **UNKNOWN ≠ PASS.** A task is DONE only when `UnifiedTaskGate` passes.
 - **Quy tắc 8 (Auto-COMMIT):** when a scheduled TASK reaches DONE, commit in the same session (`TASK-xxx: <title> — DONE`) + update `aios/progress/PLAN.md`, `LOG.md`, `STATS.md`.
 - **Communicate in Vietnamese** to the user; keep code/commit messages in English.
+- **Every job runs the full pipeline (no part bypassed):** a plain `aiagent execute`
+  plan only runs shell steps — it does NOT run the governance pipeline
+  (`spec → critique×2 → breakdown → review → orchestrate/close`) nor the 7 gates by
+  default. To guarantee every part of AIOS is exercised, drive the task via
+  `aiagent task TASK-xxx --job-dir <work_dir>/logs` (or `python scripts/run_task.py
+  TASK-xxx`), which calls `CoordinatorAgent.coordinate()` AND `gate_check.py` and writes
+  a durable log. Any job touching a TASK-xxx MUST include a node calling `aiagent task`.
+  See `aios-plan` SKILL for the full rule.
 
 ## When selected, automatically do this (the "next step" loop)
 1. **Identify the task.** If the user gave a `TASK-xxx`, load `aios/progress/tasks/TASK-xxx/` and `docs/detailtask/T00X.md`. If only an objective, propose a new `TASK-xxx` id.

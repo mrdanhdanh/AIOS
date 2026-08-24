@@ -117,6 +117,22 @@ aiagent execute d:\AIOS\work\20260824-webno1\plans\plan.yaml --work-dir d:\AIOS\
   `gate_check.py` on that task and record the result in the log. Without this flag the
   gates do NOT run (they are a separate tool, not part of plan execution by default).
 
+## Every AIOS job MUST go through the real pipeline (no part bypassed)
+A plain `aiagent execute` plan only runs shell `command:` steps — it does NOT run the
+governance pipeline (`spec → critique×2 → breakdown → review → orchestrate/close`) nor
+the 7 gates unless explicitly told. To guarantee every part of AIOS is exercised in a
+job, use the dedicated command:
+
+```bash
+aiagent task TASK-xxx --job-dir <work_dir>/logs
+```
+
+This drives `CoordinatorAgent.coordinate()` (the full pipeline) AND the 7 governance
+gates, writing a durable log. **Rule:** any job that touches a TASK-xxx MUST include a
+node that calls `aiagent task TASK-xxx` (or `python scripts/run_task.py TASK-xxx`), so
+the pipeline + gates are never skipped. `aiagent execute` alone is insufficient for
+governed work.
+
 ## Pairing
 - Agent version: `.github/agents/aios-planner.agent.md` (chat picker).
 - Execution engine: TASK-222 (`aios/runtime/process.py` + `aiagent execute`) + TASK-224
