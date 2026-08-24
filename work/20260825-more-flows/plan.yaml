@@ -1,0 +1,42 @@
+# AIOS Plan — Activate Additional Diagram Flows (offline, no LLM)
+# The previous plan (20260825-full-gov) ran the Coordinator pipeline + 7 gates
+# via `aiagent task`. This plan activates OTHER flows drawn in
+# docs/AIOS_System_Diagram.md that are NOT covered by `aiagent task`/`execute`:
+#   1. Architecture Guard (ARCH-001..004)  — cross-cutting governance
+#   2. Local CI gate (fail-closed pre-push) — `aiagent ci check`
+#   3. Registry + Dependency validation     — Rule 1 & Rule 2
+#   4. Harness / Verify-the-Verifier        — `aios/harness`
+#   5. Decision Pipeline (deterministic-first, KNOWN_INTENT) — entry flow, 0 LLM
+#
+# Safe: idempotent, read-only checks + offline deterministic pipeline.
+# Shell-agnostic: `pytest`, `aiagent`, `python -c` (no PS cmdlets).
+
+workflow:
+  name: Activate Additional AIOS Flows
+  version: 0.1.0
+  permissions: [process.execute]
+  nodes:
+    - id: architecture-guard
+      type: task
+      command: python -m pytest D:\AIOS\aios\governance\architecture -q
+    - id: local-ci-gate
+      type: task
+      command: aiagent ci check --scope core
+    - id: registry-dependency
+      type: task
+      command: python D:\AIOS\aios\governance\cli\parse_spec.py --spec D:\AIOS\docs\AIOS_Master_Task_Specification_M0-M26.md
+    - id: harness-verify
+      type: task
+      command: python -m pytest D:\AIOS\aios\harness -q
+    - id: decision-pipeline-offline
+      type: task
+      command: python -c "from aios.orchestrator.decision_pipeline import DecisionPipeline; p = DecisionPipeline(); r = p.execute('status'); print('DECISION_RESULT:', str(r)[:200]); print('LLM_CALLS:', p.llm_call_count)"
+    # OPTIONAL — Coder Agent / Coding Plane (M19-M26).
+    # Only run this node when you actually need AIOS to WRITE/GENERATE code.
+    # It is a safe, offline smoke test (instantiate CodingEdition + doctor
+    # diagnose) — it does NOT generate or patch real files. To actually write
+    # code, wire a Capability + RealToolHandler (T222) and call
+    # CodingEdition.run(authorization=..., generated_code=..., verification_report=...).
+    - id: coder-coding-plane-optional
+      type: task
+      command: python -c "from aios.coding_edition import CodingEdition; ce = CodingEdition(); diags = ce.doctor.diagnose(); print('CODING_EDITION_LOADED:', type(ce).__name__); print('DOCTOR_DIAGNOSTICS:', len(diags)); print('HEALTHY:', ce.doctor.is_healthy(diags))"

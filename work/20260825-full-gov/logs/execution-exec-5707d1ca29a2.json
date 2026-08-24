@@ -1,0 +1,21 @@
+{
+  "tool": "aiagent execute",
+  "timestamp": "2026-08-24T17:44:40.065448+00:00",
+  "plan_name": "Full AIOS Governance Flow Demo",
+  "plan_version": "0.1.0",
+  "execution_id": "exec-5707d1ca29a2",
+  "overall_status": "PASS",
+  "steps": [
+    {
+      "step_id": "run-full-pipeline",
+      "status": "COMPLETED",
+      "output": "[aiagent task] TASK-VERIFY-001\n  pipeline : OK\n    - spec: OK\n    - critique-1: OK\n    - critique-2: OK\n    - breakdown: OK\n    - review: OK\n    - orchestrate: SKIPPED\n  gates    : PASS\n  [log] written: work/20260825-full-gov/logs\\task-TASK-VERIFY-001-2026-08-24T174422.json"
+    },
+    {
+      "step_id": "verify-durable-log",
+      "status": "COMPLETED",
+      "output": "DURABLE LOG FILES:\n (none found)"
+    }
+  ],
+  "governance_gates": null
+}

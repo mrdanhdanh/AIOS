@@ -709,4 +709,77 @@ Các gap M5–M9 dưới đây đã được **implement** trong session 2026-08
 > canonical target. Các gap này đã được lấp trong M10 (hardening, durable,
 > safety, security, reliability) — full suite hiện tại **3138 passed** (2026-08-25, M0–M26 + T220–224 CLOSED).
 
-*Tài liệu được sinh tự động từ source tree AIOS — cập nhật 2026-08-25 (thêm TASK-220→224, coding_edition/, Coordinator Agent, Real Executor, Planner Loop).*
+---
+
+## 14. Các Flow Thực thi Đã Demo (verified 2026-08-25)
+
+Dưới đây là các luồng thực tế đã được kích hoạt và xác nhận chạy thành công
+(offline, không cần LLM/API) qua `aiagent execute` / `aiagent task`. Mỗi flow
+tương ứng một entry-point trong sơ đồ ở trên.
+
+### 14.1 Tổng hợp các flow (vắn tắt)
+
+```mermaid
+flowchart TB
+    subgraph F1["Flow A — Governance Pipeline (aiagent task)"]
+        A1[Coordinator Agent<br/>spec→critique×2→review→orchestrate] --> A2[7 Governance Gates<br/>Unified PASS]
+    end
+    subgraph F2["Flow B — Real Executor (aiagent execute)"]
+        B1[plan.yaml] --> B2[RuntimeKernel + RealToolHandler<br/>subprocess, permission-checked]
+    end
+    subgraph F3["Flow C — Architecture Guard"]
+        C1[pytest aios/governance/architecture] --> C2[AST import scanner<br/>ARCH-001..004]
+    end
+    subgraph F4["Flow D — Local CI Gate"]
+        D1[aiagent ci check] --> D2[core-tests + deps<br/>fail-closed]
+    end
+    subgraph F5["Flow E — Registry + Dependency"]
+        E1[parse_spec.py --spec master] --> E2[Rule 1 unique ID<br/>Rule 2 DAG]
+    end
+    subgraph F6["Flow F — Harness / Verify-the-Verifier"]
+        F1h[pytest aios/harness] --> F2h[Kernel/Scenario/Eval/Doctor]
+    end
+    subgraph F7["Flow G — Decision Pipeline (deterministic)"]
+        G1[Request 'status'] --> G2[KNOWN_INTENT → SUFFICIENT<br/>0 LLM calls]
+    end
+    subgraph F8["Flow H — Coding Plane (optional)"]
+        H1[CodingEdition + doctor] --> H2[smoke test offline<br/>viết code = cần Capability+RealExec]
+    end
+    subgraph F9["Flow I — Practical Planner Loop"]
+        I1[Request NL] --> I2[Planner → plan-sub.yaml]
+        I2 --> I3[Confirm yes]
+        I3 --> I4[aiagent execute sub-plan<br/>→ artifact thật]
+    end
+
+    style A2 fill:#8b5cf6,color:#fff
+    style B2 fill:#10b981,color:#fff
+    style C2 fill:#0ea5e9,color:#fff
+    style D2 fill:#0ea5e9,color:#fff
+    style E2 fill:#0ea5e9,color:#fff
+    style F2h fill:#0ea5e9,color:#fff
+    style G2 fill:#10b981,color:#fff
+    style H2 fill:#f59e0b,color:#fff
+    style I4 fill:#10b981,color:#fff
+```
+
+### 14.2 Bảng ánh xạ Flow → Entry-point → Trạng thái
+
+| Flow | Luồng trong sơ đồ | Entry-point đã chạy | Kết quả |
+|------|-------------------|---------------------|---------|
+| A | Coordinator + 7 Gates + Lifecycle | `aiagent task TASK-VERIFY-001` | ✅ PASS (gates PASS) |
+| B | Real OS Execution (T222) | `aiagent execute plan.yaml` | ✅ COMPLETED |
+| C | Architecture Guard (ARCH-001..004) | `pytest aios/governance/architecture` | ✅ 116 tests |
+| D | Local CI (fail-closed pre-push) | `aiagent ci check --scope core` | ✅ 135/135 |
+| E | Registry (R1) + Dependency (R2) | `parse_spec.py --spec master` | ✅ 224 tasks |
+| F | Harness / Verify-the-Verifier | `pytest aios/harness` | ✅ 100% |
+| G | Decision Pipeline (deterministic) | `DecisionPipeline.execute('status')` | ✅ SUFFICIENT, 0 LLM |
+| H | Coder Agent / Coding Plane (optional) | `CodingEdition` + `doctor` | ✅ loaded (offline) |
+| I | Practical Planner Loop (T220–224) | `aiagent execute plan-sub.yaml` | ✅ artifact thật |
+
+> **Ghi chú:** Flow B (`aiagent execute` thuần) chỉ chạy shell `command:` —
+> không chạy governance pipeline. Để chạy toàn bộ vòng đời có governance, dùng
+> Flow A (`aiagent task`). Flow H chỉ là smoke-test; muốn AIOS **thực sự viết
+> code** cần nối Capability + `RealToolHandler` (T222) rồi gọi
+> `CodingEdition.run(authorization=..., generated_code=..., verification_report=...)`.
+
+*Tài liệu được sinh tự động từ source tree AIOS — cập nhật 2026-08-25 (thêm TASK-220→224, coding_edition/, Coordinator Agent, Real Executor, Planner Loop, §14 các flow đã demo).*

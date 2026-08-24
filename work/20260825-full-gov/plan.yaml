@@ -1,0 +1,21 @@
+# AIOS Plan — Full Governance Flow Demo
+# Demonstrates the flows from docs/AIOS_System_Diagram.md that are NOT run by a
+# plain `aiagent execute` (which only runs shell `command:` steps). This plan
+# drives `aiagent task TASK-VERIFY-001`, which exercises the real
+# CoordinatorAgent pipeline (spec -> critique x2 -> breakdown -> review ->
+# orchestrate) plus the 7 governance gates, and writes a durable log.
+#
+# Safe: idempotent, scoped to work/20260825-full-gov/logs, no destructive cmds.
+# Shell-agnostic: commands use the `aiagent` CLI and `python -c` (no PS cmdlets).
+
+workflow:
+  name: Full AIOS Governance Flow Demo
+  version: 0.1.0
+  permissions: [process.execute]
+  nodes:
+    - id: run-full-pipeline
+      type: task
+      command: aiagent task TASK-VERIFY-001 --job-dir work/20260825-full-gov/logs
+    - id: verify-durable-log
+      type: task
+      command: python -c "import glob, os; files = sorted(glob.glob('work/20260825-full-gov/logs/*')); print('DURABLE LOG FILES:'); [print(' -', os.path.basename(f)) for f in files] or print(' (none found)')"

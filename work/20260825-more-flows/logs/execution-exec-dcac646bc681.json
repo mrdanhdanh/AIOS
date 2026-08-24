@@ -1,0 +1,26 @@
+{
+  "tool": "aiagent execute",
+  "timestamp": "2026-08-24T17:52:50.048209+00:00",
+  "plan_name": "Activate Additional AIOS Flows",
+  "plan_version": "0.1.0",
+  "execution_id": "exec-dcac646bc681",
+  "overall_status": "FAIL",
+  "steps": [
+    {
+      "step_id": "architecture-guard",
+      "status": "COMPLETED",
+      "output": "........................................................................ [ 58%]\n....................................................                     [100%]\n124 passed in 0.53s"
+    },
+    {
+      "step_id": "local-ci-gate",
+      "status": "COMPLETED",
+      "output": "[PASS] dependencies: all present: pytest, fastapi, pydantic\n[PASS] core-tests: 135/135 passed\nOVERALL: PASS"
+    },
+    {
+      "step_id": "registry-dependency",
+      "status": "FAILED",
+      "output": "command exited 2: 'python D:\\\\AIOS\\\\aios\\\\governance\\\\cli\\\\parse_spec.py'\nERROR: spec file not found: docs/AIOS_Master_Task_Specification_M0-M26.md\n"
+    }
+  ],
+  "governance_gates": null
+}

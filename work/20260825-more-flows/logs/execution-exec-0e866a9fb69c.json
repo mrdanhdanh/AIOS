@@ -1,0 +1,16 @@
+{
+  "tool": "aiagent execute",
+  "timestamp": "2026-08-24T17:52:26.597461+00:00",
+  "plan_name": "Activate Additional AIOS Flows",
+  "plan_version": "0.1.0",
+  "execution_id": "exec-0e866a9fb69c",
+  "overall_status": "FAIL",
+  "steps": [
+    {
+      "step_id": "architecture-guard",
+      "status": "FAILED",
+      "output": "command exited 4: 'python -m pytest aios/governance/architecture -q'\nERROR: file or directory not found: aios/governance/architecture\n\n"
+    }
+  ],
+  "governance_gates": null
+}
