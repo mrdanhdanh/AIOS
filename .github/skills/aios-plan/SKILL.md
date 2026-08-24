@@ -110,6 +110,12 @@ aiagent execute d:\AIOS\work\20260824-webno1\plans\plan.yaml --work-dir d:\AIOS\
   (sandbox `allowed_cwd`), so generated files stay inside the job folder.
 - `--yes` skips any interactive prompt (used when the user already approved).
 - To dry-run (validate only, 0 execution): `aiagent execute <dir>/plan.yaml --simulate`.
+- **Durable log (always):** every run writes `<work_dir>/logs/execution-<exec_id>.json`
+  and `.log` — this is the proof a plan was processed by AIOS (EvidenceStore is in-memory
+  only). Check this file to confirm what actually ran.
+- **Run the 7 governance gates:** add `--govern --task TASK-xxx` to also execute
+  `gate_check.py` on that task and record the result in the log. Without this flag the
+  gates do NOT run (they are a separate tool, not part of plan execution by default).
 
 ## Pairing
 - Agent version: `.github/agents/aios-planner.agent.md` (chat picker).

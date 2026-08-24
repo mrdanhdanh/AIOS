@@ -7,9 +7,11 @@ import argparse
 import json
 import os
 import sys
+from datetime import datetime, timezone
 from pathlib import Path
 
-sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
+REPO_ROOT = Path(__file__).resolve().parents[2]
+sys.path.insert(0, str(REPO_ROOT))
 
 from aios.runtime.workflow import WorkflowDefinition, WorkflowError  # noqa: E402
 from aios.runtime.workflow.simulation import simulate  # noqa: E402
@@ -25,6 +27,73 @@ def _cmd_validate(args: argparse.Namespace) -> int:
         return 1
     print(f"VALID: {wd.name} v{wd.version} ({len(wd.nodes)} nodes, {len(wd.edges)} edges)")
     return 0
+
+
+def _write_execution_log(work_dir: str, wf, report, gates_result) -> str:
+    """Persist a durable execution log (JSON + text) under <work_dir>/logs/.
+
+    EvidenceStore is in-memory only, so this file is the durable proof that a
+    plan was actually processed by AIOS (execution_id, per-step status, and
+    optional 7-governance-gate result).
+    """
+    logs_dir = os.path.join(work_dir, "logs")
+    os.makedirs(logs_dir, exist_ok=True)
+    exec_id = report.execution_id
+    ts = datetime.now(timezone.utc).isoformat()
+
+    steps = []
+    for sid, sr in report.results.items():
+        out = str(sr.output).strip() if sr.output else (sr.error or "")
+        steps.append({"step_id": sid, "status": sr.status, "output": out[:2000]})
+
+    record = {
+        "tool": "aiagent execute",
+        "timestamp": ts,
+        "plan_name": wf.name,
+        "plan_version": wf.version,
+        "execution_id": exec_id,
+        "overall_status": "PASS" if report.is_success else "FAIL",
+        "steps": steps,
+        "governance_gates": gates_result,
+    }
+    json_path = os.path.join(logs_dir, f"execution-{exec_id}.json")
+    with open(json_path, "w", encoding="utf-8") as fh:
+        json.dump(record, fh, indent=2, ensure_ascii=False)
+
+    text_path = os.path.join(logs_dir, f"execution-{exec_id}.log")
+    lines = [
+        "AIOS plan execution log",
+        f"timestamp : {ts}",
+        f"plan      : {wf.name} v{wf.version}",
+        f"exec_id   : {exec_id}",
+        f"status    : {'PASS' if report.is_success else 'FAIL'}",
+        f"work_dir  : {work_dir}",
+        "",
+        "steps:",
+    ]
+    for s in steps:
+        lines.append(
+            f"  - {s['step_id']}: {s['status']}"
+            + (f" :: {s['output'][:120]}" if s["output"] else "")
+        )
+    if gates_result:
+        lines.append("")
+        lines.append("governance gates (7 rules):")
+        if "error" in gates_result:
+            lines.append(f"  error: {gates_result['error']}")
+        else:
+            lines.append(
+                f"  task={gates_result.get('task')} returncode={gates_result.get('returncode')}"
+            )
+            detail = (gates_result.get("stdout") or gates_result.get("stderr") or "").strip()
+            if detail:
+                lines.append(detail)
+    else:
+        lines.append("")
+        lines.append("governance gates: not run (pass --govern --task TASK-xxx to execute)")
+    with open(text_path, "w", encoding="utf-8") as fh:
+        fh.write("\n".join(lines) + "\n")
+    return json_path
 
 
 def _cmd_execute(args: argparse.Namespace) -> int:
@@ -117,6 +186,38 @@ def _cmd_execute(args: argparse.Namespace) -> int:
     store = EvidenceStore()
     record_execution_evidence(store, wf.name, wf.version, plan, report, path)
 
+    # Determine the work dir for durable logging (TASK-224 work-dir or plan's folder).
+    work_dir = allowed_cwd or os.path.dirname(os.path.abspath(path)) or "."
+
+    # Optional: actually run the 7 governance gates (proves governance executed).
+    gates_result = None
+    if getattr(args, "govern", False):
+        task_id = getattr(args, "task", None)
+        if not task_id:
+            print("WARN: --govern requires --task TASK-xxx; skipping governance gates", file=sys.stderr)
+        else:
+            import subprocess as _sp
+            try:
+                proc = _sp.run(
+                    [sys.executable, "aios/governance/cli/gate_check.py", "--task", task_id],
+                    capture_output=True, text=True, cwd=str(REPO_ROOT),
+                )
+                gates_result = {
+                    "task": task_id,
+                    "returncode": proc.returncode,
+                    "stdout": proc.stdout,
+                    "stderr": proc.stderr,
+                }
+                gstatus = "PASS" if proc.returncode == 0 else "FAIL"
+                print(f"  [governance] 7 gates for {task_id}: {gstatus}")
+            except Exception as exc:  # noqa: BLE001
+                gates_result = {"task": task_id, "error": str(exc)}
+                print(f"  [governance] gates error: {exc}", file=sys.stderr)
+
+    # Durable log (EvidenceStore is in-memory only — this file is the proof).
+    log_path = _write_execution_log(work_dir, wf, report, gates_result)
+    print(f"  [log] written: {log_path}")
+
     status = "PASS" if report.is_success else "FAIL"
     print(f"[{status}] {wf.name} v{wf.version} (execution_id={report.execution_id})")
     for sid, sr in report.results.items():
@@ -172,6 +273,14 @@ def build_parser() -> argparse.ArgumentParser:
         help="Job folder (e.g. work/20260824-webno1); created if missing, execution confined to it",
     )
     p_ex.add_argument("--yes", action="store_true", help="Skip interactive confirmation (pre-approved)")
+    p_ex.add_argument(
+        "--govern", action="store_true",
+        help="Also run the 7 governance gates (gate_check.py) after the plan and log the result",
+    )
+    p_ex.add_argument(
+        "--task", default=None,
+        help="TASK-xxx id used by --govern to run the 7 governance gates on that task",
+    )
     p_ex.set_defaults(func=_cmd_execute)
     p_wf = sub.add_parser("workflow", help="Workflow subcommands")
     wf_sub = p_wf.add_subparsers(dest="wf_command", required=True)
