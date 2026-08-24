@@ -179,3 +179,6 @@ python work/<job>/scripts/run_task.py TASK-xxx --job-dir work/<job>/logs
 * **Reference template:** `work/20260824-nihongo-n5/plans/plan-meta-demo.yaml` runs the full
   pipeline + gates for `TASK-222` and verifies the durable log — use it as the starting point
   for any new governed job.
+* **Living reference task:** `aios/progress/tasks/TASK-VERIFY-001/` (with its `README.md`) is a
+  kept documentation task proving the standard job flow end-to-end — inspect it when unsure
+  what a well-formed governed task looks like.
