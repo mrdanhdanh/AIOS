@@ -182,3 +182,13 @@ python work/<job>/scripts/run_task.py TASK-xxx --job-dir work/<job>/logs
 * **Living reference task:** `aios/progress/tasks/TASK-VERIFY-001/` (with its `README.md`) is a
   kept documentation task proving the standard job flow end-to-end — inspect it when unsure
   what a well-formed governed task looks like.
+
+## 12. Bài học từ lịch sử phiên (friction fixes — bắt buộc)
+
+Rút ra từ phân tích `/chronicle improve` trên 50 phiên AIOS (294 lượt, **40 lượt ~14% là "thử lại/tiếp tục/Try Again"**). Áp dụng để cắt ma sát lặp lại:
+
+* **Lỗi quyền → báo rõ & DỪNG (không loop):** khi lệnh/tool fail vì `PermissionError`/access-denied/EACCES, agent PHẢI (a) xác định chính xác thiếu quyền nào (file/path/command), (b) báo người dùng cấp gì (vd. "cấp quyền ghi vào `<path>`"), (c) **dừng chờ** — tuyệt đối không retry âm thầm, không đổ lỗi code. (Đã xảy ra: phiên `dd4375b4` user phải cấp quyền rồi nói "hãy thử lại".)
+* **Cấm null-stub / bước SKIPPED (xem §11):** không dùng `_NullOrchestrator` hay skip bước pipeline bắt buộc. Trước khi claim `DONE`, kiểm tra mỗi bước báo `OK`/`COMPLETED` (không `SKIPPED`); nếu `SKIPPED` phải nêu rõ lý do ngay, không claim thành công. (Đã xảy ra: `orchestrate: SKIPPED` do stub, user tự phát hiện.)
+* **Chủ động chứng minh gate đã chạy:** sau mỗi `aiagent task`/job có governance, agent PHẢI trích dẫn durable log (`logs/task-TASK-xxx-<ts>.json`) + tóm tắt `gate_check.py` làm bằng chứng — không chỉ nói "PASS". (Đã xảy ra: user nghi ngờ "7 governance gates chưa bao giờ thực sự chạy".)
+* **Phân biệt PowerShell `NativeCommandError` (exit 1 giả):** khi lệnh exit 1 nhưng artifact/commit đã tồn tại (thường do `git`/external ghi progress ra stderr), coi là false negative, xác minh artifact rồi báo thành công — không báo fail. (Đã xảy ra: exit code 1 do git stderr, user tưởng push fail.)
+* **Auto-stop ngưỡng cụ thể:** nếu CÙNG một lỗi (Violation/test/exit code) lặp lại **≥3 lần liên tiếp** → DỪNG, báo root cause cụ thể, chờ user (cụ thể hóa quy tắc "Tự chủ theo lô + auto-stop" ở §10). Cấm loop "Try Again"/"thử lại" vô tận.
