@@ -37,6 +37,11 @@ aiagent task TASK-xxx --job-dir work/<job>/logs
 python work/<job>/scripts/run_task.py TASK-xxx --job-dir work/<job>/logs
 ```
 
+The `orchestrate` step uses the **real** `Orchestrator` (wired to `TaskLifecycle` +
+`UnifiedTaskGate`), so when a task has all mandatory artifacts and the unified gate
+passes, the step reports `OK` and the task is closed to `DONE` for real (not a dry-run
+skip). A task missing artifacts reports `SKIPPED` with the reason in the log.
+
 ### 7 governance gates (fail-closed)
 
 `lifecycle · architecture · registry · dependency · evidence · test_evaluate · regression`

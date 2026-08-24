@@ -157,6 +157,11 @@ python work/<job>/scripts/run_task.py TASK-xxx --job-dir work/<job>/logs
 
 * **Every job touching a TASK-xxx MUST include a node calling `aiagent task`** — the
   pipeline + gates are never skipped. `aiagent execute` alone is insufficient for governed work.
+* **`orchestrate` runs for real:** `aiagent task` uses the **real** `Orchestrator` (wired to
+  `TaskLifecycle` + `UnifiedTaskGate`), not a null stub. When the task has all mandatory
+  artifacts and the unified gate passes, the step reports `OK` and the task is closed to
+  `DONE` on disk. A task missing artifacts reports `SKIPPED` (with reason in the log) — this
+  is correct fail-closed behavior, not a bug.
 * **Durable log (proof of execution):** `EvidenceStore` is in-memory only, so the file on
   disk is the real proof. Every `aiagent execute` writes `work/<job>/logs/execution-<exec_id>.json`
   (+ `.log`); `aiagent task` also writes `logs/task-TASK-xxx-<timestamp>.json`. Open it to
