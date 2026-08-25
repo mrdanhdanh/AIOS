@@ -254,6 +254,7 @@ M26 `DONE` (3138 tests, M26 full: T197-T218 implemented in `aios/coding_edition/
 | TASK-224 | M27 | Planner confirm flow + `work/` directory convention | TASK-223,TASK-222 | DONE |
 | TASK-225 | M28 | AIOS Self-Improver Agent | TASK-220,TASK-001,TASK-005 | DONE |
 | TASK-226 | M28 | Deterministic Auto-Stop / RetryGuard | TASK-225,TASK-005,TASK-001 | DONE |
+| TASK-227 | M28 | StubGuard: reject null-stub / SKIPPED steps | TASK-225,TASK-005,TASK-001 | DONE |
 
 M27 opens a lightweight control-plane layer: `CoordinatorAgent` (pure, I/O-free,
 capability-injected) drives the agent-role pipeline (spec → critique×2 →

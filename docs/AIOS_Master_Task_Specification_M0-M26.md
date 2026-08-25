@@ -2,7 +2,7 @@
 
 ## Runtime-First · Plugin-First · Offline-First · Harness-Verified · Coding-Plane
 
-> **Trạng thái tài liệu (2026-08-25):** ROADMAP + RECORD THỰC TẾ. Tính đến nay **226/226 task DONE** (TASK-001 → TASK-218 + TASK-219 + TASK-220 + TASK-221 + TASK-222 + TASK-223 + TASK-224 + TASK-225 + TASK-226), **0 task PLANNED**, full suite **3161+ tests xanh**, 0 BLOCKED. Roadmap M0–M26 + M27 (control-plane extension) CLOSED. Mỗi task dưới đây mang dòng `> **Trạng thái thực tế:**` ghi nhận module đã build, số test (DONE).
+> **Trạng thái tài liệu (2026-08-25):** ROADMAP + RECORD THỰC TẾ. Tính đến nay **227/227 task DONE** (TASK-001 → TASK-218 + TASK-219 + TASK-220 + TASK-221 + TASK-222 + TASK-223 + TASK-224 + TASK-225 + TASK-226 + TASK-227), **0 task PLANNED**, full suite **3161+ tests xanh**, 0 BLOCKED. Roadmap M0–M26 + M27 (control-plane extension) CLOSED. Mỗi task dưới đây mang dòng `> **Trạng thái thực tế:**` ghi nhận module đã build, số test (DONE).
 >
 > **Nguồn:** nội dung master plan được cung cấp trong file `Plan-AI-Operating-System-—-Runtime-First,-Plugin-First,-Offline-First,-Milestone.txt`.
 >
@@ -1946,6 +1946,30 @@ Codify the auto-stop rule (AGENTS.md §12) as deterministic, fail-closed runtime
 
 **Acceptance Criteria**
 - Auto-stop at/after threshold; distinct signatures independent; report root cause; fail-closed on invalid input; architecture gate 0 violations; full suite no regression.
+
+**Dependency / Gate**
+- TASK-225 (Self-Improver proposal), TASK-005 (runtime services), TASK-001 (gates).
+- Milestone M28 (self-evolution).
+
+---
+
+## TASK-227 — StubGuard: reject null-stub / SKIPPED pipeline steps
+
+> **Trạng thái thực tế (2026-08-25):** DONE — `aios/runtime/stub_guard.py` (`StubGuard`) + `aios/runtime/tests/test_stub_guard.py` (**7 automated tests**); Unified Gate PASS; full suite green. Self-Improver TASK-225 proposed this from 44 skipped-stub signals.
+
+**Mục tiêu**  
+Codify the anti-stub rule (AGENTS.md §12 "cấm null-stub / bước SKIPPED") as deterministic, fail-closed runtime capability: validate every pipeline step status and reject SKIPPED/null-stub steps.
+
+**Phạm vi**
+- `aios/runtime/stub_guard.py`: `StubGuard` (record/is_skip/violations/is_clean/report/reset), fail-closed on empty input.
+- `aios/runtime/tests/test_stub_guard.py`: 7 tests.
+- No agent-layer import (ARCH-003 compliant); agents receive it via capability injection.
+
+**Deliverables**
+- `aios/runtime/stub_guard.py` + test + task artifacts + evidence.
+
+**Acceptance Criteria**
+- Detect SKIPPED/null/stub/_Null/unknown; report violations; fail-closed on bad input; architecture gate 0 violations; full suite no regression.
 
 **Dependency / Gate**
 - TASK-225 (Self-Improver proposal), TASK-005 (runtime services), TASK-001 (gates).

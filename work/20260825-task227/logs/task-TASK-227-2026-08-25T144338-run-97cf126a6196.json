@@ -1,0 +1,81 @@
+{
+  "tool": "aiagent task",
+  "run_id": "run-97cf126a6196",
+  "timestamp": "2026-08-25T14:43:38.131758+00:00",
+  "purpose": "Flow A — governance pipeline + 7 gates for TASK-227.",
+  "task": "TASK-227",
+  "pipeline": {
+    "status": "OK",
+    "steps": [
+      {
+        "name": "spec",
+        "status": "OK",
+        "detail": "210 chars rendered"
+      },
+      {
+        "name": "critique-1",
+        "status": "OK",
+        "detail": "APPROVE"
+      },
+      {
+        "name": "critique-2",
+        "status": "OK",
+        "detail": "APPROVE"
+      },
+      {
+        "name": "breakdown",
+        "status": "OK",
+        "detail": "56 chars"
+      },
+      {
+        "name": "review",
+        "status": "OK",
+        "detail": "All pre-implementation artifacts present."
+      },
+      {
+        "name": "orchestrate",
+        "status": "OK",
+        "detail": "task closed"
+      }
+    ],
+    "approved": true,
+    "closed": true
+  },
+  "pipeline_summary": [
+    {
+      "name": "spec",
+      "status": "OK",
+      "detail": "210 chars rendered"
+    },
+    {
+      "name": "critique-1",
+      "status": "OK",
+      "detail": "APPROVE"
+    },
+    {
+      "name": "critique-2",
+      "status": "OK",
+      "detail": "APPROVE"
+    },
+    {
+      "name": "breakdown",
+      "status": "OK",
+      "detail": "56 chars"
+    },
+    {
+      "name": "review",
+      "status": "OK",
+      "detail": "All pre-implementation artifacts present."
+    },
+    {
+      "name": "orchestrate",
+      "status": "OK",
+      "detail": "task closed"
+    }
+  ],
+  "gates": {
+    "status": "PASS",
+    "returncode": 0,
+    "summary": "  [PASS] ci: [pass] core-tests=135/135 passed; full-suite=3219/3222 passed"
+  }
+}
