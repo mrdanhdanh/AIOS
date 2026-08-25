@@ -1,0 +1,34 @@
+{
+  "author": "aios-integration",
+  "checksum": "",
+  "configuration": {},
+  "dependencies": [],
+  "description": "Use when you have a spec or requirements for a multi-step task, before touching code.",
+  "enabled": false,
+  "entrypoint": "SKILL.md",
+  "install_location": "/skills/writing-plans/1.0.0",
+  "install_source": "git",
+  "metadata": {
+    "frontmatter": {
+      "argument-hint": "[spec]",
+      "description": "Use when you have a spec or requirements for a multi-step task, before touching code.",
+      "license": "MIT",
+      "metadata": {
+        "author": "aios-integration",
+        "version": "1.0.0"
+      },
+      "name": "writing-plans"
+    },
+    "source": "github-copilot-skill"
+  },
+  "name": "writing-plans",
+  "permissions": [],
+  "required_capabilities": [],
+  "resources": {
+    "instructions_chars": 189
+  },
+  "runtime": "python3.11",
+  "skill_id": "writing-plans",
+  "status": "pending",
+  "version": "1.0.0"
+}

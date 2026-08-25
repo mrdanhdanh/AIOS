@@ -1,0 +1,23 @@
+workflow:
+  name: Superpowers -> AIOS Deep Integration
+  version: 0.1.0
+  permissions: [process.execute]
+  nodes:
+    - id: generate-skills
+      type: task
+      command: python d:\AIOS\work\20260825-superpowers-integration\scripts\generate_superpowers.py
+    - id: install-integration
+      type: task
+      command: python d:\AIOS\work\20260825-superpowers-integration\scripts\install.py
+    - id: test-router
+      type: task
+      command: python -m pytest d:\AIOS\aios\skill\tests\test_superpowers_router.py -q
+    - id: test-skill-module
+      type: task
+      command: python -m pytest d:\AIOS\aios\skill -q
+    - id: architecture-guard
+      type: task
+      command: python -m pytest d:\AIOS\aios\governance\architecture -q
+    - id: full-suite
+      type: task
+      command: python -m pytest d:\AIOS\aios -q

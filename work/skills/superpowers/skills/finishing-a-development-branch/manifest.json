@@ -1,0 +1,34 @@
+{
+  "author": "aios-integration",
+  "checksum": "",
+  "configuration": {},
+  "dependencies": [],
+  "description": "Use when implementation is complete and you are ready to verify, present options, and close the branch.",
+  "enabled": false,
+  "entrypoint": "SKILL.md",
+  "install_location": "/skills/finishing-a-development-branch/1.0.0",
+  "install_source": "git",
+  "metadata": {
+    "frontmatter": {
+      "argument-hint": "[branch]",
+      "description": "Use when implementation is complete and you are ready to verify, present options, and close the branch.",
+      "license": "MIT",
+      "metadata": {
+        "author": "aios-integration",
+        "version": "1.0.0"
+      },
+      "name": "finishing-a-development-branch"
+    },
+    "source": "github-copilot-skill"
+  },
+  "name": "finishing-a-development-branch",
+  "permissions": [],
+  "required_capabilities": [],
+  "resources": {
+    "instructions_chars": 189
+  },
+  "runtime": "python3.11",
+  "skill_id": "finishing-a-development-branch",
+  "status": "pending",
+  "version": "1.0.0"
+}

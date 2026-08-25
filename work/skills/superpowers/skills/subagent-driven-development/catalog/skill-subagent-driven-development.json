@@ -1,0 +1,10 @@
+{
+  "kind": "skill",
+  "layout": "claude",
+  "manifest_path": "manifest.json",
+  "name": "subagent-driven-development",
+  "plugin_manifest_path": "plugin_manifest.json",
+  "skill_id": "subagent-driven-development",
+  "source": "git",
+  "version": "1.0.0"
+}

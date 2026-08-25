@@ -1,0 +1,34 @@
+{
+  "author": "aios-integration",
+  "checksum": "",
+  "configuration": {},
+  "dependencies": [],
+  "description": "Use when starting any conversation - establishes how to find and use skills, requiring skill invocation before ANY response including clarifying questions.",
+  "enabled": false,
+  "entrypoint": "SKILL.md",
+  "install_location": "/skills/using-superpowers/1.0.0",
+  "install_source": "git",
+  "metadata": {
+    "frontmatter": {
+      "argument-hint": "",
+      "description": "Use when starting any conversation - establishes how to find and use skills, requiring skill invocation before ANY response including clarifying questions.",
+      "license": "MIT",
+      "metadata": {
+        "author": "aios-integration",
+        "version": "1.0.0"
+      },
+      "name": "using-superpowers"
+    },
+    "source": "github-copilot-skill"
+  },
+  "name": "using-superpowers",
+  "permissions": [],
+  "required_capabilities": [],
+  "resources": {
+    "instructions_chars": 306
+  },
+  "runtime": "python3.11",
+  "skill_id": "using-superpowers",
+  "status": "pending",
+  "version": "1.0.0"
+}

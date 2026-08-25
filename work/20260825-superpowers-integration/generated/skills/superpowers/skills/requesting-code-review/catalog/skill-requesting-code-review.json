@@ -1,0 +1,10 @@
+{
+  "kind": "skill",
+  "layout": "claude",
+  "manifest_path": "manifest.json",
+  "name": "requesting-code-review",
+  "plugin_manifest_path": "plugin_manifest.json",
+  "skill_id": "requesting-code-review",
+  "source": "git",
+  "version": "1.0.0"
+}

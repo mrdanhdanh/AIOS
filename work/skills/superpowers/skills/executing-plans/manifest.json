@@ -1,0 +1,34 @@
+{
+  "author": "aios-integration",
+  "checksum": "",
+  "configuration": {},
+  "dependencies": [],
+  "description": "Use when you have a written implementation plan to execute in a separate session with review checkpoints.",
+  "enabled": false,
+  "entrypoint": "SKILL.md",
+  "install_location": "/skills/executing-plans/1.0.0",
+  "install_source": "git",
+  "metadata": {
+    "frontmatter": {
+      "argument-hint": "[plan]",
+      "description": "Use when you have a written implementation plan to execute in a separate session with review checkpoints.",
+      "license": "MIT",
+      "metadata": {
+        "author": "aios-integration",
+        "version": "1.0.0"
+      },
+      "name": "executing-plans"
+    },
+    "source": "github-copilot-skill"
+  },
+  "name": "executing-plans",
+  "permissions": [],
+  "required_capabilities": [],
+  "resources": {
+    "instructions_chars": 200
+  },
+  "runtime": "python3.11",
+  "skill_id": "executing-plans",
+  "status": "pending",
+  "version": "1.0.0"
+}

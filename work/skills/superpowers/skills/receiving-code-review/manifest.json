@@ -1,0 +1,34 @@
+{
+  "author": "aios-integration",
+  "checksum": "",
+  "configuration": {},
+  "dependencies": [],
+  "description": "Use when you receive code review feedback that you need to process and address.",
+  "enabled": false,
+  "entrypoint": "SKILL.md",
+  "install_location": "/skills/receiving-code-review/1.0.0",
+  "install_source": "git",
+  "metadata": {
+    "frontmatter": {
+      "argument-hint": "[feedback]",
+      "description": "Use when you receive code review feedback that you need to process and address.",
+      "license": "MIT",
+      "metadata": {
+        "author": "aios-integration",
+        "version": "1.0.0"
+      },
+      "name": "receiving-code-review"
+    },
+    "source": "github-copilot-skill"
+  },
+  "name": "receiving-code-review",
+  "permissions": [],
+  "required_capabilities": [],
+  "resources": {
+    "instructions_chars": 147
+  },
+  "runtime": "python3.11",
+  "skill_id": "receiving-code-review",
+  "status": "pending",
+  "version": "1.0.0"
+}

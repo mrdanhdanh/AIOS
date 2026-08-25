@@ -1,0 +1,34 @@
+{
+  "author": "aios-integration",
+  "checksum": "",
+  "configuration": {},
+  "dependencies": [],
+  "description": "You MUST use this before any creative work - creating features, building components, adding functionality, or modifying behavior. Explores user intent, requirements and design before implementation.",
+  "enabled": false,
+  "entrypoint": "SKILL.md",
+  "install_location": "/skills/brainstorming/1.0.0",
+  "install_source": "git",
+  "metadata": {
+    "frontmatter": {
+      "argument-hint": "[request]",
+      "description": "You MUST use this before any creative work - creating features, building components, adding functionality, or modifying behavior. Explores user intent, requirements and design before implementation.",
+      "license": "MIT",
+      "metadata": {
+        "author": "aios-integration",
+        "version": "1.0.0"
+      },
+      "name": "brainstorming"
+    },
+    "source": "github-copilot-skill"
+  },
+  "name": "brainstorming",
+  "permissions": [],
+  "required_capabilities": [],
+  "resources": {
+    "instructions_chars": 176
+  },
+  "runtime": "python3.11",
+  "skill_id": "brainstorming",
+  "status": "pending",
+  "version": "1.0.0"
+}

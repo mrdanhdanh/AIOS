@@ -1,0 +1,10 @@
+{
+  "kind": "skill",
+  "layout": "claude",
+  "manifest_path": "manifest.json",
+  "name": "finishing-a-development-branch",
+  "plugin_manifest_path": "plugin_manifest.json",
+  "skill_id": "finishing-a-development-branch",
+  "source": "git",
+  "version": "1.0.0"
+}

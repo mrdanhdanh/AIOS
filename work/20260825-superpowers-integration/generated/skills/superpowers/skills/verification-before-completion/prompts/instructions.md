@@ -1,0 +1,1 @@
+Before any success/completion claim or commit: identify the proving command, run it fresh, read full output + exit code, then claim only with evidence. Never trust agent reports without independent verification.
