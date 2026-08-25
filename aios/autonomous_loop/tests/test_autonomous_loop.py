@@ -68,5 +68,53 @@ def test_learning_is_candidate_only():
         return {"observation_id": "o", "progress": 0.0}
     loop = AutonomousLoop(learning_observer, _actor, _evaluator, config=LoopConfig(max_iterations=1))
     loop.run("g1")
+
+
+# --- TASK-233 Unified Autonomous Lifecycle -----------------------------------
+from aios.autonomous_loop.lifecycle import UnifiedAutonomousLifecycle
+from aios.kill_switch.controller import KillSwitchController, HaltSignal, HaltScope
+from aios.runtime.retry_guard import RetryGuard
+
+
+def test_unified_lifecycle_runs_through_loop():
+    life = UnifiedAutonomousLifecycle(
+        _observer, _actor, _evaluator, config=LoopConfig(max_iterations=5)
+    )
+    cycles = life.run("g1")
+    assert len(cycles) >= 1
+    assert cycles[-1].status in (CycleStatus.COMPLETED, CycleStatus.STOPPED)
+
+
+def test_unified_lifecycle_halts_under_killswitch():
+    from aios.kill_switch.contracts import HaltSource
+
+    ks = KillSwitchController()
+    ks.issue(HaltSignal(
+        source=HaltSource.SAFETY,
+        scope=HaltScope.GLOBAL,
+        issued_at="2026-08-25T00:00:00Z",
+        reason="test halt",
+    ))
+    life = UnifiedAutonomousLifecycle(
+        _observer, _actor, _evaluator, config=LoopConfig(max_iterations=5), kill_switch=ks
+    )
+    # Fail-closed: no loop starts under a global halt.
+    assert life.run("g1") == []
+
+
+def test_unified_lifecycle_retryguard_autostop():
+    def failing_actor(cycle, ctx):
+        return {"execution_id": "x", "cost": 0.0, "failed": True}
+    def fail_eval(cycle, execution):
+        return {"evaluation_id": "e", "verdict": "fail"}
+    guard = RetryGuard(threshold=2)
+    life = UnifiedAutonomousLifecycle(
+        _observer, failing_actor, fail_eval,
+        config=LoopConfig(max_iterations=10, max_failures=10),
+        retry_guard=guard,
+    )
+    cycles = life.run("g1")
+    # After >= threshold repeated failures, a cycle is flagged auto-stop.
+    assert any(c.stop_condition == StopCondition.REPEATED_FAILURE for c in cycles)
     # No promotion path exists in the loop; learning stays candidate.
     assert True

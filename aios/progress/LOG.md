@@ -113,6 +113,17 @@ Append-only event log. Each entry: `ISO-UTC | task | event | detail`.
 2026-08-25T00:00:00Z | TASK-232 | EVALUATING | all AC PASS (emit evidence / requires store).
 2026-08-25T00:00:00Z | TASK-232 | REGRESSION | full suite 3232 passed, 3 skipped; closure green.
 2026-08-25T00:00:00Z | TASK-232 | DONE | Unified Task Gate PASS (local CI). 3232 tests green. M30 COMPLETE.
+2026-08-25T00:00:00Z | TASK-233 | CREATED | Unified Autonomous Lifecycle (M31) initialized.
+2026-08-25T00:00:00Z | TASK-233 | SPECIFIED | spec.md written.
+2026-08-25T00:00:00Z | TASK-233 | CRITIQUED_1 | critique-1.md written (wrap LoopController, stable sig, HaltSource).
+2026-08-25T00:00:00Z | TASK-233 | CRITIQUED_2 | critique-2.md written (APPROVE).
+2026-08-25T00:00:00Z | TASK-233 | BROKEN_DOWN | tasks.md written (4 sub-tasks).
+2026-08-25T00:00:00Z | TASK-233 | REVIEWED | review.md written (APPROVED).
+2026-08-25T00:00:00Z | TASK-233 | IMPLEMENTING | aios/autonomous_loop/lifecycle.py: UnifiedAutonomousLifecycle (LoopController + RetryGuard + KillSwitch).
+2026-08-25T00:00:00Z | TASK-233 | TESTING | test_autonomous_loop.py: 3 new tests passed; architecture gate 124 passed.
+2026-08-25T00:00:00Z | TASK-233 | EVALUATING | all AC PASS (run / killswitch / retryguard).
+2026-08-25T00:00:00Z | TASK-233 | REGRESSION | full suite 3235 passed, 3 skipped; closure green.
+2026-08-25T00:00:00Z | TASK-233 | DONE | Unified Task Gate PASS (local CI). 3235 tests green. M31 COMPLETE.
 
 2026-08-19T00:00:00Z | TASK-001 | CREATED | Task Governance System initialized.
 2026-08-19T00:00:00Z | TASK-001 | SPECIFIED | spec.md written.
