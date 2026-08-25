@@ -85,11 +85,12 @@ def create_app(
     from .routers.events import router as events_router
     from .routers.independent_harness import router as ih_router
     from .routers.coordinator import router as coord_router
+    from .routers.control_center import router as cc_router
 
     for r in [health_router, system_router, orch_router, exec_router, wf_router,
               tasks_router, agents_router, caps_router, tools_router, skills_router,
               mem_router, arts_router, models_router, prompts_router, events_router,
-              ih_router, coord_router]:
+              ih_router, coord_router, cc_router]:
         app.include_router(r, prefix=API_PREFIX)
 
     @app.websocket(f"{API_PREFIX}/ws/events")

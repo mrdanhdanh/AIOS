@@ -157,6 +157,17 @@ Append-only event log. Each entry: `ISO-UTC | task | event | detail`.
 2026-08-25T00:00:00Z | TASK-236 | EVALUATING | all AC PASS (done/escalate/halt/deterministic).
 2026-08-25T00:00:00Z | TASK-236 | REGRESSION | full suite 3244 passed, 3 skipped; closure green.
 2026-08-25T00:00:00Z | TASK-236 | DONE | Unified Task Gate PASS (local CI). 3244 tests green. M33 COMPLETE.
+2026-08-25T00:00:00Z | TASK-237 | CREATED | Unified Control Center Dashboard (M34) initialized.
+2026-08-25T00:00:00Z | TASK-237 | SPECIFIED | spec.md written.
+2026-08-25T00:00:00Z | TASK-237 | CRITIQUED_1 | critique-1.md written (read-only, fail-isolated per plane).
+2026-08-25T00:00:00Z | TASK-237 | CRITIQUED_2 | critique-2.md written (APPROVE; 14 planes).
+2026-08-25T00:00:00Z | TASK-237 | BROKEN_DOWN | tasks.md written (6 sub-tasks).
+2026-08-25T00:00:00Z | TASK-237 | REVIEWED | review.md written (APPROVED).
+2026-08-25T00:00:00Z | TASK-237 | IMPLEMENTING | aios/dashboard/control_center.py + aios/api/routers/control_center.py (GET /control-center).
+2026-08-25T00:00:00Z | TASK-237 | TESTING | test_control_center.py x6 passed; architecture gate 124 passed.
+2026-08-25T00:00:00Z | TASK-237 | EVALUATING | all AC PASS (read-only, 14 planes, fail-isolated).
+2026-08-25T00:00:00Z | TASK-237 | REGRESSION | full suite 3250 passed, 3 skipped; closure green.
+2026-08-25T00:00:00Z | TASK-237 | DONE | Unified Task Gate PASS (local CI). 3250 tests green. M34 COMPLETE.
 
 2026-08-19T00:00:00Z | TASK-001 | CREATED | Task Governance System initialized.
 2026-08-19T00:00:00Z | TASK-001 | SPECIFIED | spec.md written.
