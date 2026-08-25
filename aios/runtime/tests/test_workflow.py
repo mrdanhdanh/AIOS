@@ -289,6 +289,67 @@ def test_check_workflow_contract_pass():
     check_workflow_contract("1.9.9")
 
 
+# --------------------------------------------------------------------------- #
+# TASK-228 — Unified ExecutionPlan Contract
+# --------------------------------------------------------------------------- #
+def test_to_execution_plan_carries_governance_fields():
+    yaml_text = (
+        "workflow:\n"
+        "  name: exec-demo\n"
+        "  version: '1.0.0'\n"
+        "  permissions: [process.execute]\n"
+        "  nodes:\n"
+        "    - id: step-1\n"
+        "      type: task\n"
+        "      command: echo hello\n"
+        "    - id: step-2\n"
+        "      type: task\n"
+        "      command: git status\n"
+    )
+    wf = WorkflowDefinition.from_yaml(yaml_text)
+    plan = wf.to_execution_plan(allowed_cwd="/tmp/work")
+    assert plan.metadata["contract"] == "unified-execution-plan"
+    assert plan.metadata["policy_ref"] == "governance.unified-gate"
+    assert plan.metadata["permissions"] == ["process.execute"]
+    assert len(plan.steps) == 2
+    s1 = plan.get_step("step-1")
+    assert s1.metadata["permission"] == "process.execute"
+    assert s1.metadata["evidence_ref"] == "evidence:step-1"
+    assert s1.metadata["cwd"] == "/tmp/work"
+    s2 = plan.get_step("step-2")
+    assert s2.metadata["tool_type"] == "git"
+
+
+def test_execution_plan_round_trip_lossless():
+    yaml_text = (
+        "workflow:\n"
+        "  name: roundtrip\n"
+        "  version: '2.3.4'\n"
+        "  permissions: [process.execute]\n"
+        "  nodes:\n"
+        "    - id: a\n"
+        "      type: task\n"
+        "      command: echo a\n"
+        "    - id: b\n"
+        "      type: task\n"
+        "      command: echo b\n"
+    )
+    wf = WorkflowDefinition.from_yaml(yaml_text)
+    plan = wf.to_execution_plan(allowed_cwd="/tmp/rt")
+    back = WorkflowDefinition.from_execution_plan(plan)
+    assert back.name == "roundtrip"
+    assert back.version == "2.3.4"
+    assert back.permissions == ["process.execute"]
+    assert len(back.nodes) == 2
+    assert back.nodes[0].id == "a"
+    assert back.nodes[0].command == "echo a"
+    assert back.nodes[1].id == "b"
+    # Re-convert and compare step ids/commands (lossless for controlled fields).
+    plan2 = back.to_execution_plan(allowed_cwd="/tmp/rt")
+    assert [s.step_id for s in plan2.steps] == ["a", "b"]
+    assert [s.metadata["command"] for s in plan2.steps] == ["echo a", "echo b"]
+
+
 def test_check_workflow_contract_reject():
     from aios.core.contracts import ContractError
 

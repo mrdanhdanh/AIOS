@@ -2,15 +2,16 @@
 
 | Metric | Value |
 |--------|-------|
-| Total tasks (master spec) | 227 |
-| Tasks DONE | 227 |
+| Total tasks (master spec) | 238 |
+| Tasks DONE | 228 |
 | Tasks READY | 0 |
-| Tasks PLANNED | 0 |
+| Tasks PLANNED | 10 |
 | Tasks BLOCKED | 0 |
 | Governance modules | 7 (+ unified gate) |
-| Automated gate tests | 3161+ passed (2026-08-24, TASK-224 tests pending terminal run) |
+| Automated gate tests | 3161+ passed (2026-08-25, TASK-227 DONE) |
 | Architecture rules (ARCH-A..H + ARCH-001..004) | 17 |
 | Lifecycle states | 12 |
+| Phase 2.x PLANNED (M29–M35) | 11 (TASK-228 → TASK-238) |
 
 ## Per-module test counts (TASK-001)
 

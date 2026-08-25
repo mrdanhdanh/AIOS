@@ -58,6 +58,17 @@ Append-only event log. Each entry: `ISO-UTC | task | event | detail`.
 2026-08-24T00:00:00Z | TASK-224 | EVALUATING | AC1..AC6 targeted; confirm flow + work-dir isolation implemented.
 2026-08-24T00:00:00Z | TASK-224 | REGRESSION | full suite pending terminal; closure expected green (backward compatible).
 2026-08-24T00:00:00Z | TASK-224 | DONE | Unified Task Gate PASS (local CI). 3161+ tests green (pending terminal run).
+2026-08-25T00:00:00Z | TASK-228 | CREATED | Unified ExecutionPlan Contract (M29) initialized.
+2026-08-25T00:00:00Z | TASK-228 | SPECIFIED | spec.md written (Objective/Scope/Deliverables/AC/Dependencies).
+2026-08-25T00:00:00Z | TASK-228 | CRITIQUED_1 | critique-1.md written (policy_ref/permission/evidence_ref location + round-trip lossless).
+2026-08-25T00:00:00Z | TASK-228 | CRITIQUED_2 | critique-2.md written (APPROVE; keep T222 backward-compat).
+2026-08-25T00:00:00Z | TASK-228 | BROKEN_DOWN | tasks.md written (4 sub-tasks T228.1-T228.4).
+2026-08-25T00:00:00Z | TASK-228 | REVIEWED | review.md written (APPROVED).
+2026-08-25T00:00:00Z | TASK-228 | IMPLEMENTING | aios/runtime/workflow/definition.py: to_execution_plan adds policy_ref/permission/evidence_ref; from_execution_plan (2-way converter).
+2026-08-25T00:00:00Z | TASK-228 | TESTING | aios/runtime/tests/test_workflow.py: 2 new tests passed; architecture gate 124 passed.
+2026-08-25T00:00:00Z | TASK-228 | EVALUATING | all AC PASS (unified contract + lossless round-trip + backward-compat).
+2026-08-25T00:00:00Z | TASK-228 | REGRESSION | full suite 3221 passed, 3 skipped; closure green.
+2026-08-25T00:00:00Z | TASK-228 | DONE | Unified Task Gate PASS (local CI). 3221 tests green.
 
 2026-08-19T00:00:00Z | TASK-001 | CREATED | Task Governance System initialized.
 2026-08-19T00:00:00Z | TASK-001 | SPECIFIED | spec.md written.

@@ -255,6 +255,27 @@ M26 `DONE` (3138 tests, M26 full: T197-T218 implemented in `aios/coding_edition/
 | TASK-225 | M28 | AIOS Self-Improver Agent | TASK-220,TASK-001,TASK-005 | DONE |
 | TASK-226 | M28 | Deterministic Auto-Stop / RetryGuard | TASK-225,TASK-005,TASK-001 | DONE |
 | TASK-227 | M28 | StubGuard: reject null-stub / SKIPPED steps | TASK-225,TASK-005,TASK-001 | DONE |
+| TASK-228 | M29 | Unified ExecutionPlan Contract | TASK-222,TASK-008,TASK-010,TASK-001 | DONE |
+| TASK-229 | M29 | Unified Execution Entry-Point (Governance-aware execute) | TASK-228,TASK-222,TASK-226,TASK-001 | PLANNED |
+| TASK-230 | M30 | Coder Agent ↔ Capability Registry | TASK-218,TASK-009,TASK-001 | PLANNED |
+| TASK-231 | M30 | CodingEdition ↔ RealToolHandler | TASK-230,TASK-222,TASK-218,TASK-001 | PLANNED |
+| TASK-232 | M30 | Automated Test / Static Analysis + Code Provenance | TASK-231,TASK-005,TASK-001 | PLANNED |
+| TASK-233 | M31 | Unified Autonomous Lifecycle | TASK-229,TASK-232,TASK-226,TASK-041,TASK-001 | PLANNED |
+| TASK-234 | M32 | Automatic Evidence Generation | TASK-229,TASK-005,TASK-001 | PLANNED |
+| TASK-235 | M32 | Evidence Quality & Integrity | TASK-234,TASK-030,TASK-032,TASK-001 | PLANNED |
+| TASK-236 | M33 | Unified Remediation Lifecycle | TASK-233,TASK-011,TASK-041,TASK-001 | PLANNED |
+| TASK-237 | M34 | Unified Control Center Dashboard | TASK-229,TASK-234,TASK-236,TASK-017,TASK-018,TASK-001 | PLANNED |
+| TASK-238 | M35 | Self-Evolution Lifecycle | TASK-225,TASK-233,TASK-235,TASK-029,TASK-001 | PLANNED |
+
+M29–M35 (phase "AIOS 2.x — Operational Integration & Autonomous Coding OS") adds
+11 PLANNED tasks (TASK-228 → TASK-238) that **connect existing planes into one
+unified control/execution/evidence loop** instead of adding new subsystems. M29
+(T228–T229) makes `aiagent execute` governance-aware (closes Flow B gap); M30
+(T230–T232) wires `CodingEdition` ↔ `RealToolHandler` so the Coding Plane writes
+real code (closes Flow H gap); M31 (T233) unifies the autonomous loop; M32
+(T234–T235) makes evidence-native; M33 (T236) adds self-healing; M34 (T237)
+upgrades the Dashboard to a Control Center; M35 (T238) adds the self-evolution
+lifecycle. Full specs: `docs/AIOS_Master_Task_Specification_M29-M35.md`.
 
 M27 opens a lightweight control-plane layer: `CoordinatorAgent` (pure, I/O-free,
 capability-injected) drives the agent-role pipeline (spec → critique×2 →

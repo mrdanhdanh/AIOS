@@ -325,14 +325,18 @@ class WorkflowDefinition:
         return cls(name=name, version=version, nodes=nodes, permissions=["process.execute"])
 
     # ------------------------------------------------------------------ #
-    # TASK-222: convert a declarative workflow into a runtime ExecutionPlan
+    # TASK-222 / TASK-228: convert a declarative workflow into a runtime
+    # ExecutionPlan (Unified ExecutionPlan Contract, M29).
     # ------------------------------------------------------------------ #
     def to_execution_plan(self, *, allowed_cwd: Optional[str] = None) -> "ExecutionPlan":
         """Build a runtime :class:`~aios.core.planner.ExecutionPlan` for real execution.
 
         Each node becomes a :class:`~aios.core.planner.Step` carrying the
-        ``scope`` / ``resource`` metadata required by the executor's policy
-        pre-check, plus the real ``command`` to run.
+        ``scope`` / ``resource`` / ``policy_ref`` / ``permission`` metadata
+        required by the executor's governance pre-check (PolicyEngine +
+        PermissionBroker), plus the real ``command`` to run. This is the
+        single, unified contract used by BOTH ``aiagent task`` (Flow A) and
+        ``aiagent execute`` (Flow B) — closing the Flow A ∧ Flow B gap.
         """
         from aios.core.planner import ExecutionPlan, Step
         from aios.runtime.permission import PermissionScope
@@ -341,6 +345,9 @@ class WorkflowDefinition:
         plan = ExecutionPlan(plan_id=f"wf-{self.name}-{self.version}")
         plan.metadata["version"] = self.version
         plan.metadata["workflow_name"] = self.name
+        plan.metadata["contract"] = "unified-execution-plan"
+        plan.metadata["policy_ref"] = "governance.unified-gate"
+        plan.metadata["permissions"] = list(self.permissions)
         for node in self.nodes:
             command = node.command or node.description or node.id
             tool_type = "git" if str(command).strip().lower().startswith("git ") else "shell"
@@ -357,10 +364,39 @@ class WorkflowDefinition:
                     "command": str(command),
                     "cwd": step_cwd,
                     "timeout": self.timeout,
+                    # TASK-228: explicit unified-contract fields
+                    "policy_ref": "governance.unified-gate",
+                    "permission": "process.execute" if scope is PermissionScope.EXECUTE else "capability:invoke",
+                    "evidence_ref": f"evidence:{node.id}",
                 },
             )
             plan.add_step(step)
         return plan
+
+    @classmethod
+    def from_execution_plan(cls, plan: "ExecutionPlan") -> "WorkflowDefinition":
+        """Round-trip converter (TASK-228): rebuild a declarative workflow.
+
+        Inverse of :meth:`to_execution_plan`. Preserves node id / command /
+        description so the conversion is lossless for the fields we control.
+        """
+        wf_name = plan.metadata.get("workflow_name", "from-execution-plan")
+        wf_version = plan.metadata.get("version", "0.1.0")
+        nodes = []
+        for step in plan.steps:
+            meta = step.metadata or {}
+            command = meta.get("command", step.action)
+            nodes.append(
+                WorkflowNode(
+                    id=step.step_id,
+                    type="task",
+                    description=meta.get("description", command),
+                    command=command,
+                    cwd=meta.get("cwd"),
+                )
+            )
+        permissions = list(plan.metadata.get("permissions", [])) or ["process.execute"]
+        return cls(name=wf_name, version=wf_version, nodes=nodes, permissions=permissions)
 
     def _derive_scope(self) -> "PermissionScope":
         """Map workflow-level permissions to a single step scope (fail-closed EXECUTE)."""
