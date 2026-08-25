@@ -2,8 +2,8 @@
 
 | Metric | Value |
 |--------|-------|
-| Total tasks (master spec) | 225 |
-| Tasks DONE | 225 |
+| Total tasks (master spec) | 226 |
+| Tasks DONE | 226 |
 | Tasks READY | 0 |
 | Tasks PLANNED | 0 |
 | Tasks BLOCKED | 0 |
