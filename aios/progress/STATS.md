@@ -3,9 +3,9 @@
 | Metric | Value |
 |--------|-------|
 | Total tasks (master spec) | 238 |
-| Tasks DONE | 234 |
+| Tasks DONE | 235 |
 | Tasks READY | 0 |
-| Tasks PLANNED | 4 |
+| Tasks PLANNED | 3 |
 | Tasks BLOCKED | 0 |
 | Governance modules | 7 (+ unified gate) |
 | Automated gate tests | 3161+ passed (2026-08-25, TASK-227 DONE) |

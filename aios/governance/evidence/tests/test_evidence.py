@@ -109,3 +109,44 @@ def test_coverage_map_tracks_requirement():
     assert "REQ-C" in store.coverage_map
     assert store.is_requirement_covered("REQ-C") is True
     assert store.is_requirement_covered("REQ-UNKNOWN") is False
+
+
+# --- TASK-235 Evidence Quality & Integrity ----------------------------------
+def _seed_two_runs(store, req, run_a, run_b):
+    store.add_requirement(Requirement(req, "q"))
+    store.add_task_record(TaskRecord("T", req))
+    store.add_artifact(Artifact("A", "T", req))
+    store.add_run(Run(run_a, "A", "T"))
+    store.add_run(Run(run_b, "A", "T"))
+
+
+def test_detect_conflicts_finds_disagreement():
+    store = EvidenceStore()
+    _seed_two_runs(store, "REQ-Q", "RA", "RB")
+    store.add_evidence("EA", "T", "RA", "p", "t", "s", "x", requirement_id="REQ-Q", status="PASS")
+    store.add_evidence("EB", "T", "RB", "p", "t", "s", "x", requirement_id="REQ-Q", status="FAIL")
+    conflicts = store.detect_conflicts()
+    assert ("EA", "EB") in conflicts or ("EB", "EA") in conflicts
+
+
+def test_replay_reconstructs_from_run():
+    store = EvidenceStore()
+    _seed_two_runs(store, "REQ-R", "RR", "RB2")
+    store.add_evidence("ER1", "T", "RR", "p", "t", "s", "x", requirement_id="REQ-R")
+    store.add_evidence("ER2", "T", "RR", "p", "t", "s", "x", requirement_id="REQ-R")
+    replayed = store.replay("RR")
+    assert {e.evidence_id for e in replayed} == {"ER1", "ER2"}
+
+
+def test_quality_score_and_validity():
+    store = EvidenceStore()
+    _seed_two_runs(store, "REQ-S", "RS", "RB3")
+    store.add_evidence("ES", "T", "RS", "p", "t", "s", "x", requirement_id="REQ-S",
+                       status="PASS", freshness="2099-01-01T00:00:00+00:00")
+    score = store.quality_score("ES", {"p": 1.0})
+    assert score == 1.0
+    assert store.is_valid_for_evaluation("ES") is True
+    # STALE evidence is invalid for evaluation.
+    store.add_evidence("ES2", "T", "RB3", "p", "t", "s", "x", requirement_id="REQ-S",
+                       status="PASS", freshness="2020-01-01T00:00:00+00:00")
+    assert store.is_valid_for_evaluation("ES2") is False

@@ -222,6 +222,63 @@ class EvidenceStore:
         """An evidence is admissible only with a complete provenance chain."""
         return self.get_provenance_chain(evidence_id).complete
 
+    # ----- TASK-235: Evidence Quality & Integrity ---------------------- #
+    def detect_conflicts(self) -> List[tuple]:
+        """Return pairs of evidence IDs that conflict on the same requirement.
+
+        A conflict = two admissible evidence for the same requirement whose
+        ``type``/``status`` disagree (e.g. one PASS, one FAIL). UNKNOWN/STALE
+        are excluded (they cannot overturn a valid verdict).
+        """
+        conflicts: List[tuple] = []
+        by_req: Dict[str, List[Evidence]] = {}
+        for ev in self._evidence.values():
+            if ev.requirement_id and not ev.is_stale():
+                by_req.setdefault(ev.requirement_id, []).append(ev)
+        for req, evs in by_req.items():
+            for i in range(len(evs)):
+                for j in range(i + 1, len(evs)):
+                    a, b = evs[i], evs[j]
+                    if a.status != b.status and {a.status, b.status} & {"ADMISSIBLE", "PASS", "FAIL"}:
+                        conflicts.append((a.evidence_id, b.evidence_id))
+        return conflicts
+
+    def replay(self, run_id: str) -> List[Evidence]:
+        """Reconstruct the evidence produced by a given run (TASK-235)."""
+        return [ev for ev in self._evidence.values() if ev.run_id == run_id]
+
+    def quality_score(
+        self,
+        evidence_id: str,
+        producer_trust: Optional[Dict[str, float]] = None,
+    ) -> float:
+        """Quality score in [0,1] = producer_trust × freshness × verification.
+
+        producer_trust defaults to 0.8 when unknown; freshness=0 if stale;
+        verification=1 when status is ADMISSIBLE/PASS else 0.5.
+        """
+        ev = self.get(evidence_id)
+        trust = (producer_trust or {}).get(ev.producer, 0.8)
+        fresh = 0.0 if ev.is_stale() else 1.0
+        verified = 1.0 if ev.status in ("ADMISSIBLE", "PASS") else 0.5
+        return round(trust * fresh * verified, 4)
+
+    def is_valid_for_evaluation(self, evidence_id: str) -> bool:
+        """TASK-235: evaluation only accepts valid evidence.
+
+        Rejects UNKNOWN status, STALE freshness, and any evidence that is part
+        of a detected conflict.
+        """
+        ev = self.get(evidence_id)
+        if ev.status == "UNKNOWN":
+            return False
+        if ev.is_stale():
+            return False
+        conflicts = self.detect_conflicts()
+        if any(evidence_id in pair for pair in conflicts):
+            return False
+        return True
+
     def list_all(self) -> List[Evidence]:
         return list(self._evidence.values())
 

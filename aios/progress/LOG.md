@@ -135,6 +135,17 @@ Append-only event log. Each entry: `ISO-UTC | task | event | detail`.
 2026-08-25T00:00:00Z | TASK-234 | EVALUATING | all AC PASS (stale / coverage).
 2026-08-25T00:00:00Z | TASK-234 | REGRESSION | full suite 3237 passed, 3 skipped; closure green.
 2026-08-25T00:00:00Z | TASK-234 | DONE | Unified Task Gate PASS (local CI). 3237 tests green.
+2026-08-25T00:00:00Z | TASK-235 | CREATED | Evidence Quality & Integrity (M32) initialized.
+2026-08-25T00:00:00Z | TASK-235 | SPECIFIED | spec.md written.
+2026-08-25T00:00:00Z | TASK-235 | CRITIQUED_1 | critique-1.md written (conflict/replay/quality/validity).
+2026-08-25T00:00:00Z | TASK-235 | CRITIQUED_2 | critique-2.md written (APPROVE).
+2026-08-25T00:00:00Z | TASK-235 | BROKEN_DOWN | tasks.md written (4 sub-tasks).
+2026-08-25T00:00:00Z | TASK-235 | REVIEWED | review.md written (APPROVED).
+2026-08-25T00:00:00Z | TASK-235 | IMPLEMENTING | aios/governance/evidence/store.py: detect_conflicts/replay/quality_score/is_valid_for_evaluation.
+2026-08-25T00:00:00Z | TASK-235 | TESTING | test_evidence.py: 3 new tests passed; architecture gate 124 passed.
+2026-08-25T00:00:00Z | TASK-235 | EVALUATING | all AC PASS (conflict / replay / quality+validity).
+2026-08-25T00:00:00Z | TASK-235 | REGRESSION | full suite 3240 passed, 3 skipped; closure green.
+2026-08-25T00:00:00Z | TASK-235 | DONE | Unified Task Gate PASS (local CI). 3240 tests green. M32 COMPLETE.
 
 2026-08-19T00:00:00Z | TASK-001 | CREATED | Task Governance System initialized.
 2026-08-19T00:00:00Z | TASK-001 | SPECIFIED | spec.md written.
