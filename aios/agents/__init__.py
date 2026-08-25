@@ -11,6 +11,7 @@ from .spec_writer import SpecWriter
 from .critic import Critic
 from .reviewer import Reviewer
 from .coordinator import CoordinatorAgent, CoordinationResult, CoordinationStep
+from .self_improver import SelfImproverAgent, SelfImproverResult, ImprovementProposal
 
 __all__ = [
     "Orchestrator",
@@ -20,4 +21,7 @@ __all__ = [
     "CoordinatorAgent",
     "CoordinationResult",
     "CoordinationStep",
+    "SelfImproverAgent",
+    "SelfImproverResult",
+    "ImprovementProposal",
 ]

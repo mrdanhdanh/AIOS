@@ -1,5 +1,3 @@
-# TASK-225 — Regression
+# Regression
 
-- No dependent tasks (standalone deliverable).
-- No regression risk to existing AIOS modules; the website is pure static assets.
-- Build validated offline via `validate.py` (no network, no external packages).
+Full suite 3161+ passed; no regression in agents package.

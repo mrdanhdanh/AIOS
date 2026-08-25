@@ -2,7 +2,7 @@
 
 ## Runtime-First · Plugin-First · Offline-First · Harness-Verified · Coding-Plane
 
-> **Trạng thái tài liệu (2026-08-25):** ROADMAP + RECORD THỰC TẾ. Tính đến nay **224/224 task DONE** (TASK-001 → TASK-218 + TASK-219 + TASK-220 + TASK-221 + TASK-222 + TASK-223 + TASK-224), **0 task PLANNED**, full suite **3161+ tests xanh**, 0 BLOCKED. Roadmap M0–M26 + M27 (control-plane extension) CLOSED. Mỗi task dưới đây mang dòng `> **Trạng thái thực tế:**` ghi nhận module đã build, số test (DONE).
+> **Trạng thái tài liệu (2026-08-25):** ROADMAP + RECORD THỰC TẾ. Tính đến nay **225/225 task DONE** (TASK-001 → TASK-218 + TASK-219 + TASK-220 + TASK-221 + TASK-222 + TASK-223 + TASK-224 + TASK-225), **0 task PLANNED**, full suite **3161+ tests xanh**, 0 BLOCKED. Roadmap M0–M26 + M27 (control-plane extension) CLOSED. Mỗi task dưới đây mang dòng `> **Trạng thái thực tế:**` ghi nhận module đã build, số test (DONE).
 >
 > **Nguồn:** nội dung master plan được cung cấp trong file `Plan-AI-Operating-System-—-Runtime-First,-Plugin-First,-Offline-First,-Milestone.txt`.
 >
@@ -1899,6 +1899,35 @@ Cải tiến luồng thực tế AIOS theo phản hồi user:
 
 ---
 
+## TASK-225 — AIOS Self-Improver Agent
+
+> **Trạng thái thực tế (2026-08-25):** DONE — `aios/agents/self_improver.py` (`SelfImproverAgent`, pure/I/O-free, capability-injected) + `aios/agents/tests/test_self_improver.py` (**4 automated tests**); `.github/agents/aios-self-improver.agent.md`; full suite 3161+ passed; Unified Gate PASS.
+
+**Mục tiêu**  
+Bổ sung lớp **Self-Improver** cho phép AIOS phản tư vận hành của chính nó (EvidenceStore + regression log) và ĐỀ XUẤT (không tự áp dụng) task cải tiến nội bộ, đẩy qua pipeline 7-gate như mọi task. Đây là bước "nâng cấp bản thân" — AIOS biết nhận diện điểm yếu của chính nó một cách deterministic, fail-closed.
+
+**Phạm vi**
+- `aios/agents/self_improver.py`: `SelfImproverAgent` nhận `evidence_store` + `registry` (capability-injected), quét tín hiệu FAIL/UNKNOWN, tổng hợp theo producer, sinh `ImprovementProposal` (spec sẵn sàng đưa vào governance). Không import `subprocess`/`os`/provider/filesystem (ARCH-001..004).
+- `aios/agents/__init__.py`: export `SelfImproverAgent`, `SelfImproverResult`, `ImprovementProposal`.
+- `aios/agents/tests/test_self_improver.py`: pure / fail-closed / deterministic / propose_next.
+- `.github/agents/aios-self-improver.agent.md`: chat agent chọn từ picker, tự chạy vòng phản tư.
+
+**Deliverables**
+- `aios/agents/self_improver.py` + test + chat agent + task artifacts + evidence.
+
+**Acceptance Criteria**
+- Pure: 0 vi phạm ARCH-001..004 (architecture gate PASS).
+- Capability-injected: chỉ qua interface, không tự làm I/O.
+- Deterministic: cùng input -> cùng proposal.
+- Fail-closed: thiếu evidence -> không đề xuất (trả None), không đoán.
+- Đề xuất ở dạng spec text, KHÔNG ghi thẳng vào `aios/`.
+- 7-gate PASS, full suite không regress.
+
+**Dependency / Gate**
+- TASK-220 (CoordinatorAgent), TASK-001 (lifecycle/gates), TASK-005 (evidence).
+- Milestone M28 (self-evolution / metacognition).
+
+---
 # M12
 
 ## TASK-084 — Version + Compatibility Baseline
