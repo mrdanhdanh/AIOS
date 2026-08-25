@@ -263,7 +263,7 @@ M26 `DONE` (3138 tests, M26 full: T197-T218 implemented in `aios/coding_edition/
 | TASK-233 | M31 | Unified Autonomous Lifecycle | TASK-229,TASK-232,TASK-226,TASK-041,TASK-001 | DONE |
 | TASK-234 | M32 | Automatic Evidence Generation | TASK-229,TASK-005,TASK-001 | DONE |
 | TASK-235 | M32 | Evidence Quality & Integrity | TASK-234,TASK-030,TASK-032,TASK-001 | DONE |
-| TASK-236 | M33 | Unified Remediation Lifecycle | TASK-233,TASK-011,TASK-041,TASK-001 | PLANNED |
+| TASK-236 | M33 | Unified Remediation Lifecycle | TASK-233,TASK-011,TASK-041,TASK-001 | DONE |
 | TASK-237 | M34 | Unified Control Center Dashboard | TASK-229,TASK-234,TASK-236,TASK-017,TASK-018,TASK-001 | PLANNED |
 | TASK-238 | M35 | Self-Evolution Lifecycle | TASK-225,TASK-233,TASK-235,TASK-029,TASK-001 | PLANNED |
 

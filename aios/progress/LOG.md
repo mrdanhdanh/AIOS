@@ -146,6 +146,17 @@ Append-only event log. Each entry: `ISO-UTC | task | event | detail`.
 2026-08-25T00:00:00Z | TASK-235 | EVALUATING | all AC PASS (conflict / replay / quality+validity).
 2026-08-25T00:00:00Z | TASK-235 | REGRESSION | full suite 3240 passed, 3 skipped; closure green.
 2026-08-25T00:00:00Z | TASK-235 | DONE | Unified Task Gate PASS (local CI). 3240 tests green. M32 COMPLETE.
+2026-08-25T00:00:00Z | TASK-236 | CREATED | Unified Remediation Lifecycle (M33) initialized.
+2026-08-25T00:00:00Z | TASK-236 | SPECIFIED | spec.md written.
+2026-08-25T00:00:00Z | TASK-236 | CRITIQUED_1 | critique-1.md written (kill-switch hard guard, fail-closed verdict).
+2026-08-25T00:00:00Z | TASK-236 | CRITIQUED_2 | critique-2.md written (APPROVE; trace provenance).
+2026-08-25T00:00:00Z | TASK-236 | BROKEN_DOWN | tasks.md written (6 sub-tasks).
+2026-08-25T00:00:00Z | TASK-236 | REVIEWED | review.md written (APPROVED).
+2026-08-25T00:00:00Z | TASK-236 | IMPLEMENTING | aios/autonomous_recovery/lifecycle.py: UnifiedRemediationLifecycle + RemediationReport/Phase.
+2026-08-25T00:00:00Z | TASK-236 | TESTING | test_unified_remediation_lifecycle.py: 4 tests passed; architecture gate 124 passed.
+2026-08-25T00:00:00Z | TASK-236 | EVALUATING | all AC PASS (done/escalate/halt/deterministic).
+2026-08-25T00:00:00Z | TASK-236 | REGRESSION | full suite 3244 passed, 3 skipped; closure green.
+2026-08-25T00:00:00Z | TASK-236 | DONE | Unified Task Gate PASS (local CI). 3244 tests green. M33 COMPLETE.
 
 2026-08-19T00:00:00Z | TASK-001 | CREATED | Task Governance System initialized.
 2026-08-19T00:00:00Z | TASK-001 | SPECIFIED | spec.md written.
