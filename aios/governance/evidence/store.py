@@ -46,6 +46,8 @@ class Evidence:
     """A single piece of evidence supporting a PASS decision.
 
     Mirrors the required schema from the master specification (Rule 5).
+    TASK-234 adds ``requirement_id`` (coverage tracking), ``freshness``
+    (ISO-TTL; expired -> STALE) and ``coverage`` (requirement -> evidence map).
     """
 
     evidence_id: str
@@ -59,6 +61,9 @@ class Evidence:
     parent_artifact: str = ""
     environment: str = ""
     status: str = "ADMISSIBLE"
+    requirement_id: str = ""
+    freshness: str = ""  # ISO timestamp TTL; empty = no expiry
+    coverage: Dict[str, str] = field(default_factory=dict)
 
     def __post_init__(self) -> None:
         required = [
@@ -72,6 +77,17 @@ class Evidence:
         ]
         if any(not str(v) for v in required):
             raise EvidenceError("Evidence is missing a mandatory field.")
+
+    def is_stale(self, now: Optional[str] = None) -> bool:
+        """True when ``freshness`` is set and has passed (TASK-234)."""
+        if not self.freshness:
+            return False
+        try:
+            expiry = datetime.fromisoformat(self.freshness)
+            ref = datetime.fromisoformat(now) if now else datetime.now(timezone.utc)
+            return ref > expiry
+        except ValueError:
+            return False
 
 
 @dataclass
@@ -101,6 +117,7 @@ class EvidenceStore:
         self._artifacts: Dict[str, Artifact] = {}
         self._tasks: Dict[str, TaskRecord] = {}
         self._requirements: Dict[str, Requirement] = {}
+        self._coverage: Dict[str, List[str]] = {}  # TASK-234: requirement -> evidence_ids
 
     # ----- registries ------------------------------------------------- #
     def add_requirement(self, req: Requirement) -> Requirement:
@@ -134,6 +151,9 @@ class EvidenceStore:
         environment: str = "",
         status: str = "ADMISSIBLE",
         created_at: str = "",
+        requirement_id: str = "",
+        freshness: str = "",
+        coverage: Optional[Dict[str, str]] = None,
     ) -> Evidence:
         chash = content_hash or compute_hash(content or evidence_id)
         ev = Evidence(
@@ -148,9 +168,28 @@ class EvidenceStore:
             parent_artifact=parent_artifact,
             environment=environment,
             status=status,
+            requirement_id=requirement_id,
+            freshness=freshness,
+            coverage=coverage or {},
         )
         self._evidence[evidence_id] = ev
+        # TASK-234: maintain requirement -> evidence coverage map.
+        if requirement_id:
+            self._coverage.setdefault(requirement_id, []).append(evidence_id)
         return ev
+
+    @property
+    def coverage_map(self) -> Dict[str, List[str]]:
+        """Requirement -> list of evidence IDs (TASK-234)."""
+        return {k: list(v) for k, v in self._coverage.items()}
+
+    def is_requirement_covered(self, requirement_id: str) -> bool:
+        """True when at least one non-stale evidence exists for the requirement."""
+        for ev_id in self._coverage.get(requirement_id, []):
+            ev = self._evidence.get(ev_id)
+            if ev is not None and not ev.is_stale():
+                return True
+        return False
 
     def get(self, evidence_id: str) -> Evidence:
         if evidence_id not in self._evidence:
@@ -218,6 +257,11 @@ def record_execution_evidence(
         else Run(run_id, artifact_id, task_id, command=f"aiagent execute {source_file}")
     )
 
+    # TASK-234: freshness TTL (1h) so evidence can be flagged STALE on expiry.
+    from datetime import timedelta
+
+    freshness = (datetime.now(timezone.utc) + timedelta(hours=1)).isoformat()
+
     evidence_ids: List[str] = []
     if simulated:
         # No report: emit one SIMULATED evidence per plan step.
@@ -240,6 +284,9 @@ def record_execution_evidence(
                 type=ev.type,
                 source=ev.source,
                 content_hash=ev.content_hash,
+                requirement_id=requirement_id,
+                freshness=freshness,
+                coverage={requirement_id: ev.evidence_id},
             )
             evidence_ids.append(ev.evidence_id)
         return evidence_ids
@@ -263,6 +310,9 @@ def record_execution_evidence(
             type=ev.type,
             source=ev.source,
             content_hash=ev.content_hash,
+            requirement_id=requirement_id,
+            freshness=freshness,
+            coverage={requirement_id: ev.evidence_id},
         )
         evidence_ids.append(ev.evidence_id)
     return evidence_ids
