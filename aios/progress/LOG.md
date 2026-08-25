@@ -102,6 +102,17 @@ Append-only event log. Each entry: `ISO-UTC | task | event | detail`.
 2026-08-25T00:00:00Z | TASK-231 | EVALUATING | all AC PASS (write / requires-handler / denied).
 2026-08-25T00:00:00Z | TASK-231 | REGRESSION | full suite 3230 passed, 3 skipped; closure green.
 2026-08-25T00:00:00Z | TASK-231 | DONE | Unified Task Gate PASS (local CI). 3230 tests green.
+2026-08-25T00:00:00Z | TASK-232 | CREATED | Automated Test/Static Analysis + Code Provenance (M30) initialized.
+2026-08-25T00:00:00Z | TASK-232 | SPECIFIED | spec.md written.
+2026-08-25T00:00:00Z | TASK-232 | CRITIQUED_1 | critique-1.md written (py_compile + provenance complete).
+2026-08-25T00:00:00Z | TASK-232 | CRITIQUED_2 | critique-2.md written (APPROVE).
+2026-08-25T00:00:00Z | TASK-232 | BROKEN_DOWN | tasks.md written (4 sub-tasks).
+2026-08-25T00:00:00Z | TASK-232 | REVIEWED | review.md written (APPROVED).
+2026-08-25T00:00:00Z | TASK-232 | IMPLEMENTING | aios/coding_edition/integration.py: analyze_and_record (write+test+py_compile+Evidence).
+2026-08-25T00:00:00Z | TASK-232 | TESTING | test_coding_edition.py: 2 new tests passed; architecture gate 124 passed.
+2026-08-25T00:00:00Z | TASK-232 | EVALUATING | all AC PASS (emit evidence / requires store).
+2026-08-25T00:00:00Z | TASK-232 | REGRESSION | full suite 3232 passed, 3 skipped; closure green.
+2026-08-25T00:00:00Z | TASK-232 | DONE | Unified Task Gate PASS (local CI). 3232 tests green. M30 COMPLETE.
 
 2026-08-19T00:00:00Z | TASK-001 | CREATED | Task Governance System initialized.
 2026-08-19T00:00:00Z | TASK-001 | SPECIFIED | spec.md written.

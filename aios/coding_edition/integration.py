@@ -173,3 +173,80 @@ class CodingEdition:
                 return "\n".join(report_lines)
 
         return "\n".join(report_lines)
+
+    def analyze_and_record(
+        self,
+        handler: "RealToolHandler",
+        generated_code: str,
+        work_dir: str,
+        store: "EvidenceStore",
+        *,
+        run_tests: bool = True,
+        requirement_id: str = "req-coding",
+        task_id: str = "TASK-CODEGEN",
+    ) -> str:
+        """TASK-232: post-generation hook — run static analysis + tests via the
+        injected handler, then record code Evidence with full provenance
+        (Requirement -> Task -> Artifact -> Run -> Evidence).
+
+        Fail-closed: requires both ``handler`` and ``store`` (no silent no-op).
+        Returns a human-readable analysis summary.
+        """
+        import os as _os
+
+        from aios.governance.evidence.store import (
+            Artifact,
+            Requirement,
+            Run,
+            TaskRecord,
+            compute_hash,
+        )
+        from aios.runtime.permission import PermissionScope
+
+        if handler is None or store is None:
+            raise CodingEditionError("handler and evidence store must be injected (ARCH-004).")
+
+        # 1) Write + (optional) test the code (T231 path, policy-checked).
+        verify = self.execute_code(handler, generated_code, work_dir, run_tests=run_tests)
+
+        # 2) Static analysis: byte-compile the generated module (fail-closed).
+        file_path = _os.path.join(_os.path.abspath(work_dir), "generated_code.py")
+        static_cmd = f"python -m py_compile {file_path}"
+        from aios.core.planner import Step
+
+        static_step = Step(
+            step_id="static-analysis",
+            action=static_cmd,
+            metadata={
+                "command": static_cmd,
+                "tool_type": "shell",
+                "cwd": _os.path.abspath(work_dir),
+                "timeout": 60,
+                "scope": PermissionScope.EXECUTE,
+                "resource": _os.path.abspath(work_dir),
+            },
+        )
+        try:
+            handler(static_step)
+            static_result = "static-analysis: PASS"
+        except Exception as exc:  # noqa: BLE001
+            static_result = f"static-analysis: FAIL ({exc})"
+
+        # 3) Record provenance chain + Evidence (T232 core).
+        store.add_requirement(Requirement(requirement_id, "generate + verify code"))
+        store.add_task_record(TaskRecord(task_id, requirement_id))
+        artifact_id = f"artifact-{self._run_id}"
+        store.add_artifact(Artifact(artifact_id, task_id, requirement_id, kind="code"))
+        run_id = f"run-{self._run_id}"
+        store.add_run(Run(run_id, artifact_id, task_id, command=f"analyze {file_path}"))
+        content_hash = compute_hash(generated_code)
+        store.add_evidence(
+            evidence_id=f"ev-{self._run_id}-code",
+            task_id=task_id,
+            run_id=run_id,
+            producer="CodingEdition",
+            type="code_output",
+            source="generated_code.py",
+            content_hash=content_hash,
+        )
+        return f"{verify}\n{static_result}\nevidence: {len(store.list_all())} record(s)"

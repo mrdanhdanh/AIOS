@@ -177,6 +177,44 @@ def test_execute_code_denied_without_permission(tmp_path, monkeypatch):
         ce.execute_code(handler, "x = 1", str(tmp_path))
 
 
+# --- TASK-232 Automated Test / Static Analysis + Code Provenance --------------
+def test_analyze_and_record_emits_evidence(tmp_path, monkeypatch):
+    from aios.runtime.permission import Permission, PermissionBroker, PermissionScope
+    from aios.runtime.process import RealToolHandler
+    from aios.governance.evidence.store import EvidenceStore
+
+    monkeypatch.setenv("AIOS_REAL_EXECUTION_ENABLED", "1")
+    broker = PermissionBroker()
+    broker.grant("runtime", Permission(PermissionScope.WRITE, "*"))
+    broker.grant("runtime", Permission(PermissionScope.EXECUTE, "*"))
+    handler = RealToolHandler(broker=broker, subject="runtime", allowed_cwd=str(tmp_path))
+    store = EvidenceStore()
+
+    ce = CodingEdition(run_id="t232")
+    code = "def add(a, b):\n    return a + b\n"
+    summary = ce.analyze_and_record(handler, code, str(tmp_path), store, run_tests=False)
+    assert "static-analysis: PASS" in summary
+    assert "evidence:" in summary
+    # Provenance chain must be complete (Requirement->Task->Artifact->Run->Evidence).
+    ev = store.list_all()
+    assert len(ev) >= 1
+    assert store.get_provenance_chain(ev[0].evidence_id).complete is True
+
+
+def test_analyze_and_record_requires_store(tmp_path, monkeypatch):
+    from aios.runtime.permission import Permission, PermissionBroker, PermissionScope
+    from aios.runtime.process import RealToolHandler
+
+    monkeypatch.setenv("AIOS_REAL_EXECUTION_ENABLED", "1")
+    broker = PermissionBroker()
+    broker.grant("runtime", Permission(PermissionScope.WRITE, "*"))
+    broker.grant("runtime", Permission(PermissionScope.EXECUTE, "*"))
+    handler = RealToolHandler(broker=broker, subject="runtime", allowed_cwd=str(tmp_path))
+    ce = CodingEdition(run_id="t232b")
+    with pytest.raises(CodingEditionError):
+        ce.analyze_and_record(handler, "x=1", str(tmp_path), None)
+
+
 # --- TASK-201 Approval Gate --------------------------------------------------
 def test_approval_critical_rejected():
     gate = ApprovalGate(risk_engine=RiskEngine([RiskModel("b", 1.0)]))
