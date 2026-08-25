@@ -1,0 +1,10 @@
+{
+  "kind": "skill",
+  "layout": "claude",
+  "manifest_path": "manifest.json",
+  "name": "using-git-worktrees",
+  "plugin_manifest_path": "plugin_manifest.json",
+  "skill_id": "using-git-worktrees",
+  "source": "git",
+  "version": "1.0.0"
+}

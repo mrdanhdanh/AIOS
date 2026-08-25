@@ -1,0 +1,1 @@
+For independent plan tasks: dispatch a fresh subagent per task, review spec+quality after each, broad review at end. Decide conflicts with logged rulings; stop only for destructive/security/external-side-effect/broken-plan.

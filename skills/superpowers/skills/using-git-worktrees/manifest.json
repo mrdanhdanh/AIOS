@@ -1,0 +1,34 @@
+{
+  "author": "aios-integration",
+  "checksum": "",
+  "configuration": {},
+  "dependencies": [],
+  "description": "Use when starting implementation work that should be isolated from the main working tree.",
+  "enabled": false,
+  "entrypoint": "SKILL.md",
+  "install_location": "/skills/using-git-worktrees/1.0.0",
+  "install_source": "git",
+  "metadata": {
+    "frontmatter": {
+      "argument-hint": "[branch]",
+      "description": "Use when starting implementation work that should be isolated from the main working tree.",
+      "license": "MIT",
+      "metadata": {
+        "author": "aios-integration",
+        "version": "1.0.0"
+      },
+      "name": "using-git-worktrees"
+    },
+    "source": "github-copilot-skill"
+  },
+  "name": "using-git-worktrees",
+  "permissions": [],
+  "required_capabilities": [],
+  "resources": {
+    "instructions_chars": 163
+  },
+  "runtime": "python3.11",
+  "skill_id": "using-git-worktrees",
+  "status": "pending",
+  "version": "1.0.0"
+}

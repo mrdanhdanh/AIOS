@@ -1,0 +1,34 @@
+{
+  "author": "aios-integration",
+  "checksum": "",
+  "configuration": {},
+  "dependencies": [],
+  "description": "Use when about to claim work is complete, fixed, or passing, before committing or creating PRs - requires running verification commands and confirming output before making any success claims.",
+  "enabled": false,
+  "entrypoint": "SKILL.md",
+  "install_location": "/skills/verification-before-completion/1.0.0",
+  "install_source": "git",
+  "metadata": {
+    "frontmatter": {
+      "argument-hint": "",
+      "description": "Use when about to claim work is complete, fixed, or passing, before committing or creating PRs - requires running verification commands and confirming output before making any success claims.",
+      "license": "MIT",
+      "metadata": {
+        "author": "aios-integration",
+        "version": "1.0.0"
+      },
+      "name": "verification-before-completion"
+    },
+    "source": "github-copilot-skill"
+  },
+  "name": "verification-before-completion",
+  "permissions": [],
+  "required_capabilities": [],
+  "resources": {
+    "instructions_chars": 212
+  },
+  "runtime": "python3.11",
+  "skill_id": "verification-before-completion",
+  "status": "pending",
+  "version": "1.0.0"
+}

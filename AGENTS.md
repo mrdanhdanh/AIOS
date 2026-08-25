@@ -203,3 +203,10 @@ Rút ra từ phân tích `/chronicle improve` trên 50 phiên AIOS (294 lượt,
 * **Chủ động chứng minh gate đã chạy:** sau mỗi `aiagent task`/job có governance, agent PHẢI trích dẫn durable log (`logs/task-TASK-xxx-<ts>.json`) + tóm tắt `gate_check.py` làm bằng chứng — không chỉ nói "PASS". (Đã xảy ra: user nghi ngờ "7 governance gates chưa bao giờ thực sự chạy".)
 * **Phân biệt PowerShell `NativeCommandError` (exit 1 giả):** khi lệnh exit 1 nhưng artifact/commit đã tồn tại (thường do `git`/external ghi progress ra stderr), coi là false negative, xác minh artifact rồi báo thành công — không báo fail. (Đã xảy ra: exit code 1 do git stderr, user tưởng push fail.)
 * **Auto-stop ngưỡng cụ thể:** nếu CÙNG một lỗi (Violation/test/exit code) lặp lại **≥3 lần liên tiếp** → DỪNG, báo root cause cụ thể, chờ user (cụ thể hóa quy tắc "Tự chủ theo lô + auto-stop" ở §10). Cấm loop "Try Again"/"thử lại" vô tận.
+
+<!-- superpowers-integration-ref -->
+## 13. Superpowers integration (TASK-SUPERPOWERS)
+
+Triết lý / nguyên tắc / xử lý của [obra/superpowers](https://github.com/obra/superpowers) đã được tích hợp sâu vào AIOS dưới dạng 12 skill trong `skills/superpowers/` và một router xác định (`aios/skill/superpowers_router.py`). Quy tắc cốt lõi **using-superpowers**: trước bất kỳ hành động nào, phải kiểm tra skill phù hợp (process skills ưu tiên: brainstorming, systematic-debugging). Xem ánh xạ chi tiết tại `docs/superpowers-integration.md`.
+
+Khi nhận yêu cầu, agent NÊN chạy `from aios.skill.superpowers_router import route; route(req)` để chọn skill theo thứ tự ưu tiên trước khi phản hồi.

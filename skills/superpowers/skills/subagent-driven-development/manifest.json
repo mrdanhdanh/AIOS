@@ -1,0 +1,34 @@
+{
+  "author": "aios-integration",
+  "checksum": "",
+  "configuration": {},
+  "dependencies": [],
+  "description": "Use when executing implementation plans with independent tasks in the current session.",
+  "enabled": false,
+  "entrypoint": "SKILL.md",
+  "install_location": "/skills/subagent-driven-development/1.0.0",
+  "install_source": "git",
+  "metadata": {
+    "frontmatter": {
+      "argument-hint": "[plan]",
+      "description": "Use when executing implementation plans with independent tasks in the current session.",
+      "license": "MIT",
+      "metadata": {
+        "author": "aios-integration",
+        "version": "1.0.0"
+      },
+      "name": "subagent-driven-development"
+    },
+    "source": "github-copilot-skill"
+  },
+  "name": "subagent-driven-development",
+  "permissions": [],
+  "required_capabilities": [],
+  "resources": {
+    "instructions_chars": 224
+  },
+  "runtime": "python3.11",
+  "skill_id": "subagent-driven-development",
+  "status": "pending",
+  "version": "1.0.0"
+}

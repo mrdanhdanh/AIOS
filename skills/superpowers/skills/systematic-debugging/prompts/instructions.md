@@ -1,0 +1,1 @@
+On any bug/failure: complete Phase 1 (root cause) before proposing fixes. Use failing test + smallest change. After 3 failed fixes, stop and question architecture. Record evidence via AIOS EvidenceStore.

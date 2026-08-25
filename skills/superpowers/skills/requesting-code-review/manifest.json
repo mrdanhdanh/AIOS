@@ -1,0 +1,34 @@
+{
+  "author": "aios-integration",
+  "checksum": "",
+  "configuration": {},
+  "dependencies": [],
+  "description": "Use when your implementation is complete and you want independent review before merging.",
+  "enabled": false,
+  "entrypoint": "SKILL.md",
+  "install_location": "/skills/requesting-code-review/1.0.0",
+  "install_source": "git",
+  "metadata": {
+    "frontmatter": {
+      "argument-hint": "[branch]",
+      "description": "Use when your implementation is complete and you want independent review before merging.",
+      "license": "MIT",
+      "metadata": {
+        "author": "aios-integration",
+        "version": "1.0.0"
+      },
+      "name": "requesting-code-review"
+    },
+    "source": "github-copilot-skill"
+  },
+  "name": "requesting-code-review",
+  "permissions": [],
+  "required_capabilities": [],
+  "resources": {
+    "instructions_chars": 153
+  },
+  "runtime": "python3.11",
+  "skill_id": "requesting-code-review",
+  "status": "pending",
+  "version": "1.0.0"
+}

@@ -1,0 +1,34 @@
+{
+  "author": "aios-integration",
+  "checksum": "",
+  "configuration": {},
+  "dependencies": [],
+  "description": "Use when encountering any bug, test failure, or unexpected behavior, before proposing fixes.",
+  "enabled": false,
+  "entrypoint": "SKILL.md",
+  "install_location": "/skills/systematic-debugging/1.0.0",
+  "install_source": "git",
+  "metadata": {
+    "frontmatter": {
+      "argument-hint": "[symptom]",
+      "description": "Use when encountering any bug, test failure, or unexpected behavior, before proposing fixes.",
+      "license": "MIT",
+      "metadata": {
+        "author": "aios-integration",
+        "version": "1.0.0"
+      },
+      "name": "systematic-debugging"
+    },
+    "source": "github-copilot-skill"
+  },
+  "name": "systematic-debugging",
+  "permissions": [],
+  "required_capabilities": [],
+  "resources": {
+    "instructions_chars": 204
+  },
+  "runtime": "python3.11",
+  "skill_id": "systematic-debugging",
+  "status": "pending",
+  "version": "1.0.0"
+}
