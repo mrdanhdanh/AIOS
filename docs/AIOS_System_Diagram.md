@@ -659,6 +659,33 @@ flowchart TB
 
 ---
 
+### 11.1 Kiến trúc mục tiêu AIOS 2.x — Operational Integration & Autonomous Coding OS
+
+> Phase M29–M35 (xem `docs/AIOS_Master_Task_Specification_M29-M35.md`): không thêm subsystem, mà **nối các plane đã có** (Planner → Governance → Execution → Coding → Capability → Runtime → Real Execution → Observation → Verification → Evidence → Evaluation → Recover loop) thành một control/execution/evidence loop thống nhất. Đóng 2 lỗ hổng đã biết: Flow B (`aiagent execute`) bypass governance, Flow H (Coding Plane) chỉ smoke-test.
+
+```mermaid
+flowchart TB
+    HUMAN[HUMAN / UI] --> GOAL[GOAL]
+    GOAL --> PO[PLANNER / ORCHESTRATOR]
+    PO --> GOV[GOVERNANCE PLANE<br/>Policy · Permission · Risk · Approval · KillSwitch]
+    GOV --> EP[EXECUTION PLAN]
+    EP --> CA[CODING / AGENT]
+    CA --> CAP[CAPABILITY]
+    CAP --> RT[RUNTIME]
+    RT --> REX2[REAL EXECUTION]
+    REX2 --> OBS[Observation]
+    REX2 --> ART[Artifacts]
+    OBS --> VER[Verification] --> EVID[Evidence]
+    VER --> EVAL[Evaluation] --> KNOW[Knowledge]
+    EVAL --> DONE[DONE]
+    EVAL --> RECOVER[RECOVER] --> REPLAN[REPLAN] --> LOOP[LOOP]
+
+    style GOV fill:#8b5cf6,color:#fff
+    style EVID fill:#0ea5e9,color:#fff
+    style REX2 fill:#10b981,color:#fff
+    style RECOVER fill:#ef4444,color:#fff
+```
+
 ## 12. Vòng lặp Tự chủ & Verification Oracle (M15–M16)
 
 ```mermaid
@@ -786,12 +813,20 @@ flowchart TB
 | H | Coder Agent / Coding Plane (optional) | `CodingEdition` + `doctor` | ✅ loaded (offline) |
 | I | Practical Planner Loop (T220–224) | `aiagent execute plan-sub.yaml` | ✅ artifact thật |
 | J | Superpowers Router (TASK-SUPERPOWERS) | `from aios.skill.superpowers_router import route; route(req)` | ✅ 7 router tests, 12 skills |
+| K | Unified Execution (M29) | `aiagent execute --govern` (T227–T228) | 🔴 PLANNED |
+| L | Unified Coding Agent (M30) | `CodingEdition` + `RealToolHandler` (T229–T231) | 🔴 PLANNED |
 
 > **Ghi chú:** Flow B (`aiagent execute` thuần) chỉ chạy shell `command:` —
 > không chạy governance pipeline. Để chạy toàn bộ vòng đời có governance, dùng
 > Flow A (`aiagent task`). Flow H chỉ là smoke-test; muốn AIOS **thực sự viết
 > code** cần nối Capability + `RealToolHandler` (T222) rồi gọi
 > `CodingEdition.run(authorization=..., generated_code=..., verification_report=...)`.
+>
+> **Phase AIOS 2.x (M29–M35):** hai lỗ hổng trên được đóng bởi roadmap
+> `docs/AIOS_Master_Task_Specification_M29-M35.md`: M29 (T227–T228) biến
+> `aiagent execute` thành entry-point hợp nhất có governance (Flow K); M30
+> (T229–T231) nối `CodingEdition` ↔ `RealToolHandler` để Flow H sinh code thật
+> (Flow L). Xem §11.1 cho target architecture.
 
 ### 14.3 Flow xử lý Superpowers Router (TASK-SUPERPOWERS)
 
