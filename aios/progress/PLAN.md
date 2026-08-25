@@ -256,7 +256,7 @@ M26 `DONE` (3138 tests, M26 full: T197-T218 implemented in `aios/coding_edition/
 | TASK-226 | M28 | Deterministic Auto-Stop / RetryGuard | TASK-225,TASK-005,TASK-001 | DONE |
 | TASK-227 | M28 | StubGuard: reject null-stub / SKIPPED steps | TASK-225,TASK-005,TASK-001 | DONE |
 | TASK-228 | M29 | Unified ExecutionPlan Contract | TASK-222,TASK-008,TASK-010,TASK-001 | DONE |
-| TASK-229 | M29 | Unified Execution Entry-Point (Governance-aware execute) | TASK-228,TASK-222,TASK-226,TASK-001 | PLANNED |
+| TASK-229 | M29 | Unified Execution Entry-Point (Governance-aware execute) | TASK-228,TASK-222,TASK-226,TASK-001 | DONE |
 | TASK-230 | M30 | Coder Agent ↔ Capability Registry | TASK-218,TASK-009,TASK-001 | PLANNED |
 | TASK-231 | M30 | CodingEdition ↔ RealToolHandler | TASK-230,TASK-222,TASK-218,TASK-001 | PLANNED |
 | TASK-232 | M30 | Automated Test / Static Analysis + Code Provenance | TASK-231,TASK-005,TASK-001 | PLANNED |

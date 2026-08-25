@@ -96,6 +96,38 @@ def _write_execution_log(work_dir: str, wf, report, gates_result) -> str:
     return json_path
 
 
+def _governance_precheck(kernel, plan) -> "tuple[bool, str]":
+    """TASK-229: explicit governance pre-check before any real execution.
+
+    Every step must pass PolicyEngine + PermissionBroker (fail-closed). Returns
+    ``(ok, reason)``. This is the unified gate that makes ``aiagent execute``
+    (Flow B) governance-aware — closing the Flow A ∧ Flow B gap (M29).
+    """
+    from aios.runtime.policy import PolicyEngine, PolicyRequest, PolicyDecision
+
+    policy: PolicyEngine = kernel.policy
+    broker = kernel.permissions
+    for step in plan.steps:
+        meta = step.metadata or {}
+        scope = meta.get("scope")
+        resource = meta.get("resource", step.step_id)
+        action = meta.get("command", step.action)
+        req = PolicyRequest(
+            subject="runtime",
+            action=str(action),
+            resource=str(resource),
+            scope=scope,
+            metadata=meta,
+        )
+        result = policy.evaluate(req)
+        if result.decision is PolicyDecision.DENY:
+            return False, f"policy DENY for step {step.step_id}: {result.reason}"
+        # Permission broker must also grant the step's scope/resource.
+        if scope is not None and not broker.has("runtime", scope, resource):
+            return False, f"permission DENY for step {step.step_id} (scope={scope})"
+    return True, "governance pre-check passed"
+
+
 def _cmd_execute(args: argparse.Namespace) -> int:
     """Execute a plan file via the AIOS runtime (TASK-222 / TASK-224).
 
@@ -112,6 +144,8 @@ def _cmd_execute(args: argparse.Namespace) -> int:
     timeout = args.timeout
     work_dir = getattr(args, "work_dir", None)
     yes = getattr(args, "yes", False)
+
+    from aios.governance.evidence.store import EvidenceStore, record_execution_evidence
 
     # TASK-224: resolve work dir — if a directory is given, place plan inside it.
     if work_dir:
@@ -145,9 +179,15 @@ def _cmd_execute(args: argparse.Namespace) -> int:
         return 1
 
     if simulate:
+        # TASK-229: simulation uses the SAME unified ExecutionPlan contract and
+        # still emits Evidence (type=SIMULATED) — no OS execution, 0 LLM calls.
+        plan = wf.to_execution_plan(allowed_cwd=allowed_cwd)
+        store = EvidenceStore()
+        record_execution_evidence(store, wf.name, wf.version, plan, None, path, simulated=True)
         print(f"[SIMULATE] {wf.name} v{wf.version} ({len(wf.nodes)} nodes, 0 LLM calls)")
         for n in wf.nodes:
             print(f"  - {n.command or n.description or n.id}")
+        print(f"  [evidence] {len(store.list_all())} SIMULATED evidence record(s) emitted")
         return 0
 
     # TASK-224: interactive confirmation unless --yes (agent/script pre-approved).
@@ -164,7 +204,6 @@ def _cmd_execute(args: argparse.Namespace) -> int:
 
     from aios.runtime.process import load_real_execution_config
     from aios.runtime.kernel import RuntimeKernel
-    from aios.governance.evidence.store import EvidenceStore, record_execution_evidence
 
     re_cfg = load_real_execution_config()
     if not re_cfg.get("enabled"):
@@ -182,7 +221,23 @@ def _cmd_execute(args: argparse.Namespace) -> int:
 
     kernel = RuntimeKernel(real_execution=re_cfg)
     plan = wf.to_execution_plan(allowed_cwd=allowed_cwd)
+
+    # TASK-229: explicit governance pre-check (Policy + Permission) BEFORE exec.
+    ok, reason = _governance_precheck(kernel, plan)
+    if not ok:
+        print(f"ERROR: governance pre-check failed: {reason}", file=sys.stderr)
+        return 2
+
+    # TASK-229: RetryGuard guards the execution loop (auto-stop on repeated failure).
+    from aios.runtime.retry_guard import RetryGuard
+
+    guard = RetryGuard()
     report = kernel.execute_plan(plan, timeout=timeout)
+    for sid, sr in report.results.items():
+        if sr.status == "FAILED":
+            sig = f"{sid}:{type(sr.error).__name__ if sr.error else 'fail'}"
+            if guard.observe(sig, str(sr.error or "step failed")):
+                print(f"  [retry-guard] {guard.report(sig)}", file=sys.stderr)
     store = EvidenceStore()
     record_execution_evidence(store, wf.name, wf.version, plan, report, path)
 

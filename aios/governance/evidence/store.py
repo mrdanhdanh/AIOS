@@ -194,12 +194,16 @@ def record_execution_evidence(
     plan: Any,
     report: Any,
     source_file: str,
+    *,
+    simulated: bool = False,
 ) -> List[str]:
-    """Record a complete provenance chain for a real execution (TASK-222).
+    """Record a complete provenance chain for an execution (TASK-222 / TASK-229).
 
     Registers Requirement -> TaskRecord -> Artifact -> Run -> Evidence (one per
     step) so :meth:`EvidenceStore.get_provenance_chain` returns ``complete``.
-    Returns the list of evidence IDs created.
+    When ``simulated=True`` (TASK-229), ``report`` may be ``None``: the same
+    unified ``ExecutionPlan`` contract is used and Evidence is emitted with
+    type ``SIMULATED`` (no OS execution, 0 LLM calls). Returns evidence IDs.
     """
     requirement_id = "req-execute"
     task_id = "TASK-EXEC-CLI"
@@ -207,10 +211,39 @@ def record_execution_evidence(
     store.add_task_record(TaskRecord(task_id, requirement_id))
     artifact_id = f"artifact-{workflow_name}-{workflow_version}"
     store.add_artifact(Artifact(artifact_id, task_id, requirement_id, kind="execution"))
-    run_id = f"run-{report.execution_id}"
-    store.add_run(Run(run_id, artifact_id, task_id, command=f"aiagent execute {source_file}"))
+    run_id = f"run-sim-{workflow_name}" if simulated else f"run-{report.execution_id}"
+    store.add_run(
+        Run(run_id, artifact_id, task_id, command=f"aiagent execute --simulate {source_file}")
+        if simulated
+        else Run(run_id, artifact_id, task_id, command=f"aiagent execute {source_file}")
+    )
 
     evidence_ids: List[str] = []
+    if simulated:
+        # No report: emit one SIMULATED evidence per plan step.
+        for step in plan.steps:
+            content = str(step.metadata.get("command", step.action))
+            ev = Evidence(
+                evidence_id=f"ev-sim-{workflow_name}-{step.step_id}",
+                task_id=task_id,
+                run_id=run_id,
+                producer="Simulator",
+                type="SIMULATED",
+                source=step.step_id,
+                content_hash=compute_hash(content),
+            )
+            store.add_evidence(
+                evidence_id=ev.evidence_id,
+                task_id=ev.task_id,
+                run_id=ev.run_id,
+                producer=ev.producer,
+                type=ev.type,
+                source=ev.source,
+                content_hash=ev.content_hash,
+            )
+            evidence_ids.append(ev.evidence_id)
+        return evidence_ids
+
     for step_id, sr in report.results.items():
         content = str(sr.output) if sr.output is not None else (sr.error or "")
         ev = Evidence(

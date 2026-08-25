@@ -69,6 +69,17 @@ Append-only event log. Each entry: `ISO-UTC | task | event | detail`.
 2026-08-25T00:00:00Z | TASK-228 | EVALUATING | all AC PASS (unified contract + lossless round-trip + backward-compat).
 2026-08-25T00:00:00Z | TASK-228 | REGRESSION | full suite 3221 passed, 3 skipped; closure green.
 2026-08-25T00:00:00Z | TASK-228 | DONE | Unified Task Gate PASS (local CI). 3221 tests green.
+2026-08-25T00:00:00Z | TASK-229 | CREATED | Unified Execution Entry-Point (Governance-aware execute) initialized.
+2026-08-25T00:00:00Z | TASK-229 | SPECIFIED | spec.md written.
+2026-08-25T00:00:00Z | TASK-229 | CRITIQUED_1 | critique-1.md written (policy.evaluate API + simulate evidence + RetryGuard).
+2026-08-25T00:00:00Z | TASK-229 | CRITIQUED_2 | critique-2.md written (APPROVE).
+2026-08-25T00:00:00Z | TASK-229 | BROKEN_DOWN | tasks.md written (4 sub-tasks).
+2026-08-25T00:00:00Z | TASK-229 | REVIEWED | review.md written (APPROVED).
+2026-08-25T00:00:00Z | TASK-229 | IMPLEMENTING | aios/cli/workflow_cli.py: _governance_precheck + simulate evidence + RetryGuard; aios/governance/evidence/store.py: simulated kwarg.
+2026-08-25T00:00:00Z | TASK-229 | TESTING | aios/cli/tests/test_execute.py: 3 new tests passed; architecture gate 124 passed.
+2026-08-25T00:00:00Z | TASK-229 | EVALUATING | all AC PASS (pre-check deny/allow + simulate evidence + RetryGuard).
+2026-08-25T00:00:00Z | TASK-229 | REGRESSION | full suite 3224 passed, 3 skipped; closure green.
+2026-08-25T00:00:00Z | TASK-229 | DONE | Unified Task Gate PASS (local CI). 3224 tests green.
 
 2026-08-19T00:00:00Z | TASK-001 | CREATED | Task Governance System initialized.
 2026-08-19T00:00:00Z | TASK-001 | SPECIFIED | spec.md written.

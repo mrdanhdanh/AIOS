@@ -57,3 +57,53 @@ def test_execute_real_runs_plan(tmp_path, monkeypatch, capsys):
     assert "hello-from-aios" in out
     assert "second-step" in out
     assert "[PASS]" in out
+
+
+# --------------------------------------------------------------------------- #
+# TASK-229 — Unified Execution Entry-Point (governance-aware execute)
+# --------------------------------------------------------------------------- #
+def test_simulate_emits_evidence(tmp_path, capsys):
+    plan = tmp_path / "sample.md"
+    plan.write_text("# Sim Plan\n- [ ] echo a\n- [ ] echo b\n", encoding="utf-8")
+    assert _cmd_execute(_args(str(plan), simulate=True)) == 0
+    out = capsys.readouterr().out
+    assert "SIMULATED evidence record(s) emitted" in out
+
+
+def test_governance_precheck_denies_missing_permission():
+    from aios.cli.workflow_cli import _governance_precheck
+    from aios.core.planner import ExecutionPlan, Step
+    from aios.runtime.kernel import RuntimeKernel
+    from aios.runtime.permission import PermissionScope
+
+    # Kernel with NO granted permissions -> pre-check must DENY.
+    kernel = RuntimeKernel()
+    step = Step(
+        step_id="s1",
+        action="echo x",
+        metadata={"scope": PermissionScope.EXECUTE, "resource": "s1", "command": "echo x"},
+    )
+    plan = ExecutionPlan(plan_id="p1")
+    plan.add_step(step)
+    ok, reason = _governance_precheck(kernel, plan)
+    assert ok is False
+    assert "DENY" in reason
+
+
+def test_governance_precheck_allows_granted(tmp_path, monkeypatch):
+    from aios.cli.workflow_cli import _governance_precheck
+    from aios.core.planner import ExecutionPlan, Step
+    from aios.runtime.kernel import RuntimeKernel
+    from aios.runtime.permission import Permission, PermissionBroker, PermissionScope
+
+    kernel = RuntimeKernel()
+    kernel.permissions.grant("runtime", Permission(PermissionScope.EXECUTE, "*"))
+    step = Step(
+        step_id="s1",
+        action="echo x",
+        metadata={"scope": PermissionScope.EXECUTE, "resource": "s1", "command": "echo x"},
+    )
+    plan = ExecutionPlan(plan_id="p2")
+    plan.add_step(step)
+    ok, reason = _governance_precheck(kernel, plan)
+    assert ok is True
