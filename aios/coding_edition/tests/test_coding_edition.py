@@ -140,6 +140,43 @@ def test_risk_unknown_without_model():
     assert level == RiskLevel.UNKNOWN
 
 
+# --- TASK-231 CodingEdition <-> RealToolHandler ------------------------------
+def test_execute_code_writes_via_handler(tmp_path, monkeypatch):
+    from aios.runtime.permission import Permission, PermissionBroker, PermissionScope
+    from aios.runtime.process import RealToolHandler
+
+    monkeypatch.setenv("AIOS_REAL_EXECUTION_ENABLED", "1")
+    broker = PermissionBroker()
+    broker.grant("runtime", Permission(PermissionScope.WRITE, "*"))
+    broker.grant("runtime", Permission(PermissionScope.EXECUTE, "*"))
+    handler = RealToolHandler(broker=broker, subject="runtime", allowed_cwd=str(tmp_path))
+
+    ce = CodingEdition(run_id="t231")
+    code = "def add(a, b):\n    return a + b\n"
+    report = ce.execute_code(handler, code, str(tmp_path), run_tests=False)
+    assert "wrote" in report
+    written = (tmp_path / "generated_code.py").read_text(encoding="utf-8")
+    assert written == code
+
+
+def test_execute_code_requires_handler():
+    ce = CodingEdition(run_id="t231b")
+    with pytest.raises(CodingEditionError):
+        ce.execute_code(None, "x = 1", "/tmp")
+
+
+def test_execute_code_denied_without_permission(tmp_path, monkeypatch):
+    from aios.runtime.permission import PermissionBroker
+    from aios.runtime.process import RealToolHandler
+
+    monkeypatch.setenv("AIOS_REAL_EXECUTION_ENABLED", "1")
+    # Broker with NO grants -> handler must deny (fail-closed).
+    handler = RealToolHandler(broker=PermissionBroker(), subject="runtime", allowed_cwd=str(tmp_path))
+    ce = CodingEdition(run_id="t231c")
+    with pytest.raises(PermissionError):
+        ce.execute_code(handler, "x = 1", str(tmp_path))
+
+
 # --- TASK-201 Approval Gate --------------------------------------------------
 def test_approval_critical_rejected():
     gate = ApprovalGate(risk_engine=RiskEngine([RiskModel("b", 1.0)]))

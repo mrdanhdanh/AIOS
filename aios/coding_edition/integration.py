@@ -95,3 +95,81 @@ class CodingEdition:
 
     def integration_hash(self, report: IntegrationReport) -> str:
         return _hash(f"{report.report_id}|{report.run_id}|{report.final_state}|{report.status}")
+
+    def execute_code(
+        self,
+        handler: "RealToolHandler",
+        generated_code: str,
+        work_dir: str,
+        *,
+        run_tests: bool = False,
+        test_command: str = "python -m pytest -q",
+    ) -> str:
+        """TASK-231: actually write + (optionally) test generated code via a
+        real tool handler, under policy/permission (fail-closed).
+
+        The handler is capability-injected (never imported directly by the
+        agent). Every mutation routes through ``RealToolHandler`` which enforces
+        the PermissionBroker + deny-list. Returns a ``verification_report``
+        string summarizing the write/test outcome (provenance-bearing).
+        """
+        import base64
+        import os as _os
+
+        from aios.runtime.permission import PermissionScope
+
+        if not generated_code:
+            raise CodingEditionError("generated_code required to execute.")
+        if handler is None:
+            raise CodingEditionError("a RealToolHandler must be injected (ARCH-004).")
+
+        safe_dir = _os.path.abspath(work_dir)
+        _os.makedirs(safe_dir, exist_ok=True)
+        file_path = _os.path.join(safe_dir, "generated_code.py")
+
+        # Write the file THROUGH the handler (policy/permission/sandbox enforced).
+        encoded = base64.b64encode(generated_code.encode("utf-8")).decode("ascii")
+        write_cmd = (
+            f'python -c "import base64,pathlib;'
+            f"pathlib.Path(r'{file_path}').write_text("
+            f"base64.b64decode('{encoded}').decode('utf-8'))\""
+        )
+        from aios.core.planner import Step
+
+        write_step = Step(
+            step_id="write-generated-code",
+            action=write_cmd,
+            metadata={
+                "command": write_cmd,
+                "tool_type": "shell",
+                "cwd": safe_dir,
+                "timeout": 30,
+                "scope": PermissionScope.WRITE,
+                "resource": safe_dir,
+            },
+        )
+        handler(write_step)
+
+        report_lines = [f"wrote {file_path} ({len(generated_code)} bytes)"]
+
+        if run_tests:
+            test_step = Step(
+                step_id="run-tests",
+                action=test_command,
+                metadata={
+                    "command": test_command,
+                    "tool_type": "shell",
+                    "cwd": safe_dir,
+                    "timeout": 120,
+                    "scope": PermissionScope.EXECUTE,
+                    "resource": safe_dir,
+                },
+            )
+            try:
+                out = handler(test_step)
+                report_lines.append(f"tests: PASS\n{out}")
+            except Exception as exc:  # noqa: BLE001
+                report_lines.append(f"tests: FAIL\n{exc}")
+                return "\n".join(report_lines)
+
+        return "\n".join(report_lines)

@@ -91,6 +91,17 @@ Append-only event log. Each entry: `ISO-UTC | task | event | detail`.
 2026-08-25T00:00:00Z | TASK-230 | EVALUATING | all AC PASS (resolve / not-declared / not-registered).
 2026-08-25T00:00:00Z | TASK-230 | REGRESSION | full suite 3227 passed, 3 skipped; closure green.
 2026-08-25T00:00:00Z | TASK-230 | DONE | Unified Task Gate PASS (local CI). 3227 tests green.
+2026-08-25T00:00:00Z | TASK-231 | CREATED | CodingEdition <-> RealToolHandler (M30) initialized.
+2026-08-25T00:00:00Z | TASK-231 | SPECIFIED | spec.md written.
+2026-08-25T00:00:00Z | TASK-231 | CRITIQUED_1 | critique-1.md written (write via handler, verification_report).
+2026-08-25T00:00:00Z | TASK-231 | CRITIQUED_2 | critique-2.md written (APPROVE).
+2026-08-25T00:00:00Z | TASK-231 | BROKEN_DOWN | tasks.md written (4 sub-tasks).
+2026-08-25T00:00:00Z | TASK-231 | REVIEWED | review.md written (APPROVED).
+2026-08-25T00:00:00Z | TASK-231 | IMPLEMENTING | aios/coding_edition/integration.py: execute_code(handler, code, work_dir, run_tests) via RealToolHandler.
+2026-08-25T00:00:00Z | TASK-231 | TESTING | test_coding_edition.py: 3 new tests passed; architecture gate 124 passed.
+2026-08-25T00:00:00Z | TASK-231 | EVALUATING | all AC PASS (write / requires-handler / denied).
+2026-08-25T00:00:00Z | TASK-231 | REGRESSION | full suite 3230 passed, 3 skipped; closure green.
+2026-08-25T00:00:00Z | TASK-231 | DONE | Unified Task Gate PASS (local CI). 3230 tests green.
 
 2026-08-19T00:00:00Z | TASK-001 | CREATED | Task Governance System initialized.
 2026-08-19T00:00:00Z | TASK-001 | SPECIFIED | spec.md written.
