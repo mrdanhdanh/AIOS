@@ -82,6 +82,7 @@ flowchart TB
         XH["Harness / Verify<br/>Harness · CI · Meta · Independent · Coverage · TrustBudget"]
         XM["Model Runtime<br/>Inference Orchestration"]
         XC2["Coding Plane<br/>Coder · Remediation · Verification · Evidence"]
+        XS["Superpowers Methodology<br/>using-superpowers meta-rule<br/>TDD · Systematic · Evidence (TASK-SUPERPOWERS)"]
     end
 
     %% ===================== 5-layer stack =====================
@@ -111,6 +112,7 @@ flowchart TB
         C2["Catalog · Graph · Prompt"]
         C3["Skill Manager + Sandbox"]
         C4["Tool Registry + Adapters"]
+        C5["Superpowers Router<br/>using-superpowers meta-rule (TASK-SUPERPOWERS)"]
     end
     subgraph L1["Layer 1 — TOOL / WORKER"]
         T1["Worker Plane"]
@@ -125,6 +127,8 @@ flowchart TB
     O2 -.->|Policy Check| R2
     R5 -.->|Resource + Scheduler + State| R3
     R1 -.->|resolve| C1
+    C3 -.->|superpowers_router| C5
+    A2 -.->|skill-applicability check| C5
     X -.->|contract| R1
 
     %% ===================== styling =====================
@@ -146,7 +150,7 @@ qua contract, không phá vỡ phân tầng:
 | Core | `core/` (config, container, events, logging, metadata, healthcheck, version, contracts, planner) |
 | Agent / Orchestrator | `agents/`, `orchestrator/` |
 | Runtime | `runtime/` (kernel, context, audit, artifact, permission, policy, execution, scheduler, state, resource, memory, knowledge, providers, workflow) |
-| Capability / Tool / Worker | `capability/`, `tool/`, `skill/`, `worker/` |
+| Capability / Tool / Worker | `capability/`, `tool/`, `skill/` (incl. `superpowers_router.py` — TASK-SUPERPOWERS), `worker/` |
 | API / UX | `api/`, `dashboard/`, `cli/`, `extension/` |
 | Enterprise / Safety | `identity/`, `tenancy/`, `security/`, `quota/`, `ha/`, `operations/`, `kill_switch/`, `reliability/`, `cost_meter/`, `autonomy_safety/` |
 | Distributed | `distributed/`, `distributed_scheduler/` |
@@ -378,7 +382,7 @@ aios/
                        workflow_matcher, execution_plan, goal_manager,
                        task_queue, failure_recovery, permission_broker
   capability/          capability, catalog, graph, prompt
-  skill/               manager, registry, resolver, sandbox
+  skill/               manager, registry, resolver, sandbox, superpowers_router (TASK-SUPERPOWERS)
   tool/                adapters, registry, contracts
   worker/              contract, execution, lifecycle, registry, router, workers
   agents/              orchestrator, spec_writer, critic, reviewer, coordinator (T220/221)
@@ -750,6 +754,11 @@ flowchart TB
         I2 --> I3[Confirm yes]
         I3 --> I4[aiagent execute sub-plan<br/>→ artifact thật]
     end
+    subgraph F10["Flow J — Superpowers Router (TASK-SUPERPOWERS)"]
+        J1[Request] --> J2[superpowers_router.route<br/>meta → process → impl]
+        J2 --> J3[using-superpowers meta-rule<br/>invoke skill BEFORE action]
+        J3 --> J4[12 AIOS-adapted skills<br/>skills/superpowers/]
+    end
 
     style A2 fill:#8b5cf6,color:#fff
     style B2 fill:#10b981,color:#fff
@@ -760,6 +769,7 @@ flowchart TB
     style G2 fill:#10b981,color:#fff
     style H2 fill:#f59e0b,color:#fff
     style I4 fill:#10b981,color:#fff
+    style J4 fill:#8b5cf6,color:#fff
 ```
 
 ### 14.2 Bảng ánh xạ Flow → Entry-point → Trạng thái
@@ -775,6 +785,7 @@ flowchart TB
 | G | Decision Pipeline (deterministic) | `DecisionPipeline.execute('status')` | ✅ SUFFICIENT, 0 LLM |
 | H | Coder Agent / Coding Plane (optional) | `CodingEdition` + `doctor` | ✅ loaded (offline) |
 | I | Practical Planner Loop (T220–224) | `aiagent execute plan-sub.yaml` | ✅ artifact thật |
+| J | Superpowers Router (TASK-SUPERPOWERS) | `from aios.skill.superpowers_router import route; route(req)` | ✅ 7 router tests, 12 skills |
 
 > **Ghi chú:** Flow B (`aiagent execute` thuần) chỉ chạy shell `command:` —
 > không chạy governance pipeline. Để chạy toàn bộ vòng đời có governance, dùng
@@ -782,4 +793,57 @@ flowchart TB
 > code** cần nối Capability + `RealToolHandler` (T222) rồi gọi
 > `CodingEdition.run(authorization=..., generated_code=..., verification_report=...)`.
 
-*Tài liệu được sinh tự động từ source tree AIOS — cập nhật 2026-08-25 (thêm TASK-220→224, coding_edition/, Coordinator Agent, Real Executor, Planner Loop, §14 các flow đã demo).*
+### 14.3 Flow xử lý Superpowers Router (TASK-SUPERPOWERS)
+
+`aios/skill/superpowers_router.py` hiện thực quy tắc meta **using-superpowers**:
+trước mọi hành động, agent gọi `route(request)` để lấy tập skill theo thứ tự
+ưu tiên (deterministic, không LLM, an toàn architecture guard). Triết lý
+Superpowers (TDD · Systematic · Complexity reduction · Evidence) được ánh xạ
+vào 7 governance gates của AIOS (xem `docs/superpowers-integration.md`).
+
+```mermaid
+flowchart TB
+    REQ([Request]) --> EMPTY{Empty /<br/>whitespace?}
+    EMPTY -->|yes| METAONLY[route = [using-superpowers]]
+    EMPTY -->|no| MATCH[Match SKILL_KEYWORDS<br/>per skill id]
+
+    MATCH --> ORDER[Order result:<br/>1 meta-skill<br/>2 process skills<br/>  (brainstorming, systematic-debugging)<br/>3 implementation skills]
+    METAONLY --> OUT([Ordered skill list])
+    ORDER --> OUT
+
+    subgraph PROC["Process skills (priority)"]
+        P1[brainstorming<br/>Spike/Bounded/Architectural]
+        P2[systematic-debugging<br/>root cause before fix]
+    end
+    subgraph IMPL["Implementation skills"]
+        I1[test-driven-development]
+        I2[verification-before-completion]
+        I3[writing-plans]
+        I4[executing-plans]
+        I5[subagent-driven-development]
+        I6[requesting/receiving-code-review]
+        I7[using-git-worktrees]
+        I8[finishing-a-development-branch]
+    end
+
+    OUT -.->|agent follows in order| PROC
+    OUT -.->|then| IMPL
+
+    style REQ fill:#0ea5e9,color:#fff
+    style OUT fill:#8b5cf6,color:#fff
+    style P1 fill:#f59e0b,color:#fff
+    style P2 fill:#f59e0b,color:#fff
+    style I2 fill:#10b981,color:#fff
+```
+
+**Ánh xạ triết lý → AIOS (chi tiết tại `docs/superpowers-integration.md`):**
+
+| Superpowers principle | AIOS equivalent |
+|-----------------------|-----------------|
+| Test-Driven Development (write tests first) | `python -m pytest aios -q`, `fail_under: 80` |
+| Systematic over ad-hoc (process over guessing) | Deterministic pipeline (Rule 4) |
+| Complexity reduction (simplicity first) | ArchitectureGuard (Rule 3) |
+| Evidence over claims (verify before success) | EvidenceStore + provenance (Rule 5), `UnifiedTaskGate` |
+| Skill-before-action (using-superpowers) | `superpowers_router.route()` + deterministic-first (Rule 4) |
+
+*Tài liệu được sinh tự động từ source tree AIOS — cập nhật 2026-08-25 (thêm TASK-220→224, coding_edition/, Coordinator Agent, Real Executor, Planner Loop, §14 các flow đã demo, §14.3 Superpowers Router).*
