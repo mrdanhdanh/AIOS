@@ -15,7 +15,7 @@ workflow:
   nodes:
     - id: run-full-pipeline
       type: task
-      command: aiagent task TASK-VERIFY-001 --job-dir work/20260825-full-gov/logs
+      command: aiagent task TASK-VERIFY-001 --job-dir D:\AIOS\work\20260825-full-gov\logs
     - id: verify-durable-log
       type: task
-      command: python -c "import glob, os; files = sorted(glob.glob('work/20260825-full-gov/logs/*')); print('DURABLE LOG FILES:'); [print(' -', os.path.basename(f)) for f in files] or print(' (none found)')"
+      command: python -c "import glob, os; files = sorted(glob.glob(r'D:\AIOS\work\20260825-full-gov\logs\*')); print('DURABLE LOG FILES:'); [print(' -', os.path.basename(f)) for f in files] or print(' (none found)')"

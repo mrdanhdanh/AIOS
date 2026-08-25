@@ -1,0 +1,56 @@
+{
+  "tool": "aiagent execute",
+  "timestamp": "2026-08-25T13:45:31.281195+00:00",
+  "plan_name": "Activate and Confirm 9 AIOS Flows",
+  "plan_version": "0.1.0",
+  "execution_id": "exec-19ab79660fd6",
+  "overall_status": "PASS",
+  "steps": [
+    {
+      "step_id": "flow-a-coordinator-gates",
+      "status": "COMPLETED",
+      "output": "[aiagent task] TASK-225  (run_id=run-017e9d10aa69)\n  purpose  : Flow A — Coordinator Agent + 7 Governance Gates for the self-authored N5-website task (TASK-225).\n  pipeline : OK\n    - spec: OK\n    - critique-1: OK\n    - critique-2: OK\n    - breakdown: OK\n    - review: OK\n    - orchestrate: OK\n  gates    : PASS\n  [log] written: D:\\AIOS\\work\\20260825-nihongo-n5\\logs\\task-TASK-225-2026-08-25T134504-run-017e9d10aa69.json"
+    },
+    {
+      "step_id": "flow-b-real-executor",
+      "status": "COMPLETED",
+      "output": "[log] written: D:\\AIOS\\work\\20260825-nihongo-n5\\logs\\execution-exec-7a9de3056f7f.json\n[PASS] Generated Sub-Task - N5 Site Delivery Manifest v0.1.0 (execution_id=exec-7a9de3056f7f)\n  write-manifest: COMPLETED :: MANIFEST_WRITTEN: D:\\AIOS\\work\\20260825-nihongo-n5\\delivery-manifest.json\nFILES: 5"
+    },
+    {
+      "step_id": "flow-c-architecture-guard",
+      "status": "COMPLETED",
+      "output": "........................................................................ [ 58%]\n....................................................                     [100%]\n124 passed in 0.88s"
+    },
+    {
+      "step_id": "flow-d-local-ci",
+      "status": "COMPLETED",
+      "output": "[PASS] dependencies: all present: pytest, fastapi, pydantic\n[PASS] core-tests: 135/135 passed\nOVERALL: PASS"
+    },
+    {
+      "step_id": "flow-e-registry-dependency",
+      "status": "COMPLETED",
+      "output": "Parsed 224 tasks from D:\\AIOS\\docs\\AIOS_Master_Task_Specification_M0-M26.md\n  TASK-001 [M0] Task Governance System (Project Governance Foundation)\n  TASK-002 [M1] Monorepo + aios_core Scaffold\n  TASK-003 [M1] Kernel Foundations\n  TASK-004 [M1] Runtime Services I\n  TASK-005 [M1] Runtime Services II\n  TASK-006 [M1] Model Contract + Provider Registry\n  TASK-007 [M1] Memory + Knowledge\n  TASK-008 [M1] Workflow Definition + Compiler\n  TASK-009 [M1] Capability Foundation\n  TASK-011 [M1] M1 Remediation / Architecture Hardening\n  ... (214 more)\n\nVALIDATION PASSED: Rule 1 (unique IDs) and Rule 2 (valid deps) OK."
+    },
+    {
+      "step_id": "flow-f-harness",
+      "status": "COMPLETED",
+      "output": ".......................................................                  [100%]\n============================== warnings summary ===============================\n..\\..\\aios\\harness\\test_harness.py:52\n  D:\\AIOS\\aios\\harness\\test_harness.py:52: PytestCollectionWarning: cannot collect test class 'TestHarness' because it has a __init__ constructor (from: aios/harness/test_harness.py)\n    class TestHarness:\n\n..\\..\\aios\\harness\\test_harness.py:52\n  D:\\AIOS\\aios\\harness\\test_harness.py:52: PytestCollectionWarning: cannot collect test class 'TestHarness' because it has a __init__ constructor (from: aios/harness/tests/test_harness_gaps.py)\n    class TestHarness:\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html\n55 passed, 2 warnings in 0.53s"
+    },
+    {
+      "step_id": "flow-g-decision-pipeline",
+      "status": "COMPLETED",
+      "output": "DECISION_RESULT: DecisionResult(plan=ExecutionPlan(plan_id='rule-run_tests', request_id=None, nodes=[PlanNode(id='step-run_tests', capability='test.run', description='handle:run_tests', type='task')], edges=[], permis\nLLM_CALLS: 0"
+    },
+    {
+      "step_id": "flow-h-coding-plane",
+      "status": "COMPLETED",
+      "output": "CODING_EDITION_LOADED: CodingEdition\nDOCTOR_DIAGNOSTICS: 3\nHEALTHY: False"
+    },
+    {
+      "step_id": "flow-i-planner-loop",
+      "status": "COMPLETED",
+      "output": "[log] written: D:\\AIOS\\work\\20260825-nihongo-n5\\logs\\execution-exec-6833be4bb43c.json\n[PASS] Generated Sub-Task - N5 Site Delivery Manifest v0.1.0 (execution_id=exec-6833be4bb43c)\n  write-manifest: COMPLETED :: MANIFEST_WRITTEN: D:\\AIOS\\work\\20260825-nihongo-n5\\delivery-manifest.json\nFILES: 5"
+    }
+  ],
+  "governance_gates": null
+}

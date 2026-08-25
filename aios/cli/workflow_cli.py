@@ -260,10 +260,13 @@ def _cmd_task(args: argparse.Namespace) -> int:
     """Run the full AIOS governance pipeline + 7 gates for a TASK-xxx."""
     from pathlib import Path as _P
     sys.path.insert(0, str(REPO_ROOT))
-    run_task = _P(REPO_ROOT) / "work" / "20260824-nihongo-n5" / "scripts" / "run_task.py"
+    # Prefer the canonical implementation at <repo>/scripts/run_task.py (real
+    # Orchestrator, no null stub). Fall back to the legacy work/ copy if missing.
+    run_task = _P(REPO_ROOT) / "scripts" / "run_task.py"
     if not run_task.exists():
-        # Fallback: look for the script next to this CLI file's repo.
-        run_task = _P(REPO_ROOT) / "scripts" / "run_task.py"
+        run_task = (
+            _P(REPO_ROOT) / "work" / "20260824-nihongo-n5" / "scripts" / "run_task.py"
+        )
     import subprocess as _sp
     cmd = [sys.executable, str(run_task), args.task_id]
     if getattr(args, "job_dir", None):

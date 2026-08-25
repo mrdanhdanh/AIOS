@@ -6,7 +6,9 @@ Planner Loop; refreshes dates and CLOSED notes. Idempotent guard at top.
 """
 import pathlib, sys
 
-P = pathlib.Path(r"d:\AIOS\docs\AIOS_System_Diagram.md")
+# Compute repo root from this file's location (no hardcoded absolute paths).
+REPO = pathlib.Path(__file__).resolve().parents[2]
+P = REPO / "docs" / "AIOS_System_Diagram.md"
 s = P.read_text(encoding="utf-8")
 
 def grepl(old, new):
