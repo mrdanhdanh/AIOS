@@ -80,6 +80,17 @@ Append-only event log. Each entry: `ISO-UTC | task | event | detail`.
 2026-08-25T00:00:00Z | TASK-229 | EVALUATING | all AC PASS (pre-check deny/allow + simulate evidence + RetryGuard).
 2026-08-25T00:00:00Z | TASK-229 | REGRESSION | full suite 3224 passed, 3 skipped; closure green.
 2026-08-25T00:00:00Z | TASK-229 | DONE | Unified Task Gate PASS (local CI). 3224 tests green.
+2026-08-25T00:00:00Z | TASK-230 | CREATED | Coder Agent <-> Capability Registry (M30) initialized.
+2026-08-25T00:00:00Z | TASK-230 | SPECIFIED | spec.md written.
+2026-08-25T00:00:00Z | TASK-230 | CRITIQUED_1 | critique-1.md written (capability_id regex + ARCH-004 inject-only).
+2026-08-25T00:00:00Z | TASK-230 | CRITIQUED_2 | critique-2.md written (APPROVE).
+2026-08-25T00:00:00Z | TASK-230 | BROKEN_DOWN | tasks.md written (4 sub-tasks).
+2026-08-25T00:00:00Z | TASK-230 | REVIEWED | review.md written (APPROVED).
+2026-08-25T00:00:00Z | TASK-230 | IMPLEMENTING | aios/coder/contract.py: CoderCapabilityResolver(contract, registry) fail-closed.
+2026-08-25T00:00:00Z | TASK-230 | TESTING | aios/coder/tests/test_coder.py: 3 new tests passed; architecture gate 124 passed.
+2026-08-25T00:00:00Z | TASK-230 | EVALUATING | all AC PASS (resolve / not-declared / not-registered).
+2026-08-25T00:00:00Z | TASK-230 | REGRESSION | full suite 3227 passed, 3 skipped; closure green.
+2026-08-25T00:00:00Z | TASK-230 | DONE | Unified Task Gate PASS (local CI). 3227 tests green.
 
 2026-08-19T00:00:00Z | TASK-001 | CREATED | Task Governance System initialized.
 2026-08-19T00:00:00Z | TASK-001 | SPECIFIED | spec.md written.

@@ -85,6 +85,45 @@ class CoderAgentContract:
         return capability in self.capabilities
 
 
+class CoderCapabilityResolver:
+    """TASK-230: wire a :class:`CoderAgentContract` to a ``CapabilityRegistry``.
+
+    The resolver is capability-injected (the registry is passed in, never
+    imported directly by the agent). It resolves a capability name against BOTH
+    the agent's declared ``capabilities`` and the live registry, failing
+    closed when either check fails (no guessing, no direct I/O).
+    """
+
+    def __init__(self, contract: CoderAgentContract, registry: "CapabilityRegistry") -> None:
+        self._contract = contract
+        self._registry = registry
+
+    def resolve(self, capability: str) -> List[str]:
+        """Return ordered tool_ids for *capability* (fail-closed).
+
+        Raises :class:`CoderAgentError` when the capability is not declared on
+        the contract or not present in the registry.
+        """
+        if not self._contract.can_inject(capability):
+            raise CoderAgentError(
+                f"capability {capability!r} not declared on contract "
+                f"{self._contract.agent_id!r} (ARCH-004: inject only)"
+            )
+        if capability not in self._registry:
+            raise CoderAgentError(
+                f"capability {capability!r} not found in CapabilityRegistry"
+            )
+        return self._registry.resolve(capability)
+
+    def is_resolvable(self, capability: str) -> bool:
+        """Non-raising variant of :meth:`resolve`."""
+        try:
+            self.resolve(capability)
+            return True
+        except CoderAgentError:
+            return False
+
+
 @dataclass
 class TransitionRecord:
     """Provenance record for a single state transition (T001 Rule 5)."""

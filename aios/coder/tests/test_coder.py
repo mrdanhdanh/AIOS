@@ -12,8 +12,10 @@ from aios.coder.contract import (
     CoderAgentContract,
     CoderAgentError,
     CoderAgentStateMachine,
+    CoderCapabilityResolver,
     CodingTaskState,
 )
+from aios.capability.capability import CapabilityContract, CapabilityRegistry, CapabilityError
 
 
 # --------------------------------------------------------------------------- #
@@ -56,6 +58,48 @@ def test_valid_transition_chain():
     sm.transition("t1", CodingTaskState.PATCHING, {"review_result"})
     sm.transition("t1", CodingTaskState.DONE, {"final_artifact", "evidence"})
     assert sm.current("t1") == CodingTaskState.DONE
+
+
+# --------------------------------------------------------------------------- #
+# TASK-230 — Coder Agent <-> Capability Registry
+# --------------------------------------------------------------------------- #
+def _registry_with(capability_id: str) -> CapabilityRegistry:
+    reg = CapabilityRegistry()
+    reg.register(
+        CapabilityContract(
+            capability_id=capability_id,
+            version="1.0.0",
+            description="test capability",
+            tags=["test"],
+        )
+    )
+    reg.register_tool(capability_id, "tool-x", priority=0, health="healthy")
+    return reg
+
+
+def test_resolver_resolves_declared_and_registered():
+    contract = CoderAgentContract(agent_id="coder-1", capabilities=("code_read",))
+    reg = _registry_with("code_read")
+    resolver = CoderCapabilityResolver(contract, reg)
+    assert resolver.resolve("code_read") == ["tool-x"]
+    assert resolver.is_resolvable("code_read") is True
+
+
+def test_resolver_fails_when_not_declared():
+    contract = CoderAgentContract(agent_id="coder-1", capabilities=("code_read",))
+    reg = _registry_with("code_write")
+    resolver = CoderCapabilityResolver(contract, reg)
+    with pytest.raises(CoderAgentError):
+        resolver.resolve("code_write")
+    assert resolver.is_resolvable("code_write") is False
+
+
+def test_resolver_fails_when_not_registered():
+    contract = CoderAgentContract(agent_id="coder-1", capabilities=("code_exec",))
+    reg = _registry_with("code_read")
+    resolver = CoderCapabilityResolver(contract, reg)
+    with pytest.raises(CoderAgentError):
+        resolver.resolve("code_exec")
 
 
 def test_reviewing_to_done_direct():
