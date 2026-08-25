@@ -168,6 +168,18 @@ Append-only event log. Each entry: `ISO-UTC | task | event | detail`.
 2026-08-25T00:00:00Z | TASK-237 | EVALUATING | all AC PASS (read-only, 14 planes, fail-isolated).
 2026-08-25T00:00:00Z | TASK-237 | REGRESSION | full suite 3250 passed, 3 skipped; closure green.
 2026-08-25T00:00:00Z | TASK-237 | DONE | Unified Task Gate PASS (local CI). 3250 tests green. M34 COMPLETE.
+2026-08-25T00:00:00Z | TASK-238 | CREATED | Self-Evolution Lifecycle (M35) initialized.
+2026-08-25T00:00:00Z | TASK-238 | SPECIFIED | spec.md written.
+2026-08-25T00:00:00Z | TASK-238 | CRITIQUED_1 | critique-1.md written (no self-modify, independent verify).
+2026-08-25T00:00:00Z | TASK-238 | CRITIQUED_2 | critique-2.md written (APPROVE; regression fail-closed).
+2026-08-25T00:00:00Z | TASK-238 | BROKEN_DOWN | tasks.md written (6 sub-tasks).
+2026-08-25T00:00:00Z | TASK-238 | REVIEWED | review.md written (APPROVED).
+2026-08-25T00:00:00Z | TASK-238 | IMPLEMENTING | aios/agents/self_evolution.py: SelfEvolutionLifecycle (Proposal->Experiment->Independent->Policy->Regression->Promote artifact).
+2026-08-25T00:00:00Z | TASK-238 | TESTING | test_self_evolution.py: 5 tests passed; architecture gate 124 passed.
+2026-08-25T00:00:00Z | TASK-238 | EVALUATING | all AC PASS (promote artifact only, no self-modify, fail-closed).
+2026-08-25T00:00:00Z | TASK-238 | REGRESSION | full suite 3255 passed, 3 skipped; closure green.
+2026-08-25T00:00:00Z | TASK-238 | DONE | Unified Task Gate PASS (local CI). 3255 tests green. M35 COMPLETE.
+2026-08-25T00:00:00Z | MILESTONE | AIOS 2.x (M29-M35) HOAN THANH. 11 tasks moi (TASK-228-TASK-238) noi cac plane thanh 1 unified loop. Full suite 3255 passed, 0 BLOCKED. TOAN BO ROADMAP 238/238 DONE.
 
 2026-08-19T00:00:00Z | TASK-001 | CREATED | Task Governance System initialized.
 2026-08-19T00:00:00Z | TASK-001 | SPECIFIED | spec.md written.

@@ -2,7 +2,7 @@
 
 ## Runtime-First · Plugin-First · Offline-First · Harness-Verified · Coding-Plane
 
-> **Trạng thái tài liệu (2026-08-25):** ROADMAP + RECORD THỰC TẾ. Tính đến nay **227/227 task DONE** (TASK-001 → TASK-218 + TASK-219 + TASK-220 + TASK-221 + TASK-222 + TASK-223 + TASK-224 + TASK-225 + TASK-226 + TASK-227), **0 task PLANNED**, full suite **3161+ tests xanh**, 0 BLOCKED. Roadmap M0–M26 + M27 (control-plane extension) CLOSED. Mỗi task dưới đây mang dòng `> **Trạng thái thực tế:**` ghi nhận module đã build, số test (DONE).
+> **Trạng thái tài liệu (2026-08-25):** ROADMAP + RECORD THỰC TẾ. Tính đến nay **238/238 task DONE** (TASK-001 → TASK-238), **0 task PLANNED**, full suite **3255+ tests xanh**, 0 BLOCKED. Roadmap M0–M26 + M27 (control-plane extension) + M28 (self-evolution) + M29–M35 (Operational Integration & Autonomous Coding OS) CLOSED. Toàn bộ AIOS 2.x hoàn thành. Mỗi task dưới đây mang dòng `> **Trạng thái thực tế:**` ghi nhận module đã build, số test (DONE).
 >
 > **Nguồn:** nội dung master plan được cung cấp trong file `Plan-AI-Operating-System-—-Runtime-First,-Plugin-First,-Offline-First,-Milestone.txt`.
 >
