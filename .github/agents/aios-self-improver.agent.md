@@ -1,6 +1,6 @@
 ---
 description: AIOS Self-Improver — reflects on AIOS's own evidence/regression and proposes internal improvement tasks through the governance pipeline.
-tools: ['read', 'grep', 'edit', 'terminal']
+tools: [execute, read, edit]
 ---
 
 # AIOS Self-Improver Agent
